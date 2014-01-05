@@ -1,6 +1,0 @@
-MIDlet-Name: FRC-2014
-MIDlet-Version: 1.0.0
-MIDlet-Vendor: FIRST
-MIDlet-1: Robot2014, , com.team254.frc2014.Robot2014
-MicroEdition-Profile: IMP-1.0
-MicroEdition-Configuration: CLDC-1.1
