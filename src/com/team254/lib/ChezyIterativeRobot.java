@@ -19,6 +19,7 @@ public class ChezyIterativeRobot extends RobotBase implements Loopable {
 
   public void startCompetition() {
     LiveWindow.setEnabled(false);
+    robotInit();
     mainRobotLooper.start();
     while (true) {
       try {
@@ -91,7 +92,7 @@ public class ChezyIterativeRobot extends RobotBase implements Loopable {
    * exactly 1 time.
    */
   public void robotInit() {
-    System.out.println("Default IterativeRobot.robotInit() method... Overload me!");
+    System.out.println("ChezyIterativeRobot IterativeRobot.robotInit() method... Overload me!");
   }
 
   /**
@@ -101,7 +102,7 @@ public class ChezyIterativeRobot extends RobotBase implements Loopable {
    * called each time the robot enters disabled mode.
    */
   public void disabledInit() {
-    System.out.println("Default IterativeRobot.disabledInit() method... Overload me!");
+    System.out.println("ChezyIterativeRobot IterativeRobot.disabledInit() method... Overload me!");
   }
 
   /**
@@ -111,7 +112,7 @@ public class ChezyIterativeRobot extends RobotBase implements Loopable {
    * called each time the robot enters autonomous mode.
    */
   public void autonomousInit() {
-    System.out.println("Default IterativeRobot.autonomousInit() method... Overload me!");
+    System.out.println("ChezyIterativeRobot IterativeRobot.autonomousInit() method... Overload me!");
   }
 
   /**
@@ -121,7 +122,7 @@ public class ChezyIterativeRobot extends RobotBase implements Loopable {
    * called each time the robot enters teleop mode.
    */
   public void teleopInit() {
-    System.out.println("Default IterativeRobot.teleopInit() method... Overload me!");
+    System.out.println("ChezyIterativeRobot IterativeRobot.teleopInit() method... Overload me!");
   }
 
   /**
@@ -131,7 +132,7 @@ public class ChezyIterativeRobot extends RobotBase implements Loopable {
    * called each time the robot enters test mode.
    */
   public void testInit() {
-    System.out.println("Default IterativeRobot.testInit() method... Overload me!");
+    System.out.println("ChezyIterativeRobot IterativeRobot.testInit() method... Overload me!");
   }
 
   /* ----------- Overridable periodic code -----------------*/
@@ -145,7 +146,7 @@ public class ChezyIterativeRobot extends RobotBase implements Loopable {
    */
   public void disabledPeriodic() {
     if (dpFirstRun) {
-      System.out.println("Default IterativeRobot.disabledPeriodic() method... Overload me!");
+      System.out.println("ChezyIterativeRobot IterativeRobot.disabledPeriodic() method... Overload me!");
       dpFirstRun = false;
     }
     Timer.delay(0.001);
@@ -160,7 +161,7 @@ public class ChezyIterativeRobot extends RobotBase implements Loopable {
    */
   public void autonomousPeriodic() {
     if (apFirstRun) {
-      System.out.println("Default IterativeRobot.autonomousPeriodic() method... Overload me!");
+      System.out.println("ChezyIterativeRobot IterativeRobot.autonomousPeriodic() method... Overload me!");
       apFirstRun = false;
     }
     Timer.delay(0.001);
@@ -175,7 +176,7 @@ public class ChezyIterativeRobot extends RobotBase implements Loopable {
    */
   public void teleopPeriodic() {
     if (tpFirstRun) {
-      System.out.println("Default IterativeRobot.teleopPeriodic() method... Overload me!");
+      System.out.println("ChezyIterativeRobot IterativeRobot.teleopPeriodic() method... Overload me!");
       tpFirstRun = false;
     }
     Timer.delay(0.001);
