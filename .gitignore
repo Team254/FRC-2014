@@ -10,3 +10,6 @@ build
 *.DS_Store
 # Node dependencies #
 ui/node_modules/*
+
+
+!nbproject/project.xml
