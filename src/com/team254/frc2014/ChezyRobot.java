@@ -14,9 +14,9 @@ import edu.wpi.first.wpilibj.Joystick;
 public class ChezyRobot {
   
   // Make a bunch of subsystems
-  public static Drivebase drivebase = new Drivebase();
-  public static CheesyDriveHelper cdh = new CheesyDriveHelper(drivebase);
-  public static Joystick leftStick = new Joystick(Constants.leftJoystickPort.getInt());
-  public static Joystick rightStick = new Joystick(Constants.rightJoystickPort.getInt());
+  public static final Drivebase drivebase = new Drivebase();
+  public static final CheesyDriveHelper cdh = new CheesyDriveHelper(drivebase);
+  public static final Joystick leftStick = new Joystick(Constants.leftJoystickPort.getInt());
+  public static final Joystick rightStick = new Joystick(Constants.rightJoystickPort.getInt());
   
 }
