@@ -11,6 +11,10 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   Server s = new Server();
   Thread t;
 
+  public void robotInit() {
+    t = new Thread(s);
+    s.start();
+  }
   public void autonomousInit() {
     currentAutoMode.start();
   }
@@ -22,8 +26,6 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   public void teleopInit() {
     currentAutoMode.stop();
     // This is just here for testing purposes
-    t = new Thread(s);
-    t.start();
   }
 
   public void teleopPeriodic() {
