@@ -44,7 +44,7 @@ public class Server implements Runnable {
   public void run() {
     ServerSocketConnection s = null;
     try {
-      s = (ServerSocketConnection) Connector.open("socket://:" + PORT);
+      s = (ServerSocketConnection) Connector.open("serversocket://:" + PORT);
       while (true) {
         SocketConnection connection = (SocketConnection) s.acceptAndOpen();
         System.out.println("New connection from: " + connection.getAddress());
