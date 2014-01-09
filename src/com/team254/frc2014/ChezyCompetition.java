@@ -4,6 +4,7 @@ package com.team254.frc2014;
 import com.team254.frc2014.auto.ThreeBallAuto;
 import com.team254.lib.ChezyIterativeRobot;
 import com.team254.lib.Server;
+import com.team254.lib.Subsystem;
 
 public class ChezyCompetition extends ChezyIterativeRobot {
 
@@ -13,7 +14,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
 
   public void robotInit() {
     t = new Thread(s);
-    s.start();
+    t.start();
   }
   public void autonomousInit() {
     currentAutoMode.start();
@@ -30,6 +31,5 @@ public class ChezyCompetition extends ChezyIterativeRobot {
 
   public void teleopPeriodic() {
     ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), ChezyRobot.rightStick.getX(), ChezyRobot.rightStick.getRawButton(2), true);
-    s.pushData("Testing");
   }
 }
