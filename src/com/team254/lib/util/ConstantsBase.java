@@ -1,10 +1,7 @@
 package com.team254.lib.util;
 
-import com.sun.squawk.microedition.io.FileConnection;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.Vector;
-import javax.microedition.io.Connector;
 
 /**
  * Manages constant values used everywhere in the robot code.
@@ -19,24 +16,13 @@ public abstract class ConstantsBase {
    * Reads the constants file and overrides the values in this class for any constants it contains.
    */
   public static void readConstantsFromFile() {
-    DataInputStream constantsStream;
-    FileConnection constantsFile;
-    byte[] buffer = new byte[255];
-    String content = "";
-
     try {
-      // Read everything from the file into one string.
-      constantsFile = (FileConnection)Connector.open("file:///" + CONSTANTS_FILE_PATH,
-                                                     Connector.READ);
-      constantsStream = constantsFile.openDataInputStream();
-      while (constantsStream.read(buffer) != -1) {
-        content += new String(buffer);
+      String file = Util.getFile(CONSTANTS_FILE_PATH);
+      if (file.length() < 1) {
+        throw new IOException("Not over riding constants");
       }
-      constantsStream.close();
-      constantsFile.close();
-
       // Extract each line separately.
-      String[] lines = Util.split(content, "\n");
+      String[] lines = Util.split(file, "\n");
       for (int i = 0; i < lines.length; i++) {
         // Extract the key and value.
         String[] line = Util.split(lines[i], "=");
@@ -60,9 +46,9 @@ public abstract class ConstantsBase {
 
         if (!found)
           System.out.println("Error: the constant doesn't exist: " + lines[i]);
-      }
-    } catch (IOException e) {
-      System.out.println("Constants.txt not found. Not overriding constants.");
+      } 
+    } catch(IOException e ) {
+      System.out.println(e);
     } catch (Exception e) {
       e.printStackTrace();
     }

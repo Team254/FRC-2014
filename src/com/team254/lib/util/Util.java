@@ -1,6 +1,10 @@
 package com.team254.lib.util;
 
+import com.sun.squawk.microedition.io.FileConnection;
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.util.Vector;
+import javax.microedition.io.Connector;
 
 /**
  * Contains basic functions that are used often.
@@ -18,6 +22,27 @@ public class Util {
    */
   public static double limit(double v, double limit) {
     return (Math.abs(v) < limit) ? v : limit * (v < 0 ? -1 : 1);
+  }
+  
+  public static String getFile(String fileName) {
+    DataInputStream constantsStream;
+    FileConnection constantsFile;
+    byte[] buffer = new byte[255];
+    String content = "";
+    try {
+      constantsFile = (FileConnection)Connector.open("file:///" + fileName,
+                                                      Connector.READ);
+      constantsStream = constantsFile.openDataInputStream();
+      while (constantsStream.read(buffer) != -1) {
+        content += new String(buffer);
+      }
+      constantsStream.close();
+      constantsFile.close();
+      
+    } catch (IOException e) {
+      System.out.println(fileName + " was not found!");
+    }
+      return content;
   }
 
   /**
