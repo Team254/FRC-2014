@@ -7,6 +7,7 @@ import com.team254.lib.util.Util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Hashtable;
 import java.util.Vector;
 import javax.microedition.io.Connector;
 import javax.microedition.io.ServerSocketConnection;
@@ -15,7 +16,7 @@ import javax.microedition.io.SocketConnection;
 public class Server implements Runnable {
 
   private final int PORT;
-  private Vector subsystems;
+  private static Hashtable subsystems;
   private Vector connections;
 
   public void pushData(String message) {
@@ -31,19 +32,6 @@ public class Server implements Runnable {
     }
   }
   
-  public void pushAllSubsystems() {
-    //Prints out the serilized data of all subsystems/sensors
-    for(int i = 0; i< subsystems.size(); ++i) {
-      Subsystem s = (Subsystem) subsystems.elementAt(i);
-      pushData(s.serialize());
-    }
-  }
-  
-  public void addSubsystem(Subsystem s)
-  {
-    subsystems.addElement(s);
-    System.out.println("System added!");
-  }
   /* 
    * Spawns a new thread to handle requests and responses 
    */
@@ -64,29 +52,16 @@ public class Server implements Runnable {
         while(is.available() > 0) {
           int read = is.read(b);
           req += new String(b);
-        }
-        
-        int end = req.indexOf('\n');
-        end = end > 0 ? end : req.length();
-        String line = req.substring(0, end);
-        String[] reqParams = Util.split(line, " ");
-        
-        if(reqParams.length > 1 && reqParams[1].equals("/test.html")) {
-          x = HtmlResponse.test();
-        } else if(reqParams[1].equals("/drivebase")) {
-          x = HtmlResponse.drivebase();
-          
-        } else
-          x = HtmlResponse.createResponse("<h1> not hello there</h1>");
-        
+        }       
 
         OutputStream os = connection.openOutputStream();
         
-        os.write(x.getBytes());
+        HtmlResponse.route(req, os);
+        
         os.close();
         is.close();
         connection.close();
-                System.out.println("req: " + req);
+        System.out.println("req: " + req);
       } catch(IOException e) {}
     }
   }
