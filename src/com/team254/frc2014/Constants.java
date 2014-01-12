@@ -72,10 +72,10 @@ public class Constants extends ConstantsBase {
   public static final Constant leftDiscSensorPort = new Constant("leftDiscSensorPort", 14);
 
   // Drive encoders
-  public static final Constant leftEncoderPortA = new Constant("leftEncoderPortA", 1);
-  public static final Constant leftEncoderPortB = new Constant("leftEncoderPortB", 2);
-  public static final Constant rightEncoderPortA = new Constant("rightEncoderPortA", 3);
-  public static final Constant rightEncoderPortB = new Constant("rightEncoderPortB", 4);
+  public static final Constant leftEncoderPortA = new Constant("leftEncoderPortA", 3);
+  public static final Constant leftEncoderPortB = new Constant("leftEncoderPortB", 4);
+  public static final Constant rightEncoderPortA = new Constant("rightEncoderPortA", 7);
+  public static final Constant rightEncoderPortB = new Constant("rightEncoderPortB", 8);
 
   // Shooter encoders
   public static final Constant shootEncoderPort = new Constant("shootEncoderPort", 6);
