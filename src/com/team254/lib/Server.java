@@ -2,7 +2,9 @@ package com.team254.lib;
 /*
  * @author bg
  */
+
 import com.team254.lib.util.HtmlResponse;
+import com.team254.lib.util.Json;
 import com.team254.lib.util.Util;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +26,7 @@ public class Server implements Runnable {
       try {
         OutputStream os = ((SocketConnection) connections.elementAt(i)).openOutputStream();
         os.write(message.getBytes());
+        System.out.println("pushing data");
         os.close();
       } catch (IOException e) {
         connections.removeElementAt(i);
@@ -31,15 +34,18 @@ public class Server implements Runnable {
       }
     }
   }
-  
+
   /* 
    * Spawns a new thread to handle requests and responses 
    */
   private class ConnectionHandler implements Runnable {
+
     SocketConnection connection;
+
     public ConnectionHandler(SocketConnection c) {
       connection = c;
     }
+
     public void run() {
       try {
         InputStream is = connection.openInputStream();
@@ -49,23 +55,24 @@ public class Server implements Runnable {
         byte[] b = new byte[2048];
         String req = "";
         String x;
-        while(is.available() > 0) {
+        while (is.available() > 0) {
           int read = is.read(b);
           req += new String(b);
-        }       
-
+        }
+        System.out.println("req: " + req);
         OutputStream os = connection.openOutputStream();
-        
-        HtmlResponse.route(req, os);
-        
+
+        route(req, os);
+
         os.close();
         is.close();
         connection.close();
-        System.out.println("req: " + req);
-      } catch(IOException e) {}
+
+      } catch (IOException e) {
+      }
     }
   }
-  
+
   public void run() {
     ServerSocketConnection s = null;
     try {
@@ -91,4 +98,48 @@ public class Server implements Runnable {
     PORT = port;
     connections = new Vector();
   }
+
+  public static void route(String req, OutputStream os) {
+
+    int end = req.indexOf('\n');
+    end = end > 0 ? end : req.length();
+
+    String header = req.substring(0, end);
+    String[] reqParams = Util.split(header, " ");
+    if (reqParams.length == 0) {
+      return;
+    }
+    System.out.println("req " + req);
+    String type = reqParams[0];
+    String path = reqParams[1];
+    try {
+      if (type.equals("GET")) {
+        if (path.startsWith("/subsystem")) {
+          String subsystem = Util.split(Util.split(reqParams[1], "?")[1], "=")[1];
+          os.write(getSubsystemResponse(subsystem).toString().getBytes());
+
+        } else if (path.startsWith("/state")) {
+          // Implement state grabber
+        } else {
+          // Returns a file
+          os.write(Util.getFile(path).getBytes());
+        }
+      } else if (type.equals("POST")) {
+        // TODO: Implement parsing and what not
+      } else {
+        os.write(HtmlResponse.ERROR.getBytes());
+      }
+    } catch (IOException e) {
+      System.out.println("Exception was caught !!!" + e);
+    }
+  }
+
+   public static HtmlResponse getSubsystemResponse(String n) {
+     Subsystem s = SubsystemLister.getSubsystemLister().get(n);
+     if (s == null) {
+       return HtmlResponse.createError("No subsystem with name " + n);
+     }
+     return new HtmlResponse(Json.format(s.serialize()));
+   }
+
 }

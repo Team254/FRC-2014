@@ -5,6 +5,7 @@ import com.team254.lib.Subsystem;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
+import java.util.Hashtable;
 
 public class Drivebase extends Subsystem {
   
@@ -38,9 +39,12 @@ public class Drivebase extends Subsystem {
     rightEncoder.start();
   }
 
-  public String serialize() {
+  public Hashtable serialize() {
     data.put("leftDriveA", new Double(leftDriveA.get()));
-    return data.toString();
+    data.put("leftEncoder", new Double(leftEncoder.get()));
+    data.put("rightEncoder", new Double(rightEncoder.get()));
+    data.put("gyro", new Double(getGyroAngle()));
+    return data;
   }
 
   public Encoder getLeftEncoder() {

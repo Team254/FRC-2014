@@ -15,6 +15,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   ThrottledPrinter p = new ThrottledPrinter(1);
 
   public void robotInit() {
+    ChezyRobot.poke();
     t = new Thread(s);
     t.start();
   }
@@ -37,7 +38,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
 
   public void disabledPeriodic(){
     // Print the Gyro value - hardware might be broken
-    p.println(""+ChezyRobot.drivebase.getGyroAngle());
+    //p.println(""+ChezyRobot.drivebase.getGyroAngle());
   }
 
 

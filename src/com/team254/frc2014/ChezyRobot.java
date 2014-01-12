@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.Joystick;
  * @author tombot
  */
 public class ChezyRobot {
+
+  public static void poke() {} // this is to combat Java's stupid lazy loading of static classes
   
   // Make a bunch of subsystems
   public static final Drivebase drivebase = new Drivebase();

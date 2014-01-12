@@ -66,4 +66,13 @@ public class Util {
 
     return retString;
   }
+
+  public static boolean isNumber(String str) {
+    try {
+      double d = Double.parseDouble(str);
+      return true;
+    } catch (NumberFormatException e) {
+      return false;
+    }
+  }
 }
