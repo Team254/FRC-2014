@@ -4,6 +4,7 @@
  */
 package com.team254.frc2014;
 
+import com.team254.frc2014.controllers.DriveController;
 import com.team254.frc2014.subsystems.Drivebase;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -13,13 +14,17 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class ChezyRobot {
 
-  public static void poke() {} // this is to combat Java's stupid lazy loading of static classes
+  static { poke(); }
+  private static void poke() {} // this is to combat Java's lazy loading of static classes
   
-  // Make a bunch of subsystems
+  // Subsystems
   public static final Drivebase drivebase = new Drivebase();
   public static final CheesyDriveHelper cdh = new CheesyDriveHelper(drivebase);
   public static final Joystick leftStick = new Joystick(Constants.leftJoystickPort.getInt());
   public static final Joystick rightStick = new Joystick(Constants.rightJoystickPort.getInt());
   public static final AutoModeSelector ams = new AutoModeSelector();
+  
+  // Controllers
+  public static final DriveController driveController = new DriveController();
   
 }

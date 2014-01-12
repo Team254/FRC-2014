@@ -2,10 +2,8 @@ package com.team254.frc2014;
 
 // This is where the magic happens!
 import com.team254.frc2014.auto.ThreeBallAuto;
-import com.team254.frc2014.subsystems.Drivebase;
 import com.team254.lib.ChezyIterativeRobot;
 import com.team254.lib.Server;
-import com.team254.lib.Subsystem;
 import com.team254.lib.util.ThrottledPrinter;
 
 public class ChezyCompetition extends ChezyIterativeRobot {
@@ -15,7 +13,6 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   ThrottledPrinter p = new ThrottledPrinter(1);
 
   public void robotInit() {
-    ChezyRobot.poke();
     t = new Thread(s);
     t.start();
   }

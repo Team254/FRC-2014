@@ -6,7 +6,7 @@ import java.util.TimerTask;
 public class Looper {
 
   private double period = 1.0 / 100.0;
-  private Loopable loopable;
+  protected Loopable loopable;
   private Timer looperUpdater;
 
   public Looper(Loopable loopable, double period) {

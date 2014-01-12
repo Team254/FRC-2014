@@ -9,6 +9,8 @@ import java.util.Hashtable;
 
 public class Drivebase extends Subsystem {
   
+  public final double ENCOCDER_TO_DISTANCE_RATIO = 1.0;
+  
   // Speed controllers
   private Talon leftDriveA = new Talon(Constants.leftDrivePortA.getInt());
   private Talon leftDriveB = new Talon(Constants.leftDrivePortB.getInt());
@@ -50,9 +52,17 @@ public class Drivebase extends Subsystem {
   public Encoder getLeftEncoder() {
     return leftEncoder;
   }
+  
+  public double getLeftEncoderDistance() {
+    return leftEncoder.get() * ENCOCDER_TO_DISTANCE_RATIO;
+  }
 
   public Encoder getRightEncoder() {
     return rightEncoder;
+  }
+  
+  public double getRightEncoderDistance() {
+    return rightEncoder.get() * ENCOCDER_TO_DISTANCE_RATIO;
   }
 
   public double getGyroAngle() {
