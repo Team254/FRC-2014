@@ -14,4 +14,8 @@ public abstract class Subsystem  {
     data.put("subsystem", name);
     SubsystemLister.getSubsystemLister().addSubsystem(name, this);
   }
+
+  public String toString() {
+    return name;
+  }
 }

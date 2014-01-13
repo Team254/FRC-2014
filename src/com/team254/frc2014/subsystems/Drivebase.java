@@ -49,7 +49,7 @@ public class Drivebase extends Subsystem {
     data.put("rightDriveBC", new Double(rightDriveBC.get()));
     data.put("leftEncoder", new Double(leftEncoder.get()));
     data.put("rightEncoder", new Double(rightEncoder.get()));
-    data.put("gyro", new Double(getGyroAngle()));
+    //data.put("gyro", new Double(getGyroAngle()));
     return data;
   }
 

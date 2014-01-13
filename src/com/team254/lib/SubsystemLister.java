@@ -34,4 +34,8 @@ public class SubsystemLister {
     Subsystem s = (Subsystem) systems.get(name);
     return s;
   }
+
+  public String toString() {
+    return systems.toString();
+  }
 }
