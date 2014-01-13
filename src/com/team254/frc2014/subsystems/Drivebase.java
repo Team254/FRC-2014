@@ -43,6 +43,10 @@ public class Drivebase extends Subsystem {
 
   public Hashtable serialize() {
     data.put("leftDriveA", new Double(leftDriveA.get()));
+    data.put("leftDriveB", new Double(leftDriveB.get()));
+    data.put("leftDriveC", new Double(leftDriveC.get()));
+    data.put("rightDriveA", new Double(rightDriveA.get()));
+    data.put("rightDriveBC", new Double(rightDriveBC.get()));
     data.put("leftEncoder", new Double(leftEncoder.get()));
     data.put("rightEncoder", new Double(rightEncoder.get()));
     data.put("gyro", new Double(getGyroAngle()));
