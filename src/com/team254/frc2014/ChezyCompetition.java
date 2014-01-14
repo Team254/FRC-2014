@@ -7,6 +7,7 @@ import com.team254.lib.Server;
 import com.team254.lib.util.ThrottledPrinter;
 
 public class ChezyCompetition extends ChezyIterativeRobot {
+
   AutoMode currentAutoMode = new ThreeBallAuto();
   Server s = new Server();
   Thread t;
@@ -15,12 +16,20 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   public void robotInit() {
     t = new Thread(s);
     t.start();
+    ChezyRobot.initRobot();
+    ChezyRobot.controlUpdater.start();
   }
+
   public void autonomousInit() {
+    ChezyRobot.drivebase.resetGyro();
+    ChezyRobot.driveController.navigator.resetWithReferenceHeading(ChezyRobot.drivebase.getGyroAngle());
+    ChezyRobot.driveController.enable();
+    System.out.println(currentAutoMode.getClass().toString());
     currentAutoMode.start();
   }
 
   public void disabledInit() {
+    ChezyRobot.driveController.disable();
     currentAutoMode.stop();
   }
 
@@ -33,10 +42,8 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), ChezyRobot.rightStick.getX(), ChezyRobot.rightStick.getRawButton(2), true);
   }
 
-  public void disabledPeriodic(){
+  public void disabledPeriodic() {
     // Print the Gyro value - hardware might be broken
     //p.println(""+ChezyRobot.drivebase.getGyroAngle());
   }
-
-
 }

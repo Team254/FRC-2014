@@ -1,20 +1,26 @@
 package com.team254.frc2014.actions;
 
-import com.team254.frc2014.Action;
-
 public class DriveAction extends Action {
 
   double distance;
-  public DriveAction(double distance, double timeout) {
+  boolean doStop;
+  public DriveAction(double distance, boolean doStop, double timeout) {
     this.distance = distance;
+    this.doStop = doStop;
     setTimeout(timeout);
   }
+  
+  public DriveAction(double distance, double timeout) {
+    this(distance, true, timeout);
+  }
   public boolean execute() {
-    return isTimedOut();
+    return isTimedOut() || 
+            (!doStop && driveController.distanceGoalReached()) ||
+            (doStop && driveController.distanceGoalSettled()) ;
   }
 
   public void init() {
-    drivebase.setLeftRightPower(.25, .25); // Change this later
+    driveController.setDistanceGoal(distance);
   }
 
   public void done() {

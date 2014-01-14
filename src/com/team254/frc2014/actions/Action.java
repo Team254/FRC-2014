@@ -1,5 +1,6 @@
-package com.team254.frc2014;
+package com.team254.frc2014.actions;
 
+import com.team254.frc2014.ChezyRobot;
 import edu.wpi.first.wpilibj.Timer;
 
 public abstract class Action extends ChezyRobot {

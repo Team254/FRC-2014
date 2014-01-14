@@ -1,7 +1,5 @@
 package com.team254.frc2014.actions;
 
-import com.team254.frc2014.Action;
-
 public class WaitAction extends Action {
 
   public WaitAction(double seconds) {

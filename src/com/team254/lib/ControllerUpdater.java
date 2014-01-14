@@ -26,10 +26,23 @@ public class ControllerUpdater implements Loopable {
 
   public void start() {
     looper.start();
+    for (int i = 0; i < controllers.size(); ++i) {
+      Controller c = (Controller) controllers.elementAt(i);
+      if (c != null) {
+        c.enable();
+      }
+    }
+    
   }
   
   public void stop() {
     looper.stop();
+        for (int i = 0; i < controllers.size(); ++i) {
+      Controller c = (Controller) controllers.elementAt(i);
+      if (c != null) {
+        c.disable();
+      }
+    }
   }
 
   public void addController(Controller c) {

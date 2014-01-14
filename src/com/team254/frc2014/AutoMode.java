@@ -1,6 +1,9 @@
 package com.team254.frc2014;
 
+import com.team254.frc2014.actions.Action;
 import com.team254.frc2014.actions.DriveAction;
+import com.team254.frc2014.actions.DriveAtHeadingUntilXCoordinateAction;
+import com.team254.frc2014.actions.DriveAtHeadingUntilYCoordinateAction;
 import com.team254.frc2014.actions.WaitAction;
 
 public abstract class AutoMode implements Runnable {
@@ -53,7 +56,22 @@ public abstract class AutoMode implements Runnable {
     runAction(new DriveAction(feet, timeout));
   }
 
+  public void driveAndCoast(double feet, double timeout) {
+    runAction(new DriveAction(feet, false, timeout));
+  }
   public void waitTime(double seconds) {
     runAction(new WaitAction(seconds));
+  }
+
+  public void dimeStop() {
+    drive(0,.25);
+  }
+
+  public void driveAtHeadingToX(double heading, double x, double timeout) {
+    runAction(new DriveAtHeadingUntilXCoordinateAction(heading, x, timeout));
+  }
+
+  public void driveAtHeadingToY(double heading, double y, double timeout) {
+    runAction(new DriveAtHeadingUntilYCoordinateAction(heading, y, timeout));
   }
 }
