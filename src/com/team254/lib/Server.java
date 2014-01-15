@@ -136,8 +136,6 @@ public class Server implements Runnable {
 
    public static HtmlResponse getSubsystemResponse(String n) {
      Subsystem s = SubsystemLister.getSubsystemLister().get(n);
-     //System.out.println("All systems: " + SubsystemLister.getSubsystemLister().toString());
-     System.out.println("Fetched system = " + s);
      if (s == null) {
        return HtmlResponse.createError("No subsystem with name " + n);
      }
