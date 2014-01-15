@@ -64,7 +64,7 @@ public abstract class AutoMode implements Runnable {
   }
 
   public void dimeStop() {
-    drive(0,.25);
+    drive(0, 0.25);
   }
 
   public void driveAtHeadingToX(double heading, double x, double timeout) {

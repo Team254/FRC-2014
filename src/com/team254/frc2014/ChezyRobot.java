@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.team254.frc2014;
 
 import com.team254.frc2014.controllers.DriveController;

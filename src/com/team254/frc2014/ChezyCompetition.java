@@ -1,6 +1,8 @@
 package com.team254.frc2014;
-
-// This is where the magic happens!
+/**
+ * This is where the magic happens!
+ *
+ */
 import com.team254.frc2014.auto.ThreeBallAuto;
 import com.team254.lib.ChezyIterativeRobot;
 import com.team254.lib.Server;
@@ -43,7 +45,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   }
 
   public void disabledPeriodic() {
-    // Print the Gyro value - hardware might be broken
-    //p.println(""+ChezyRobot.drivebase.getGyroAngle());
+    // Print the Ultrasonic value - hardware mught be broken
+    p.println("Ultra D:"+ ChezyRobot.drivebase.getUltrasonicDistance());
   }
 }

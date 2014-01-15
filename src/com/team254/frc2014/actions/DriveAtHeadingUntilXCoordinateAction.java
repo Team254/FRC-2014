@@ -1,7 +1,7 @@
 package com.team254.frc2014.actions;
 
 /**
- * DriveToXYAction.java
+ * DriveAtHeadingUntilXCoodinateAction.java
  *
  * @author tombot
  */

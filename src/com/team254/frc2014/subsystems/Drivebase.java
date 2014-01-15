@@ -5,6 +5,7 @@ import com.team254.lib.Subsystem;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import java.util.Hashtable;
 
 public class Drivebase extends Subsystem {
@@ -25,10 +26,14 @@ public class Drivebase extends Subsystem {
           Constants.leftEncoderPortB.getInt(), false);
   private Encoder leftEncoder = new Encoder(Constants.rightEncoderPortA.getInt(),
           Constants.rightEncoderPortB.getInt(), true);
+  
+  //Ultrasonic Sensor
+  private Ultrasonic ultrasonic = new Ultrasonic(Constants.ultrasonicInputPort.getInt(),
+          Constants.ultrasonicOutputPort.getInt());
 
   //Gyro
   private Gyro gyro;
-  
+
   public void setLeftRightPower(double leftPower, double rightPower) {
     leftDriveA.set(leftPower);
     leftDriveB.set(leftPower);
@@ -39,9 +44,10 @@ public class Drivebase extends Subsystem {
   
   public Drivebase() {
     super("Drivebase");
-    System.out.println("Making gyro!");
+    //System.out.println("Making gyro!");
     gyro = new Gyro(Constants.gyroPort.getInt());
-    System.out.println("Done making gyro!");
+    //System.out.println("Done making gyro!");
+    ultrasonic.setEnabled(true);
     leftEncoder.start();
     rightEncoder.start();
   }
@@ -80,6 +86,15 @@ public class Drivebase extends Subsystem {
   
   public void resetGyro() {
     gyro.reset();
+  }
+
+  public double getUltrasonicDistance(){
+    if(ultrasonic.isEnabled())
+      return ultrasonic.getRangeInches();
+    else {
+      ultrasonic.setEnabled(true);
+      return ultrasonic.pidGet();
+    }
   }
 
 }
