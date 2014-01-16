@@ -8,6 +8,8 @@ import com.team254.frc2014.auto.ThreeBallAuto;
 import com.team254.lib.ChezyIterativeRobot;
 import com.team254.lib.Server;
 import com.team254.lib.util.ThrottledPrinter;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStationLCD;
 
 public class ChezyCompetition extends ChezyIterativeRobot {
 
@@ -15,10 +17,12 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   Server s = new Server();
   Thread t;
   ThrottledPrinter p = new ThrottledPrinter(1);
+  DriverStationLCD lcd;
 
   public void robotInit() {
     t = new Thread(s);
     t.start();
+    lcd = DriverStationLCD.getInstance();
     ChezyRobot.initRobot();
     ChezyRobot.controlUpdater.start();
   }
@@ -44,6 +48,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   public void teleopPeriodic() {
     double z = ChezyRobot.rightStick.getZ();
     double x = ChezyRobot.rightStick.getX();
+    printJoystickValues();
     boolean qt = false;
     double turn = x;
     if (Math.abs(z) > .2 && Math.abs(x) < .4) {
@@ -56,6 +61,17 @@ public class ChezyCompetition extends ChezyIterativeRobot {
 
   public void disabledPeriodic() {
     // Print the Ultrasonic value - hardware mught be broken
-    p.println("Ultra D:"+ ChezyRobot.drivebase.getUltrasonicDistance());
+    printJoystickValues();
+  }
+  public void printJoystickValues() {
+    lcd.println(DriverStationLCD.Line.kUser2, 1,
+             " r X:  " + Math.floor(ChezyRobot.rightStick.getX() * 100) / 100
+             + " Y: " + Math.floor(ChezyRobot.rightStick.getY() * 100) / 100
+            + " Z: " + Math.floor(ChezyRobot.rightStick.getZ() * 10) / 10);
+    lcd.println(DriverStationLCD.Line.kUser1, 1,
+             " l X:  " + Math.floor(ChezyRobot.leftStick.getX() * 100) / 100
+             + " Y: " + Math.floor(ChezyRobot.leftStick.getY() * 100) / 100
+            + " Z: " + Math.floor(ChezyRobot.leftStick.getZ() * 10) / 10);
+    lcd.updateLCD();
   }
 }
