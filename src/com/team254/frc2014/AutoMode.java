@@ -4,6 +4,7 @@ import com.team254.frc2014.actions.Action;
 import com.team254.frc2014.actions.DriveAction;
 import com.team254.frc2014.actions.DriveAtHeadingUntilXCoordinateAction;
 import com.team254.frc2014.actions.DriveAtHeadingUntilYCoordinateAction;
+import com.team254.frc2014.actions.DriveToUltrasonicRangeAction;
 import com.team254.frc2014.actions.WaitAction;
 
 public abstract class AutoMode implements Runnable {
@@ -73,5 +74,9 @@ public abstract class AutoMode implements Runnable {
 
   public void driveAtHeadingToY(double heading, double y, double timeout) {
     runAction(new DriveAtHeadingUntilYCoordinateAction(heading, y, timeout));
+  }
+
+  public void driveToUltrasonicRange(double range) {
+    runAction(new DriveToUltrasonicRangeAction(range));
   }
 }

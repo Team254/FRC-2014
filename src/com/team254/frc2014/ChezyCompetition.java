@@ -3,6 +3,7 @@ package com.team254.frc2014;
  * This is where the magic happens!
  *
  */
+import com.team254.frc2014.auto.TestUltrasonicAuto;
 import com.team254.frc2014.auto.ThreeBallAuto;
 import com.team254.lib.ChezyIterativeRobot;
 import com.team254.lib.Server;
@@ -41,7 +42,16 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   }
 
   public void teleopPeriodic() {
-    ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), ChezyRobot.rightStick.getX(), ChezyRobot.rightStick.getRawButton(2), true);
+    double z = ChezyRobot.rightStick.getZ();
+    double x = ChezyRobot.rightStick.getX();
+    boolean qt = false;
+    double turn = x;
+    if (Math.abs(z) > .2 && Math.abs(x) < .4) {
+      qt = true;
+      turn = z;
+    }
+
+    ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), turn , qt, true); //ChezyRobot.rightStick.getRawButton(2), true);
   }
 
   public void disabledPeriodic() {

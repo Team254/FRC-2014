@@ -45,8 +45,8 @@ public class Constants extends ConstantsBase {
   public static final Constant rightEncoderPortB = new Constant("rightEncoderPortB", 8);
 
   // Ultrasonic sensors
-  public static final Constant ultrasonicInputPort = new Constant("ultrasonicPortA",11);
-  public static final Constant ultrasonicOutputPort = new Constant("ultrasonicPortB",5);
+  public static final Constant ultrasonicInputPort = new Constant("ultrasonicPortA", 10);
+  public static final Constant ultrasonicOutputPort = new Constant("ultrasonicPortB", 11);
 
   // Shooter encodsers
   public static final Constant shootEncoderPort = new Constant("shootEncoderPort", 6);
