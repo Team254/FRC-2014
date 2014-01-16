@@ -1,12 +1,38 @@
 
 /* Style for Usual tabs */
+body{
+	background-color:#FFFFFF;
+}
+nav{
+	background-color:#0070FF;
+	color:#FFF;
+	font-family:Arial, Helvetica, sans-serif;
+	padding:10px;
+	font-size:36px;
+	font-weight:bold;
+	border-top-left-radius:10px;
+    border-top-right-radius:10px;
+}
+.content{
+	border:1px solid #CCCCCC;
+	border-top:1px solid #0070FF;
+	border-bottom-left-radius:10px;
+    border-bottom-right-radius:10px;
+}
 .usual {
   color:#111;
-  padding:15px 20px;
+  padding:0px;
   /*border:1px solid #CCCCCC;
   background:#FCFCFC;
   border-radius:5px;*/
-  margin:8px auto;
+  margin:0 auto;
+}
+.ulcontain{
+	background-color:#0070FF;
+}
+.usual ul{
+	padding:0px;
+	margin:0px;
 }
 .usual li { list-style:none; float:left; }
 .usual ul a {
@@ -14,12 +40,12 @@
   padding:6px 10px;
   text-decoration:none!important;
   margin:0px;
-  margin-left:3px;
-  font:24px Comic Sans MS;
+  margin-right:10px;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size:16px;
   color:#FFF;
   background:#AAA;
-  border-top-left-radius:5px;
-  border-top-right-radius:5px;
+  border-radius:5px;
 }
 .usual ul a:hover {
   color:#FFF;
@@ -37,8 +63,6 @@ div.usual {
   *margin-top:-15px;
   clear:left;
   /*background:#FCFCFC;*/
-  border:1px solid #CCCCCC;
-  border-radius:5px;
-  font:12px Comic Sans MS;
+  *border:1px solid #CCCCCC;
+  *border-radius:5px;
 }
-.usual div a { color:#000; font-weight:bold; }

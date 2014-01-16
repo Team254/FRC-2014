@@ -10,7 +10,7 @@
     Shooter: {
         data: [
 		], 
-		title: "Pew Pew",
+		title: "Shooter",
 		color: "Red",
 		div: "chartContainerc",
 		tab: "tab3",
@@ -19,7 +19,7 @@
 	Intake: {
 		data: [
 		], 
-		title: "Sucker",
+		title: "Intake",
 		color: "Blue",
 		div: "chartContainerb",
 		tab: "tab2",
@@ -28,7 +28,7 @@
 	Drivebase: {
 		data: [
 		], 
-		title: "Dirvebass",
+		title: "Drivebase",
 		color: "Green",
 		div: "chartContainera",
 		tab: "tab1",
@@ -37,7 +37,7 @@
 	Arm: {
 		data: [
 		], 
-		title: "Leg",
+		title: "Arm",
 		color: "Dark",
 		div: "chartContainerab",
 		tab: "tab1",
@@ -111,8 +111,9 @@
 					for (a = 0; a < array[handle].length - scs[handle].data.length; i++){
 						scs[handle].data.push([]);
 					}
+				} else {
+					scs[handle].data[i].push(array[handle][i])
 				}
-				scs[handle].data[i].push(array[handle][i])
 			}
 		}
 	  }
@@ -127,6 +128,14 @@
 			  
 		  });
 	  }
+	  function ggd(handler){
+		//generate graph data
+			var indata = []
+			for (i = 0; i < scs[handler].data.length; i++){
+				indata.push({type: "line", dataPoints: scs[handler].data[i]})
+			}
+			return indata;
+	  }
       function generate (handler) {
           scs[handler].assocvar = new CanvasJS.Chart(scs[handler].div, {
               theme: "theme1",//theme1
@@ -136,20 +145,17 @@
 			  title:{
                   text: scs[handler].title              
               },
-              data: [              
-              {
-// Change type to "bar", "splineArea", "area", "spline", "pie",etc.
+              data: ggd(handler)             
+              /*{
                   type: "line",
                   dataPoints: scs[handler].data[0]
 				  
               },
 			  {
-// Change type to "bar", "splineArea", "area", "spline", "pie",etc.
                   type: "line",
                   dataPoints: scs[handler].data[1]
 				  
-              },
-              ]
+              },*/
           });
           scs[handler].assocvar.render();
       }

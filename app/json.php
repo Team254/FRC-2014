@@ -23,7 +23,7 @@ $array = array(
 			y => $rand
 		),
 		array(
-			y => 10
+			y => $rand * 2
 		)
 	),
 	Arm => array(
