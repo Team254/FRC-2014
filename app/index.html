@@ -27,7 +27,7 @@
 		data: [
 		], 
 		title: "Drivebase",
-		color: "Green",
+		color: "Multi",
 		div: "chartContainera",
 		tab: "tab1",
 	},
@@ -72,19 +72,21 @@
                 [//colorSet Array
                 "#DDDDDD",             
                 ]);
+	CanvasJS.addColorSet("Multi",
+                [//colorSet Array
+                "#FF0000",
+				"#00AA00", 
+				"#0070FF", 
+				"#986CF8", 
+				"#F28263",
+				"#222222",           
+                ]);
 	genall();
 	});
   	  
-	  function addrand(handler){
-		  add(srand(), handler);
-		  generate(handler);
-	  }
-	  function srand(){
-		 return Math.random() * 100; 
-	  }
-	  function add(value, handler){
+	  function add(value, handler, plot){
 		  var data = parseInt(value.Drivebase[0].y);
-		  scs[handler].data.push(
+		  scs[handler].data[plot].push(
 		  {y: data}
 		  );
 	  }
