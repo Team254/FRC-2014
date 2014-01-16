@@ -14,7 +14,6 @@
 		color: "Red",
 		div: "chartContainerc",
 		tab: "tab3",
-		assocvar: Shooter
 	},
 	Intake: {
 		data: [
@@ -23,7 +22,6 @@
 		color: "Blue",
 		div: "chartContainerb",
 		tab: "tab2",
-		assocvar: Intake
 	},
 	Drivebase: {
 		data: [
@@ -32,7 +30,6 @@
 		color: "Green",
 		div: "chartContainera",
 		tab: "tab1",
-		assocvar: Drivebase
 	},
 	Arm: {
 		data: [
@@ -41,7 +38,6 @@
 		color: "Dark",
 		div: "chartContainerab",
 		tab: "tab1",
-		assocvar: Arm
 	}
 };
 	function findTabSubset(tabName){
@@ -159,10 +155,6 @@
           });
           scs[handler].assocvar.render();
       }
-	   var Drivebase;
-	   var Intake;
-	   var Shooter;
-	   var Arm;
 	   function genall(){
 			var tabs = findTabSubset(currentTab);
 			var i = 0
