@@ -29,6 +29,7 @@ public class Util {
     FileConnection constantsFile;
     byte[] buffer = new byte[255];
     String content = "";
+    System.out.println(fileName);
     try {
       constantsFile = (FileConnection)Connector.open("file:///" + fileName,
                                                       Connector.READ);

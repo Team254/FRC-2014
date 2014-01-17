@@ -103,13 +103,12 @@ public class Server implements Runnable {
 
     int end = req.indexOf('\n');
     end = end > 0 ? end : req.length();
-
+    
     String header = req.substring(0, end);
     String[] reqParams = Util.split(header, " ");
-    if (reqParams.length == 0) {
+    if (reqParams.length < 2) {
       return;
     }
-    System.out.println("req " + req);
     String type = reqParams[0];
     String path = reqParams[1];
     try {
@@ -120,9 +119,11 @@ public class Server implements Runnable {
 
         } else if (path.startsWith("/state")) {
           // Implement state grabber
+        } else if (path.equals("/")) {
+          os.write(Util.getFile("/www/index.html").getBytes());
         } else {
           // Returns a file
-          os.write(Util.getFile(path).getBytes());
+          os.write(Util.getFile("/www" + path).getBytes());
         }
       } else if (type.equals("POST")) {
         // TODO: Implement parsing and what not
