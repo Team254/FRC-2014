@@ -4,7 +4,7 @@ $rand = rand(0, 100);
 $array = array(
 	Shooter => array(
 		array(
-			y => 5
+			y => $rand
 		),
 		array(
 			y => 10
@@ -15,7 +15,7 @@ $array = array(
 			y => 5
 		),
 		array(
-			y => 10
+			y => $rand
 		)
 	),
 	Drivebase => array(
@@ -24,11 +24,23 @@ $array = array(
 		),
 		array(
 			y => $rand * 2
+		),
+		array(
+			y => $rand * 1.5
+		),
+		array(
+			y => $rand / 3
+		),
+		array(
+			y => $rand / 2
+		),
+		array(
+			y => $rand / 1.5
 		)
 	),
 	Arm => array(
 		array(
-			y => 5
+			y => $rand
 		),
 		array(
 			y => 10
