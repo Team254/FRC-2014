@@ -55,12 +55,42 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       qt = true;
       turn = z;
     }
-
+    
+    // Shooter
+    if(ChezyRobot.operatorJoystick.getShooterState()) {
+      ChezyRobot.shooter.setShooter(1);
+    } else {
+      ChezyRobot.shooter.setShooter(0);
+    }
+    
+    if(ChezyRobot.operatorJoystick.getPopperOnState()) {
+      ChezyRobot.shooter.setPopper(true);
+    } else {
+      ChezyRobot.shooter.setPopper(false);
+    }
+    
+    // Intake Roller
+    if(ChezyRobot.operatorJoystick.getIntakeState()) {
+      ChezyRobot.intake.setIntakeRoller(1);
+    } else if (ChezyRobot.operatorJoystick.getExhaustState())
+    {
+      ChezyRobot.intake.setIntakeRoller(-1);
+    } else {
+      ChezyRobot.intake.setIntakeRoller(0);
+    } 
+    
+    //Intake solenoid
+    if(ChezyRobot.operatorJoystick.getIntakeSolenoidOnState()) {
+      ChezyRobot.intake.setSolenoid(true);
+    } else if(ChezyRobot.operatorJoystick.getIntakeSolenoidOffStat()) {
+      ChezyRobot.intake.setSolenoid(false);
+    }
+    
     ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), turn , qt, true); //ChezyRobot.rightStick.getRawButton(2), true);
   }
 
   public void disabledPeriodic() {
-    // Print the Ultrasonic value - hardware mught be broken
+    // Print the Ultrasonic value - hardware might be broken
     printJoystickValues();
   }
   public void printJoystickValues() {
