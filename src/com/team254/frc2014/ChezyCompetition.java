@@ -70,9 +70,9 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     }
     
     // Intake Roller
-    if(ChezyRobot.operatorJoystick.getIntakeState()) {
+    if(ChezyRobot.operatorJoystick.getIntakeButtonState()) {
       ChezyRobot.intake.setIntakeRoller(1);
-    } else if (ChezyRobot.operatorJoystick.getExhaustState())
+    } else if (ChezyRobot.operatorJoystick.getExhaustButtonState())
     {
       ChezyRobot.intake.setIntakeRoller(-1);
     } else {
@@ -80,9 +80,9 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     } 
     
     //Intake solenoid
-    if(ChezyRobot.operatorJoystick.getIntakeSolenoidOnState()) {
+    if(ChezyRobot.operatorJoystick.getIntakeDownSwitchState()) {
       ChezyRobot.intake.setSolenoid(true);
-    } else if(ChezyRobot.operatorJoystick.getIntakeSolenoidOffStat()) {
+    } else if(ChezyRobot.operatorJoystick.getIntakeUpSwitchState()) {
       ChezyRobot.intake.setSolenoid(false);
     }
     

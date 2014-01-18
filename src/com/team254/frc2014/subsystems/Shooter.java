@@ -15,10 +15,13 @@ import java.util.Hashtable;
 public class Shooter extends Subsystem {
 
   private Solenoid popper = new Solenoid(Constants.popperSolenoidPort.getInt());
-  private Talon shooterWheel = new Talon(Constants.shooterWheelPort.getInt());
+  private Talon shooterA = new Talon(Constants.shooterWheelPort.getInt());
+  private Talon shooterB = new Talon(Constants.shooterWheelPortB.getInt());
 
   public void setShooter(double power) {
-    shooterWheel.set(Util.limit(power, 1.0));
+    power = Util.limit(power, 1.0);
+    shooterA.set(power);
+    shooterB.set(-power);
   }
 
   public void setPopper(boolean on) {

@@ -29,6 +29,7 @@ public class Constants extends ConstantsBase {
   public static final Constant rightDrivePortBC = new Constant("rightDrivePortBC", 7);
   
   public static final Constant shooterWheelPort = new Constant("shooterWheelPort", 8);
+  public static final Constant shooterWheelPortB = new Constant("shooterWheelPortB", 1);
 
   // Solenoids
   public static final Constant pressureSwitch = new Constant("pressureSwitch",  9);
@@ -94,6 +95,10 @@ public class Constants extends ConstantsBase {
   public static final Constant shootRpm = new Constant("shootRpm", 10250);
 
   public static final Constant testBumpSensor = new Constant("testBumpSensor", 0);
+  
+  public static final Constant intakeUpButtonPort = new Constant("intakeUpPort", 10);
+  public static final Constant intakeDownButtonPort = new Constant("intakeDownPort", 9);
+  public static final Constant intakeDownSwitchPort = new Constant("intakeDownSwitchPort", 12);
 
   static {
     // Set any overridden constants from the file on startup.

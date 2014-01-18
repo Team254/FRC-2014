@@ -22,10 +22,10 @@ public class Drivebase extends Subsystem {
   private Talon rightDriveBC = new Talon(Constants.rightDrivePortBC.getInt());
 
   //Encoders
-  private Encoder rightEncoder = new Encoder(Constants.leftEncoderPortA.getInt(),
-          Constants.leftEncoderPortB.getInt(), false);
-  private Encoder leftEncoder = new Encoder(Constants.rightEncoderPortA.getInt(),
-          Constants.rightEncoderPortB.getInt(), true);
+  private Encoder leftEncoder = new Encoder(Constants.leftEncoderPortA.getInt(),
+          Constants.leftEncoderPortB.getInt(), true);
+  private Encoder rightEncoder = new Encoder(Constants.rightEncoderPortA.getInt(),
+          Constants.rightEncoderPortB.getInt(), false);
   
   //Ultrasonic Sensor
   private Ultrasonic ultrasonic = new Ultrasonic(Constants.ultrasonicInputPort.getInt(),
@@ -35,11 +35,11 @@ public class Drivebase extends Subsystem {
   private Gyro gyro;
 
   public void setLeftRightPower(double leftPower, double rightPower) {
-    leftDriveA.set(leftPower);
-    leftDriveB.set(leftPower);
-    leftDriveC.set(leftPower);
-    rightDriveA.set(-rightPower);
-    rightDriveBC.set(-rightPower);
+    leftDriveA.set(-rightPower);
+    leftDriveB.set(-rightPower);
+    leftDriveC.set(-rightPower);
+    rightDriveA.set(leftPower);
+    rightDriveBC.set(leftPower);
   }
   
   public Drivebase() {

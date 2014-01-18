@@ -9,26 +9,41 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OperatorJoystick extends Joystick {
   
   public boolean getShooterState() {
-    return this.getRawAxis(2) < 0.0;
+    return this.getZ() < 0.0;
   }
   
   public boolean getPopperOnState() {
-    return this.getRawButton(2);
+    return this.getRawButton(5);
   }
  
   // Intake 
-  public boolean getIntakeState() {
-    return this.getRawButton(8);
-  }
-  public boolean getExhaustState() {
+  public boolean getIntakeButtonState() {
     return this.getRawButton(7);
   }
-  public boolean getIntakeSolenoidOffStat() {
-    return this.getRawButton(9);
+  public boolean getExhaustButtonState() {
+    return this.getRawButton(8);
   }
-  public boolean getIntakeSolenoidOnState() {
-    return this.getRawButton(10);
+  public boolean getIntakeUpSwitchState() {
+    return getIntakePositionSwitch() == 1;
   }
+
+  public boolean getIntakeDownSwitchState() {
+    return getIntakePositionSwitch() == -1;
+  }
+  
+  
+  public int getIntakePositionSwitch() {
+    boolean axis = (this.getRawAxis(4) < 0.1);
+    boolean button = this.getRawButton(Constants.intakeDownSwitchPort.getInt());
+    if (axis) {
+      return 1; // up
+    }
+    if (button) {
+      return -1; // down
+    }
+    return 0; // floating
+  }
+
   public OperatorJoystick(int port) {
     super(port);
   }
