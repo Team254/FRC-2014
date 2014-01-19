@@ -5,7 +5,7 @@ package com.team254.lib;
  *
  * @author tombot
  */
-public abstract class Controller {
+public abstract class Controller implements Loopable {
   protected boolean enabled = false;
   
   public abstract void update();

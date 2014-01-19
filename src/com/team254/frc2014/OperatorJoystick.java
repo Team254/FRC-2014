@@ -32,6 +32,10 @@ public class OperatorJoystick extends Joystick {
   }
   
   
+  public boolean getAutoIntakeButtonState() {
+    return this.getRawButton(1);
+  }
+  
   public int getIntakePositionSwitch() {
     boolean axis = (this.getRawAxis(4) < 0.1);
     boolean button = this.getRawButton(Constants.intakeDownSwitchPort.getInt());
