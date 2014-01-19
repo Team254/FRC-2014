@@ -42,6 +42,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
 
   public void teleopInit() {
     currentAutoMode.stop();
+    ChezyRobot.driveController.disable();
     // This is just here for testing purposes
   }
 

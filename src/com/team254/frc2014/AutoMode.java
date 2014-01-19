@@ -7,7 +7,7 @@ import com.team254.frc2014.actions.DriveAtHeadingUntilYCoordinateAction;
 import com.team254.frc2014.actions.DriveToUltrasonicRangeAction;
 import com.team254.frc2014.actions.WaitAction;
 
-public abstract class AutoMode implements Runnable {
+public abstract class AutoMode extends ChezyRobot implements Runnable {
 
   Action currentAction = null;
   Thread autoThread = new Thread(this);

@@ -11,8 +11,8 @@ import java.util.Hashtable;
 public class Drivebase extends Subsystem {
   
   // ticks to feet
-  public final double LEFT_ENCOCDER_TO_DISTANCE_RATIO = (3.5 * Math.PI) / (12.0 * 256.0);
-  public final double RIGHT_ENCOCDER_TO_DISTANCE_RATIO = (3.5 * Math.PI) / (12.0 * 300.0);
+  public final double RIGHT_ENCOCDER_TO_DISTANCE_RATIO = (3.5 * Math.PI) / (12.0 * 256.0);
+  public final double LEFT_ENCOCDER_TO_DISTANCE_RATIO = (3.5 * Math.PI) / (12.0 * 300.0);
   
   // Speed controllers
   private Talon leftDriveA = new Talon(Constants.leftDrivePortA.getInt());
