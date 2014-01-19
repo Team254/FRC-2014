@@ -11,12 +11,15 @@ public class ThreeBallAuto extends AutoMode {
     // Intakes the first ball
     intake.setSolenoid(true);
     waitTime(0.25);
-    intake.setIntakeRoller(1.0);
+    intake.setAutoIntake(true);
+   /*intake.setIntakeRoller(1.0);
     waitTime(.4);
     intake.setIntakeRoller(-.5);
     waitTime(.1);
     intake.setIntakeRoller(0.0);
+    */
     
+    waitTime(1);
     // Drive to the goal
     driveAndCoast(5, 6);
 
@@ -30,10 +33,11 @@ public class ThreeBallAuto extends AutoMode {
     //Turn shooter on before we get to the goal
     shooter.setShooter(1.0);
     
-    driveAtHeadingToY(0, 18.0, 15);
+    driveAtHeadingToY(0, 15.0, 15);
     dimeStop();
 
     // First shot
+    intake.setAutoIntake(false);
     waitTime(2.0);
     shooter.setPopper(true);
     waitTime(2.0);
@@ -60,6 +64,5 @@ public class ThreeBallAuto extends AutoMode {
     System.out.println("nav: " + ChezyRobot.driveController.navigator.toString());
 
     dimeStop();
-
   }
 }

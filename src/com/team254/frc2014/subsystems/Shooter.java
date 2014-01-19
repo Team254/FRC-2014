@@ -1,4 +1,3 @@
-
 package com.team254.frc2014.subsystems;
 
 import com.team254.frc2014.Constants;

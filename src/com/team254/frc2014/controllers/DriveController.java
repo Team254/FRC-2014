@@ -54,7 +54,7 @@ public class DriveController extends Controller {
     double state = getDistanceState();
     double push = (goalDistance - getDistanceState()) * .9;
 
-    push = SignalUtils.cap(push, .3);
+    push = SignalUtils.cap(push, .5);
 
     double diff = state - lastDistanceState;
     velocity = diff * 100.0;
