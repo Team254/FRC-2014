@@ -80,17 +80,27 @@ public class Util {
   }
 
   public static String toJson(Hashtable data) {
+    return toJson(data, 0);
+  }
+
+  public static String toJson(Hashtable data, int levels) {
     String res = "{\n";
 
-    for (Enumeration en = data.keys(); en.hasMoreElements(); ) {
+    for (Enumeration en = data.keys(); en.hasMoreElements();) {
       String key = (String) en.nextElement();
-      res += "\t\"" + key + "\" : ";
+      res += "\t\"" + key + "\": ";
 
-      String value = data.get(key).toString();
+      try {
+        Hashtable nestedData = (Hashtable) data.get(key);
+        for (int i = 0; i < levels; i++) res += "\t";
+        res += toJson(nestedData, levels + 2);
+      } catch (ClassCastException e) {
+        String value = data.get(key).toString();
+        if (Util.isNumber(value)) res += value;
+        else res += "\"" + value + "\"";
+      }
 
-      if (Util.isNumber(value)) res += value;
-      else res += "\"" + value + "\"";
-      res += ",\n";
+      res += en.hasMoreElements() ? ",\n" : "\n";
     }
     res += "}";
     return res;

@@ -53,15 +53,25 @@ public class Drivebase extends Subsystem {
     rightEncoder.start();
   }
 
-  public Hashtable serialize() {
-    data.put("leftDriveA", new Double(leftDriveA.get()));
-    data.put("leftDriveB", new Double(leftDriveB.get()));
-    data.put("leftDriveC", new Double(leftDriveC.get()));
-    data.put("rightDriveA", new Double(rightDriveA.get()));
-    data.put("rightDriveBC", new Double(rightDriveBC.get()));
-    data.put("leftEncoder", new Double(leftEncoder.get()));
-    data.put("rightEncoder", new Double(rightEncoder.get()));
-    //data.put("gyro", new Double(getGyroAngle()));
+  public Hashtable serialize() {    
+    Hashtable leftDrive = new Hashtable();
+    Hashtable rightDrive = new Hashtable();
+    Hashtable encoders = new Hashtable();
+
+    leftDrive.put("leftDriveA", new Double(leftDriveA.get()));
+    leftDrive.put("leftDriveB", new Double(leftDriveB.get()));
+    leftDrive.put("leftDriveC", new Double(leftDriveC.get()));
+
+    rightDrive.put("rightDriveA", new Double(rightDriveA.get()));
+    rightDrive.put("rightDriveBC", new Double(rightDriveBC.get()));
+    
+    encoders.put("leftEncoder", new Double(leftEncoder.get()));
+    encoders.put("rightEncoder", new Double(rightEncoder.get()));
+
+    data.put("leftDrive", leftDrive);
+    data.put("rightDrive", rightDrive);
+    data.put("encoders", encoders);
+    
     return data;
   }
 

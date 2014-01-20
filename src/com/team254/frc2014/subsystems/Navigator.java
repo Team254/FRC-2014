@@ -1,18 +1,24 @@
 package com.team254.frc2014.subsystems;
 
+import com.team254.lib.Subsystem;
 import com.team254.lib.util.ThrottledPrinter;
+import java.util.Hashtable;
 
 /**
  * Navigator.java
  *
  * @author tombot
  */
-public class Navigator {
+public class Navigator extends Subsystem {
 
   double x = 0, y = 0, heading = 0;
   double lastL, lastR;
   double gyroReference = 0;
   ThrottledPrinter p = new ThrottledPrinter(.125);
+
+  public Navigator() {
+    super("Navigator");
+  }
 
   public void resetWithReferenceHeading(double reference) {
     x = y = heading = 0;
@@ -49,5 +55,9 @@ public class Navigator {
 
   public String toString() {
     return "X: " + x + " Y: " + y + " Heading: " + heading;
+  }
+
+  public Hashtable serialize() {
+    return new Hashtable();
   }
 }

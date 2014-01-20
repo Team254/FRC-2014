@@ -26,6 +26,7 @@ public class Shooter extends Subsystem {
   public void setPopper(boolean on) {
     popper.set(on);
   }
+  
   public Shooter() {
     super("Shooter");
   }

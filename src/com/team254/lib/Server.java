@@ -112,6 +112,7 @@ public class Server implements Runnable {
     String path = reqParams[1];
     try {
       if (type.equals("GET")) {
+        System.out.println("PATH: " + path);
         if (path.startsWith("/subsystem")) {
           String subsystem = Util.split(Util.split(reqParams[1], "?")[1], "=")[1];
           os.write(getSubsystemResponse(subsystem).toString().getBytes());
