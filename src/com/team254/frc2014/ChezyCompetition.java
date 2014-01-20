@@ -16,7 +16,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   AutoMode currentAutoMode = new ThreeBallAuto();
   Server s = new Server();
   Thread t;
-  ThrottledPrinter p = new ThrottledPrinter(1);
+  ThrottledPrinter p = new ThrottledPrinter(.5);
   DriverStationLCD lcd;
 
   public void robotInit() {
@@ -36,6 +36,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   }
 
   public void disabledInit() {
+    Constants.readConstantsFromFile();
     ChezyRobot.driveController.disable();
     currentAutoMode.stop();
   }
@@ -73,19 +74,31 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     
     // Intake Roller
     if(ChezyRobot.operatorJoystick.getIntakeButtonState()) {
-      ChezyRobot.intake.setIntakeRoller(1);
+      ChezyRobot.intake.setManualRollerPower(1);
     } else if (ChezyRobot.operatorJoystick.getExhaustButtonState())
     {
-      ChezyRobot.intake.setIntakeRoller(-1);
+      ChezyRobot.intake.setManualRollerPower(-1);
     } else {
-      ChezyRobot.intake.setIntakeRoller(0);
+      ChezyRobot.intake.wantManual = false;
     } 
+    
+    if (ChezyRobot.operatorJoystick.getAutoIntakeButtonState()) {
+      ChezyRobot.intake.wantGather = true;
+    } else {
+      ChezyRobot.intake.wantGather = false;
+    }
+    
+    if (ChezyRobot.operatorJoystick.getRawButton(2)) {
+      ChezyRobot.intake.wantExtraGather = true;
+    } else {
+      ChezyRobot.intake.wantExtraGather = false;
+    }
     
     //Intake solenoid
     if(ChezyRobot.operatorJoystick.getIntakeDownSwitchState()) {
-      ChezyRobot.intake.setSolenoid(true);
+      ChezyRobot.intake.setPositionDown(true);
     } else if(ChezyRobot.operatorJoystick.getIntakeUpSwitchState()) {
-      ChezyRobot.intake.setSolenoid(false);
+      ChezyRobot.intake.setPositionDown(false);
     }
     
     ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), turn , qt, true); //ChezyRobot.rightStick.getRawButton(2), true);
@@ -94,6 +107,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   public void disabledPeriodic() {
     // Print the Ultrasonic value - hardware might be broken
     printJoystickValues();
+    p.println("enc: " + ChezyRobot.intake.encoder.get());
   }
   public void printJoystickValues() {
     lcd.println(DriverStationLCD.Line.kUser2, 1,

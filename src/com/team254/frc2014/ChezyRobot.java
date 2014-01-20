@@ -4,7 +4,7 @@ import com.team254.frc2014.controllers.DriveController;
 import com.team254.frc2014.subsystems.Drivebase;
 import com.team254.frc2014.subsystems.Intake;
 import com.team254.frc2014.subsystems.Shooter;
-import com.team254.lib.ControllerUpdater;
+import com.team254.lib.MultiLooper;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
@@ -32,10 +32,10 @@ public class ChezyRobot {
   
   // Controllers
   public static final DriveController driveController = new DriveController();
-  public static ControllerUpdater controlUpdater = new ControllerUpdater(1.0 / 100.0);
+  public static MultiLooper controlUpdater = new MultiLooper(1.0 / 100.0);
 
   public static void initRobot() {
     controlUpdater.addController(driveController);
-    controlUpdater.addController(intake.controller);
+    controlUpdater.addController(intake);
   }
 }

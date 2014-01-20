@@ -100,6 +100,9 @@ public class Constants extends ConstantsBase {
   public static final Constant intakeUpButtonPort = new Constant("intakeUpPort", 10);
   public static final Constant intakeDownButtonPort = new Constant("intakeDownPort", 9);
   public static final Constant intakeDownSwitchPort = new Constant("intakeDownSwitchPort", 12);
+  
+  public static final Constant frontIntakeEncoderPortA = new Constant("frontIntakeEncoderPortA", 10);
+  public static final Constant frontIntakeEncoderPortB = new Constant("frontIntakeEncoderPortB", 11);
 
   static {
     // Set any overridden constants from the file on startup.

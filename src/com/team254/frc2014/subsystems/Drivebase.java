@@ -28,8 +28,8 @@ public class Drivebase extends Subsystem {
           Constants.rightEncoderPortB.getInt(), false);
   
   //Ultrasonic Sensor
-  private Ultrasonic ultrasonic = new Ultrasonic(Constants.ultrasonicInputPort.getInt(),
-          Constants.ultrasonicOutputPort.getInt());
+ // private Ultrasonic ultrasonic = new Ultrasonic(Constants.ultrasonicInputPort.getInt(),
+   //       Constants.ultrasonicOutputPort.getInt());
 
   //Gyro
   private Gyro gyro;
@@ -47,8 +47,8 @@ public class Drivebase extends Subsystem {
     //System.out.println("Making gyro!");
     gyro = new Gyro(Constants.gyroPort.getInt());
     //System.out.println("Done making gyro!");
-    ultrasonic.setEnabled(true);
-    ultrasonic.setAutomaticMode(true);
+    //ultrasonic.setEnabled(true);
+   // ultrasonic.setAutomaticMode(true);
     leftEncoder.start();
     rightEncoder.start();
   }
@@ -91,7 +91,7 @@ public class Drivebase extends Subsystem {
 
   public double getUltrasonicDistance(){
     //ultrasonic.ping();
-    return ultrasonic.getRangeInches() / 12.0;
+    return 3; //ultrasonic.getRangeInches() / 12.0;
   }
 
 }

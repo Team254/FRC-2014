@@ -4,7 +4,6 @@ package com.team254.lib;
  */
 
 import com.team254.lib.util.HtmlResponse;
-import com.team254.lib.util.Json;
 import com.team254.lib.util.Util;
 import java.io.IOException;
 import java.io.InputStream;
@@ -140,7 +139,7 @@ public class Server implements Runnable {
      if (s == null) {
        return HtmlResponse.createError("No subsystem with name " + n);
      }
-     return new HtmlResponse(Json.format(s.serialize()));
+     return new HtmlResponse(Util.toJson(s.serialize()));
    }
 
 }

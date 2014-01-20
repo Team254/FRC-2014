@@ -9,7 +9,7 @@ public class ThreeBallAuto extends AutoMode {
     driveController.setHeadingGoal(0);
     
     // Intakes the first ball
-    intake.setSolenoid(true);
+    intake.setPositionDown(true);
     waitTime(0.25);
     intake.setAutoIntake(true);
    /*intake.setIntakeRoller(1.0);
@@ -44,16 +44,16 @@ public class ThreeBallAuto extends AutoMode {
     shooter.setPopper(false); // Post first shot
     shooter.setShooter(0);
     waitTime(2.50);
-    intake.setIntakeRoller(1.0);
-    intake.setSolenoid(false);
+    intake.setManualRollerPower(1.0);
+    intake.setPositionDown(false);
     
     waitTime(1.0);
     // Intake ball into the shooter system
-    intake.setIntakeRoller(1.0);
+    intake.setManualRollerPower(1.0);
     waitTime(1.5);
     shooter.setShooter(1.0);
     waitTime(1.5);
-    intake.setIntakeRoller(0.0);
+    intake.setManualRollerPower(0.0);
     // Second shot
     shooter.setPopper(true);
     waitTime(2.0);
