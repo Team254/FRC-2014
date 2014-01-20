@@ -2,44 +2,31 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <script src="jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="rainbow.js" ></script>
 <script type="text/javascript">
- 
+ var dataarray = {
+				Motor_Speed: {
+					Left: 15,
+					Right: 12
+				},
+				Encoders: {
+					LF: 15,
+					RF: 7,
+					LB: 8,
+					RB: 10
+				},
+				Test: {
+					LF: 15,
+					RF: 7,
+					LB: 8,
+					RB: 10
+				},
+				gyro: 25
+ }
   var scs = {
-    Shooter: {
-        data: [
-		], 
-		title: "Shooter",
-		color: "Red",
-		div: "chartContainerc",
-		tab: "tab3",
-	},
-	Intake: {
-		data: [
-		], 
-		title: "Intake",
-		color: "Blue",
-		div: "chartContainerb",
-		tab: "tab2",
-	},
-	Drivebase: {
-		data: [
-		], 
-		title: "Drivebase",
-		color: "Multi",
-		div: "chartContainera",
-		tab: "tab1",
-	},
-	Arm: {
-		data: [
-		], 
-		title: "Arm",
-		color: "Dark",
-		div: "chartContainerab",
-		tab: "tab1",
-	}
 };
+var containers = [];
 	function findTabSubset(tabName){
 		var subset = [];
 		for(v in scs){
@@ -98,27 +85,48 @@
 		}
 		return subset;
 	  }
-	  function parsejson(array){
-		var keyssent = [];
-		for(v in array){
-			keyssent.push(v);
-		}
-		for (handle in scs){
-			for (i = 0; i < array[handle].length; i++){
-				if (scs[handle].data.length < array[handle].length){
-					for (a = 0; a < array[handle].length - scs[handle].data.length; i++){
-						scs[handle].data.push([]);
-					}
-				} else {
-					scs[handle].data[i].push(array[handle][i])
-				}
-			}
-		}
-	  }
+	  
 	  function randoms(handler){
 		  getdata(handler);
 		  generate(handler);
 	  }
+	var current = "Drivebase";
+	var last = "Drivebase";
+      
+	  function parsejson(arrayin){
+		if (current != last){
+			scs = {};
+			containers = [];
+			$("#content").html() = "";
+		}
+		for (var key in arrayin){
+			if (scs[key] === undefined){
+				$("#content").append('<div id="' + key + '" style="height: 300px; width: 100%;">asd</div>');
+				scs[key] = [];
+				containers.push(key);
+			}
+			if (scs[key].data === undefined){
+				scs[key].data = [];
+			}
+			if (typeof(arrayin[key]) == "object"){
+				var i = 0;
+				for (var subkey in arrayin[key]){
+					if (scs[key].data[i] === undefined){
+						scs[key].data[i]=[];
+					}
+					if (scs[key].data[i][0] === undefined){
+						scs[key].data[i][0]=subkey;
+					}
+					scs[key].data[i].push({y: arrayin[key][subkey]});
+					i = i + 1;
+				}
+			} else {
+				scs[key].data.push({y: arrayin[key]});
+			}
+			scs[key].assocvar = "";
+		}
+		last = current;
+	}
 	  function getdata(handler){
 		  $.getJSON('json.php',function(datajson) {
 			  parsejson(datajson);
@@ -128,20 +136,31 @@
 	  }
 	  function ggd(handler){
 		//generate graph data
-			var indata = []
-			for (i = 0; i < scs[handler].data.length; i++){
-				indata.push({type: "line", dataPoints: scs[handler].data[i]})
+		var indata = [];
+			if (scs[handler].data[0][0] != undefined){
+				console.log("multi");
+				for (i = 0; i < scs[handler].data.length; i++){
+					data = [];
+					for (j = 1; j < scs[handler].data[i].length; j ++){
+						data.push(scs[handler].data[i][j]);
+					}
+					indata.push({type: "line", showInLegend: true, lineThickness: 2, name: scs[handler].data[i][0], dataPoints: data});
+				}
+			} else {
+				console.log("single");
+				indata.push({type: "line", showInLegend: true, lineThickness: 2, name: handler, dataPoints: scs[handler].data});
 			}
-			return indata;
-	  }
+		
+		return indata;   
+	}
       function generate (handler) {
-          scs[handler].assocvar = new CanvasJS.Chart(scs[handler].div, {
+          scs[handler].assocvar = new CanvasJS.Chart(handler, {
               theme: "theme1",//theme1
               
-			  colorSet: scs[handler].color,
+			  colorSet: "Multi",
 			  
 			  title:{
-                  text: scs[handler].title              
+                  text: handler             
               },
               data: ggd(handler)             
               /*{
@@ -158,16 +177,10 @@
           scs[handler].assocvar.render();
       }
 	   function genall(){
-			var tabs = findTabSubset(currentTab);
-			var i = 0
-			while (i < tabs.length){
-			
-				console.log(tabs[i]);
-				console.log(tabs.length);
-			
-				generate(tabs[i]);
-				console.log("asd");
-				i = i + 1;
+			for (i in scs){
+				console.log(i);
+				generate(i);
+				
 			}
 			
 		   /*generate("Intake");
@@ -178,7 +191,8 @@
 	   }
 	   function getall(){
 		   $.getJSON('json.php',function(datajson) {
-			  parsejson(datajson);
+			  
+			  parsejson(dataarray);
 			  genall();
 		  });
 	   }
@@ -194,8 +208,8 @@
 <nav>
 Teh Chezy Pofs Deta Lawgr
 </nav>
-<div class="content">
-<div id="usual1" class="usual" style="border:none"> 
+<div id="content">
+<!--<div id="usual1" class="usual" style="border:none"> 
   <div class="ulcontain">
   <ul> 
     <li><a name="tab1" href="#tab1" class="selected">Drivebase</a></li> 
@@ -208,12 +222,10 @@ Teh Chezy Pofs Deta Lawgr
       <div id="chartContainerab" style="height: 300px; width: 100%;"></div>
   </div> 
   <div class="usual" id="tab2"><div id="chartContainerb" style="height: 300px; width: 100%;"></div></div> 
-  <div class="usual" id="tab3"><div id="chartContainerc" style="height: 300px; width: 100%;"></div></div> 
-</div> 
+  <div class="usual" id="tab3"><div id="chartContainerc" style="height: 300px; width: 100%;"></div></div> --> 
 </div>
 <script src="tabbed.js"></script>
 <script type="text/javascript"> 
-
   $("#usual1 ul").idTabs(); 
 </script>
 <script>
