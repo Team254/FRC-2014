@@ -22,7 +22,7 @@ public class FlywheelController extends StateSpaceController {
   double prevPos;
   double goal;
   double curVel;
-  double period = 1 / 50.0;
+  double period = 1 / 100.0;
   double outputVoltage = 0.0;
   double targetError = 25;
   Debouncer filter = new Debouncer(.15);
