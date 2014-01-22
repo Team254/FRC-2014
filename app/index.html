@@ -1,10 +1,11 @@
-<!-- written by: Ryan Johnson, Art Kalb, Maxwell Yun -->
+<!-- written by: Ryan Johnson, Art Kalb, Maxwell Yun, Viderp Maheshwari -->
 <!DOCTYPE HTML>
 <html>
 <head>
   <script src="jquery.min.js"></script>
   <script src="rainbow.js" ></script>
 <script type="text/javascript">
+//Example JSON array
  var dataarray = {
 				Motor_Speed: {
 					Left: 15,
@@ -23,22 +24,27 @@
 					RB: 10
 				},
 				gyro: 25
- }
-  var scs = {
 };
+
+//SCS Array. SCS stands for stored chart settings. This array is automagically populated by the parsejson() function from the data from the the JSON retreived from the getall() function. A example of the data retreived from the getall() function is in the dataarray (above). 
+var scs = {
+};
+
+//Subsystems array. Contains the verbatim word to go after http://10.2.54.2:41234/subsytems?name=. If you click test or pause it bypasses this. Eventually, this should be auto-populated.
+var subsystems = ["Drivebase", "Intake", "Shooter", "test", "PAUSE"];
+
+//Sets the current chart to the first item of the subsytem array. Makes it so that it will render a chart
+var current = subsystems[0];
+
+//Sets the previous to the first item for initialization. This helps the parser tell if the dataset has changed otherwise it will create a bunch of graphs.
+var last = subsystems[0];
+
+//An aray of the charts on the page. To be used later.c
 var containers = [];
-	function findTabSubset(tabName){
-		var subset = [];
-		for(v in scs){
-			if(scs[v].tab == tabName)
-				subset.push(v);
-		}
-		return subset;
-	}
+
+//When the document loads do:
    $(document).ready(function(e) {
-	   /*var which = "Drivebase"
-	   scs[which].data.push({y: 25});
-	   alert(scs[which].data[2].y);*/
+	//Define Color sets for the charts. Only uses Multi at this point.
     CanvasJS.addColorSet("Blue",
                 [//colorSet Array
                 "#0070FF",             
@@ -68,38 +74,41 @@ var containers = [];
 				"#F28263",
 				"#222222",           
                 ]);
-	genall();
-	});
-  	  
-	  function add(value, handler, plot){
-		  var data = parseInt(value.Drivebase[0].y);
-		  scs[handler].data[plot].push(
-		  {y: data}
-		  );
-	  }
-	  //use parsejson before add.
-	  function graphlist(){
-		var subset = [];
-		for(v in scs){
-				subset.push(v);
+				
+		//Creates the buttons in the navbar based on the items in the subsystems array
+		for (tab in subsystems){
+			$(".buttons").append("<a>" + subsystems[tab] + "</a>");
 		}
-		return subset;
-	  }
-	  
-	  function randoms(handler){
-		  getdata(handler);
-		  generate(handler);
-	  }
-	var current = "Drivebase";
-	var last = "Drivebase";
+		
+		//Whenever a button is clicked hange the current chart set and change the button style
+		$(".buttons a").bind("click", function(){
+			current = $(this).html();
+			$(".buttons a").each(function(index, element) {
+                $(this).attr("style", "");
+            });
+			$(this).css("background-color", "#FFFFFF");
+			$(this).css("color", "#0070FF");
+		});
+		
+		//Make the first button "clicked" on page load
+		$(".buttons a").each(function(index, element) {
+            if (index == 0){
+				$(this).css("background-color", "#FFFFFF");
+				$(this).css("color", "#0070FF");
+			}
+        });
+		
+	});
       
+	  //JSON Parser. Takes in robot json, processes it, and from there pushes new values to the SCS array or completely restructures it.
 	  function parsejson(arrayin){
 		if (current != last){
 			scs = {};
 			containers = [];
-			$("#content").html() = "";
+			$("#content").html("");
 		}
 		for (var key in arrayin){
+			if (key != "subsystem"){
 			if (scs[key] === undefined){
 				$("#content").append('<div id="' + key + '" style="height: 300px; width: 100%;">asd</div>');
 				scs[key] = [];
@@ -108,34 +117,29 @@ var containers = [];
 			if (scs[key].data === undefined){
 				scs[key].data = [];
 			}
-			if (typeof(arrayin[key]) == "object"){
-				var i = 0;
-				for (var subkey in arrayin[key]){
-					if (scs[key].data[i] === undefined){
-						scs[key].data[i]=[];
+			
+				if (typeof(arrayin[key]) == "object"){
+					var i = 0;
+					for (var subkey in arrayin[key]){
+						if (scs[key].data[i] === undefined){
+							scs[key].data[i]=[];
+						}
+						if (scs[key].data[i][0] === undefined){
+							scs[key].data[i][0]=subkey;
+						}
+						scs[key].data[i].push({y: arrayin[key][subkey]});
+						i = i + 1;
 					}
-					if (scs[key].data[i][0] === undefined){
-						scs[key].data[i][0]=subkey;
-					}
-					scs[key].data[i].push({y: arrayin[key][subkey]});
-					i = i + 1;
+				} else {
+					scs[key].data.push({y: arrayin[key]});
 				}
-			} else {
-				scs[key].data.push({y: arrayin[key]});
+				scs[key].assocvar = "";
 			}
-			scs[key].assocvar = "";
 		}
 		last = current;
 	}
-	  function getdata(handler){
-		  $.getJSON('json.php',function(datajson) {
-			  parsejson(datajson);
-			  generate(handler);
-			  
-		  });
-	  }
+	   //Second parser. generates graph data. Takes stuff from SCS and puts it in a nice fromat for the graph library to read. 
 	  function ggd(handler){
-		//generate graph data
 		var indata = [];
 			if (scs[handler].data[0][0] != undefined){
 				console.log("multi");
@@ -153,6 +157,7 @@ var containers = [];
 		
 		return indata;   
 	}
+	  //generates a graph
       function generate (handler) {
           scs[handler].assocvar = new CanvasJS.Chart(handler, {
               theme: "theme1",//theme1
@@ -162,39 +167,32 @@ var containers = [];
 			  title:{
                   text: handler             
               },
-              data: ggd(handler)             
-              /*{
-                  type: "line",
-                  dataPoints: scs[handler].data[0]
-				  
-              },
-			  {
-                  type: "line",
-                  dataPoints: scs[handler].data[1]
-				  
-              },*/
+              data: ggd(handler)
           });
           scs[handler].assocvar.render();
       }
+	  	//generates all graphs, uses the generate function multiple times.
 	   function genall(){
 			for (i in scs){
 				console.log(i);
 				generate(i);
 				
 			}
-			
-		   /*generate("Intake");
-		   generate("Drivebase");
-		   generate("Shooter");
-		   generate("Arm");
-		   */
 	   }
+	   //Gets data
 	   function getall(){
-		   $.getJSON('json.php',function(datajson) {
-			  
-			  parsejson(dataarray);
-			  genall();
-		  });
+		   if (current != "test" && current != "PAUSE"){
+			   $.getJSON('http://10.2.54.2:41234/subsystem?name=' + current,function(datajson) {
+				  
+				  parsejson(datajson);
+				  genall();
+				});
+		   } else if (current == "test"){
+			   parsejson(dataarray);
+			   genall();
+		   } else {
+			   //do nothing
+		   }
 	   }
 	  setInterval(function(){
 		  getall();
@@ -206,7 +204,7 @@ var containers = [];
 </head>
 <body>
 <nav>
-Teh Chezy Pofs Deta Lawgr
+Teh Chezy Pofs Deta Lawgr <div class="buttons"></div>
 </nav>
 <div id="content">
 <!--<div id="usual1" class="usual" style="border:none"> 
@@ -245,13 +243,7 @@ Teh Chezy Pofs Deta Lawgr
     pad: false,
     pauseLength: 100,
 });*/
-	$( ".usual a" ).bind( "click", function() {
-		var subset = findTabSubset($(this).attr("name"));
-	  	for(var v in subset){
-			generate(subset[v]);
-		}
-		currentTab = $(this).attr("name");
-	});
+	
   </script>
   <div id="extra"></div>
 </body>
