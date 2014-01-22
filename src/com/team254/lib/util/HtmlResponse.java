@@ -6,22 +6,27 @@ import java.io.OutputStream;
 import java.util.Hashtable;
 
 public class HtmlResponse {
-  static String OK = "HTTP/1.x 200 OK\n\n";
+  static String OK = "HTTP/1.x 200 OK\n";
   static String PAGE_NOT_FOUND = "HTTP/1.x 404 Not Found\n\n ";
   public static String ERROR = "HTTP/1.x 400 Bad Request\n\n";
+  
+  public static String controlAccess = "Access-Control-Allow-Origin: http://localhost\n";
+  public static String contentLength = "Content-Length:";
 
   private String data;
-  private String header = OK;
+  private String header = OK + controlAccess;
 
   public HtmlResponse(String response) {
-    data = response;
+    this.data = response;
+    this.contentLength += data.length() + "\n\n";
   }
 
   public HtmlResponse(String response, String header) {
-    data = response;
-    this.header = header;
+    this.data = response;
+    this.contentLength += data.length() + "\n\n";
+    this.header = header + contentLength;
   }
-
+  
   public static HtmlResponse createResponse(String res) {
     return new HtmlResponse(res);
   }
