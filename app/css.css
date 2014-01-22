@@ -66,3 +66,14 @@ div.usual {
   *border:1px solid #CCCCCC;
   *border-radius:5px;
 }
+div.buttons {
+	float:right;
+}
+div.buttons a {
+	color:#FFF;
+	margin-right:10px;
+	padding:5px;
+	font-size:20px;
+	background-color:#00AAFF;
+	border-radius:5px;
+}
