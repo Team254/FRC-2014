@@ -31,7 +31,7 @@ public class ThreeBallAuto extends AutoMode {
     dimeStop();
     
     //Turn shooter on before we get to the goal
-    shooter.setShooter(1.0);
+   // shooter.setShooter(1.0);
     
     driveAtHeadingToY(0, 15.0, 15);
     dimeStop();
@@ -42,7 +42,7 @@ public class ThreeBallAuto extends AutoMode {
     shooter.setPopper(true);
     waitTime(2.0);
     shooter.setPopper(false); // Post first shot
-    shooter.setShooter(0);
+   // shooter.setShooter(0);
     waitTime(2.50);
     intake.setManualRollerPower(1.0);
     intake.setPositionDown(false);
@@ -51,7 +51,7 @@ public class ThreeBallAuto extends AutoMode {
     // Intake ball into the shooter system
     intake.setManualRollerPower(1.0);
     waitTime(1.5);
-    shooter.setShooter(1.0);
+  //  shooter.setShooter(1.0);
     waitTime(1.5);
     intake.setManualRollerPower(0.0);
     // Second shot
@@ -59,7 +59,7 @@ public class ThreeBallAuto extends AutoMode {
     waitTime(2.0);
     shooter.setPopper(false);
     
-    shooter.setShooter(0.0);
+  //  shooter.setShooter(0.0);
 
     System.out.println("nav: " + ChezyRobot.driveController.navigator.toString());
 

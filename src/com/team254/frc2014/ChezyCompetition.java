@@ -7,6 +7,7 @@ import com.team254.frc2014.auto.TestUltrasonicAuto;
 import com.team254.frc2014.auto.ThreeBallAuto;
 import com.team254.lib.ChezyIterativeRobot;
 import com.team254.lib.Server;
+import com.team254.lib.util.Latch;
 import com.team254.lib.util.ThrottledPrinter;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStationLCD;
@@ -47,6 +48,10 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     ChezyRobot.driveController.disable();
     // This is just here for testing purposes
   }
+  
+  double wantedRpm = 6000;
+  Latch upLatch = new Latch();
+Latch downLatch = new Latch();
 
   public void teleopPeriodic() {
     double z = ChezyRobot.rightStick.getZ();
@@ -61,9 +66,9 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     
     // Shooter
     if(ChezyRobot.operatorJoystick.getShooterState()) {
-      ChezyRobot.shooter.setShooter(1);
+      ChezyRobot.shooter.setVelocityGoal(wantedRpm);
     } else {
-      ChezyRobot.shooter.setShooter(0);
+      ChezyRobot.shooter.setVelocityGoal(0);
     }
     
     if(ChezyRobot.operatorJoystick.getPopperOnState()) {
@@ -94,6 +99,14 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.intake.wantExtraGather = false;
     }
     
+    if (downLatch.update(ChezyRobot.operatorJoystick.getRawButton(3))) {
+      wantedRpm -= 50;
+    }
+    if (upLatch.update(ChezyRobot.operatorJoystick.getRawButton(4))) {
+      wantedRpm += 50;
+    }
+    
+    
     //Intake solenoid
     if(ChezyRobot.operatorJoystick.getIntakeDownSwitchState()) {
       ChezyRobot.intake.setPositionDown(true);
@@ -107,7 +120,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   public void disabledPeriodic() {
     // Print the Ultrasonic value - hardware might be broken
     printJoystickValues();
-    p.println("enc: " + ChezyRobot.intake.encoder.get());
+   // p.println("enc: " + ChezyRobot.intake.encoder.get());
   }
   public void printJoystickValues() {
     lcd.println(DriverStationLCD.Line.kUser2, 1,
@@ -118,6 +131,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
              " l X:  " + Math.floor(ChezyRobot.leftStick.getX() * 100) / 100
              + " Y: " + Math.floor(ChezyRobot.leftStick.getY() * 100) / 100
             + " Z: " + Math.floor(ChezyRobot.leftStick.getZ() * 10) / 10);
+    lcd.println(DriverStationLCD.Line.kUser3, 1, "g: " + Math.floor(wantedRpm * 10) / 10 + " m: " + Math.floor(ChezyRobot.shooter.getLastRpm() * 10) / 10);
     lcd.updateLCD();
   }
 }

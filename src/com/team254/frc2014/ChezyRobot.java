@@ -37,5 +37,6 @@ public class ChezyRobot {
   public static void initRobot() {
     controlUpdater.addController(driveController);
     controlUpdater.addController(intake);
+    controlUpdater.addController(shooter);
   }
 }

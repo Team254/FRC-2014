@@ -57,7 +57,7 @@ public class Constants extends ConstantsBase {
   public static final Constant ultrasonicOutputPort = new Constant("ultrasonicPortB", 11);
 
   // Shooter encodsers
-  public static final Constant shootEncoderPort = new Constant("shootEncoderPort", 6);
+  public static final Constant shootEncoderPort = new Constant("shootEncoderPort", 12);
 
   // Drive tuning
   public static final Constant sensitivityHigh = new Constant("sensitivityHigh", .85);
