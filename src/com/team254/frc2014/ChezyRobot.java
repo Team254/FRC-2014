@@ -1,6 +1,7 @@
 package com.team254.frc2014;
 
 import com.team254.frc2014.controllers.DriveController;
+import com.team254.frc2014.controllers.StateSpaceDriveController;
 import com.team254.frc2014.subsystems.Drivebase;
 import com.team254.frc2014.subsystems.Intake;
 import com.team254.frc2014.subsystems.Shooter;
@@ -32,11 +33,13 @@ public class ChezyRobot {
   
   // Controllers
   public static final DriveController driveController = new DriveController();
+  public static final StateSpaceDriveController ssDriveController = new StateSpaceDriveController("DriveController", drivebase, DrivetrainGains.getGains()[0], 1.0/100.0);
   public static MultiLooper controlUpdater = new MultiLooper(1.0 / 100.0);
 
   public static void initRobot() {
     controlUpdater.addController(driveController);
     controlUpdater.addController(intake);
     controlUpdater.addController(shooter);
+    controlUpdater.addController(ssDriveController);
   }
 }

@@ -70,13 +70,13 @@ public abstract class StateSpaceController extends Controller {
     Umax.flash(gains.getUmax());
     Umin.flash(gains.getUmin());
   }
-
+  public Matrix r1 = new Matrix(1,1);
   public void update(Matrix R, Matrix Y) {
     if (gains.updated()){
       updateGains();
     }
 
-    Matrix r1 = Matrix.subtract(R, Xhat);
+    r1 = Matrix.subtract(R, Xhat);
     U = Matrix.multiply(K, r1);
     Uuncapped.flash(U.getData());
     capU();

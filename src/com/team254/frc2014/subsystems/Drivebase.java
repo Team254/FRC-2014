@@ -79,8 +79,12 @@ public class Drivebase extends Subsystem {
     return leftEncoder;
   }
   
-  public double getLeftEncoderDistance() {
+  public double getLeftEncoderDistance() { // in feet
     return leftEncoder.get() * LEFT_ENCOCDER_TO_DISTANCE_RATIO;
+  }
+  
+  public double getLeftEncoderDistanceInMeters() {
+    return getLeftEncoderDistance() * 0.3048;
   }
 
   public Encoder getRightEncoder() {
@@ -91,8 +95,15 @@ public class Drivebase extends Subsystem {
     return rightEncoder.get() * RIGHT_ENCOCDER_TO_DISTANCE_RATIO;
   }
 
+  public double getRightEncoderDistanceInMeters() {
+    return getRightEncoderDistance() * 0.3048;
+  }
   public double getGyroAngle() {
     return gyro.getAngle();
+  }
+  
+  public double getGyroAngleInRadians() {
+    return (getGyroAngle() * Math.PI) / 180.0;
   }
   
   public void resetGyro() {
