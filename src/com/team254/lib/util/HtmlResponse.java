@@ -11,20 +11,19 @@ public class HtmlResponse {
   public static String ERROR = "HTTP/1.x 400 Bad Request\n\n";
   
   public static String controlAccess = "Access-Control-Allow-Origin: http://localhost\n";
-  public static String contentLength = "Content-Length:";
+  public static String contentLength = "";
 
   private String data;
   private String header = OK + controlAccess;
 
   public HtmlResponse(String response) {
     this.data = response;
-    this.contentLength += data.length() + "\n\n";
+    this.contentLength = "Content-Length:" + data.length() + "\n\n";
   }
 
   public HtmlResponse(String response, String header) {
     this.data = response;
-    this.contentLength += data.length() + "\n\n";
-    this.header = header + contentLength;
+    this.contentLength = "Content-Length:" + data.length() + "\n\n";
   }
   
   public static HtmlResponse createResponse(String res) {
@@ -36,7 +35,8 @@ public class HtmlResponse {
   }
 
   public String toString() {
-    return header + data;
+    System.out.println(header + contentLength);
+    return header + contentLength + data;
   }
   
   public static String test() {
