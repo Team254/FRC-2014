@@ -61,6 +61,7 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
     return rpmGoal;
   }
   public void set(double value) {
+    //setShooter(rpmGoal > 0 ? 1.0 : 0.0);
     setShooter(value);
   }
   public double lastRpm = 0;
@@ -73,6 +74,7 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
       lastRpm = rpm;
     }
     double ret = (lastRpm * Math.PI * 2.0) / 60.0;
+    //System.out.println("" + Timer.getFPGATimestamp() + ", " + shooterA.get() + ", " + lastRpm + ", 0.01");
     return ret;
   }
 
