@@ -77,6 +77,9 @@ public class Constants extends ConstantsBase {
   
   public static final Constant frontIntakeEncoderPortA = new Constant("frontIntakeEncoderPortA", 10);
   public static final Constant frontIntakeEncoderPortB = new Constant("frontIntakeEncoderPortB", 11);
+  
+  public static final Constant robotWidth = new Constant("robotWidth", 25.5 / 12.0);
+  public static final Constant robotDt = new Constant("robotDt", 1.0 / 100.0);
 
   static {
     // Set any overridden constants from the file on startup.
