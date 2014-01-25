@@ -10,7 +10,8 @@ import com.team254.frc2014.AutoMode;
 public class TestDriveAuto extends AutoMode {
 
   protected void routine() {
-    drive(18, 10);
+    driveArc(8, 45, 10);
+    driveArc(8, 0, 10);
   }
   
 }

@@ -16,28 +16,32 @@ public class DriveController extends Controller {
     init();
   }
   Trajectory trajectory;
-  TrajectoryFollower follower = new TrajectoryFollower();
+  TrajectoryFollower followerLeft = new TrajectoryFollower();
+  TrajectoryFollower followerRight = new TrajectoryFollower();
   double direction;
   double heading;
   double kTurn = 1.0/23.0;
 
   public boolean onTarget() {
-    return follower.isFinishedTrajectory();// && mFollower.onTarget(distanceThreshold);
+    return followerLeft.isFinishedTrajectory();// && mFollower.onTarget(distanceThreshold);
   }
 
   private void init() {
-    follower.configure(.65, 0, 0, 0.06666666666667, 1.0/45.0);
+    followerLeft.configure(.65, 0, 0, 0.06666666666667, 1.0/45.0);
+    followerRight.configure(.65, 0, 0, 0.06666666666667, 1.0/45.0);
   }
 
-  public void loadProfile(Trajectory profile, double direction, double heading) {
+  public void loadProfile(Trajectory leftProfile, Trajectory rightProfile, double direction, double heading) {
     reset();
-    follower.setTrajectory(profile);
+    followerLeft.setTrajectory(leftProfile);
+    followerRight.setTrajectory(rightProfile);
     this.direction = direction;
     this.heading = heading;
   }
 
   public void reset() {
-    follower.reset();
+    followerLeft.reset();
+    followerRight.reset();
     drivebase.resetEncoders();
   }
 
@@ -49,16 +53,16 @@ public class DriveController extends Controller {
     if (onTarget()) {
       drivebase.setLeftRightPower(0.0, 0.0);
     } else {
-      double distance = direction * drivebase.getAverageDistance();
-      double angleDiff = DaisyMath.boundAngleNeg180to180Degrees(heading - drivebase.getGyroAngle());
+      double distanceL = direction * drivebase.getLeftEncoderDistance();
+      double distanceR = direction * drivebase.getRightEncoderDistance();
+      
 
-      double speed = direction * follower.calculate(distance);
-      /*if (direction > 0)
-        speed = speed < 0 ? 0 : speed;
-      else
-        speed = speed > 0 ? 0 : speed;*/
+      double speedLeft = direction * followerLeft.calculate(distanceL);
+      double speedRight = direction * followerRight.calculate(distanceR);
+      
+      double angleDiff = DaisyMath.boundAngleNeg180to180Degrees(followerLeft.getHeading() - drivebase.getGyroAngle());
       double turn = kTurn * angleDiff;
-      drivebase.driveSpeedTurn(speed, turn);
+      drivebase.setLeftRightPower(speedLeft + turn, speedRight - turn);
     }
   }
 
