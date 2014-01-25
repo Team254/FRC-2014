@@ -5,9 +5,7 @@ import com.team254.frc2014.ChezyRobot;
 
 public class ThreeBallAuto extends AutoMode {
 
-  protected void routine() {   
-    driveController.setHeadingGoal(0);
-    
+  protected void routine() {
     // Intakes the first ball
     intake.setPositionDown(true);
     waitTime(0.25);
@@ -25,8 +23,6 @@ public class ThreeBallAuto extends AutoMode {
 
     // Turn
     driveAtHeadingToX(35, 3.5, 15);
-
-    System.out.println("nav: " + ChezyRobot.driveController.navigator.toString());
 
     dimeStop();
     
@@ -61,7 +57,6 @@ public class ThreeBallAuto extends AutoMode {
     
   //  shooter.setShooter(0.0);
 
-    System.out.println("nav: " + ChezyRobot.driveController.navigator.toString());
 
     dimeStop();
   }

@@ -19,20 +19,17 @@ public class DriveAtHeadingUntilXCoordinateAction extends Action {
   public boolean execute() {
     boolean done;
     if (approachPos) {
-      done = driveController.navigator.getX() > x;
+      done = navigator.getX() > x;
     } else {
-      done = driveController.navigator.getX() < x;
+      done = navigator.getX() < x;
     }
     return done || isTimedOut();
   }
 
   public void init() {
-
-    if (driveController.navigator.getX() < x) {
+    if (navigator.getX() < x) {
       approachPos = true;
     }
-    driveController.setHeadingGoal(heading);
-    driveController.setDistanceGoal(50); // random distance?
   }
 
   public void done() {
