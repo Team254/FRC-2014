@@ -10,8 +10,14 @@ import com.team254.frc2014.AutoMode;
 public class TestDriveAuto extends AutoMode {
 
   protected void routine() {
-    driveArc(8, 45, 10);
-    driveArc(8, 0, 10);
+    waitTime(.5);
+    boolean goRight = hotGoalDetector.hotGoalIsOnLeft();
+    drive(5,10);
+    driveArc(7, 45 * (goRight ? 1.0 : -1.0), 10);
+    driveArc(7, 0, 10);
+    headingController.setDistance(drivebase.getAverageDistance());
+    headingController.setHeading(0);
+    drivebase.useController(headingController);
   }
   
 }

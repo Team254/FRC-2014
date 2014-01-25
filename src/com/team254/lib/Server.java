@@ -25,7 +25,7 @@ public class Server implements Runnable {
       try {
         OutputStream os = ((SocketConnection) connections.elementAt(i)).openOutputStream();
         os.write(message.getBytes());
-        System.out.println("pushing data");
+        //System.out.println("pushing data");
         os.close();
       } catch (IOException e) {
         connections.removeElementAt(i);
@@ -48,7 +48,7 @@ public class Server implements Runnable {
     public void run() {
       try {
         InputStream is = connection.openInputStream();
-        System.out.println("New connection from: " + connection.getAddress());
+        //System.out.println("New connection from: " + connection.getAddress());
 
         int ch = 0;
         byte[] b = new byte[2048];
@@ -58,7 +58,7 @@ public class Server implements Runnable {
           int read = is.read(b);
           req += new String(b);
         }
-        System.out.println("req: " + req);
+        //System.out.println("req: " + req);
         OutputStream os = connection.openOutputStream();
 
         route(req, os);
@@ -112,7 +112,7 @@ public class Server implements Runnable {
     String path = reqParams[1];
     try {
       if (type.equals("GET")) {
-        System.out.println("PATH: " + path);
+        //System.out.println("PATH: " + path);
         if (path.startsWith("/subsystem")) {
           String subsystem = Util.split(Util.split(reqParams[1], "?")[1], "=")[1];
           os.write(getSubsystemResponse(subsystem).toString().getBytes());

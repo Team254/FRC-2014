@@ -1,13 +1,16 @@
 package com.team254.frc2014.subsystems;
 
+import com.team254.frc2014.ChezyRobot;
 import com.team254.frc2014.Constants;
+import com.team254.lib.Controller;
+import com.team254.lib.Loopable;
 import com.team254.lib.Subsystem;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Talon;
 import java.util.Hashtable;
 
-public class Drivebase extends Subsystem {
+public class Drivebase extends Subsystem implements Loopable {
 
   // ticks to feet
   public final double RIGHT_ENCOCDER_TO_DISTANCE_RATIO = (3.5 * Math.PI) / (12.0 * 256.0);
@@ -28,6 +31,7 @@ public class Drivebase extends Subsystem {
   //       Constants.ultrasonicOutputPort.getInt());
   //Gyro
   private Gyro gyro;
+  private Controller controller;
 
   public void setLeftRightPower(double leftPower, double rightPower) {
     leftDriveA.set(-rightPower);
@@ -61,12 +65,11 @@ public class Drivebase extends Subsystem {
     rightDrive.put("rightDriveBC", new Double(rightDriveBC.get()));
 
     encoders.put("leftEncoder", new Double(leftEncoder.get()));
-    encoders.put("rightEncoder", new Double(rightEncoder.get()));
-
+    encoders.put("rightEncoder", new Double(rightEncoder.get()));    
     data.put("leftDrive", leftDrive);
     data.put("rightDrive", rightDrive);
     data.put("encoders", encoders);
-
+    data.put("gyro", new Double(getGyroAngle()));
     return data;
   }
 
@@ -124,5 +127,25 @@ public class Drivebase extends Subsystem {
   public void resetEncoders() {
     leftEncoder.reset();
     rightEncoder.reset();
+  }
+  
+  public void useController(Controller c) {
+    if (controller != null) {
+      controller.disable();
+    }
+    controller = c;
+    if (controller != null) {
+      controller.enable();
+    }
+  }
+  
+  public void turnOffControllers() {
+    useController(null);
+  }
+
+  public void update() {
+    if (controller != null) {
+      controller.update();
+    }
   }
 }

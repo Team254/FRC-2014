@@ -35,7 +35,7 @@ public class HtmlResponse {
   }
 
   public String toString() {
-    System.out.println(header + contentLength);
+    //System.out.println(header + contentLength);
     return header + contentLength + data;
   }
   

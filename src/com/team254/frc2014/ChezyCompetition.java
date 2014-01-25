@@ -21,7 +21,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
 
   public void robotInit() {
     t = new Thread(s);
-    //t.start();
+    t.start();
     lcd = DriverStationLCD.getInstance();
     ChezyRobot.initRobot();
     ChezyRobot.controlUpdater.start();
@@ -36,11 +36,13 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   public void disabledInit() {
     Constants.readConstantsFromFile();
     currentAutoMode.stop();
+    ChezyRobot.drivebase.turnOffControllers();
     ChezyRobot.drivebase.resetGyro();
   }
 
   public void teleopInit() {
     currentAutoMode.stop();
+    ChezyRobot.drivebase.turnOffControllers();
     ChezyRobot.intake.setAutoIntake(false);
     // This is just here for testing purposes
   }

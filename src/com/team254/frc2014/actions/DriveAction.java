@@ -32,7 +32,7 @@ public class DriveAction extends Action {
     double width = Constants.robotWidth.getDouble();
     double curHeading = drivebase.getGyroAngle();
     double deltaHeading = heading - curHeading;
-    double radius = Math.abs(distance) / (deltaHeading * Math.PI / 180.0);
+    double radius = Math.abs(Math.abs(distance) / (deltaHeading * Math.PI / 180.0));
  
     System.out.println("Generating trajectory...");
     Trajectory.getInstance().generate(Math.abs(distance), maxVel, maxAcc, maxJerk, curHeading, heading, Constants.robotDt.getDouble());
@@ -43,6 +43,7 @@ public class DriveAction extends Action {
 
     double faster = (radius + (width / 2.0)) / radius;
     double slower = (radius - (width / 2.0)) / radius;
+    System.out.println("faster " + faster);
 
     if (heading > 0) {
       leftProfile.scale(faster);
@@ -51,7 +52,8 @@ public class DriveAction extends Action {
       leftProfile.scale(slower);
       rightProfile.scale(faster);
     }
-    driveController.loadProfile(leftProfile, rightProfile, (distance > 0.0 ? 1.0 : -1.0), 0);
+    driveController.loadProfile(leftProfile, rightProfile, (distance > 0.0 ? 1.0 : -1.0), heading);
+    drivebase.useController(driveController);
     driveController.enable();
   }
 
