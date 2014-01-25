@@ -1,5 +1,6 @@
 package com.team254.frc2014.subsystems;
 
+import com.team254.lib.Loopable;
 import com.team254.lib.Subsystem;
 import com.team254.lib.util.ThrottledPrinter;
 import java.util.Hashtable;
@@ -9,15 +10,16 @@ import java.util.Hashtable;
  *
  * @author tombot
  */
-public class Navigator extends Subsystem {
+public class Navigator extends Subsystem implements Loopable {
 
   double x = 0, y = 0, heading = 0;
   double lastL, lastR;
   double gyroReference = 0;
   ThrottledPrinter p = new ThrottledPrinter(.125);
-
-  public Navigator() {
+  Drivebase drive;
+  public Navigator(Drivebase drive) {
     super("Navigator");
+    this.drive = drive;
   }
 
   public void resetWithReferenceHeading(double reference) {
@@ -59,5 +61,8 @@ public class Navigator extends Subsystem {
 
   public Hashtable serialize() {
     return new Hashtable();
+  }
+
+  public void update() {
   }
 }

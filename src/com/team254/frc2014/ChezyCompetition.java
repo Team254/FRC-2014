@@ -4,17 +4,16 @@ package com.team254.frc2014;
  * This is where the magic happens!
  *
  */
-import com.team254.frc2014.auto.TestSSDriveAuto;
+import com.team254.frc2014.auto.TestDriveAuto;
 import com.team254.lib.ChezyIterativeRobot;
 import com.team254.lib.Server;
 import com.team254.lib.util.Latch;
 import com.team254.lib.util.ThrottledPrinter;
 import edu.wpi.first.wpilibj.DriverStationLCD;
-import edu.wpi.first.wpilibj.Timer;
 
 public class ChezyCompetition extends ChezyIterativeRobot {
 
-  AutoMode currentAutoMode = new TestSSDriveAuto();//new ThreeBallAuto();
+  AutoMode currentAutoMode = new TestDriveAuto();
   Server s = new Server();
   Thread t;
   ThrottledPrinter p = new ThrottledPrinter(.5);
@@ -30,22 +29,18 @@ public class ChezyCompetition extends ChezyIterativeRobot {
 
   public void autonomousInit() {
     ChezyRobot.drivebase.resetGyro();
-    ChezyRobot.driveController.navigator.resetWithReferenceHeading(ChezyRobot.drivebase.getGyroAngle());
-    ChezyRobot.driveController.enable();
     System.out.println(currentAutoMode.getClass().toString());
     currentAutoMode.start();
   }
 
   public void disabledInit() {
     Constants.readConstantsFromFile();
-    ChezyRobot.driveController.disable();
     currentAutoMode.stop();
   }
 
   public void teleopInit() {
     currentAutoMode.stop();
     ChezyRobot.intake.setAutoIntake(false);
-    ChezyRobot.driveController.disable();
     // This is just here for testing purposes
   }
   double wantedRpm = 6000;

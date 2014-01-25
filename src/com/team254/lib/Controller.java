@@ -1,11 +1,13 @@
 package com.team254.lib;
 
+import com.team254.frc2014.ChezyRobot;
+
 /**
  * Controller.java
  *
  * @author tombot
  */
-public abstract class Controller implements Loopable {
+public abstract class Controller extends ChezyRobot implements Loopable {
   protected boolean enabled = false;
   
   public abstract void update();

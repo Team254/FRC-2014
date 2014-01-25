@@ -27,7 +27,6 @@ public class DriveToUltrasonicRangeAction extends Action {
     }
     double error = (lastGoodValue - range);
     p.println("" + error);
-    driveController.setDistanceGoal(error);
     //drivebase.setLeftRightPower(0, 0);
     return false; //driveController.distanceGoalSettled();
   }

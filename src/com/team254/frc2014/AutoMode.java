@@ -5,7 +5,6 @@ import com.team254.frc2014.actions.DriveAction;
 import com.team254.frc2014.actions.DriveAtHeadingUntilXCoordinateAction;
 import com.team254.frc2014.actions.DriveAtHeadingUntilYCoordinateAction;
 import com.team254.frc2014.actions.DriveToUltrasonicRangeAction;
-import com.team254.frc2014.actions.SSDriveAction;
 import com.team254.frc2014.actions.WaitAction;
 
 public abstract class AutoMode extends ChezyRobot implements Runnable {
@@ -56,10 +55,6 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
 
   public void drive(double feet, double timeout) {
     runAction(new DriveAction(feet, timeout));
-  }
-  
-  public void driveSS(double feet, double timeout) {
-   runAction(new SSDriveAction());
   }
 
   public void driveAndCoast(double feet, double timeout) {
