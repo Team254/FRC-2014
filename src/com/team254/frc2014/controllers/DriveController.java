@@ -1,6 +1,7 @@
 package com.team254.frc2014.controllers;
 
 import com.team254.lib.Controller;
+import edu.missdaisy.utilities.DaisyMath;
 import edu.missdaisy.utilities.Trajectory;
 import edu.missdaisy.utilities.TrajectoryFollower;
 
@@ -11,18 +12,21 @@ import edu.missdaisy.utilities.TrajectoryFollower;
  */
 public class DriveController extends Controller {
 
+  public DriveController() {
+    init();
+  }
   Trajectory trajectory;
   TrajectoryFollower follower = new TrajectoryFollower();
   double direction;
   double heading;
+  double kTurn = 1.0/23.0;
 
   public boolean onTarget() {
     return follower.isFinishedTrajectory();// && mFollower.onTarget(distanceThreshold);
   }
 
-  public void init() {
-
-    follower.configure(0, 0, 0, 0.06666666666667, 0);
+  private void init() {
+    follower.configure(.65, 0, 0, 0.06666666666667, 1.0/45.0);
   }
 
   public void loadProfile(Trajectory profile, double direction, double heading) {
@@ -46,11 +50,14 @@ public class DriveController extends Controller {
       drivebase.setLeftRightPower(0.0, 0.0);
     } else {
       double distance = direction * drivebase.getAverageDistance();
-      //double angleDiff = DaisyMath.boundAngleNeg180to180Degrees(heading - drivebase.getGyroAngle());
+      double angleDiff = DaisyMath.boundAngleNeg180to180Degrees(heading - drivebase.getGyroAngle());
 
       double speed = direction * follower.calculate(distance);
-      //double turn = kTurn * angleDiff;
-      double turn = 0;
+      /*if (direction > 0)
+        speed = speed < 0 ? 0 : speed;
+      else
+        speed = speed > 0 ? 0 : speed;*/
+      double turn = kTurn * angleDiff;
       drivebase.driveSpeedTurn(speed, turn);
     }
   }

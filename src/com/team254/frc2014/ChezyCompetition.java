@@ -10,6 +10,7 @@ import com.team254.lib.Server;
 import com.team254.lib.util.Latch;
 import com.team254.lib.util.ThrottledPrinter;
 import edu.wpi.first.wpilibj.DriverStationLCD;
+import edu.wpi.first.wpilibj.Timer;
 
 public class ChezyCompetition extends ChezyIterativeRobot {
 
@@ -21,7 +22,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
 
   public void robotInit() {
     t = new Thread(s);
-    t.start();
+    //t.start();
     lcd = DriverStationLCD.getInstance();
     ChezyRobot.initRobot();
     ChezyRobot.controlUpdater.start();
@@ -106,8 +107,14 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     } else if (ChezyRobot.operatorJoystick.getIntakeUpSwitchState()) {
       ChezyRobot.intake.setPositionDown(false);
     }
-
-    ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), turn, qt, true); //ChezyRobot.rightStick.getRawButton(2), true);
+    ChezyRobot.drivebase.setLeftRightPower(1, -1);
+    //ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), turn, qt, true); //ChezyRobot.rightStick.getRawButton(2), true);
+    System.out.println(", " + Timer.getFPGATimestamp()
+            + " , " + 1 
+            + " , " + ChezyRobot.drivebase.getGyroAngle() 
+            + " , " + ChezyRobot.drivebase.getLeftEncoderDistance() 
+            + " , " + ChezyRobot.drivebase.getRightEncoderDistance());
+    System.out.flush();
   }
 
   public void disabledPeriodic() {

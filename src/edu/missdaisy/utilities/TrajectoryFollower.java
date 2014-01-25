@@ -54,8 +54,8 @@ public class TrajectoryFollower
         {
             Segment segment = mProfile.getSegment(mCurrentSegment);
             double error = segment.position - distance;
-
-            double output = mKp*error + mKd*((error - mLastError)/mProfile.getDt() - segment.velocity) + mKv*segment.velocity + mKa*segment.acceleration;
+            System.out.println(", " + segment.position + ", " + distance);
+            double output = mKp*error + mKd*((error - mLastError)/mProfile.getDt() - segment.velocity) + (mKv*segment.velocity + mKa*segment.acceleration);
 
             mLastError = error;
 

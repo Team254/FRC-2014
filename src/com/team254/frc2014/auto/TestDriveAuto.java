@@ -10,7 +10,7 @@ import com.team254.frc2014.AutoMode;
 public class TestDriveAuto extends AutoMode {
 
   protected void routine() {
-    drive(5,10);
+    drive(18, 10);
   }
   
 }
