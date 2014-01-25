@@ -123,7 +123,8 @@ public class Server implements Runnable {
           os.write(Util.getFile("/www/index.html").getBytes());
         } else {
           // Returns a file
-          os.write(Util.getFile("/www" + path).getBytes());
+          HtmlResponse res = new HtmlResponse(Util.getFile("/www" + path));
+          os.write(res.toString().getBytes());
         }
       } else if (type.equals("POST")) {
         // TODO: Implement parsing and what not
@@ -131,7 +132,7 @@ public class Server implements Runnable {
         os.write(HtmlResponse.ERROR.getBytes());
       }
     } catch (IOException e) {
-      System.out.println("Exception was caught !!!" + e);
+      System.out.println("Exception was caught: " + e.toString());
     }
   }
 

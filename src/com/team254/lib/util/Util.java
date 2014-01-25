@@ -43,7 +43,7 @@ public class Util {
       constantsFile.close();
       
     } catch (IOException e) {
-      System.out.println("===================" + fileName + " was not found!");
+      System.out.println( "*******" + fileName + " was not found!");
     }
       System.out.println("Filename:"+fileName+"\t#:"+content.length());
       return content;
