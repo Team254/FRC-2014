@@ -16,6 +16,7 @@ public class TrajectoryFollower
     private double mLastError;
     private double mErrorSum;
     private double mDistance;
+    private double mCurrentHeading = 0;
     private int mCurrentSegment;
     private Trajectory mProfile;
     
@@ -46,6 +47,7 @@ public class TrajectoryFollower
         mProfile = profile;
     }
     
+
     public double calculate(double distance)
     {
         //System.out.println(mCurrentSegment + " " + mProfile.getNumSegments());
@@ -54,11 +56,10 @@ public class TrajectoryFollower
         {
             Segment segment = mProfile.getSegment(mCurrentSegment);
             double error = segment.position - distance;
-            System.out.println(", " + segment.position + ", " + distance);
             double output = mKp*error + mKd*((error - mLastError)/mProfile.getDt() - segment.velocity) + (mKv*segment.velocity + mKa*segment.acceleration);
 
             mLastError = error;
-
+            mCurrentHeading = segment.heading;
             mCurrentSegment++;
             
             return output;
@@ -71,6 +72,10 @@ public class TrajectoryFollower
             
             return mKp*error + mKi*mErrorSum;
         }        
+    }
+
+    public double getHeading() {
+      return mCurrentHeading;
     }
     
     public boolean isFinishedTrajectory()
