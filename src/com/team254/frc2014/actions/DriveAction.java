@@ -8,8 +8,8 @@ public class DriveAction extends Action {
   double distance;
   boolean doStop;
   double heading;
-  double maxVel = 13.0;
-  double maxAcc = 15.0;
+  double maxVel = 15.0;
+  double maxAcc = 16.0;
   double maxJerk = 15.0 * 5;
 
   public DriveAction(double distance, double heading, boolean doStop, double timeout) {
@@ -45,7 +45,7 @@ public class DriveAction extends Action {
     double slower = (radius - (width / 2.0)) / radius;
     System.out.println("faster " + faster);
 
-    if (heading > 0) {
+    if (deltaHeading > 0) {
       leftProfile.scale(faster);
       rightProfile.scale(slower);
     } else {
