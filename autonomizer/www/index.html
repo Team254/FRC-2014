@@ -7,5 +7,26 @@
 
 <body>
 <h1>TaDa!</h1>
+ 
+<form action="">
+distance: <input type="text" id="distance">
+velocity: <input type="text" id="velocity">
+end angle: <input type="text" id="end angle">
+</form>
+<button type="button" onclick="addAuto()">Submit command</button>
+<script>
+
+function addAuto()
+{
+	var dist = document.getElementById("distance").value;
+	var vel = document.getElementById("velocity").value;
+
+	var endAngle = document.getElementById("end angle").value;
+	alert(dist+ " " + vel + " " + endAngle);
+}
+
+</script>
+
+
 </body>
 </html>
