@@ -36,10 +36,13 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   public void disabledInit() {
     Constants.readConstantsFromFile();
     currentAutoMode.stop();
+    ChezyRobot.drivebase.turnOffControllers();
+    ChezyRobot.drivebase.resetGyro();
   }
 
   public void teleopInit() {
     currentAutoMode.stop();
+    ChezyRobot.drivebase.turnOffControllers();
     ChezyRobot.intake.setAutoIntake(false);
     // This is just here for testing purposes
   }
@@ -50,7 +53,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   public void teleopPeriodic() {
     double z = ChezyRobot.rightStick.getZ();
     double x = ChezyRobot.rightStick.getX();
-    printJoystickValues();
+    lcd();
     boolean qt = false;
     double turn = x;
     if (Math.abs(z) > .2 && Math.abs(x) < .4) {
@@ -107,16 +110,16 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.intake.setPositionDown(false);
     }
 
-    ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), turn, qt, true); //ChezyRobot.rightStick.getRawButton(2), true);
+    ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), turn, qt, true);
   }
 
   public void disabledPeriodic() {
     // Print the Ultrasonic value - hardware might be broken
-    printJoystickValues();
+    lcd();
     // p.println("enc: " + ChezyRobot.intake.encoder.get());
   }
 
-  public void printJoystickValues() {
+  public void lcd() {
     lcd.println(DriverStationLCD.Line.kUser2, 1,
             " r X:  " + Math.floor(ChezyRobot.rightStick.getX() * 100) / 100
             + " Y: " + Math.floor(ChezyRobot.rightStick.getY() * 100) / 100

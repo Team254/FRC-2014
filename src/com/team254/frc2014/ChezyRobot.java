@@ -1,7 +1,9 @@
 package com.team254.frc2014;
 
-import com.team254.frc2014.controllers.DriveController;
+import com.team254.frc2014.controllers.HoldPositionController;
+import com.team254.frc2014.controllers.TrajctoryDriveController;
 import com.team254.frc2014.subsystems.Drivebase;
+import com.team254.frc2014.subsystems.HotGoalDetector;
 import com.team254.frc2014.subsystems.Intake;
 import com.team254.frc2014.subsystems.Navigator;
 import com.team254.frc2014.subsystems.Shooter;
@@ -34,13 +36,14 @@ public class ChezyRobot {
   // Controllers
   public static MultiLooper controlUpdater = new MultiLooper(1.0 / 100.0);
   
-  public static DriveController driveController = new DriveController();
+  public static TrajctoryDriveController driveController = new TrajctoryDriveController();
+  public static HoldPositionController headingController = new HoldPositionController();
   
-  
+  public static HotGoalDetector hotGoalDetector = new HotGoalDetector();
   public static Navigator navigator = new Navigator(drivebase);
 
   public static void initRobot() {
-    controlUpdater.addController(driveController);
+    controlUpdater.addController(drivebase);
     controlUpdater.addController(intake);
     controlUpdater.addController(shooter);
     controlUpdater.addController(navigator);

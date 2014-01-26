@@ -73,8 +73,7 @@ var containers = [];
 				"#986CF8", 
 				"#F28263",
 				"#222222",           
-                ]);
-				
+                ]);	
 		//Creates the buttons in the navbar based on the items in the subsystems array
 		for (tab in subsystems){
 			$(".buttons").append("<a>" + subsystems[tab] + "</a>");
@@ -99,50 +98,61 @@ var containers = [];
         });
 		
 	});
-      
+	$("#interval").bind("change", function(){
+			set_interval($(this).val())
+			alert("change");
+		});
+	
+	function set_interval(int){
+			
+		}
+			
+    function clear(){
+		scs = [];
+	}
 	  //JSON Parser. Takes in robot json, processes it, and from there pushes new values to the SCS array or completely restructures it.
 	  function parsejson(arrayin){
-		if (current != last){
-			scs = {};
-			containers = [];
-			$("#content").html("");
-		}
-		for (var key in arrayin){
-			if (key != "subsystem"){
-			if (scs[key] === undefined){
-				$("#content").append('<div id="' + key + '" style="height: 300px; width: 100%;">asd</div>');
-				scs[key] = [];
-				containers.push(key);
+			if (current != last){
+				scs = {};
+				containers = [];
+				$("#content").html("");
 			}
-			if (scs[key].data === undefined){
-				scs[key].data = [];
-			}
-			
-				if (typeof(arrayin[key]) == "object"){
-					var i = 0;
-					for (var subkey in arrayin[key]){
-						if (scs[key].data[i] === undefined){
-							scs[key].data[i]=[];
-						}
-						if (scs[key].data[i][0] === undefined){
-							scs[key].data[i][0]=subkey;
-						}
-						scs[key].data[i].push({y: arrayin[key][subkey]});
-						i = i + 1;
-					}
-				} else {
-					scs[key].data.push({y: arrayin[key]});
+			for (var key in arrayin){
+				if (key != "subsystem"){
+				if (scs[key] === undefined){
+					$("#content").append('<div id="' + key + '" style="height: 300px; width: 100%;">asd</div>');
+					scs[key] = [];
+					containers.push(key);
 				}
-				scs[key].assocvar = "";
+				if (scs[key].data === undefined){
+					scs[key].data = [];
+				}
+				
+					if (typeof(arrayin[key]) == "object"){
+						var i = 0;
+						for (var subkey in arrayin[key]){
+							if (scs[key].data[i] === undefined){
+								scs[key].data[i]=[];
+							}
+							if (scs[key].data[i][0] === undefined){
+								scs[key].data[i][0]=subkey;
+							}
+							scs[key].data[i].push({y: arrayin[key][subkey]});
+							i = i + 1;
+						}
+					} else {
+						scs[key].data.push({y: arrayin[key]});
+					}
+					scs[key].assocvar = "";
+				}
 			}
-		}
-		last = current;
+			last = current;
 	}
 	   //Second parser. generates graph data. Takes stuff from SCS and puts it in a nice fromat for the graph library to read. 
 	  function ggd(handler){
+		
 		var indata = [];
 			if (scs[handler].data[0][0] != undefined){
-				console.log("multi");
 				for (i = 0; i < scs[handler].data.length; i++){
 					data = [];
 					for (j = 1; j < scs[handler].data[i].length; j ++){
@@ -151,7 +161,6 @@ var containers = [];
 					indata.push({type: "line", showInLegend: true, lineThickness: 2, name: scs[handler].data[i][0], dataPoints: data});
 				}
 			} else {
-				console.log("single");
 				indata.push({type: "line", showInLegend: true, lineThickness: 2, name: handler, dataPoints: scs[handler].data});
 			}
 		
@@ -174,7 +183,6 @@ var containers = [];
 	  	//generates all graphs, uses the generate function multiple times.
 	   function genall(){
 			for (i in scs){
-				console.log(i);
 				generate(i);
 				
 			}
@@ -194,9 +202,9 @@ var containers = [];
 			   //do nothing
 		   }
 	   }
-	  setInterval(function(){
-		  getall();
-		  }, 1000);
+	   var interval = setInterval(function(){
+			  getall();
+			}, 33);
   </script>
   <!--<script type="text/javascript" src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>-->
   <script type="text/javascript" src="canvasjs-1/canvasjs.min.js"></script>
@@ -204,7 +212,7 @@ var containers = [];
 </head>
 <body>
 <nav>
-Teh Chezy Pofs Deta Lawgr <div class="buttons"></div>
+<span class="rainbows">Teh Chezy Pofs Deta Lawgr</span> <input type="text" value="1000" id="interval" style="float:right; display:none; position: absolute"/> <div class="buttons"></div> 
 </nav>
 <div id="content">
 <!--<div id="usual1" class="usual" style="border:none"> 
@@ -228,7 +236,7 @@ Teh Chezy Pofs Deta Lawgr <div class="buttons"></div>
 </script>
 <script>
 	var currentTab = "tab1";
-  /*$('h1').rainbow({ 
+  /*$('.rainbows').rainbow({ 
     colors: [
         '#FF0000',
         '#f26522',
@@ -239,9 +247,9 @@ Teh Chezy Pofs Deta Lawgr <div class="buttons"></div>
         '#6868ff'
     ],
     animate: true,
-    animateInterval: 100,
+    animateInterval: 50,
     pad: false,
-    pauseLength: 100,
+    pauseLength: 50,
 });*/
 	
   </script>

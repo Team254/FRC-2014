@@ -58,8 +58,12 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
   }
 
   public void driveAndCoast(double feet, double timeout) {
-    runAction(new DriveAction(feet, false, timeout));
+    runAction(new DriveAction(feet, 0, false, timeout));
   }
+  public void driveArc(double feet, double heading, double timeout) {
+    runAction(new DriveAction(feet, heading, false, timeout));
+  }
+  
   public void waitTime(double seconds) {
     runAction(new WaitAction(seconds));
   }

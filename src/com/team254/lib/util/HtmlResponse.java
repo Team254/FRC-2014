@@ -32,8 +32,13 @@ public class HtmlResponse {
   }
 
   public String toString() {
+<<<<<<< HEAD
     System.out.println(header + contentLength);
     return header + connection + contentLength + data;
+=======
+    //System.out.println(header + contentLength);
+    return header + contentLength + data;
+>>>>>>> 0b7175775647594dd5c43302f79ae5cb0cdc2af3
   }
   
   public static String test() {
