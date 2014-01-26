@@ -4,7 +4,7 @@ TO GET TEH SERVR TO WORK:
 
 2. Somehow navigate to this directory in whatever you use to do da node
 
-3. type: node serve.js
+3. Run start.sh for mac, linux, unix, etc. Run start.bat for windows.
 
 4. Eerything in the www folder is served.
 
