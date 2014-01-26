@@ -1,1 +1,1 @@
-C:\Program FIles (x86)\nodejs\node.exe serve.js
+node.exe serve.js
