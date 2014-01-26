@@ -3,6 +3,8 @@ package com.team254.lib;
  * @author bg
  */
 
+import com.team254.frc2014.Constants;
+import com.team254.lib.util.ConstantsBase;
 import com.team254.lib.util.HtmlResponse;
 import com.team254.lib.util.Util;
 import java.io.IOException;
@@ -112,11 +114,12 @@ public class Server implements Runnable {
     String path = reqParams[1];
     try {
       if (type.equals("GET")) {
-        //System.out.println("PATH: " + path);
-        if (path.startsWith("/subsystem")) {
+        if (path.startsWith("/constants")) {
+          HtmlResponse res = new HtmlResponse(Constants.generateHtmlSwagger());
+          os.write(res.toString().getBytes());
+        } else if (path.startsWith("/subsystem")) {
           String subsystem = Util.split(Util.split(reqParams[1], "?")[1], "=")[1];
           os.write(getSubsystemResponse(subsystem).toString().getBytes());
-
         } else if (path.startsWith("/state")) {
           // Implement state grabber
         } else if (path.equals("/")) {
@@ -127,7 +130,33 @@ public class Server implements Runnable {
           os.write(res.toString().getBytes());
         }
       } else if (type.equals("POST")) {
-        // TODO: Implement parsing and what not
+        if (path.startsWith("/constants")) {
+          String[] reqLines = Util.split(req, "\n");
+          System.out.println("reqLines length = " + reqLines.length);
+          String postLine = null;
+          for (int i = 0; i < reqLines.length-1; i++) {
+            if (reqLines[i].trim().equals("")) {
+              postLine = reqLines[i+1];
+              break;
+            } 
+          }
+          System.out.println("postLine = " + postLine);
+          String[] args = Util.split(postLine, "&");
+          String firstKey = postLine.substring(0, postLine.indexOf("="));
+          System.out.println(firstKey + " " + postLine.substring(postLine.indexOf("=")+1, postLine.indexOf("&")));
+          double firstVal = Double.parseDouble(postLine.substring(postLine.indexOf("=")+1, postLine.indexOf("&")));
+          ConstantsBase.writeConstant(firstKey, firstVal);
+          for (int i = 0; i < args.length; i++) {
+            String[] arg = Util.split(args[i], "=");
+            //System.out.println(arg[0] + " => " + arg[1]);
+            try {
+              ConstantsBase.writeConstant(arg[0], Double.parseDouble(arg[1]));
+            } catch (Exception e) {
+              System.out.println("Cast exception for: " + arg[0] + ", " + arg[1]);
+            }
+          }
+          os.write("done. should redirect".getBytes());
+        }
       } else {
         os.write(HtmlResponse.ERROR.getBytes());
       }

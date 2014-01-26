@@ -53,6 +53,27 @@ public abstract class ConstantsBase {
       e.printStackTrace();
     }
   }
+  
+  public static String generateHtmlSwagger() {
+    String str = "<html><form method=\"post\">";
+    for(int i = 0; i < constants.size(); ++i) {
+      str+= ((Constant) constants.elementAt(i)).toHtml();
+    }
+    str += "<input type=\"submit\" value=\"Submit\">";
+    str += "</form>";
+    str +=  "</html>";
+    return str;
+  }
+  
+  public static void writeConstant(String name, double value) {
+    Constant constant;
+    for (int i = 0; i < constants.size(); i++) {
+      constant = ((Constant) constants.elementAt(i));
+      if (constant.name.equals(name)) {
+        constant.setVal(value);
+      }
+    }
+  }
 
 
  /**
@@ -82,6 +103,14 @@ public abstract class ConstantsBase {
 
     public void setVal(double value){
       this.value = value;
+    }
+    public String toHtml() {
+      String str = "<html>" +
+              this.name + ": " 
+              + "<input type='text' value=\""+this.value+"\" name=\"" + this.name
+              + "\"> <br/>";
+      
+      return str;
     }
 
     public String toString(){
