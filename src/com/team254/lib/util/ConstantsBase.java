@@ -54,14 +54,15 @@ public abstract class ConstantsBase {
     }
   }
   
-  public static String generateHtmlSwagger() {
-    String str = "<html><form method=\"post\">";
+  public static String generateHtml() {
+    String str = "<html><head><title>Chezy Constants</title></head><body>"
+            + "<form method=\"post\">";
     for(int i = 0; i < constants.size(); ++i) {
       str+= ((Constant) constants.elementAt(i)).toHtml();
     }
     str += "<input type=\"submit\" value=\"Submit\">";
     str += "</form>";
-    str +=  "</html>";
+    str +=  "</body></html>";
     return str;
   }
   
@@ -104,6 +105,7 @@ public abstract class ConstantsBase {
     public void setVal(double value){
       this.value = value;
     }
+    
     public String toHtml() {
       String str = "<html>" +
               this.name + ": " 
