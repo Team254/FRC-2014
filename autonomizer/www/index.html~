@@ -11,12 +11,8 @@ body{
 input{
 	width:20px;
 }
-.row{
-border-bottom:1px solid black;
-padding:5px;
-}
 #daters{
-border:1px solid black
+	border:10px solid black;
 }
 </style>
 
@@ -27,18 +23,21 @@ border:1px solid black
  
 <form action="" id="">
 <table id="daters">
+<tr>
+distance: <input type="text" id="distance">
+velocity: <input type="text" id="velocity">
+end angle: <input type="text" id="end angle" />
+</tr>
 </table>
 </form>
 <button type="button" id="remove" disabled="">Remove Action</button><button type="button" id="addaction">Add Action</button><button type="button" onclick="addAuto()">Autonomize</button>
 <script src="jquery.min.js"></script>
 <script>
-var row = '<div class="row">distance: <input type="text" id="distance"> velocity: <input type="text" id="velocity"> end angle: <input type="text" id="end angle"></div>';
-$("#daters").append(row);
+
 var detaz = [];
 var number = 0;
 function addAuto()
 {
-	detaz=[];
 	var dist = document.getElementById("distance").value;
 	var vel = document.getElementById("velocity").value;
 	var endAngle = document.getElementById("end angle").value;
@@ -55,7 +54,7 @@ function addAuto()
 	}
 }
 $("#addaction").bind("click", function(){
-	$("#daters").append(row);
+	$("#daters").append('<div id="action">distance: <input type="text" id="distance"> velocity: <input type="text" id="velocity"> end angle: <input type="text" id="end angle"></div>');
 	$("#remove").removeAttr("disabled");
 });
 $("#remove").bind("click", function(){
