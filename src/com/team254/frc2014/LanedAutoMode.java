@@ -9,8 +9,8 @@ public abstract class LanedAutoMode extends AutoMode {
 
   int lane;
 
-  public LanedAutoMode(int lane) {
-    super();
+  public LanedAutoMode(String description, int lane) {
+    super(description);
     this.lane = lane;
   }
 

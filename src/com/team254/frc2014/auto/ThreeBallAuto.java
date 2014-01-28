@@ -1,10 +1,13 @@
 package com.team254.frc2014.auto;
 
 import com.team254.frc2014.AutoMode;
-import com.team254.frc2014.ChezyRobot;
+import com.team254.frc2014.FieldPosition;
 
 public class ThreeBallAuto extends AutoMode {
-
+  public ThreeBallAuto() {
+    super("Score three balls");
+  }
+  
   protected void routine() {
     // Intakes the first ball
     intake.setPositionDown(true);
@@ -59,5 +62,9 @@ public class ThreeBallAuto extends AutoMode {
 
 
     dimeStop();
+  }
+
+  public FieldPosition getFieldPosition() {
+    return FieldPosition.centeredOnLineOffsetByBall;
   }
 }

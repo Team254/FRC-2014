@@ -12,39 +12,20 @@ public class AutoModeSelector {
   int lane = 0;
   Vector autoModes = new Vector();
   
-  private class AutoModeHolder {
-    public String name;
-    public Class mode;
-    public AutoModeHolder(String name, Class mode) {
-      this.name = name;
-      this.mode = mode;
-    }
+  public void addAutoMode(AutoMode m) {
+    autoModes.addElement(m);
   }
   
-  public void addAutoMode(String name, Class mode) {
-    autoModes.addElement(new AutoModeHolder(name, mode));
+  public AutoMode currentAutoMode() {
+    AutoMode am = (AutoMode) autoModes.elementAt(currentIndex % autoModes.size());
+    return am;
   }
   
-  public String currentAutoMode() {
-    AutoModeHolder amh = (AutoModeHolder) autoModes.elementAt(currentIndex);
-    return amh.name;
+  public int getSeletedId() {
+    return (currentIndex % autoModes.size())+ 1;
   }
   
-  public AutoMode instantiateAutoMode() {
-    AutoModeHolder amh = (AutoModeHolder) autoModes.elementAt(currentIndex);
-    Class c = amh.mode;
-    AutoMode a = null;
-    try {
-       a = (AutoMode) c.newInstance();
-       if (a instanceof LanedAutoMode) {
-         ((LanedAutoMode) a).setLane(lane);
-       }
-    } catch (InstantiationException ex) {
-      ex.printStackTrace();
-    } catch (IllegalAccessException ex) {
-      ex.printStackTrace();
-    }
-    return a;
+  public void increment() {
+    currentIndex++;
   }
-  
 }

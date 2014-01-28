@@ -80,6 +80,9 @@ public class Constants extends ConstantsBase {
   
   public static final Constant robotWidth = new Constant("robotWidth", 25.5 / 12.0);
   public static final Constant robotDt = new Constant("robotDt", 1.0 / 100.0);
+  
+  public static final double fieldWidth = 26.0;
+  public static final double distanceToWhiteLine = 18.0;
 
   static {
     // Set any overridden constants from the file on startup.
