@@ -1,2 +1,0 @@
-echo "Starting...";
-node serve.js;
