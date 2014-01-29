@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 /**
  * ThreeBallAuto.java
- *
+ * This autonomous picks up three balls and scores them all in le hot goal.
  * @author tombot
  */
 public class ThreeBallAuto extends LanedAutoMode {

@@ -8,6 +8,9 @@ import com.team254.frc2014.actions.DriveToUltrasonicRangeAction;
 import com.team254.frc2014.actions.WaitAction;
 import com.team254.lib.util.ChezyMath;
 
+/**
+ * AutoMode provides a model which all autonomi will follow.
+ */
 public abstract class AutoMode extends ChezyRobot implements Runnable {
 
   Action currentAction = null;
@@ -108,8 +111,8 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     double y = Math.abs(deltaY) / 2.0;
     double radius = ((x * x) + (y * y)) / (2 * x);
     double angle = ChezyMath.asin(y/radius);
-    double circumfrance = 2 * Math.PI * radius;
-    double arcLength = (angle / (2 * Math.PI)) * circumfrance;
+    double circumference = 2 * Math.PI * radius;
+    double arcLength = (angle / (2 * Math.PI)) * circumference;
     if (deltaX < 0) {
       angle = -angle;
     }

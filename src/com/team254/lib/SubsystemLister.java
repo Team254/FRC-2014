@@ -3,7 +3,7 @@ package com.team254.lib;
 import java.util.Hashtable;
 
 /**
- *
+ * Singleton which keeps a running list of all subsystems.
  * @author spinkerton
  */
 public class SubsystemLister {

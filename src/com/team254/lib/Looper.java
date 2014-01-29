@@ -3,6 +3,9 @@ package com.team254.lib;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Runs a Loopable over several updates.
+ */
 public class Looper {
 
   private double period = 1.0 / 100.0;

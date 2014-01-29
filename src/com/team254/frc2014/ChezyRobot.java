@@ -11,7 +11,7 @@ import com.team254.lib.MultiLooper;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
- *
+ * ChezyRobot defines all of the subsystems.
  * @author tombot
  */
 public class ChezyRobot {

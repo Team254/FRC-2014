@@ -3,6 +3,10 @@ package com.team254.frc2014.actions;
 import com.team254.frc2014.Constants;
 import edu.missdaisy.utilities.Trajectory;
 
+/**
+ * DriveAction tells the robot to go a certain distance in a direction along a global system.
+ *
+ */
 public class DriveAction extends Action {
 
   double distance;

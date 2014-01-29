@@ -1,5 +1,9 @@
 package com.team254.frc2014.actions;
 
+/**
+ * This class makes the robot wait
+ * @author akalb
+ */
 public class WaitAction extends Action {
 
   public WaitAction(double seconds) {

@@ -5,7 +5,7 @@ import edu.missdaisy.utilities.DaisyMath;
 
 /**
  * HoldHeadingController.java
- *
+ * This holds the robot in place.
  * @author tombot
  */
 public class HoldPositionController extends Controller {

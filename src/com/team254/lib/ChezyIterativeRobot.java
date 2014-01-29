@@ -5,6 +5,9 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.communication.FRCControl;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
+/**
+ * A slightly modified version of the Iterative Robot
+ */
 public class ChezyIterativeRobot extends RobotBase implements Loopable {
 
   private boolean m_disabledInitialized;

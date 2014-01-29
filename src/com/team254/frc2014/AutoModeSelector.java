@@ -4,7 +4,7 @@ import java.util.Vector;
 
 /**
  * AutoModeSelector.java
- *
+ * Selects which automode to use
  * @author tombot
  */
 public class AutoModeSelector {

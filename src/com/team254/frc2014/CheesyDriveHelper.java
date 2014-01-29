@@ -4,6 +4,9 @@ import com.team254.frc2014.subsystems.Drivebase;
 import com.team254.lib.util.Util;
 import edu.wpi.first.wpilibj.DriverStation;
 
+/**
+ * CheesyDriveHelper implements the calculations used in CheesyDrive, sending power to the motors.
+ */
 public class CheesyDriveHelper {
 
   private Drivebase drive;

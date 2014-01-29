@@ -1,5 +1,12 @@
 package com.team254.lib.util;
 
+/**
+ * This manages http stuff for the deta lawger
+ * @author spinkerton
+ * @author akalb
+ * @author bg451
+ * @author tombot
+ */
 public class HtmlResponse {
   static String OK = "HTTP/1.x 200 OK\n";
   static String PAGE_NOT_FOUND = "HTTP/1.x 404 Not Found\n\n ";

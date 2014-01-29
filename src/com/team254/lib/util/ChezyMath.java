@@ -1,5 +1,8 @@
 package com.team254.lib.util;
 
+/**
+ * This class holds a bunch of static methods and variables needed for mathematics
+ */
 public class ChezyMath {
   // constants
 

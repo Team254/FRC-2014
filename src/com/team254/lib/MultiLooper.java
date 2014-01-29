@@ -4,7 +4,7 @@ import java.util.Vector;
 
 /**
  * ControlUpdater.java
- *
+ * Runs several Loopers simultaneously.
  * @author tombot
  */
 public class MultiLooper implements Loopable {

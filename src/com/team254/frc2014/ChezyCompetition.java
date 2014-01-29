@@ -81,17 +81,11 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     }
 
     // Shooter
-    if (ChezyRobot.operatorJoystick.getShooterState()) {
-      ChezyRobot.shooter.setVelocityGoal(wantedRpm);
-    } else {
-      ChezyRobot.shooter.setVelocityGoal(0);
-    }
+    ChezyRobot.shooter.setVelocityGoal(ChezyRobot.operatorJoystick.getShooterState()?wantedRpm:0);
 
-    if (ChezyRobot.operatorJoystick.getPopperOnState()) {
-      ChezyRobot.shooter.setPopper(true);
-    } else {
-      ChezyRobot.shooter.setPopper(false);
-    }
+    // Popper
+    ChezyRobot.shooter.setPopper(ChezyRobot.operatorJoystick.getPopperOnState());
+    
 
     // Intake Roller
     if (ChezyRobot.operatorJoystick.getIntakeButtonState()) {
@@ -102,17 +96,11 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.intake.wantManual = false;
     }
 
-    if (ChezyRobot.operatorJoystick.getAutoIntakeButtonState()) {
-      ChezyRobot.intake.wantGather = true;
-    } else {
-      ChezyRobot.intake.wantGather = false;
-    }
-
-    if (ChezyRobot.operatorJoystick.getRawButton(2)) {
-      ChezyRobot.intake.wantExtraGather = true;
-    } else {
-      ChezyRobot.intake.wantExtraGather = false;
-    }
+    //Auto intake
+    ChezyRobot.intake.wantGather = ChezyRobot.operatorJoystick.getAutoIntakeButtonState();
+    
+    //More Auto intake
+    ChezyRobot.intake.wantExtraGather = ChezyRobot.operatorJoystick.getRawButton(2);
 
     if (downLatch.update(ChezyRobot.operatorJoystick.getRawButton(3))) {
       wantedRpm -= 50;

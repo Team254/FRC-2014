@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.Timer;
 import java.util.Hashtable;
 
 /**
- *
+ * This determines which side has the hot goal lit.
  * @author tombot
  */
 public class HotGoalDetector extends Subsystem {

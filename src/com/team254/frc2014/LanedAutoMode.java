@@ -2,7 +2,7 @@ package com.team254.frc2014;
 
 /**
  * LanedAutoMode.java
- *
+ * LanedAutoMode defines all autonomi which utilize lanes.
  * @author tombot
  */
 public abstract class LanedAutoMode extends AutoMode {

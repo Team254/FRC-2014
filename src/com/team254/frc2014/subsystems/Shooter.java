@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.Timer;
 import java.util.Hashtable;
 
 /**
- *
+ * This represents the electrical components of the shooter.
  * @author bg
  */
 public class Shooter extends Subsystem implements Loopable, ControlOutput, ControlSource {

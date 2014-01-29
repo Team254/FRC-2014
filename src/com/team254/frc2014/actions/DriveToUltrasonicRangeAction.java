@@ -1,13 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.team254.frc2014.actions;
 
 import com.team254.lib.util.ThrottledPrinter;
 
 /**
- *
+ * This Action Drives the robot until it approaches a valid ultrasonic distance.
  * @author spinkerton
  */
 public class DriveToUltrasonicRangeAction extends Action {

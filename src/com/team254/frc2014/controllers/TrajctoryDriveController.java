@@ -6,8 +6,8 @@ import edu.missdaisy.utilities.Trajectory;
 import edu.missdaisy.utilities.TrajectoryFollower;
 
 /**
- * DriveController.java
- *
+ * TrajectoryDriveController.java
+ * This controller drives the robot along a specified trajectory.
  * @author tombot
  */
 public class TrajctoryDriveController extends Controller {
