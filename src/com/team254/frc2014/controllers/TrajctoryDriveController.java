@@ -1,9 +1,9 @@
 package com.team254.frc2014.controllers;
 
 import com.team254.lib.Controller;
-import edu.missdaisy.utilities.DaisyMath;
-import edu.missdaisy.utilities.Trajectory;
-import edu.missdaisy.utilities.TrajectoryFollower;
+import com.team254.lib.trajectory.TrajectoryFollower;
+import com.team254.lib.trajectory.Trajectory;
+import com.team254.lib.trajectory.Angles;
 
 /**
  * DriveController.java
@@ -60,7 +60,7 @@ public class TrajctoryDriveController extends Controller {
       double speedLeft = direction * followerLeft.calculate(distanceL);
       double speedRight = direction * followerRight.calculate(distanceR);
       
-      double angleDiff = DaisyMath.boundAngleNeg180to180Degrees(followerLeft.getHeading() - drivebase.getGyroAngle());
+      double angleDiff = Angles.boundAngleNeg180to180Degrees(followerLeft.getHeading() - drivebase.getGyroAngle());
       double turn = kTurn * angleDiff;
       drivebase.setLeftRightPower(speedLeft + turn, speedRight - turn);
     }

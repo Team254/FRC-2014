@@ -1,7 +1,8 @@
 package com.team254.frc2014.actions;
 
 import com.team254.frc2014.Constants;
-import edu.missdaisy.utilities.Trajectory;
+import com.team254.lib.trajectory.Trajectory;
+import com.team254.lib.trajectory.TrajectoryGenerator;
 
 public class DriveAction extends Action {
 
@@ -35,11 +36,27 @@ public class DriveAction extends Action {
     double radius = Math.abs(Math.abs(distance) / (deltaHeading * Math.PI / 180.0));
  
     System.out.println("Generating trajectory...");
-    Trajectory.getInstance().generate(Math.abs(distance), maxVel, maxAcc, maxJerk, curHeading, heading, Constants.robotDt.getDouble());
+    TrajectoryGenerator.Config config = new TrajectoryGenerator.Config();
+    config.dt = Constants.robotDt.getDouble();
+    config.max_acc = maxAcc;
+    config.max_jerk = maxJerk;
+    config.max_vel = maxVel;
+    
+    // If you change this to TrapezoidalStrategy, you can use nonzero start and
+    // goal velocities.
+    TrajectoryGenerator.Strategy strategy = TrajectoryGenerator.SCurvesStrategy;
+    Trajectory reference = TrajectoryGenerator.generate(
+            config,
+            strategy,
+            0.0, // start velocity
+            curHeading,
+            Math.abs(distance),
+            0.0, // goal velocity
+            heading);
     System.out.println("Finished");
 
-    Trajectory leftProfile = Trajectory.getInstance();
-    Trajectory rightProfile = new Trajectory(Trajectory.getInstance()); // Copy
+    Trajectory leftProfile = reference;
+    Trajectory rightProfile = reference.copy(); // Copy
 
     double faster = (radius + (width / 2.0)) / radius;
     double slower = (radius - (width / 2.0)) / radius;

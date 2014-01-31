@@ -1,41 +1,12 @@
-package edu.missdaisy.utilities;
+package com.team254.lib.trajectory;
 
-import com.sun.squawk.util.MathUtils;
 /**
- *
- * @author jrussell
+ * Math utilities for dealing with angles.
+ * 
+ * @author Jared341
  */
-public class DaisyMath
+public class Angles
 {
-    
-    /**
-     * Get the Euclidean distance between two points
-     *
-     * @param x1 X coordinate of point 1
-     * @param y1 Y coordinate of point 1
-     * @param x2 X coordinate of point 2
-     * @param y2 Y coordinate of point 2
-     * @return The distance in the same units as the inputs
-     */
-    public static double getDistance(double x1, double y1, double x2, double y2)
-    {
-        return Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
-    }
-
-    /**
-     * Get the angle between two points
-     *
-     * @param x1 X coordinate of point 1
-     * @param y1 Y coordinate of point 1
-     * @param x2 X coordinate of point 2
-     * @param y2 Y coordinate of point 2
-     * @return The angle in radians using the standard coordinate frame
-     */
-    public static double getBearingRadians(double x1, double y1, double x2, double y2)
-    {
-        return MathUtils.atan2(y2-y1, x2-x1);
-    }
-
     /**
      * Get the difference in angle between two angles.
      *
@@ -116,17 +87,5 @@ public class DaisyMath
             angle += 2.0*Math.PI;
         }
         return angle;
-    }
-    
-    public static double applyDeadband(double value, double deadband)
-    {
-        if( value > -deadband && value < deadband ) 
-        {
-            return 0.0;
-        }
-        else
-        {
-            return value;
-        }
     }
 }
