@@ -4,6 +4,10 @@ import com.team254.frc2014.Constants;
 import com.team254.lib.trajectory.Trajectory;
 import com.team254.lib.trajectory.TrajectoryGenerator;
 
+/**
+ * DriveAction tells the robot to go a certain distance in a direction along a global system.
+ *
+ */
 public class DriveAction extends Action {
 
   double distance;

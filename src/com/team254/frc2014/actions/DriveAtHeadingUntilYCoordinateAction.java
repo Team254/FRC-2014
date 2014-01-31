@@ -2,7 +2,7 @@ package com.team254.frc2014.actions;
 
 /**
  * DriveAtHeadingUntilYCoordinateAction.java
- *
+ * This class Drives the robot until it reaches a certain Y.
  * @author tombot
  */
 public class DriveAtHeadingUntilYCoordinateAction extends Action {
@@ -17,12 +17,7 @@ public class DriveAtHeadingUntilYCoordinateAction extends Action {
   }
 
   public boolean execute() {
-    boolean done;
-    if (approachPos) {
-      done = navigator.getY() > y;
-    } else {
-      done = navigator.getY() < y;
-    }
+    boolean done = approachPos? navigator.getY() > y: navigator.getY() < y;
     return done || isTimedOut();
   }
 

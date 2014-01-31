@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.team254.frc2014;
 
 /**
- *
+ * Does this need to be here?
  * @author bg
  */
 class Gamepad {

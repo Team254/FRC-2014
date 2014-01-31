@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Test</title>
+
+<style>
+body{
+	font-family:Helvetica, Arial, sans-serif;
+}
+input{
+	width:20px;
+}
+#daters{
+	border:10px solid black;
+}
+</style>
+
+</head>
+
+<body>
+<h1>le autonomousse de chezy</h1>
+ 
+<form action="" id="">
+<table id="daters">
+<tr>
+distance: <input type="text" id="distance">
+velocity: <input type="text" id="velocity">
+end angle: <input type="text" id="end angle" />
+</tr>
+</table>
+</form>
+<button type="button" id="remove" disabled="">Remove Action</button><button type="button" id="addaction">Add Action</button><button type="button" onclick="addAuto()">Autonomize</button>
+<script src="jquery.min.js"></script>
+<script>
+
+var detaz = [];
+var number = 0;
+function addAuto()
+{
+	var dist = document.getElementById("distance").value;
+	var vel = document.getElementById("velocity").value;
+	var endAngle = document.getElementById("end angle").value;
+	number = 0;
+	$("#daters").children("div").each(function(index, element) {
+        number = number + 1;
+    });
+	for (var i = 0; i < number; i = i + 1){
+		detaz.push({
+			distance:$("#daters > div:nth-child(" + (i + 1) + ") > input:nth-child(1)").val(),
+			velocity:$("#daters > div:nth-child(" + (i + 1) + ") > input:nth-child(2)").val(),
+			endAngle:$("#daters > div:nth-child(" + (i + 1) + ") > input:nth-child(3)").val()
+		});
+	}
+}
+$("#addaction").bind("click", function(){
+	$("#daters").append('<div id="action">distance: <input type="text" id="distance"> velocity: <input type="text" id="velocity"> end angle: <input type="text" id="end angle"></div>');
+	$("#remove").removeAttr("disabled");
+});
+$("#remove").bind("click", function(){
+	number = 0;
+	$("#daters").children("div").each(function(index, element) {
+        number = number + 1;
+    });
+	if (number > 1){
+		$("#daters > div:nth-child(" + (number) + ")").remove();
+	}
+	if (number == 2){
+		$("#remove").attr("disabled", "disabled");
+	}
+});
+</script>
+
+
+
+</body>
+</html>

@@ -1,7 +1,11 @@
 package com.team254.lib;
 
 import java.util.Hashtable;
-
+/**
+ * This class provides a model for a subsystem
+ * @author akalb
+ * @author dchan
+ */
 public abstract class Subsystem  {
   protected String name;
   protected Hashtable data;

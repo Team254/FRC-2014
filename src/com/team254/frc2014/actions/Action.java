@@ -3,6 +3,9 @@ package com.team254.frc2014.actions;
 import com.team254.frc2014.ChezyRobot;
 import edu.wpi.first.wpilibj.Timer;
 
+/*
+ * Action is something a robot is supposed to do in a specific time.
+ */
 public abstract class Action extends ChezyRobot {
 
   public boolean shouldRun = true;

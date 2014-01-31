@@ -6,8 +6,8 @@ import com.team254.lib.trajectory.Trajectory;
 import com.team254.lib.trajectory.Angles;
 
 /**
- * DriveController.java
- *
+ * TrajectoryDriveController.java
+ * This controller drives the robot along a specified trajectory.
  * @author tombot
  */
 public class TrajctoryDriveController extends Controller {

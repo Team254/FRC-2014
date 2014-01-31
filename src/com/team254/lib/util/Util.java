@@ -43,7 +43,7 @@ public class Util {
       constantsFile.close();
       
     } catch (IOException e) {
-      System.out.println("===================" + fileName + " was not found!");
+      System.out.println( "*******" + fileName + " was not found!");
     }
       System.out.println("Filename:"+fileName+"\t#:"+content.length());
       return content;
@@ -105,5 +105,34 @@ public class Util {
     }
     res += "}";
     return res;
+  }
+  
+  /**
+   * Returns true if the robot should go left, false if right.
+   * @param ld
+   * @param rd
+   * @param la
+   * @param ra
+   * @return
+   */
+  public static boolean goLeftinAuto(boolean ld, boolean rd,
+                                     boolean la, boolean ra) {
+    if(la && !ra){
+      return true;
+    } else if (ra && !la) {
+      return false;
+    } else if(!ra && !la) {
+      if(ld){
+        return true;
+      } else if(rd) {
+        return false;
+      } else {
+        //Uncertain
+        return true;
+      }
+    } else {
+      //Uncertain
+      return false;
+    }
   }
 }

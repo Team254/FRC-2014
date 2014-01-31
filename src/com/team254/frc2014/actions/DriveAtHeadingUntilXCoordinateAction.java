@@ -2,7 +2,7 @@ package com.team254.frc2014.actions;
 
 /**
  * DriveAtHeadingUntilXCoodinateAction.java
- *
+ * This class Drives the robot until it reaches a certain X.
  * @author tombot
  */
 public class DriveAtHeadingUntilXCoordinateAction extends Action {
@@ -17,12 +17,7 @@ public class DriveAtHeadingUntilXCoordinateAction extends Action {
   }
 
   public boolean execute() {
-    boolean done;
-    if (approachPos) {
-      done = navigator.getX() > x;
-    } else {
-      done = navigator.getX() < x;
-    }
+    boolean done = approachPos? navigator.getX() > x: navigator.getX() < x;
     return done || isTimedOut();
   }
 

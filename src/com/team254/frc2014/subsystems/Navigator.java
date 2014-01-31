@@ -7,7 +7,7 @@ import java.util.Hashtable;
 
 /**
  * Navigator.java
- *
+ * This controls the poisitioning system
  * @author tombot
  */
 public class Navigator extends Subsystem implements Loopable {

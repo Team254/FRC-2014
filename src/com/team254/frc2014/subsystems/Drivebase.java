@@ -10,6 +10,10 @@ import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Talon;
 import java.util.Hashtable;
 
+/**
+ * This class defines the drivebase.
+ * @author spinkerton
+ */
 public class Drivebase extends Subsystem implements Loopable {
 
   // ticks to feet
