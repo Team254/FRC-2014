@@ -1,7 +1,7 @@
 package com.team254.frc2014.controllers;
 
 import com.team254.lib.Controller;
-import edu.missdaisy.utilities.DaisyMath;
+import com.team254.lib.trajectory.Angles;
 
 /**
  * HoldHeadingController.java
@@ -25,7 +25,7 @@ public class HoldPositionController extends Controller {
   public void update() {
     if (!enabled)
       return;
-    double angleDiff = DaisyMath.boundAngleNeg180to180Degrees(heading - drivebase.getGyroAngle());
+    double angleDiff = Angles.boundAngleNeg180to180Degrees(heading - drivebase.getGyroAngle());
     double turn = kTurn * angleDiff;
     double speed = (distance - drivebase.getAverageDistance()) * kDrive;
     drivebase.setLeftRightPower(speed + turn, speed - turn);
