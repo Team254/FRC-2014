@@ -159,6 +159,7 @@ public class TrajectoryGenerator {
         } else {
             return null;
         }
+        traj.dt_ = config.dt;
 
         // Now assign headings by interpolating along the path.
         double total_heading_change = Angles.getDifferenceInAngleDegrees(

@@ -73,6 +73,8 @@ public class DriveAction extends Action {
       leftProfile.scale(slower);
       rightProfile.scale(faster);
     }
+    //System.out.print(leftProfile.toString());
+    //System.out.print(rightProfile.toString());
     driveController.loadProfile(leftProfile, rightProfile, (distance > 0.0 ? 1.0 : -1.0), heading);
     drivebase.useController(driveController);
     driveController.enable();

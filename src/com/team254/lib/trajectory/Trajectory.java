@@ -20,6 +20,11 @@ public class Trajectory {
             jerk = to_copy.jerk;
             heading = to_copy.heading;
         }
+        
+        public String toString() {
+          return "pos: " + pos + "; vel: " + vel + "; acc: " + acc + "; jerk: "
+                  + jerk + "; heading: " + heading;
+        }
     }
     
     Segment[] segments_ = null;
@@ -74,7 +79,7 @@ public class Trajectory {
     public Trajectory copy() {
         Trajectory cloned = 
                 new Trajectory(getNumSegments());
-        
+        cloned.dt_ = dt_;
         for (int i = 0; i < getNumSegments(); ++i) {
             cloned.segments_[i] = new Segment(segments_[i]);
         }

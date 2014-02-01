@@ -59,6 +59,7 @@ public class TrajctoryDriveController extends Controller {
 
       double speedLeft = direction * followerLeft.calculate(distanceL);
       double speedRight = direction * followerRight.calculate(distanceR);
+      //System.out.println("Left: " + speedLeft + "; Right: " + speedRight);
       
       double angleDiff = Angles.boundAngleNeg180to180Degrees(followerLeft.getHeading() - drivebase.getGyroAngle());
       double turn = kTurn * angleDiff;
