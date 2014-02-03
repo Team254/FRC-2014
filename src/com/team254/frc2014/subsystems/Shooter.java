@@ -22,8 +22,8 @@ import java.util.Hashtable;
 public class Shooter extends Subsystem implements Loopable, ControlOutput, ControlSource {
 
   private Solenoid popper = new Solenoid(Constants.popperSolenoidPort.getInt());
-  private Talon shooterA = new Talon(Constants.shooterWheelPort.getInt());
-  private Talon shooterB = new Talon(Constants.shooterWheelPortB.getInt());
+  private Talon shooterA = new Talon(Constants.leftShooterWheelPort.getInt());
+  private Talon shooterB = new Talon(Constants.rightShooterWheelPort.getInt());
   FlywheelController controller = new FlywheelController("ShooterController", this, this, ShooterGains.getGains()[0]);
   public Counter counter = new Counter(Constants.shootEncoderPort.getInt());
   private ThrottledPrinter p = new ThrottledPrinter(.1);

@@ -2,10 +2,8 @@
 package com.team254.frc2014.subsystems;
 
 import com.team254.frc2014.Constants;
-import com.team254.lib.Controller;
 import com.team254.lib.Loopable;
 import com.team254.lib.Subsystem;
-import com.team254.lib.util.Debouncer;
 import com.team254.lib.util.Util;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -19,7 +17,7 @@ import java.util.Hashtable;
  * @author bg
  */
 public class Intake extends Subsystem implements Loopable {
-  private Talon intakeRoller = new Talon(Constants.intakeRollerPort.getInt());
+  private Talon intakeRoller = new Talon(Constants.frontIntakeRollerPort.getInt());
   private Solenoid intakeSolenoid = new Solenoid(Constants.intakeSolenoidPort.getInt());
   private DigitalInput intakeSwitch = new DigitalInput(Constants.intakeBumperSwitchPort.getInt());
   

@@ -24,7 +24,8 @@ public class Drivebase extends Subsystem implements Loopable {
   private Talon leftDriveB = new Talon(Constants.leftDrivePortB.getInt());
   private Talon leftDriveC = new Talon(Constants.leftDrivePortC.getInt());
   private Talon rightDriveA = new Talon(Constants.rightDrivePortA.getInt());
-  private Talon rightDriveBC = new Talon(Constants.rightDrivePortBC.getInt());
+  private Talon rightDriveB = new Talon(Constants.rightDrivePortB.getInt());
+  private Talon rightDriveC = new Talon(Constants.rightDrivePortC.getInt());
   //Encoders
   private Encoder leftEncoder = new Encoder(Constants.leftEncoderPortA.getInt(),
           Constants.leftEncoderPortB.getInt(), true);
@@ -42,7 +43,8 @@ public class Drivebase extends Subsystem implements Loopable {
     leftDriveB.set(-rightPower);
     leftDriveC.set(-rightPower);
     rightDriveA.set(leftPower);
-    rightDriveBC.set(leftPower);
+    rightDriveB.set(leftPower);
+    rightDriveC.set(leftPower);
   }
 
   public Drivebase() {
@@ -66,7 +68,8 @@ public class Drivebase extends Subsystem implements Loopable {
     leftDrive.put("leftDriveC", new Double(leftDriveC.get()));
 
     rightDrive.put("rightDriveA", new Double(rightDriveA.get()));
-    rightDrive.put("rightDriveBC", new Double(rightDriveBC.get()));
+    rightDrive.put("rightDriveB", new Double(rightDriveB.get()));
+    rightDrive.put("rightDriveC", new Double(rightDriveC.get()));
 
     encoders.put("leftEncoder", new Double(leftEncoder.get()));
     encoders.put("rightEncoder", new Double(rightEncoder.get()));    
