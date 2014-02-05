@@ -7,19 +7,19 @@ import com.team254.lib.trajectory.Path;
  *
  * @author tombot
  */
-public class CenterLanePath extends AutoPath {
+public class OutsideLanePath extends AutoPath {
 
   protected Path definePath(boolean goLeft) {
     double dir = goLeft ? 1.0 : -1.0;
     Path p = new Path(10);
     p.addWaypoint(new Path.Waypoint(0, 0, 0));
     p.addWaypoint(new Path.Waypoint(5, 0, 0));
-    p.addWaypoint(new Path.Waypoint(14, dir * 6, 0));
-    p.addWaypoint(new Path.Waypoint(17, dir * 6, 0));
+    p.addWaypoint(new Path.Waypoint(14, dir * 8, 0));
+    p.addWaypoint(new Path.Waypoint(17, dir * 8, 0));
     return p;
   }
 
-  public static CenterLanePath getInstance() {
-    return (CenterLanePath) AutoPathFactory.get(CenterLanePath.class);
+  public static OutsideLanePath getInstance() {
+    return (OutsideLanePath) AutoPathFactory.get(OutsideLanePath.class);
   }
 }

@@ -2,8 +2,12 @@ package com.team254.frc2014.auto;
 
 import com.team254.frc2014.FieldPosition;
 import com.team254.frc2014.LanedAutoMode;
+import com.team254.frc2014.path.AutoPath;
 import com.team254.frc2014.path.AutoPath.Route;
+import com.team254.frc2014.path.CenterLanePath;
 import com.team254.frc2014.path.DriveToWallPath;
+import com.team254.frc2014.path.InsideLanePath;
+import com.team254.frc2014.path.OutsideLanePath;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -17,17 +21,17 @@ public class TestDriveAuto extends LanedAutoMode {
     super("Test driving");
   }
   
-  private double getXOffset() {
+  private AutoPath getAutoPath() {
     switch(lane) {
       case INSIDE_LANE:
-        return 4; 
+        return InsideLanePath.getInstance(); 
       case OUTSIDE_LANE:
-        return 8;
+        return OutsideLanePath.getInstance();
       case WALL_LANE:
-        return 10.5;
+        return DriveToWallPath.getInstance();
       case MIDDLE_LANE:
       default:
-        return 6;
+        return CenterLanePath.getInstance();
     }
   }
   public static int goLeftCounter = 0;
@@ -38,7 +42,8 @@ public class TestDriveAuto extends LanedAutoMode {
     t.start();
     boolean goLeft = goLeftCounter % 2 == 0;
     System.out.println("Going left? " + goLeft);
-    Route route = goLeft ? DriveToWallPath.getInstance().getLeftGoalRoute() : DriveToWallPath.getInstance().getRightGoalRoute();
+    AutoPath autoPath = getAutoPath();
+    Route route = goLeft ? autoPath.getLeftGoalRoute() : autoPath.getRightGoalRoute();
     driveRoute(route, 10);
     drivebase.resetEncoders();
     headingController.setDistance(0);
