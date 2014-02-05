@@ -120,7 +120,18 @@ public class Trajectory {
       str += segment.heading + ", ";
       str += segment.delta_heading;
       System.out.println(str);
- 
+    }
+  }
+  
+  public void printEuclidean() {
+    for (int i = 0; i < getNumSegments(); ++i) {
+      Trajectory.Segment segment = getSegment(i);
+      String str = "";
+      str += i + ", ";
+      str += segment.x + ", ";
+      str += segment.y + ", ";
+      str += segment.heading + ", ";
+      System.out.println(str);
     }
   }
   

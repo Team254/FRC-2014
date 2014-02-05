@@ -1,8 +1,10 @@
 package com.team254.frc2014.auto;
 
-import com.team254.frc2014.AutoPaths;
+import com.team254.frc2014.path.AutoPath;
 import com.team254.frc2014.FieldPosition;
 import com.team254.frc2014.LanedAutoMode;
+import com.team254.frc2014.path.DriveToWallPath;
+import com.team254.lib.trajectory.Path;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -29,11 +31,16 @@ public class TestDriveAuto extends LanedAutoMode {
         return 6;
     }
   }
+  public static int goLeftCounter = 0;
   
   protected void routine() {
+    goLeftCounter++;
     Timer t = new Timer();
     t.start();
-    drivePath(AutoPaths.autoSPath(), 10);
+    boolean goLeft = goLeftCounter % 2 == 0;
+    System.out.println("Going left? " + goLeft);
+    Path path = goLeft ? DriveToWallPath.getInstance().getLeftGoalPath() : DriveToWallPath.getInstance().getRightGoalPath();
+    drivePath(path, 10);
     drivebase.resetEncoders();
     headingController.setDistance(0);
     headingController.setHeading(0);

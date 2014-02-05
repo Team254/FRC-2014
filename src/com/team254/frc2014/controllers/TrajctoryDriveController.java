@@ -63,8 +63,7 @@ public class TrajctoryDriveController extends Controller {
 
       double angleDiffRads = ChezyMath.getDifferenceInAngleRadians(observedHeading, goalHeading);// different coordinates
       double angleDiff = Math.toDegrees(angleDiffRads);
-      
-      System.out.println("goal: " + goalHeading + " real : " + observedHeading);
+
       double turn = kTurn * angleDiff;
       drivebase.setLeftRightPower(speedLeft + turn, speedRight - turn);
     }
