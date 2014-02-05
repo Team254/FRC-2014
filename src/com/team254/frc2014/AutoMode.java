@@ -35,7 +35,7 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     try {
       routine();
     } catch (RuntimeException e) {
-      System.out.println(e);
+      System.out.println(e.getMessage());
     }
     System.out.println("Ending auto mode!");
   }
