@@ -30,9 +30,9 @@ public class DrivePathAction extends Action {
 
     TrajectoryGenerator.Config config = new TrajectoryGenerator.Config();
     config.dt = .01;
-    config.max_acc = 15.0;
+    config.max_acc = 12.0;
     config.max_jerk = 75.0;
-    config.max_vel = 12.0;
+    config.max_vel = 10.0;
     Trajectory traj = PathGenerator.generateFromPath(p, config);
     Trajectory[] output = PathGenerator.makeLeftAndRightTrajectories(traj, width);
     driveController.loadProfile(output[0], output[1], 1.0, heading);
