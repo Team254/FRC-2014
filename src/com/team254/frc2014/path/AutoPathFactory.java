@@ -1,6 +1,5 @@
 package com.team254.frc2014.path;
 
-import com.team254.lib.trajectory.Path;
 import java.util.Hashtable;
 
 /**

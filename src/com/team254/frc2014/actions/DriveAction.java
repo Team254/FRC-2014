@@ -57,7 +57,6 @@ public class DriveAction extends Action {
             Math.abs(distance),
             0.0, // goal velocity
             heading);
-    System.out.println("Finished");
 
     Trajectory leftProfile = reference;
     Trajectory rightProfile = reference.copy(); // Copy
