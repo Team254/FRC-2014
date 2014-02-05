@@ -23,8 +23,8 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   DriverStationLCD lcd;
   
   public void initAutoModes() {
-    selector.addAutoMode(new ThreeBallAuto());
     selector.addAutoMode(new TestDriveAuto());
+    selector.addAutoMode(new ThreeBallAuto());
     selector.addAutoMode(new TestUltrasonicAuto());
   }
 
@@ -70,7 +70,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   Latch laneSelectLatch = new Latch();
 
   public void teleopPeriodic() {
-    double z = ChezyRobot.rightStick.getZ();
+    double z = ChezyRobot.leftStick.getZ();
     double x = ChezyRobot.rightStick.getX();
     lcd();
     boolean qt = false;
@@ -108,7 +108,6 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     if (upLatch.update(ChezyRobot.operatorJoystick.getRawButton(4))) {
       wantedRpm += 50;
     }
-
 
     //Intake solenoid
     if (ChezyRobot.operatorJoystick.getIntakeDownSwitchState()) {
@@ -148,7 +147,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
             + " Y: " + Math.floor(ChezyRobot.leftStick.getY() * 100) / 100
             + " Z: " + Math.floor(ChezyRobot.leftStick.getZ() * 10) / 10);
     lcd.println(DriverStationLCD.Line.kUser5, 1, "g: " + Math.floor(wantedRpm * 10) / 10 + " m: " + Math.floor(ChezyRobot.shooter.getLastRpm() * 10) / 10);
-    lcd.println(DriverStationLCD.Line.kUser6, 1, "l: " + Math.floor(ChezyRobot.drivebase.getLeftEncoderDistanceInMeters() * 10) / 10 + " r: " + Math.floor(ChezyRobot.drivebase.getRightEncoderDistanceInMeters() * 10) / 10 + " g: " + Math.floor(ChezyRobot.drivebase.getGyroAngleInRadians() * 10) / 10);
+    lcd.println(DriverStationLCD.Line.kUser6, 1, "l: " + Math.floor(ChezyRobot.drivebase.getLeftEncoderDistance() * 10) / 10 + " r: " + Math.floor(ChezyRobot.drivebase.getLeftEncoderDistance() * 10) / 10 + " g: " + Math.floor(ChezyRobot.drivebase.getGyroAngle() * 10) / 10);
     lcd.updateLCD();
   }
 }

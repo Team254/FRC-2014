@@ -1,10 +1,9 @@
 package com.team254.frc2014.controllers;
 
 import com.team254.lib.Controller;
-import com.team254.lib.trajectory.TrajectoryFollower;
 import com.team254.lib.trajectory.Trajectory;
-import com.team254.lib.trajectory.Angles;
-
+import com.team254.lib.trajectory.TrajectoryFollower;
+import com.team254.lib.util.ChezyMath;
 /**
  * TrajectoryDriveController.java
  * This controller drives the robot along a specified trajectory.
@@ -20,7 +19,7 @@ public class TrajctoryDriveController extends Controller {
   TrajectoryFollower followerRight = new TrajectoryFollower();
   double direction;
   double heading;
-  double kTurn = 1.0/21.0;
+  double kTurn = -1.0/21.0;
 
   public boolean onTarget() {
     return followerLeft.isFinishedTrajectory(); //mFollower.onTarget(distanceThreshold);
@@ -49,19 +48,23 @@ public class TrajctoryDriveController extends Controller {
     if (!enabled) {
       return;
     }
-    //System.out.println(this.onTarget() + " " + mFollower.isFinishedTrajectory() + " " + mFollower.onTarget(1.0));
+
     if (onTarget()) {
       drivebase.setLeftRightPower(0.0, 0.0);
     } else  {
       double distanceL = direction * drivebase.getLeftEncoderDistance();
       double distanceR = direction * drivebase.getRightEncoderDistance();
-      
 
       double speedLeft = direction * followerLeft.calculate(distanceL);
       double speedRight = direction * followerRight.calculate(distanceR);
-      //System.out.println("Left: " + speedLeft + "; Right: " + speedRight);
       
-      double angleDiff = Angles.boundAngleNeg180to180Degrees(followerLeft.getHeading() - drivebase.getGyroAngle());
+      double goalHeading = followerLeft.getHeading();
+      double observedHeading =  drivebase.getGyroAngleInRadians();
+
+      double angleDiffRads = ChezyMath.getDifferenceInAngleRadians(observedHeading, goalHeading);// different coordinates
+      double angleDiff = Math.toDegrees(angleDiffRads);
+      
+      System.out.println("goal: " + goalHeading + " real : " + observedHeading);
       double turn = kTurn * angleDiff;
       drivebase.setLeftRightPower(speedLeft + turn, speedRight - turn);
     }

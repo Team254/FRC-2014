@@ -1,7 +1,7 @@
 package com.team254.frc2014.controllers;
 
 import com.team254.lib.Controller;
-import com.team254.lib.trajectory.Angles;
+import com.team254.lib.util.ChezyMath;
 
 /**
  * HoldHeadingController.java
@@ -10,7 +10,7 @@ import com.team254.lib.trajectory.Angles;
  */
 public class HoldPositionController extends Controller {
 
-  private double kTurn = 1.0 / 15.0;
+  private double kTurn = -1.0 / 25.0;
   private double kDrive = .85;
   private double heading = 0;
   private double distance = 0;
@@ -25,7 +25,7 @@ public class HoldPositionController extends Controller {
   public void update() {
     if (!enabled)
       return;
-    double angleDiff = Angles.boundAngleNeg180to180Degrees(heading - drivebase.getGyroAngle());
+    double angleDiff = ChezyMath.boundAngleNeg180to180Degrees(heading - drivebase.getGyroAngle());
     double turn = kTurn * angleDiff;
     double speed = (distance - drivebase.getAverageDistance()) * kDrive;
     drivebase.setLeftRightPower(speed + turn, speed - turn);

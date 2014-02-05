@@ -4,8 +4,10 @@ import com.team254.frc2014.actions.Action;
 import com.team254.frc2014.actions.DriveAction;
 import com.team254.frc2014.actions.DriveAtHeadingUntilXCoordinateAction;
 import com.team254.frc2014.actions.DriveAtHeadingUntilYCoordinateAction;
+import com.team254.frc2014.actions.DrivePathAction;
 import com.team254.frc2014.actions.DriveToUltrasonicRangeAction;
 import com.team254.frc2014.actions.WaitAction;
+import com.team254.lib.trajectory.Path;
 import com.team254.lib.util.ChezyMath;
 
 /**
@@ -30,7 +32,11 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
 
   public void run() {
     System.out.println("Starting auto mode!");
-    routine();
+    try {
+      routine();
+    } catch (RuntimeException e) {
+      System.out.println(e);
+    }
     System.out.println("Ending auto mode!");
   }
 
@@ -95,6 +101,11 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
 
   public void driveToUltrasonicRange(double range) {
     runAction(new DriveToUltrasonicRangeAction(range));
+  }
+  
+  
+  public void drivePath(Path p, double timeout) {
+    runAction(new DrivePathAction(p, timeout)); 
   }
   
   public void driveSCurve(double deltaX, double deltaY, double startHeading, double timeout) {

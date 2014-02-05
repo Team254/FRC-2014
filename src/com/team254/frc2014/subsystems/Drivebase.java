@@ -105,7 +105,7 @@ public class Drivebase extends Subsystem implements Loopable {
   }
 
   public double getGyroAngle() {
-    return gyro.getAngle();
+    return -gyro.getAngle();
   }
 
   public double getGyroAngleInRadians() {

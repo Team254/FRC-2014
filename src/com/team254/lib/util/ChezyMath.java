@@ -1,7 +1,9 @@
 package com.team254.lib.util;
+import com.sun.squawk.util.MathUtils;
 
 /**
- * This class holds a bunch of static methods and variables needed for mathematics
+ * This class holds a bunch of static methods and variables needed for
+ * mathematics
  */
 public class ChezyMath {
   // constants
@@ -52,21 +54,7 @@ public class ChezyMath {
 
   // implementation of atan2
   public static double atan2(double arg1, double arg2) {
-    if (arg1 + arg2 == arg1) {
-      if (arg1 >= 0) {
-        return PIO2;
-      }
-      return -PIO2;
-    }
-    arg1 = atan(arg1 / arg2);
-    if (arg2 < 0) {
-      if (arg1 <= 0) {
-        return arg1 + Math.PI;
-      }
-      return arg1 - Math.PI;
-    }
-    return arg1;
-
+    return MathUtils.atan2(arg1, arg2);
   }
 
   // implementation of asin
@@ -100,6 +88,74 @@ public class ChezyMath {
       return nan;
     }
     return PIO2 - asin(arg);
+  }
+
+  /**
+   * Get the difference in angle between two angles.
+   *
+   * @param from The first angle
+   * @param to The second angle
+   * @return The change in angle from the first argument necessary to line up
+   * with the second. Always between -Pi and Pi
+   */
+  public static double getDifferenceInAngleRadians(double from, double to) {
+    return boundAngleNegPiToPiRadians(to - from);
+  }
+
+  /**
+   * Get the difference in angle between two angles.
+   *
+   * @param from The first angle
+   * @param to The second angle
+   * @return The change in angle from the first argument necessary to line up
+   * with the second. Always between -180 and 180
+   */
+  public static double getDifferenceInAngleDegrees(double from, double to) {
+    return boundAngleNeg180to180Degrees(to - from);
+  }
+
+  public static double boundAngle0to360Degrees(double angle) {
+    // Naive algorithm
+    while (angle >= 360.0) {
+      angle -= 360.0;
+    }
+    while (angle < 0.0) {
+      angle += 360.0;
+    }
+    return angle;
+  }
+
+  public static double boundAngleNeg180to180Degrees(double angle) {
+    // Naive algorithm
+    while (angle >= 180.0) {
+      angle -= 360.0;
+    }
+    while (angle < -180.0) {
+      angle += 360.0;
+    }
+    return angle;
+  }
+
+  public static double boundAngle0to2PiRadians(double angle) {
+    // Naive algorithm
+    while (angle >= 2.0 * Math.PI) {
+      angle -= 2.0 * Math.PI;
+    }
+    while (angle < 0.0) {
+      angle += 2.0 * Math.PI;
+    }
+    return angle;
+  }
+
+  public static double boundAngleNegPiToPiRadians(double angle) {
+    // Naive algorithm
+    while (angle >= Math.PI) {
+      angle -= 2.0 * Math.PI;
+    }
+    while (angle < -Math.PI) {
+      angle += 2.0 * Math.PI;
+    }
+    return angle;
   }
 
   public ChezyMath() {
