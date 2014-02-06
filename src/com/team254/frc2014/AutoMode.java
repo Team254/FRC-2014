@@ -7,7 +7,7 @@ import com.team254.frc2014.actions.DriveAtHeadingUntilYCoordinateAction;
 import com.team254.frc2014.actions.DriveRouteAction;
 import com.team254.frc2014.actions.DriveToUltrasonicRangeAction;
 import com.team254.frc2014.actions.WaitAction;
-import com.team254.frc2014.path.AutoPath.Route;
+import com.team254.lib.Route;
 import com.team254.lib.util.ChezyMath;
 
 /**

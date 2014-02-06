@@ -2,12 +2,11 @@ package com.team254.frc2014.auto;
 
 import com.team254.frc2014.FieldPosition;
 import com.team254.frc2014.LanedAutoMode;
-import com.team254.frc2014.path.AutoPath;
-import com.team254.frc2014.path.AutoPath.Route;
 import com.team254.frc2014.path.CenterLanePath;
 import com.team254.frc2014.path.DriveToWallPath;
 import com.team254.frc2014.path.InsideLanePath;
 import com.team254.frc2014.path.OutsideLanePath;
+import com.team254.lib.Route;
 import edu.wpi.first.wpilibj.Timer;
 
 /**

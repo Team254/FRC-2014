@@ -1,27 +1,25 @@
-package com.team254.frc2014.path;
+package com.team254.frc2014.auto;
 
 import com.team254.frc2014.Constants;
+import com.team254.lib.Route;
 import com.team254.lib.trajectory.Path;
 import com.team254.lib.trajectory.PathGenerator;
 import com.team254.lib.trajectory.Trajectory;
 import com.team254.lib.trajectory.TrajectoryGenerator;
 
 /**
- * AutoPaths.java
+ * AutoPath.java
+ * 
+ * An AutoPath holds a route for the left and right hot goal. These routes
+ * should be mirror images.
  *
  * @author tombot
  */
 public abstract class AutoPath {
 
-  public class Route {
-    public Path path;
-    public Trajectory leftTrajectory;
-    public Trajectory rightTrajectory;
-  }
   Route leftRoute;
   Route rightRoute;
  
-
   public Route getLeftGoalRoute() {
     return leftRoute;
   }

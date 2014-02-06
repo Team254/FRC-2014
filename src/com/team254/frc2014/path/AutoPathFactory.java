@@ -1,5 +1,6 @@
 package com.team254.frc2014.path;
 
+import com.team254.frc2014.auto.AutoPath;
 import java.util.Hashtable;
 
 /**

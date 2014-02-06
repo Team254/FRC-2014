@@ -1,6 +1,6 @@
 package com.team254.frc2014.actions;
 
-import com.team254.frc2014.path.AutoPath.Route;
+import com.team254.lib.Route;
 
 /**
  * DrivePathAction causes the robot to drive along a Path
