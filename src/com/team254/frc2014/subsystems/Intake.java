@@ -1,7 +1,5 @@
-
 package com.team254.frc2014.subsystems;
 
-import com.team254.frc2014.Constants;
 import com.team254.lib.Loopable;
 import com.team254.lib.Subsystem;
 import com.team254.lib.util.Util;
@@ -17,17 +15,22 @@ import java.util.Hashtable;
  * @author bg
  */
 public class Intake extends Subsystem implements Loopable {
-  private Talon intakeRoller = new Talon(Constants.frontIntakeRollerPort.getInt());
-  private Solenoid intakeSolenoid = new Solenoid(Constants.intakeSolenoidPort.getInt());
-  private DigitalInput intakeSwitch = new DigitalInput(Constants.intakeBumperSwitchPort.getInt());
-  
-  public Encoder encoder = new Encoder(Constants.frontIntakeEncoderPortA.getInt(), Constants.frontIntakeEncoderPortB.getInt());
 
-  private void setRollerPower(double power) {
-    power = Util.limit(power, 1.0);
-    intakeRoller.set(power);
+  private Talon roller;
+  private Solenoid actuator;
+  private DigitalInput bumpSwitch;
+  public Encoder encoder;
+
+  public Intake(String name, Talon roller, Encoder encoder, DigitalInput bumpSwitch, Solenoid actuator) {
+    super(name);
+    this.roller = roller;
+    this.encoder = encoder;
+    this.bumpSwitch = bumpSwitch;
+    this.actuator = actuator;
+    encoder.start();
+    stateTimer.start();
   }
-  
+
   double manualRollerPower = 0;
   public static final int STATE_IDLE = 0;
   public static final int STATE_HOLD_POSITION = 1;
@@ -41,51 +44,51 @@ public class Intake extends Subsystem implements Loopable {
   public boolean wantManual = false;
   public boolean wantExtraGather = false;
 
+  private void setRollerPower(double power) {
+    power = Util.limit(power, 1.0);
+    roller.set(power);
+  }
+
   public void setManualRollerPower(double power) {
     manualRollerPower = power;
     wantManual = true;
     state = STATE_MANUAL;
     stateTimer.reset();
   }
-
   boolean wantAutoIntake = false;
-  
+
   public void setAutoIntake(boolean autoIntake) {
     wantAutoIntake = autoIntake;
   }
+
   public void setPositionDown(boolean state) {
-    intakeSolenoid.set(state);
+    actuator.set(state);
   }
-  
+
   public double getIntakePosition() {
     return encoder.get() / 32.0;
   }
+
   public boolean getSolenoidState() {
-    return intakeSolenoid.get();
+    return actuator.get();
   }
+
   public double getIntakeRollerSpeed() {
-    return intakeRoller.get();
+    return roller.get();
   }
-  
+
   public boolean getIntakeSensor() {
-    return !intakeSwitch.get(); 
+    return !bumpSwitch.get();
   }
-  public Intake() {
-    super("Intake");
-    encoder.start();
-    stateTimer.start();
-  }
+
   public Hashtable serialize() {
     return new Hashtable();
   }
-  
-  
   double rollerGoal = 0;
-  
   Timer stateTimer = new Timer();
   Timer rolloutTimer = new Timer();
-
   private boolean retryExtra = false;
+
   public void update() {
     int newState = state;
     switch (state) {
@@ -136,7 +139,7 @@ public class Intake extends Subsystem implements Loopable {
         if (getIntakeSensor()) {
           newState = STATE_GATHER_EXTRA_BALL_BACKOFF;
         } else if (retryExtra && stateTimer.get() < .5) {
-           ;
+          ;
         } else if (!wantExtraGather) {
           setPositionDown(false);
           newState = STATE_IDLE;
@@ -144,7 +147,7 @@ public class Intake extends Subsystem implements Loopable {
         break;
       case STATE_GATHER_EXTRA_BALL_BACKOFF:
         setRollerPower(-.45);
-        if(stateTimer.get() > .25) {
+        if (stateTimer.get() > .25) {
           setRollerPower(0);
           encoder.reset();
           rollerGoal = 0;
@@ -160,12 +163,10 @@ public class Intake extends Subsystem implements Loopable {
         }
         break;
     }
-    
+
     if (newState != state) {
       state = newState;
       stateTimer.reset();
     }
   }
-
-
 }

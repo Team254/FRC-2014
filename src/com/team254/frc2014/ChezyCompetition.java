@@ -60,7 +60,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       currentAutoMode.stop();
     }
     ChezyRobot.drivebase.turnOffControllers();
-    ChezyRobot.intake.setAutoIntake(false);
+    ChezyRobot.frontIntake.setAutoIntake(false);
     // This is just here for testing purposes
   }
   double wantedRpm = 6000;
@@ -89,18 +89,18 @@ public class ChezyCompetition extends ChezyIterativeRobot {
 
     // Intake Roller
     if (ChezyRobot.operatorJoystick.getIntakeButtonState()) {
-      ChezyRobot.intake.setManualRollerPower(1);
+      ChezyRobot.frontIntake.setManualRollerPower(1);
     } else if (ChezyRobot.operatorJoystick.getExhaustButtonState()) {
-      ChezyRobot.intake.setManualRollerPower(-1);
+      ChezyRobot.frontIntake.setManualRollerPower(-1);
     } else {
-      ChezyRobot.intake.wantManual = false;
+      ChezyRobot.frontIntake.wantManual = false;
     }
 
     //Auto intake
-    ChezyRobot.intake.wantGather = ChezyRobot.operatorJoystick.getAutoIntakeButtonState();
+    ChezyRobot.frontIntake.wantGather = ChezyRobot.operatorJoystick.getAutoIntakeButtonState();
     
     //More Auto intake
-    ChezyRobot.intake.wantExtraGather = ChezyRobot.operatorJoystick.getRawButton(2);
+    ChezyRobot.frontIntake.wantExtraGather = ChezyRobot.operatorJoystick.getRawButton(2);
 
     if (downLatch.update(ChezyRobot.operatorJoystick.getRawButton(3))) {
       wantedRpm -= 50;
@@ -111,9 +111,9 @@ public class ChezyCompetition extends ChezyIterativeRobot {
 
     //Intake solenoid
     if (ChezyRobot.operatorJoystick.getIntakeDownSwitchState()) {
-      ChezyRobot.intake.setPositionDown(true);
+      ChezyRobot.frontIntake.setPositionDown(true);
     } else if (ChezyRobot.operatorJoystick.getIntakeUpSwitchState()) {
-      ChezyRobot.intake.setPositionDown(false);
+      ChezyRobot.frontIntake.setPositionDown(false);
     }
 
     ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), turn, qt, true);
