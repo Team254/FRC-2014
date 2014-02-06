@@ -1,5 +1,6 @@
 package com.team254.frc2014.auto;
 
+import com.team254.frc2014.path.AutoPath;
 import com.team254.frc2014.FieldPosition;
 import com.team254.frc2014.LanedAutoMode;
 import com.team254.frc2014.path.CenterLanePath;

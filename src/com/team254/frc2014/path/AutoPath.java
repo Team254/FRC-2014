@@ -1,4 +1,4 @@
-package com.team254.frc2014.auto;
+package com.team254.frc2014.path;
 
 import com.team254.frc2014.Constants;
 import com.team254.lib.Route;
