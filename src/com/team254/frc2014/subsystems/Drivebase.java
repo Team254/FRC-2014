@@ -28,9 +28,9 @@ public class Drivebase extends Subsystem implements Loopable {
   private Talon rightDriveC = new Talon(Constants.rightDrivePortC.getInt());
   //Encoders
   private Encoder leftEncoder = new Encoder(Constants.leftEncoderPortA.getInt(),
-          Constants.leftEncoderPortB.getInt(), true);
+          Constants.leftEncoderPortB.getInt(), false);
   private Encoder rightEncoder = new Encoder(Constants.rightEncoderPortA.getInt(),
-          Constants.rightEncoderPortB.getInt(), false);
+          Constants.rightEncoderPortB.getInt(), true);
   //Ultrasonic Sensor
   // private Ultrasonic ultrasonic = new Ultrasonic(Constants.ultrasonicInputPort.getInt(),
   //       Constants.ultrasonicOutputPort.getInt());
@@ -39,12 +39,12 @@ public class Drivebase extends Subsystem implements Loopable {
   private Controller controller;
 
   public void setLeftRightPower(double leftPower, double rightPower) {
-    leftDriveA.set(-rightPower);
-    leftDriveB.set(-rightPower);
-    leftDriveC.set(-rightPower);
-    rightDriveA.set(leftPower);
-    rightDriveB.set(leftPower);
-    rightDriveC.set(leftPower);
+    leftDriveA.set(leftPower);
+    leftDriveB.set(leftPower);
+    leftDriveC.set(leftPower);
+    rightDriveA.set(-rightPower);
+    rightDriveB.set(-rightPower);
+    rightDriveC.set(-rightPower);
   }
 
   public Drivebase() {

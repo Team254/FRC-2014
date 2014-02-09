@@ -32,13 +32,13 @@ public class Constants extends ConstantsBase {
   public static final Constant rightShooterWheelPort = new Constant("rightShooterWheelPort", 2);
 
   // Solenoids
-  public static final Constant pressureSwitch = new Constant("pressureSwitch",  9);
-  public static final Constant compressorRelay = new Constant("compressorRelay", 8);
+  public static final Constant pressureSwitch = new Constant("pressureSwitch",  14);
+  public static final Constant compressorRelay = new Constant("compressorRelay", 1);
 
   public static final Constant shifterPort = new Constant("shifterPort", 8);
   
   public static final Constant frontIntakeSolenoidPort = new Constant("intakeSolenoidPort", 6);
-  public static final Constant rearIntakeSolenoidPort = new Constant("intakeSolenoidPort", 6);
+  public static final Constant rearIntakeSolenoidPort = new Constant("intakeSolenoidPort", 7);
   public static final Constant popperSolenoidPort = new Constant("popperSolenoidPort", 5);
   
   // Operator control mappings
@@ -48,10 +48,10 @@ public class Constants extends ConstantsBase {
   public static final Constant gyroPort = new Constant("gyroPort", 1);
   
   // Drive encoders
-  public static final Constant leftEncoderPortA = new Constant("leftEncoderPortA", 3);
-  public static final Constant leftEncoderPortB = new Constant("leftEncoderPortB", 4);
-  public static final Constant rightEncoderPortA = new Constant("rightEncoderPortA", 7);
-  public static final Constant rightEncoderPortB = new Constant("rightEncoderPortB", 8);
+  public static final Constant leftEncoderPortA = new Constant("leftEncoderPortA", 1);
+  public static final Constant leftEncoderPortB = new Constant("leftEncoderPortB", 2);
+  public static final Constant rightEncoderPortA = new Constant("rightEncoderPortA", 3);
+  public static final Constant rightEncoderPortB = new Constant("rightEncoderPortB", 4);
 
   // Ultrasonic sensors
   public static final Constant ultrasonicInputPort = new Constant("ultrasonicPortA", 10);
@@ -73,17 +73,17 @@ public class Constants extends ConstantsBase {
   public static final Constant driveTurnKDLow = new Constant("driveTurnKDLow", 0.045);
 
   public static final Constant frontIntakeSwitchPort = new Constant("intakeBumperSwitch", 13);
-  public static final Constant rearIntakeSwitchPort = new Constant("intakeBumperSwitch", 13);
+  public static final Constant rearIntakeSwitchPort = new Constant("intakeBumperSwitch", 9);
   
   public static final Constant intakeUpButtonPort = new Constant("intakeUpPort", 10);
   public static final Constant intakeDownButtonPort = new Constant("intakeDownPort", 9);
   public static final Constant intakeDownSwitchPort = new Constant("intakeDownSwitchPort", 12);
   
-  public static final Constant frontIntakeEncoderPortA = new Constant("frontIntakeEncoderPortA", 10);
-  public static final Constant frontIntakeEncoderPortB = new Constant("frontIntakeEncoderPortB", 11);
+  public static final Constant frontIntakeEncoderPortA = new Constant("frontIntakeEncoderPortA", 5);
+  public static final Constant frontIntakeEncoderPortB = new Constant("frontIntakeEncoderPortB", 6);
   
-  public static final Constant rearIntakeEncoderPortA = new Constant("frontIntakeEncoderPortA", 10);
-  public static final Constant rearIntakeEncoderPortB = new Constant("frontIntakeEncoderPortB", 11);
+  public static final Constant rearIntakeEncoderPortA = new Constant("frontIntakeEncoderPortA", 7);
+  public static final Constant rearIntakeEncoderPortB = new Constant("frontIntakeEncoderPortB", 8);
   
   public static final Constant robotWidth = new Constant("robotWidth", 25.5 / 12.0);
   public static final Constant robotDt = new Constant("robotDt", 1.0 / 100.0);

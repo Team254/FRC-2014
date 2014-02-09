@@ -147,7 +147,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
             + " Y: " + Math.floor(ChezyRobot.leftStick.getY() * 100) / 100
             + " Z: " + Math.floor(ChezyRobot.leftStick.getZ() * 10) / 10);
     lcd.println(DriverStationLCD.Line.kUser5, 1, "g: " + Math.floor(wantedRpm * 10) / 10 + " m: " + Math.floor(ChezyRobot.shooter.getLastRpm() * 10) / 10);
-    lcd.println(DriverStationLCD.Line.kUser6, 1, "l: " + Math.floor(ChezyRobot.drivebase.getLeftEncoderDistance() * 10) / 10 + " r: " + Math.floor(ChezyRobot.drivebase.getLeftEncoderDistance() * 10) / 10 + " g: " + Math.floor(ChezyRobot.drivebase.getGyroAngle() * 10) / 10);
+    lcd.println(DriverStationLCD.Line.kUser6, 1, "l: " + Math.floor(ChezyRobot.drivebase.getLeftEncoderDistance() * 10) / 10 + " r: " + Math.floor(ChezyRobot.drivebase.getRightEncoderDistance() * 10) / 10 + " g: " + Math.floor(ChezyRobot.drivebase.getGyroAngle() * 10) / 10);
     lcd.updateLCD();
   }
 }

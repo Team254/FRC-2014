@@ -8,6 +8,7 @@ import com.team254.frc2014.subsystems.Intake;
 import com.team254.frc2014.subsystems.Navigator;
 import com.team254.frc2014.subsystems.Shooter;
 import com.team254.lib.MultiLooper;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
@@ -30,6 +31,7 @@ public class ChezyRobot {
   // Subsystems
   public static final Drivebase drivebase = new Drivebase();
   public static final Shooter shooter = new Shooter();
+  public static final Compressor compressor = new Compressor(Constants.pressureSwitch.getInt(), Constants.compressorRelay.getInt());
   
   // Set up the intakes
   public static final Talon frontIntakeRoller = new Talon(Constants.frontIntakeRollerPort.getInt());
@@ -40,7 +42,7 @@ public class ChezyRobot {
   public static final Talon rearIntakeRoller = new Talon(Constants.rearIntakeRollerPort.getInt());
   public static final  Solenoid rearIntakeSolenoid = new Solenoid(Constants.rearIntakeSolenoidPort.getInt());
   public static final  DigitalInput rearIntakeSwitch = new DigitalInput(Constants.rearIntakeSwitchPort.getInt());
-  public static final Encoder rearIntakeEncoder = new Encoder(Constants.rearIntakeEncoderPortA.getInt(), Constants.frontIntakeEncoderPortB.getInt());
+  public static final Encoder rearIntakeEncoder = new Encoder(Constants.rearIntakeEncoderPortA.getInt(), Constants.rearIntakeEncoderPortB.getInt());
   
   public static final Intake frontIntake = new Intake("Front Intake", frontIntakeRoller, frontIntakeEncoder, frontIntakeSwitch, frontIntakeSolenoid);
   public static final Intake rearIntake = new Intake("Rear Intake", rearIntakeRoller, rearIntakeEncoder, rearIntakeSwitch, rearIntakeSolenoid);
@@ -64,5 +66,6 @@ public class ChezyRobot {
     controlUpdater.addController(frontIntake);
     controlUpdater.addController(shooter);
     controlUpdater.addController(navigator);
+    compressor.start();
   }
 }
