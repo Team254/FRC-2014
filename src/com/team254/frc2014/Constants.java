@@ -37,7 +37,8 @@ public class Constants extends ConstantsBase {
 
   public static final Constant shifterPort = new Constant("shifterPort", 8);
   
-  public static final Constant intakeSolenoidPort = new Constant("intakeSolenoidPort", 6);
+  public static final Constant frontIntakeSolenoidPort = new Constant("intakeSolenoidPort", 6);
+  public static final Constant rearIntakeSolenoidPort = new Constant("intakeSolenoidPort", 6);
   public static final Constant popperSolenoidPort = new Constant("popperSolenoidPort", 5);
   
   // Operator control mappings
@@ -71,7 +72,8 @@ public class Constants extends ConstantsBase {
   public static final Constant driveTurnKILow = new Constant("driveTurnKILow", 0);
   public static final Constant driveTurnKDLow = new Constant("driveTurnKDLow", 0.045);
 
-  public static final Constant intakeBumperSwitchPort = new Constant("intakeBumperSwitch", 13);
+  public static final Constant frontIntakeSwitchPort = new Constant("intakeBumperSwitch", 13);
+  public static final Constant rearIntakeSwitchPort = new Constant("intakeBumperSwitch", 13);
   
   public static final Constant intakeUpButtonPort = new Constant("intakeUpPort", 10);
   public static final Constant intakeDownButtonPort = new Constant("intakeDownPort", 9);
@@ -79,6 +81,9 @@ public class Constants extends ConstantsBase {
   
   public static final Constant frontIntakeEncoderPortA = new Constant("frontIntakeEncoderPortA", 10);
   public static final Constant frontIntakeEncoderPortB = new Constant("frontIntakeEncoderPortB", 11);
+  
+  public static final Constant rearIntakeEncoderPortA = new Constant("frontIntakeEncoderPortA", 10);
+  public static final Constant rearIntakeEncoderPortB = new Constant("frontIntakeEncoderPortB", 11);
   
   public static final Constant robotWidth = new Constant("robotWidth", 25.5 / 12.0);
   public static final Constant robotDt = new Constant("robotDt", 1.0 / 100.0);

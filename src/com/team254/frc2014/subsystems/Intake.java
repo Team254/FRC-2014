@@ -16,6 +16,7 @@ import java.util.Hashtable;
  */
 public class Intake extends Subsystem implements Loopable {
 
+
   private Talon roller;
   private Solenoid actuator;
   private DigitalInput bumpSwitch;
