@@ -1,9 +1,5 @@
-package com.team254.frc2014.controllers;
+package com.team254.lib;
 
-import com.team254.lib.ControlOutput;
-import com.team254.lib.ControlSource;
-import com.team254.lib.StateSpaceGains;
-import com.team254.lib.StateSpaceController;
 import com.team254.lib.util.Debouncer;
 import com.team254.lib.util.Matrix;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -63,7 +59,6 @@ public class FlywheelController extends StateSpaceController {
 
   public void update() {
     if (!enabled) {
-      output.set(0);
       return;
     }
 
@@ -129,5 +124,10 @@ public class FlywheelController extends StateSpaceController {
 
   public double getGoal() {
     return 0;
+  }
+
+  public void reset() {
+    velGoal = 0;
+    output.set(0);
   }
 }

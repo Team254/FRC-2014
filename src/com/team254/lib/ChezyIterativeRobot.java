@@ -83,7 +83,7 @@ public class ChezyIterativeRobot extends RobotBase implements Loopable {
       teleopPeriodic();
       didTeleopPeriodic = true;
     }
-
+    allPeriodic();
   }
 
   /* ----------- Overridable initialization code -----------------*/
@@ -183,5 +183,13 @@ public class ChezyIterativeRobot extends RobotBase implements Loopable {
       tpFirstRun = false;
     }
     Timer.delay(0.001);
+  }
+  
+    /**
+   * Periodic code for all modes should go here.
+   *
+   * This will get called periodically regardless of mode.
+   */
+  public void allPeriodic() {
   }
 }

@@ -9,8 +9,29 @@ import java.util.Hashtable;
 public abstract class Subsystem  {
   protected String name;
   protected Hashtable data;
+  protected Controller controller;
 
   public abstract Hashtable serialize();
+  
+    public void useController(Controller c) {
+    if (controller != null) {
+      controller.disable();
+    }
+    controller = c;
+    if (controller != null) {
+      controller.enable();
+    }
+  }
+  
+  public void turnOffControllers() {
+    useController(null);
+  }
+
+  public void update() {
+    if (controller != null) {
+      controller.update();
+    }
+  }
     
   public Subsystem(String name){
     this.name = name;

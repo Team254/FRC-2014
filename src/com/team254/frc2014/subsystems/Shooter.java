@@ -1,8 +1,6 @@
 package com.team254.frc2014.subsystems;
 
 import com.team254.frc2014.Constants;
-import com.team254.frc2014.ShooterGains;
-import com.team254.frc2014.controllers.FlywheelController;
 import com.team254.lib.ControlOutput;
 import com.team254.lib.ControlSource;
 import com.team254.lib.Loopable;
@@ -12,7 +10,6 @@ import com.team254.lib.util.Util;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.Timer;
 import java.util.Hashtable;
 
 /**
@@ -24,7 +21,6 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
   private Solenoid popper = new Solenoid(Constants.popperSolenoidPort.getInt());
   private Talon shooterA = new Talon(Constants.leftShooterWheelPort.getInt());
   private Talon shooterB = new Talon(Constants.rightShooterWheelPort.getInt());
-  FlywheelController controller = new FlywheelController("ShooterController", this, this, ShooterGains.getGains()[0]);
   public Counter counter = new Counter(Constants.shootEncoderPort.getInt());
   private ThrottledPrinter p = new ThrottledPrinter(.1);
 
@@ -40,7 +36,9 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
 
   public Shooter() {
     super("Shooter");
-    controller.enable();
+    if (controller != null) {
+      controller.enable();
+    }
     counter.start();
   }
 
@@ -48,26 +46,10 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
     return new Hashtable();
   }
 
-  public void update() {
-    controller.update();
-  }
-  
-  
-  double rpmGoal = 0;
-  
-
-  public void setVelocityGoal(double v) {
-    //rpmGoal = v;
-    //controller.setVelocityGoal((v * Math.PI * 2.0) / 60.0);
-    setShooterPower(v);
-  }
-
-  public double getRpmGoal() {
-    return rpmGoal;
-  }
   public void set(double value) {
-    //setShooterPower(value);
+    setShooterPower(value);
   }
+
   public double lastRpm = 0;
 
   public double get() {

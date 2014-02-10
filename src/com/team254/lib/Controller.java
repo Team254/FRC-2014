@@ -11,6 +11,7 @@ public abstract class Controller extends ChezyRobot implements Loopable {
   protected boolean enabled = false;
   
   public abstract void update();
+  public abstract void reset();
   
   public void enable() {
     enabled = true;

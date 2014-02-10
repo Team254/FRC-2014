@@ -135,24 +135,5 @@ public class Drivebase extends Subsystem implements Loopable {
     leftEncoder.reset();
     rightEncoder.reset();
   }
-  
-  public void useController(Controller c) {
-    if (controller != null) {
-      controller.disable();
-    }
-    controller = c;
-    if (controller != null) {
-      controller.enable();
-    }
-  }
-  
-  public void turnOffControllers() {
-    useController(null);
-  }
 
-  public void update() {
-    if (controller != null) {
-      controller.update();
-    }
-  }
 }

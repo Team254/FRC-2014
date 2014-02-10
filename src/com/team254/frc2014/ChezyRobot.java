@@ -1,11 +1,14 @@
 package com.team254.frc2014;
 
+import com.team254.lib.FlywheelController;
 import com.team254.frc2014.controllers.HoldPositionController;
+import com.team254.frc2014.controllers.OpenLoopController;
 import com.team254.frc2014.controllers.TrajctoryDriveController;
 import com.team254.frc2014.subsystems.Drivebase;
 import com.team254.frc2014.subsystems.HotGoalDetector;
 import com.team254.frc2014.subsystems.Intake;
 import com.team254.frc2014.subsystems.Navigator;
+import com.team254.frc2014.subsystems.RpmFlywheelController;
 import com.team254.frc2014.subsystems.Shooter;
 import com.team254.lib.MultiLooper;
 import edu.wpi.first.wpilibj.Compressor;
@@ -60,6 +63,8 @@ public class ChezyRobot {
   public static HoldPositionController headingController = new HoldPositionController();
   public static HotGoalDetector hotGoalDetector = new HotGoalDetector();
   public static Navigator navigator = new Navigator(drivebase);
+  public static OpenLoopController openLoopShooterController = new OpenLoopController();
+  public static final RpmFlywheelController shooterController = new RpmFlywheelController("ShooterController", shooter, shooter, ShooterGains.getGains()[0], 1.0/100.0);
 
   public static void initRobot() {
     controlUpdater.addController(drivebase);
@@ -67,5 +72,6 @@ public class ChezyRobot {
     controlUpdater.addController(shooter);
     controlUpdater.addController(navigator);
     compressor.start();
+    shooter.useController(openLoopShooterController);
   }
 }

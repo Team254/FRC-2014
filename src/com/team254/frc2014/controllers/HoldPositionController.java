@@ -30,4 +30,7 @@ public class HoldPositionController extends Controller {
     double speed = (distance - drivebase.getAverageDistance()) * kDrive;
     drivebase.setLeftRightPower(speed + turn, speed - turn);
   }
+
+  public void reset() {
+  }
 }
