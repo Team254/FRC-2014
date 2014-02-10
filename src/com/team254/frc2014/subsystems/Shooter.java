@@ -28,10 +28,10 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
   public Counter counter = new Counter(Constants.shootEncoderPort.getInt());
   private ThrottledPrinter p = new ThrottledPrinter(.1);
 
-  private void setShooter(double power) {
+  private void setShooterPower(double power) {
     power = Util.limit(power, 1.0);
-    shooterA.set(power);
-    shooterB.set(-power);
+    shooterA.set(-power);
+    shooterB.set(power);
   }
 
   public void setPopper(boolean on) {
@@ -51,18 +51,22 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
   public void update() {
     controller.update();
   }
+  
+  
   double rpmGoal = 0;
+  
+
   public void setVelocityGoal(double v) {
-    rpmGoal = v;
-    controller.setVelocityGoal((v * Math.PI * 2.0) / 60.0);
+    //rpmGoal = v;
+    //controller.setVelocityGoal((v * Math.PI * 2.0) / 60.0);
+    setShooterPower(v);
   }
 
   public double getRpmGoal() {
     return rpmGoal;
   }
   public void set(double value) {
-    //setShooter(rpmGoal > 0 ? 1.0 : 0.0);
-    setShooter(value);
+    //setShooterPower(value);
   }
   public double lastRpm = 0;
 
@@ -74,7 +78,6 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
       lastRpm = rpm;
     }
     double ret = (lastRpm * Math.PI * 2.0) / 60.0;
-    //System.out.println("" + Timer.getFPGATimestamp() + ", " + shooterA.get() + ", " + lastRpm + ", 0.01");
     return ret;
   }
 
