@@ -20,9 +20,10 @@ public class MultiLooper implements Loopable {
       Loopable c = (Loopable) loopables.elementAt(i);
       if (c != null) {
         try {
-        c.update();
+          c.update();
         } catch (RuntimeException e) {
-          System.out.println(e.toString());
+          System.out.println("Null pointer in " + c.toString());
+          e.printStackTrace();
         }
       }
     }
@@ -36,7 +37,7 @@ public class MultiLooper implements Loopable {
     looper.stop();
   }
 
-  public void addController(Loopable c) {
+  public void addLoopable(Loopable c) {
     loopables.addElement(c);
   }
 }

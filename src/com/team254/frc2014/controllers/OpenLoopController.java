@@ -10,6 +10,9 @@ import com.team254.lib.Controller;
  */
 public class OpenLoopController extends Controller {
 
+  public OpenLoopController(ControlOutput o) {
+    output = o;
+  }
   ControlOutput output;
   private double pwm;
   

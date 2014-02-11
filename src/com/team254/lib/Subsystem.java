@@ -6,7 +6,7 @@ import java.util.Hashtable;
  * @author akalb
  * @author dchan
  */
-public abstract class Subsystem  {
+public abstract class Subsystem implements Loopable {
   protected String name;
   protected Hashtable data;
   protected Controller controller;

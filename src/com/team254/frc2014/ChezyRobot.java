@@ -1,6 +1,5 @@
 package com.team254.frc2014;
 
-import com.team254.lib.FlywheelController;
 import com.team254.frc2014.controllers.HoldPositionController;
 import com.team254.frc2014.controllers.OpenLoopController;
 import com.team254.frc2014.controllers.TrajctoryDriveController;
@@ -58,20 +57,21 @@ public class ChezyRobot {
   public static final AutoModeSelector ams = new AutoModeSelector();
   
   // Controllers
-  public static MultiLooper controlUpdater = new MultiLooper(1.0 / 100.0);
+  public static MultiLooper subsystemUpdater100Hz = new MultiLooper(1.0 / 100.0);
   public static TrajctoryDriveController driveController = new TrajctoryDriveController();
   public static HoldPositionController headingController = new HoldPositionController();
   public static HotGoalDetector hotGoalDetector = new HotGoalDetector();
   public static Navigator navigator = new Navigator(drivebase);
-  public static OpenLoopController openLoopShooterController = new OpenLoopController();
+  public static OpenLoopController openLoopShooterController = new OpenLoopController(shooter);
   public static final RpmFlywheelController shooterController = new RpmFlywheelController("ShooterController", shooter, shooter, ShooterGains.getGains()[0], 1.0/100.0);
 
   public static void initRobot() {
-    controlUpdater.addController(drivebase);
-    controlUpdater.addController(frontIntake);
-    controlUpdater.addController(shooter);
-    controlUpdater.addController(navigator);
+    // Add all subsystems to a 100Hz Looper
+    subsystemUpdater100Hz.addLoopable(drivebase);
+    subsystemUpdater100Hz.addLoopable(frontIntake);
+    subsystemUpdater100Hz.addLoopable(shooter);
+    subsystemUpdater100Hz.addLoopable(navigator);
     compressor.start();
-    shooter.useController(openLoopShooterController);
+    shooter.useController(shooterController);
   }
 }

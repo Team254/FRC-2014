@@ -34,7 +34,7 @@ public class ChezyIterativeRobot extends RobotBase implements Loopable {
   }
 
   public void update() {
-
+    try {
     if (isDisabled()) {
       // call DisabledInit() if we are now just entering disabled mode from
       // either a different mode or from power-on
@@ -84,6 +84,10 @@ public class ChezyIterativeRobot extends RobotBase implements Loopable {
       didTeleopPeriodic = true;
     }
     allPeriodic();
+    }
+    catch(RuntimeException e) {
+      System.out.println(e.getMessage());
+    }
   }
 
   /* ----------- Overridable initialization code -----------------*/

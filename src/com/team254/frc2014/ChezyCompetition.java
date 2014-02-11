@@ -34,7 +34,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     t.start();
     lcd = DriverStationLCD.getInstance();
     ChezyRobot.initRobot();
-    ChezyRobot.controlUpdater.start();
+    ChezyRobot.subsystemUpdater100Hz.start();
     lcdUpdateTimer.start();
   }
 
@@ -63,7 +63,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     ChezyRobot.frontIntake.setAutoIntake(false);
     // This is just here for testing purposes
   }
-  double wantedShooterPwm = .75;
+  double wantedRpm = 4000;
   Latch upLatch = new Latch();
   Latch downLatch = new Latch();
   Latch autoSelectLatch = new Latch();
@@ -71,7 +71,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
 
   public void teleopPeriodic() {
     // Shooter
-    ChezyRobot.openLoopShooterController.set(ChezyRobot.operatorJoystick.getShooterState() ? wantedShooterPwm : 0);
+    ChezyRobot.shooterController.setVelocityGoal(ChezyRobot.operatorJoystick.getShooterState() ? wantedRpm : 0);
 
     // Popper
     ChezyRobot.shooter.setPopper(ChezyRobot.operatorJoystick.getPopperOnState());
@@ -102,20 +102,20 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     double turn = ChezyRobot.rightStick.getX();
     ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), turn, qt, true);
     
-    System.out.println(", " + Timer.getFPGATimestamp() + ", " + wantedShooterPwm + ", " + ChezyRobot.shooter.lastRpm + ", 0.01");
+    //System.out.println(", " + Timer.getFPGATimestamp() + ", " + (ChezyRobot.operatorJoystick.getShooterState() ? 1.0 : 0.0) + ", " + ChezyRobot.shooter.lastRpm + ", 0.01");
   }
   
   public void allPeriodic() {
     if (downLatch.update(ChezyRobot.operatorJoystick.getRawButton(3))) {
-      wantedShooterPwm -= .05;
+      wantedRpm -= 50;
     }
     if (upLatch.update(ChezyRobot.operatorJoystick.getRawButton(4))) {
-      wantedShooterPwm += .05;
+      wantedRpm += 50;
     }
-    if (wantedShooterPwm > 1) {
-      wantedShooterPwm = 1;
-    } else if (wantedShooterPwm < 0) {
-      wantedShooterPwm = 0;
+    if (wantedRpm > 5500) {
+      wantedRpm = 5500;
+    } else if (wantedRpm < 0) {
+      wantedRpm = 0;
     }
     lcd();
   }
@@ -146,7 +146,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
             " l X:  " + Math.floor(ChezyRobot.leftStick.getX() * 100) / 100
             + " Y: " + Math.floor(ChezyRobot.leftStick.getY() * 100) / 100
             + " Z: " + Math.floor(ChezyRobot.leftStick.getZ() * 10) / 10);
-    lcd.println(DriverStationLCD.Line.kUser5, 1, "g: " + Math.floor(wantedShooterPwm * 100) / 100 + " m: " + Math.floor(ChezyRobot.shooter.getLastRpm() * 10) / 10);
+    lcd.println(DriverStationLCD.Line.kUser5, 1, "g: " + Math.floor(wantedRpm * 100) / 100 + " m: " + Math.floor(ChezyRobot.shooter.getLastRpm() * 10) / 10);
     lcd.println(DriverStationLCD.Line.kUser6, 1, "l: " + Math.floor(ChezyRobot.drivebase.getLeftEncoderDistance() * 10) / 10 + " r: " + Math.floor(ChezyRobot.drivebase.getRightEncoderDistance() * 10) / 10 + " g: " + Math.floor(ChezyRobot.drivebase.getGyroAngle() * 10) / 10);
     lcd.updateLCD();
   }
