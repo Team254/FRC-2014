@@ -9,8 +9,8 @@ import java.util.Hashtable;
  * @author Mani Gnanasivam
  */
 public class Clapper extends Subsystem{
-  private static Solenoid frontSolenoid = new Solenoid(Constants.frontClapperSolenoidPort.getInt());
-  private static Solenoid rearSolenoid = new Solenoid(Constants.rearClapperSolenoidPort.getInt());
+  public static Solenoid frontSolenoid = new Solenoid(Constants.frontClapperSolenoidPort.getInt());
+  public static Solenoid rearSolenoid = new Solenoid(Constants.rearClapperSolenoidPort.getInt());
   public static boolean frontIsUp;
   public static boolean rearIsUp;
   
