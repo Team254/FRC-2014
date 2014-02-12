@@ -35,15 +35,15 @@ public class Constants extends ConstantsBase {
   public static final Constant pressureSwitch = new Constant("pressureSwitch",  14);
   public static final Constant compressorRelay = new Constant("compressorRelay", 1);
 
-  public static final Constant shifterPort = new Constant("shifterPort", 8);
-  
-  public static final Constant frontIntakeSolenoidPort = new Constant("intakeSolenoidPort", 6);
-  public static final Constant rearIntakeSolenoidPort = new Constant("intakeSolenoidPort", 7);
-  public static final Constant hoodSolenoidPort = new Constant("hoodSolenoidPort", 5);
-  public static final Constant frontClapperSolenoidPort = new Constant("frontClapperSolenoidPort", 4); 
+  public static final Constant shifterPort = new Constant("shifterPort", 1);
+  public static final Constant catcherSolenoidPort = new Constant("catcherSolenoidPort", 2);
   public static final Constant rearClapperSolenoidPort = new Constant("rearClapperSolenoidPort", 3); 
+  public static final Constant frontClapperSolenoidPort = new Constant("frontClapperSolenoidPort", 4); 
+  public static final Constant hoodSolenoidPort = new Constant("hoodSolenoidPort", 5);
+  public static final Constant frontIntakeSolenoidPort = new Constant("frontIntakeSolenoidPort", 6);
+  public static final Constant rearIntakeSolenoidPort = new Constant("rearIntakeSolenoidPort", 7);
 
-  
+
   // Operator control mappings
   public static final Constant autonSelectControlPort = new Constant("autonSelectControlPort",11);
 
