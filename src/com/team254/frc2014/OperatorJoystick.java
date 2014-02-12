@@ -1,5 +1,6 @@
 package com.team254.frc2014;
 
+import com.team254.lib.ButtonState;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
@@ -7,6 +8,9 @@ import edu.wpi.first.wpilibj.Joystick;
  * @author bg
  */
 public class OperatorJoystick extends Joystick {
+  
+  private int catchButtonPort = 1;
+  public ButtonState catchButton = new ButtonState(catchButtonPort);
   
   public boolean getShooterState() {
     return this.getZ() < 0.0;
@@ -51,4 +55,18 @@ public class OperatorJoystick extends Joystick {
   public OperatorJoystick(int port) {
     super(port);
   }
+
+  boolean getClapperRearState() {
+    return this.getRawButton(5);
+  }
+
+  boolean getClapperFrontState() {
+    return this.getRawButton(6);
+  }
+  
+  boolean getHoodPositionSwitch() {
+    //if
+    return true;
+  }
+
 }

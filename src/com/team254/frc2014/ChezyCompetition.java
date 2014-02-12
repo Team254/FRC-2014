@@ -94,7 +94,24 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     } else if (ChezyRobot.operatorJoystick.getIntakeUpSwitchState()) {
       ChezyRobot.frontIntake.setPositionDown(false);
     }
-
+    
+    //Clapper Buttons
+    ChezyRobot.clapper.frontSolenoid.set(ChezyRobot.operatorJoystick.getClapperFrontState());
+    ChezyRobot.clapper.rearSolenoid.set(ChezyRobot.operatorJoystick.getClapperRearState());
+    
+    /*if (ChezyRobot.operatorJoystick.catchButton.wasReleased()) {
+      ChezyRobot.shooter.useController(ChezyRobot.shooterController);
+    } else if (ChezyRobot.operatorJoystick.catchButton.wasPressed()) {
+      ChezyRobot.shooter.useController(ChezyRobot.openLoopShooterController);
+      ChezyRobot.openLoopShooterController.set(-1);
+    }*/
+    // Gearing
+    if(ChezyRobot.rightStick.getRawButton(2)) {
+      ChezyRobot.drivebase.setLowgear(true);
+    } else {
+      ChezyRobot.drivebase.setLowgear(false);
+ 
+    }
     boolean qt = ChezyRobot.rightStick.getTrigger();
     double turn = ChezyRobot.rightStick.getX();
     ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), turn, qt, true);

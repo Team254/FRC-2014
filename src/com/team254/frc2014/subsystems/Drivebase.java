@@ -7,6 +7,7 @@ import com.team254.lib.Loopable;
 import com.team254.lib.Subsystem;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import java.util.Hashtable;
 
@@ -31,6 +32,9 @@ public class Drivebase extends Subsystem implements Loopable {
           Constants.leftEncoderPortB.getInt(), false);
   private Encoder rightEncoder = new Encoder(Constants.rightEncoderPortA.getInt(),
           Constants.rightEncoderPortB.getInt(), true);
+  
+  //Solenoids
+  private Solenoid shifter = new Solenoid(Constants.shifterPort.getInt());
   //Ultrasonic Sensor
   // private Ultrasonic ultrasonic = new Ultrasonic(Constants.ultrasonicInputPort.getInt(),
   //       Constants.ultrasonicOutputPort.getInt());
@@ -46,7 +50,9 @@ public class Drivebase extends Subsystem implements Loopable {
     rightDriveB.set(-rightPower);
     rightDriveC.set(-rightPower);
   }
-
+  public void setLowgear(boolean low) {
+    shifter.set(low);
+  }
   public Drivebase() {
     super("Drivebase");
     //System.out.println("Making gyro!");
@@ -115,6 +121,7 @@ public class Drivebase extends Subsystem implements Loopable {
   public void resetGyro() {
     gyro.reset();
   }
+  
 
   public double getUltrasonicDistance() {
     //ultrasonic.ping();

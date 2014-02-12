@@ -8,7 +8,7 @@ import com.team254.frc2014.subsystems.HotGoalDetector;
 import com.team254.frc2014.subsystems.Intake;
 import com.team254.frc2014.subsystems.Navigator;
 import com.team254.frc2014.controllers.RpmFlywheelController;
-import com.team254.frc2014.subsystems.Shooter;
+import com.team254.frc2014.subsystems.*;
 import com.team254.lib.MultiLooper;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -34,6 +34,7 @@ public class ChezyRobot {
   public static final Drivebase drivebase = new Drivebase();
   public static final Shooter shooter = new Shooter();
   public static final Compressor compressor = new Compressor(Constants.pressureSwitch.getInt(), Constants.compressorRelay.getInt());
+  public static final Clapper clapper = new Clapper();
   
   // Set up the intakes
   public static final Talon frontIntakeRoller = new Talon(Constants.frontIntakeRollerPort.getInt());
