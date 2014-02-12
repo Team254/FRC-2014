@@ -40,9 +40,11 @@ public class ChezyGyro extends SensorBase implements Runnable {
   
   
   public void startCalibrateThread() {
-    wantCalibrate = true;
-    calibrateThread = new Thread(this);
-    calibrateThread.start();
+    if (!wantCalibrate) {
+      wantCalibrate = true;
+      calibrateThread = new Thread(this);
+      calibrateThread.start();
+    }
   }
   
   public void stopCalibrating() {

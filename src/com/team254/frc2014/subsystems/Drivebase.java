@@ -2,6 +2,7 @@ package com.team254.frc2014.subsystems;
 
 import com.team254.frc2014.ChezyRobot;
 import com.team254.frc2014.Constants;
+import com.team254.lib.ChezyGyro;
 import com.team254.lib.Controller;
 import com.team254.lib.Loopable;
 import com.team254.lib.Subsystem;
@@ -39,7 +40,7 @@ public class Drivebase extends Subsystem implements Loopable {
   // private Ultrasonic ultrasonic = new Ultrasonic(Constants.ultrasonicInputPort.getInt(),
   //       Constants.ultrasonicOutputPort.getInt());
   //Gyro
-  private Gyro gyro;
+  public ChezyGyro gyro;
   private Controller controller;
 
   public void setLeftRightPower(double leftPower, double rightPower) {
@@ -56,7 +57,7 @@ public class Drivebase extends Subsystem implements Loopable {
   public Drivebase() {
     super("Drivebase");
     //System.out.println("Making gyro!");
-    gyro = new Gyro(Constants.gyroPort.getInt());
+    gyro = new ChezyGyro(Constants.gyroPort.getInt());
     //System.out.println("Done making gyro!");
     //ultrasonic.setEnabled(true);
     // ultrasonic.setAutomaticMode(true);
