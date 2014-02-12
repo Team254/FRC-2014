@@ -73,9 +73,6 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     // Shooter
     ChezyRobot.shooterController.setVelocityGoal(ChezyRobot.operatorJoystick.getShooterState() ? wantedRpm : 0);
 
-    // Popper
-    ChezyRobot.shooter.setPopper(ChezyRobot.operatorJoystick.getPopperOnState());
-    
     // Intake Roller
     if (ChezyRobot.operatorJoystick.getIntakeButtonState()) {
       ChezyRobot.frontIntake.setManualRollerPower(1);
