@@ -8,15 +8,9 @@ package com.team254.lib;
 
 import edu.wpi.first.wpilibj.AccumulatorResult;
 import edu.wpi.first.wpilibj.AnalogChannel;
-import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.SensorBase;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.communication.UsageReporting;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.livewindow.LiveWindowSendable;
-import edu.wpi.first.wpilibj.parsing.ISensor;
-import edu.wpi.first.wpilibj.tables.ITable;
-import edu.wpi.first.wpilibj.util.BoundaryException;
 
 /**
  * Use a rate gyro to return the robots heading relative to a starting position.
@@ -27,7 +21,7 @@ import edu.wpi.first.wpilibj.util.BoundaryException;
  * determine the default offset. This is subtracted from each sample to
  * determine the heading.
  */
-public class ChezyGyro extends SensorBase implements PIDSource, ISensor, LiveWindowSendable {
+public class ChezyGyro extends SensorBase implements Runnable {
 
   static final int kOversampleBits = 10;
   static final int kAverageBits = 0;
@@ -40,8 +34,21 @@ public class ChezyGyro extends SensorBase implements PIDSource, ISensor, LiveWin
   int m_center;
   boolean m_channelAllocated;
   AccumulatorResult result;
-  private PIDSourceParameter m_pidSource;
-
+  private Thread calibrateThread;
+  private boolean wantCalibrate = false;
+  private boolean calibrated = false;
+  
+  
+  public void startCalibrateThread() {
+    wantCalibrate = true;
+    calibrateThread = new Thread(this);
+    calibrateThread.start();
+  }
+  
+  public void stopCalibrating() {
+    wantCalibrate = false;
+  }
+ 
   /**
    * Initialize the gyro. Calibrate the gyro by running for a number of samples
    * and computing the center value for this part. Then use the center value as
@@ -50,7 +57,7 @@ public class ChezyGyro extends SensorBase implements PIDSource, ISensor, LiveWin
    * in progress, this is typically done when the robot is first turned on while
    * it's sitting at rest before the competition starts.
    */
-  private void initGyro() {
+  private void initGyro(double delay) {
     result = new AccumulatorResult();
     if (m_analog == null) {
       System.out.println("Null m_analog");
@@ -61,7 +68,7 @@ public class ChezyGyro extends SensorBase implements PIDSource, ISensor, LiveWin
     double sampleRate = kSamplesPerSecond * (1 << (kAverageBits + kOversampleBits));
     m_analog.getModule().setSampleRate(sampleRate);
 
-    Timer.delay(1.0);
+    Timer.delay(delay);
     m_analog.initAccumulator();
 
     Timer.delay(kCalibrationSampleTime);
@@ -71,16 +78,13 @@ public class ChezyGyro extends SensorBase implements PIDSource, ISensor, LiveWin
     m_center = (int) ((double) result.value / (double) result.count + .5);
 
     m_offset = ((double) result.value / (double) result.count) - (double) m_center;
-
-    m_analog.setAccumulatorCenter(m_center);
-
-    m_analog.setAccumulatorDeadband(0); ///< TODO: compute / parameterize this
-    m_analog.resetAccumulator();
-
-    setPIDSourceParameter(PIDSourceParameter.kAngle);
-
+    if (wantCalibrate && !calibrated) {
+      m_analog.setAccumulatorCenter(m_center);
+      m_analog.setAccumulatorDeadband(0); ///< TODO: compute / parameterize this
+      m_analog.resetAccumulator();
+      calibrated = true;
+    }
     UsageReporting.report(UsageReporting.kResourceType_Gyro, m_analog.getChannel(), m_analog.getModuleNumber() - 1);
-    LiveWindow.addSensor("Gyro", m_analog.getModuleNumber(), m_analog.getChannel(), this);
   }
 
   /**
@@ -92,7 +96,7 @@ public class ChezyGyro extends SensorBase implements PIDSource, ISensor, LiveWin
   public ChezyGyro(int slot, int channel) {
     m_analog = new AnalogChannel(slot, channel);
     m_channelAllocated = true;
-    initGyro();
+    initGyro(1.0);
   }
 
   /**
@@ -105,7 +109,7 @@ public class ChezyGyro extends SensorBase implements PIDSource, ISensor, LiveWin
   public ChezyGyro(int channel) {
     m_analog = new AnalogChannel(channel);
     m_channelAllocated = true;
-    initGyro();
+    initGyro(1.0);
   }
 
   /**
@@ -121,7 +125,7 @@ public class ChezyGyro extends SensorBase implements PIDSource, ISensor, LiveWin
       System.err.println("Analog channel supplied to Gyro constructor is null");
     } else {
       m_channelAllocated = false;
-      initGyro();
+      initGyro(1.0);
     }
   }
 
@@ -201,67 +205,10 @@ public class ChezyGyro extends SensorBase implements PIDSource, ISensor, LiveWin
     m_voltsPerDegreePerSecond = voltsPerDegreePerSecond;
   }
 
-  /**
-   * Set which parameter of the encoder you are using as a process control
-   * variable. The Gyro class supports the rate and angle parameters
-   *
-   * @param pidSource An enum to select the parameter.
-   */
-  public void setPIDSourceParameter(PIDSourceParameter pidSource) {
-    BoundaryException.assertWithinBounds(pidSource.value, 1, 2);
-    m_pidSource = pidSource;
-  }
-
-  /**
-   * Get the angle of the gyro for use with PIDControllers
-   *
-   * @return the current angle according to the gyro
-   */
-  public double pidGet() {
-    return 0.0; // This is broken.
-  }
-
-  /*
-   * Live Window code, only does anything if live window is activated.
-   */
-  public String getSmartDashboardType() {
-    return "Gyro";
-  }
-  private ITable m_table;
-
-  /**
-   * {@inheritDoc}
-   */
-  public void initTable(ITable subtable) {
-    m_table = subtable;
-    updateTable();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public ITable getTable() {
-    return m_table;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public void updateTable() {
-    if (m_table != null) {
-      m_table.putNumber("Value", getAngle());
+  public void run() {
+    while (wantCalibrate) {
+      initGyro(2.0);
+      System.out.println("Found new gyro center! " + m_center);
     }
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public void startLiveWindowMode() {
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public void stopLiveWindowMode() {
   }
 }
