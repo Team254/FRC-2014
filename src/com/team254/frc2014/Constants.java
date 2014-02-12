@@ -39,7 +39,10 @@ public class Constants extends ConstantsBase {
   
   public static final Constant frontIntakeSolenoidPort = new Constant("intakeSolenoidPort", 6);
   public static final Constant rearIntakeSolenoidPort = new Constant("intakeSolenoidPort", 7);
-  public static final Constant popperSolenoidPort = new Constant("popperSolenoidPort", 5);
+  public static final Constant hoodSolenoidPort = new Constant("hoodSolenoidPort", 5);
+  public static final Constant frontClapperSolenoidPort = new Constant("frontClapperSolenoidPort", 4); 
+  public static final Constant rearClapperSolenoidPort = new Constant("rearClapperSolenoidPort", 3); 
+
   
   // Operator control mappings
   public static final Constant autonSelectControlPort = new Constant("autonSelectControlPort",11);

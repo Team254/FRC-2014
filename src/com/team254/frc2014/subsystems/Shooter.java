@@ -18,6 +18,7 @@ import java.util.Hashtable;
  */
 public class Shooter extends Subsystem implements Loopable, ControlOutput, ControlSource {
 
+  private Solenoid hood = new Solenoid(Constants.hoodSolenoidPort.getInt());
   private Talon shooterA = new Talon(Constants.leftShooterWheelPort.getInt());
   private Talon shooterB = new Talon(Constants.rightShooterWheelPort.getInt());
   public Counter counter = new Counter(Constants.shooterReflectorPort.getInt());
@@ -44,7 +45,11 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
   public void set(double value) {
     setShooterPower(value);
   }
-
+  
+  public void setHood(boolean up) {
+    hood.set(up);
+  }
+  
   public double lastRpm = 0;
 
   

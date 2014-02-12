@@ -1,5 +1,6 @@
 package com.team254.frc2014.subsystems;
 
+import com.team254.frc2014.Constants;
 import com.team254.lib.Subsystem;
 import edu.wpi.first.wpilibj.Solenoid;
 import java.util.Hashtable;
@@ -8,8 +9,8 @@ import java.util.Hashtable;
  * @author Mani Gnanasivam
  */
 public class Clapper extends Subsystem{
-  public static Solenoid frontSolenoid;
-  public static Solenoid rearSolenoid;
+  private static Solenoid frontSolenoid = new Solenoid(Constants.frontClapperSolenoidPort.getInt());
+  private static Solenoid rearSolenoid = new Solenoid(Constants.rearClapperSolenoidPort.getInt());
   public static boolean frontIsUp;
   public static boolean rearIsUp;
   
@@ -18,7 +19,7 @@ public class Clapper extends Subsystem{
   }
   
   public Clapper() {
-    super("Pinniped");
+    super("Clapper");
   }
   
   public static void clap(){

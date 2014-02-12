@@ -1,4 +1,4 @@
-package com.team254.frc2014.subsystems;
+package com.team254.frc2014.controllers;
 
 import com.team254.lib.ControlOutput;
 import com.team254.lib.ControlSource;

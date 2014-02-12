@@ -7,7 +7,7 @@ import com.team254.frc2014.subsystems.Drivebase;
 import com.team254.frc2014.subsystems.HotGoalDetector;
 import com.team254.frc2014.subsystems.Intake;
 import com.team254.frc2014.subsystems.Navigator;
-import com.team254.frc2014.subsystems.RpmFlywheelController;
+import com.team254.frc2014.controllers.RpmFlywheelController;
 import com.team254.frc2014.subsystems.Shooter;
 import com.team254.lib.MultiLooper;
 import edu.wpi.first.wpilibj.Compressor;
