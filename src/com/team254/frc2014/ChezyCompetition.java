@@ -70,6 +70,9 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   Latch laneSelectLatch = new Latch();
 
   public void teleopPeriodic() {
+    // Update button edges
+    ChezyRobot.operatorJoystick.update();
+
     // Shooter
     ChezyRobot.shooterController.setVelocityGoal(ChezyRobot.operatorJoystick.getShooterState() ? wantedRpm : 0);
 

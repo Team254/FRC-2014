@@ -1,6 +1,6 @@
 package com.team254.lib;
 
-import com.team254.frc2014.ChezyRobot;
+import edu.wpi.first.wpilibj.Joystick;
 
 /**
  * Watches a button and indicates if the button was just pressed or released.
@@ -8,14 +8,16 @@ import com.team254.frc2014.ChezyRobot;
  * @author Mani Gnanasivam
  * @author Art Kalb
  */
-public class ButtonState {
+public class ChezyButton {
   int buttonPort;
   private boolean wasPressed;
   private boolean wasReleased;
   private boolean isDown;
+  private Joystick stick;
   
-  public ButtonState(int buttonPort) {
+  public ChezyButton(Joystick stick, int buttonPort) {
     this.buttonPort = buttonPort;
+    this.stick = stick;
   }
   
   public boolean wasPressed() {
@@ -25,8 +27,13 @@ public class ButtonState {
   public boolean wasReleased() {
     return wasReleased;
   }
+
+  public boolean get() {
+    return isDown;
+  }
+
   public void update() {
-    boolean pressed = ChezyRobot.operatorJoystick.getRawButton(buttonPort);
+    boolean pressed = stick.getRawButton(buttonPort);
     wasPressed = pressed && !isDown;
     wasReleased = !pressed && isDown;
     isDown = pressed;

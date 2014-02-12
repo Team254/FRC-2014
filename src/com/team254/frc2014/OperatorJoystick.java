@@ -1,6 +1,6 @@
 package com.team254.frc2014;
 
-import com.team254.lib.ButtonState;
+import com.team254.lib.ChezyButton;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
@@ -10,8 +10,12 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OperatorJoystick extends Joystick {
   
   private int catchButtonPort = 1;
-  public ButtonState catchButton = new ButtonState(catchButtonPort);
+  public ChezyButton catchButton = new ChezyButton(this, catchButtonPort);
   
+  public void update() {
+    catchButton.update();
+  }
+
   public boolean getShooterState() {
     return this.getZ() < 0.0;
   }
