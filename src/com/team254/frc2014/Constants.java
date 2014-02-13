@@ -39,9 +39,9 @@ public class Constants extends ConstantsBase {
   public static final Constant catcherSolenoidPort = new Constant("catcherSolenoidPort", 2);
   public static final Constant rearClapperSolenoidPort = new Constant("rearClapperSolenoidPort", 3); 
   public static final Constant frontClapperSolenoidPort = new Constant("frontClapperSolenoidPort", 4); 
-  public static final Constant hoodSolenoidPort = new Constant("hoodSolenoidPort", 5);
-  public static final Constant frontIntakeSolenoidPort = new Constant("frontIntakeSolenoidPort", 6);
-  public static final Constant rearIntakeSolenoidPort = new Constant("rearIntakeSolenoidPort", 7);
+  public static final Constant hoodSolenoidPort = new Constant("hoodSolenoidPort", 7);
+  public static final Constant frontIntakeSolenoidPort = new Constant("frontIntakeSolenoidPort", 5);
+  public static final Constant rearIntakeSolenoidPort = new Constant("rearIntakeSolenoidPort", 6);
 
 
   // Operator control mappings
@@ -61,7 +61,7 @@ public class Constants extends ConstantsBase {
   public static final Constant ultrasonicOutputPort = new Constant("ultrasonicPortB", 11);
 
   // Shooter encodsers
-  public static final Constant shooterReflectorPort = new Constant("shooterReflectorPort", 6);
+  public static final Constant shooterReflectorPort = new Constant("shooterReflectorPort", 5);
 
   // Drive tuning
   public static final Constant sensitivityHigh = new Constant("sensitivityHigh", .85);
@@ -82,7 +82,7 @@ public class Constants extends ConstantsBase {
   public static final Constant intakeDownButtonPort = new Constant("intakeDownPort", 9);
   public static final Constant intakeDownSwitchPort = new Constant("intakeDownSwitchPort", 12);
   
-  public static final Constant frontIntakeEncoderPortA = new Constant("frontIntakeEncoderPortA", 5);
+  public static final Constant frontIntakeEncoderPortA = new Constant("frontIntakeEncoderPortA", 6);
   public static final Constant frontIntakeEncoderPortB = new Constant("frontIntakeEncoderPortB", 12);
   
   public static final Constant rearIntakeEncoderPortA = new Constant("frontIntakeEncoderPortA", 7);
