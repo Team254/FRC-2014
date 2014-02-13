@@ -100,10 +100,16 @@ public class ChezyCompetition extends ChezyIterativeRobot {
 
     //Intake solenoid
     if (ChezyRobot.operatorJoystick.getIntakeDownSwitchState()) {
+      ChezyRobot.rearIntake.setPositionDown(true);
+    } else {
+      ChezyRobot.rearIntake.setPositionDown(false);
+    } 
+    
+    if (ChezyRobot.operatorJoystick.getIntakeUpSwitchState()) {
       ChezyRobot.frontIntake.setPositionDown(true);
-    } else if (ChezyRobot.operatorJoystick.getIntakeUpSwitchState()) {
+    } else {
       ChezyRobot.frontIntake.setPositionDown(false);
-    }
+    } 
     
     //Clapper Buttons
       ChezyRobot.clapper.wantShot = ChezyRobot.operatorJoystick.getClapperUpButtonState();
