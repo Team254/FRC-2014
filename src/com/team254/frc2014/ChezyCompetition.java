@@ -5,6 +5,7 @@ package com.team254.frc2014;
  *
  */
 import com.team254.frc2014.auto.TestDriveAuto;
+import com.team254.frc2014.auto.TestThreeBallShootAuto;
 import com.team254.frc2014.auto.TestUltrasonicAuto;
 import com.team254.frc2014.auto.ThreeBallAuto;
 import com.team254.lib.ChezyIterativeRobot;
@@ -23,9 +24,11 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   DriverStationLCD lcd;
   
   public void initAutoModes() {
+    selector.addAutoMode(new TestThreeBallShootAuto());
     selector.addAutoMode(new TestDriveAuto());
     selector.addAutoMode(new ThreeBallAuto());
     selector.addAutoMode(new TestUltrasonicAuto());
+
   }
 
   public void robotInit() {
@@ -103,15 +106,9 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     }
     
     //Clapper Buttons
-    ChezyRobot.clapper.frontSolenoid.set(ChezyRobot.operatorJoystick.getClapperFrontState());
-    ChezyRobot.clapper.rearSolenoid.set(ChezyRobot.operatorJoystick.getClapperRearState());
-    
-    /*if (ChezyRobot.operatorJoystick.catchButton.wasReleased()) {
-      ChezyRobot.shooter.useController(ChezyRobot.shooterController);
-    } else if (ChezyRobot.operatorJoystick.catchButton.wasPressed()) {
-      ChezyRobot.shooter.useController(ChezyRobot.openLoopShooterController);
-      ChezyRobot.openLoopShooterController.set(-1);
-    }*/
+      ChezyRobot.clapper.wantShot = ChezyRobot.operatorJoystick.getClapperUpButtonState();
+      ChezyRobot.clapper.wantFront = ChezyRobot.operatorJoystick.getFrontClapperButtonState();
+      ChezyRobot.clapper.wantRear = ChezyRobot.operatorJoystick.getRearClapperButtonState();
     // Gearing
     if(ChezyRobot.rightStick.getRawButton(2)) {
       ChezyRobot.drivebase.setLowgear(true);

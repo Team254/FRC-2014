@@ -43,6 +43,12 @@ public class OperatorJoystick extends Joystick {
   public boolean getAutoIntakeButtonState() {
     return this.getRawButton(1);
   }
+  public boolean getFrontClapperButtonState() {
+    return this.getRawButton(9);
+  }
+  public boolean getRearClapperButtonState() {
+    return this.getRawButton(10);
+  }
   
   public int getIntakePositionSwitch() {
     boolean axis = (this.getRawAxis(4) < 0.1);
@@ -60,11 +66,7 @@ public class OperatorJoystick extends Joystick {
     super(port);
   }
 
-  boolean getClapperRearState() {
-    return this.getRawButton(5);
-  }
-
-  boolean getClapperFrontState() {
+  boolean getClapperUpButtonState() {
     return this.getRawButton(6);
   }
   
