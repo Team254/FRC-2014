@@ -2,6 +2,7 @@ package com.team254.frc2014.auto;
 
 import com.team254.frc2014.FieldPosition;
 import com.team254.frc2014.LanedAutoMode;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  *
@@ -15,12 +16,14 @@ public class TestThreeBallShootAuto extends LanedAutoMode {
   }
 
   protected void routine() {
+    Timer t = new Timer();
     clapper.wantFront = false;
     clapper.wantRear = false;
     frontIntake.setPositionDown(true);
     rearIntake.setPositionDown(true);
     shooterController.setVelocityGoal(4200);
     waitTime(2.0);
+    t.start();
     clapper.wantFront = true;
     clapper.wantRear = true;
     waitTime(1.0);
@@ -35,6 +38,10 @@ public class TestThreeBallShootAuto extends LanedAutoMode {
     frontIntake.setPositionDown(false);
     waitTime(0.8);
     clapper.wantFront = true;
+    waitTime(.25);
+    System.out.println(t.get());
+    frontIntake.setPositionDown(true);
+
     waitTime(1.0);
     
   }
