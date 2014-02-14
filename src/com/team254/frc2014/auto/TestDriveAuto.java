@@ -24,19 +24,21 @@ public class TestDriveAuto extends LanedAutoMode {
   protected void routine() {
     goLeftCounter++;
     Timer t = new Timer();
-    t.start();
+
     boolean goLeft = goLeftCounter % 2 == 0;
     System.out.println("Going left? " + goLeft);
     System.out.println("here");
     Route route = new Route();
     route.leftTrajectory = new Trajectory(TestPath.Left);
     route.rightTrajectory = new Trajectory(TestPath.Right);
+    t.start();
     driveRoute(route, 10);
     drivebase.resetEncoders();
-    headingController.setDistance(0);
-    headingController.setHeading(0);
-    drivebase.useController(headingController);
     System.out.println("Drive time: " + t.get());
+    headingController.setDistance(0);
+    headingController.setHeading(Math.toDegrees(Math.PI/6.0));
+    drivebase.useController(headingController);
+
   }
 
   public FieldPosition getFieldPosition() {

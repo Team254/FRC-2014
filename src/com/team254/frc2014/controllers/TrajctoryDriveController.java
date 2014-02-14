@@ -15,8 +15,8 @@ public class TrajctoryDriveController extends Controller {
     init();
   }
   Trajectory trajectory;
-  TrajectoryFollower followerLeft = new TrajectoryFollower();
-  TrajectoryFollower followerRight = new TrajectoryFollower();
+  TrajectoryFollower followerLeft = new TrajectoryFollower("left");
+  TrajectoryFollower followerRight = new TrajectoryFollower("right");
   double direction;
   double heading;
   double kTurn = -1.0/21.0;
@@ -26,8 +26,8 @@ public class TrajctoryDriveController extends Controller {
   }
 
   private void init() {
-    followerLeft.configure(.8, 0, 0, 1.0/15.0, 1.0/25.0);
-    followerRight.configure(.8, 0, 0, 1.0/15.0, 1.0/25.0);
+    followerLeft.configure(1.5, 0, 0, 1.0/15.0, 1.0/34.0);
+    followerRight.configure(1.5, 0, 0, 1.0/15.0, 1.0/34.0);
   }
 
   public void loadProfile(Trajectory leftProfile, Trajectory rightProfile, double direction, double heading) {

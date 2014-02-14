@@ -24,9 +24,9 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   DriverStationLCD lcd;
   
   public void initAutoModes() {
+    selector.addAutoMode(new ThreeBallAuto());
     selector.addAutoMode(new TestThreeBallShootAuto());
     selector.addAutoMode(new TestDriveAuto());
-    selector.addAutoMode(new ThreeBallAuto());
     selector.addAutoMode(new TestUltrasonicAuto());
 
   }
@@ -59,6 +59,8 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     ChezyRobot.drivebase.turnOffControllers();
     ChezyRobot.drivebase.resetGyro();
     //ChezyRobot.drivebase.gyro.startCalibrateThread();
+    ChezyRobot.clapper.wantFront = false;
+    ChezyRobot.clapper.wantRear = false;
   }
 
   public void teleopInit() {

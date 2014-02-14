@@ -1,5 +1,7 @@
 package com.team254.lib.trajectory;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * PID + Feedforward controller for following a Trajectory.
  *
@@ -16,9 +18,10 @@ public class TrajectoryFollower {
   private double current_heading = 0;
   private int current_segment;
   private Trajectory profile_;
+  public String name;
 
-  public TrajectoryFollower() {
-
+  public TrajectoryFollower(String name) {
+    this.name = name;
   }
 
   public void configure(double kp, double ki, double kd, double kv, double ka) {
@@ -50,6 +53,9 @@ public class TrajectoryFollower {
       last_error_ = error;
       current_heading = segment.heading;
       current_segment++;
+      SmartDashboard.putNumber(name + "FollowerSensor", distance_so_far);
+      SmartDashboard.putNumber(name + "FollowerGoal", segment.pos);
+      SmartDashboard.putNumber(name + "FollowerError", error);
       //System.out.println("so far: " + distance_so_far + "; output: " + output);
       return output;
     } else {
