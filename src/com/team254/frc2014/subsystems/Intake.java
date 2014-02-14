@@ -33,17 +33,17 @@ public class Intake extends Subsystem implements Loopable {
   }
 
   double manualRollerPower = 0;
-  public static final int STATE_IDLE = 0;
   public static final int STATE_HOLD_POSITION = 1;
   public static final int STATE_GATHER_BALL = 2;
   public static final int STATE_DELIVER_BALL = 3;
   public static final int STATE_MANUAL = 4;
   public static final int STATE_GATHER_EXTRA_BALL = 5;
   public static final int STATE_GATHER_EXTRA_BALL_BACKOFF = 6;
-  private int state = STATE_IDLE;
+  private int state = STATE_MANUAL;
   public boolean wantGather = false;
   public boolean wantManual = false;
   public boolean wantExtraGather = false;
+  public boolean wantDown = false;
 
   private void setRollerPower(double power) {
     power = Util.limit(power, 1.0);
@@ -62,7 +62,7 @@ public class Intake extends Subsystem implements Loopable {
     wantAutoIntake = autoIntake;
   }
 
-  public void setPositionDown(boolean state) {
+  private void setPositionDown(boolean state) {
     actuator.set(state);
   }
 
@@ -94,9 +94,12 @@ public class Intake extends Subsystem implements Loopable {
     int newState = state;
     switch (state) {
       case STATE_MANUAL:
-        setRollerPower(manualRollerPower);
-        if (!wantManual) {
-          newState = STATE_IDLE;
+        setPositionDown(wantDown);
+        setRollerPower(manualRollerPower); 
+        if (wantGather) {
+          newState = STATE_GATHER_BALL;
+        } else if (wantExtraGather) {
+          newState = STATE_GATHER_EXTRA_BALL;
         }
         break;
       case STATE_HOLD_POSITION:
@@ -111,7 +114,7 @@ public class Intake extends Subsystem implements Loopable {
         break;
       case STATE_GATHER_BALL:
         if (!wantGather) {
-          newState = STATE_IDLE;
+          newState = STATE_MANUAL;
         }
         setPositionDown(true);
         setRollerPower(1);
@@ -131,7 +134,7 @@ public class Intake extends Subsystem implements Loopable {
         } else {
           setPositionDown(false);
           setRollerPower(0);
-          newState = STATE_IDLE;
+          newState = STATE_MANUAL;
         }
         break;
       case STATE_GATHER_EXTRA_BALL:
@@ -143,7 +146,7 @@ public class Intake extends Subsystem implements Loopable {
           ;
         } else if (!wantExtraGather) {
           setPositionDown(false);
-          newState = STATE_IDLE;
+          newState = STATE_MANUAL;
         }
         break;
       case STATE_GATHER_EXTRA_BALL_BACKOFF:
@@ -153,14 +156,6 @@ public class Intake extends Subsystem implements Loopable {
           encoder.reset();
           rollerGoal = 0;
           newState = STATE_HOLD_POSITION;
-        }
-        break;
-      case STATE_IDLE:
-        setRollerPower(0);
-        if (wantGather) {
-          newState = STATE_GATHER_BALL;
-        } else if (wantExtraGather) {
-          newState = STATE_GATHER_EXTRA_BALL;
         }
         break;
     }

@@ -19,8 +19,8 @@ public class TestThreeBallShootAuto extends LanedAutoMode {
     Timer t = new Timer();
     clapper.wantFront = false;
     clapper.wantRear = false;
-    frontIntake.setPositionDown(true);
-    rearIntake.setPositionDown(true);
+    frontIntake.wantDown = true;
+    rearIntake.wantDown = true;
     shooterController.setVelocityGoal(4200);
     waitTime(2.0);
     t.start();
@@ -29,18 +29,18 @@ public class TestThreeBallShootAuto extends LanedAutoMode {
     waitTime(1.0);
     clapper.wantRear = false;
     waitTime(0.2);
-    rearIntake.setPositionDown(false);
+    rearIntake.wantDown = false;
     waitTime(0.8);
     clapper.wantRear = true;
     waitTime(1.0);
     clapper.wantFront = false;
     waitTime(0.2);
-    frontIntake.setPositionDown(false);
+    frontIntake.wantDown = false;
     waitTime(0.8);
     clapper.wantFront = true;
     waitTime(.25);
     System.out.println(t.get());
-    frontIntake.setPositionDown(true);
+    frontIntake.wantDown = true;
 
     waitTime(1.0);
     
