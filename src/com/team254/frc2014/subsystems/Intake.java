@@ -21,13 +21,15 @@ public class Intake extends Subsystem implements Loopable {
   private Solenoid actuator;
   private DigitalInput bumpSwitch;
   public Encoder encoder;
+  boolean flip = false;
 
-  public Intake(String name, Talon roller, Encoder encoder, DigitalInput bumpSwitch, Solenoid actuator) {
+  public Intake(String name, Talon roller, Encoder encoder, DigitalInput bumpSwitch, Solenoid actuator, boolean flip) {
     super(name);
     this.roller = roller;
     this.encoder = encoder;
     this.bumpSwitch = bumpSwitch;
     this.actuator = actuator;
+    this.flip = flip;
     encoder.start();
     stateTimer.start();
   }
@@ -41,20 +43,16 @@ public class Intake extends Subsystem implements Loopable {
   public static final int STATE_GATHER_EXTRA_BALL_BACKOFF = 6;
   private int state = STATE_MANUAL;
   public boolean wantGather = false;
-  public boolean wantManual = false;
   public boolean wantExtraGather = false;
   public boolean wantDown = false;
 
   private void setRollerPower(double power) {
-    power = Util.limit(power, 1.0);
+    power = Util.limit(power * (flip ? -1.0 : 1.0), 1.0);
     roller.set(power);
   }
 
   public void setManualRollerPower(double power) {
     manualRollerPower = power;
-    wantManual = true;
-    state = STATE_MANUAL;
-    stateTimer.reset();
   }
   boolean wantAutoIntake = false;
 
@@ -113,12 +111,10 @@ public class Intake extends Subsystem implements Loopable {
         }
         break;
       case STATE_GATHER_BALL:
-        if (!wantGather) {
-          newState = STATE_MANUAL;
-        }
+
         setPositionDown(true);
         setRollerPower(1);
-        if (getIntakeSensor()) {
+        if (getIntakeSensor() || !wantGather) {
           encoder.reset();
           newState = STATE_DELIVER_BALL;
         }

@@ -21,7 +21,7 @@ public class Drivebase extends Subsystem implements Loopable {
 
   // ticks to feet
   public final double RIGHT_ENCOCDER_TO_DISTANCE_RATIO = (3.5 * Math.PI) / (12.0 * 256.0);
-  public final double LEFT_ENCOCDER_TO_DISTANCE_RATIO = (3.5 * Math.PI) / (12.0 * 300.0);
+  public final double LEFT_ENCOCDER_TO_DISTANCE_RATIO = (3.5 * Math.PI) / (12.0 * 256.0);
   // Speed controllers
   private Talon leftDriveA = new Talon(Constants.leftDrivePortA.getInt());
   private Talon leftDriveB = new Talon(Constants.leftDrivePortB.getInt());
@@ -149,6 +149,7 @@ public class Drivebase extends Subsystem implements Loopable {
     SmartDashboard.putNumber("driveLeftEncoder", getLeftEncoderDistance());
     SmartDashboard.putNumber("driveRightEncoder", getRightEncoderDistance());
     SmartDashboard.putNumber("gyro", getGyroAngle());
+    super.update();
   }
 
 }

@@ -47,7 +47,7 @@ public class PathGenerator {
     double length_of_splines_finished = 0;
     for (int i = 0; i < traj.getNumSegments(); ++i) {
       double cur_pos = traj.getSegment(i).pos;
-
+      System.out.println("i " + i + " num " + traj.getNumSegments());
       boolean found_spline = false;
       while (!found_spline) {
         double cur_pos_relative = cur_pos - cur_spline_start_pos;

@@ -39,6 +39,7 @@ public class TrajectoryFollower {
   }
 
   public double calculate(double distance_so_far) {
+   
     if (current_segment < profile_.getNumSegments()) {
       Trajectory.Segment segment = profile_.getSegment(current_segment);
       double error = segment.pos - distance_so_far;

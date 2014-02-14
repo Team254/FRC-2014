@@ -26,8 +26,8 @@ public class TrajctoryDriveController extends Controller {
   }
 
   private void init() {
-    followerLeft.configure(.8, 0, 0, 0.06666666666667, 1.0/45.0);
-    followerRight.configure(.8, 0, 0, 0.06666666666667, 1.0/45.0);
+    followerLeft.configure(.8, 0, 0, 1.0/15.0, 1.0/25.0);
+    followerRight.configure(.8, 0, 0, 1.0/15.0, 1.0/25.0);
   }
 
   public void loadProfile(Trajectory leftProfile, Trajectory rightProfile, double direction, double heading) {
@@ -63,7 +63,6 @@ public class TrajctoryDriveController extends Controller {
 
       double angleDiffRads = ChezyMath.getDifferenceInAngleRadians(observedHeading, goalHeading);// different coordinates
       double angleDiff = Math.toDegrees(angleDiffRads);
-
       double turn = kTurn * angleDiff;
       drivebase.setLeftRightPower(speedLeft + turn, speedRight - turn);
     }

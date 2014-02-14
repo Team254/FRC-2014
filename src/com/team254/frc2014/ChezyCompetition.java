@@ -68,6 +68,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     }
     ChezyRobot.drivebase.turnOffControllers();
     ChezyRobot.frontIntake.setAutoIntake(false);
+    ChezyRobot.drivebase.resetEncoders();
     // This is just here for testing purposes
   }
   double wantedRpm = 4000;
@@ -86,10 +87,13 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     // Intake Roller
     if (ChezyRobot.operatorJoystick.getIntakeButtonState()) {
       ChezyRobot.frontIntake.setManualRollerPower(1);
+      ChezyRobot.rearIntake.setManualRollerPower(1);
     } else if (ChezyRobot.operatorJoystick.getExhaustButtonState()) {
       ChezyRobot.frontIntake.setManualRollerPower(-1);
+      ChezyRobot.rearIntake.setManualRollerPower(-1);
     } else {
-      ChezyRobot.frontIntake.wantManual = false;
+      ChezyRobot.frontIntake.setManualRollerPower(ChezyRobot.operatorJoystick.getRearClapperButtonState() ? -1.0 : 0);
+      ChezyRobot.rearIntake.setManualRollerPower(ChezyRobot.operatorJoystick.getFrontClapperButtonState() ? -1.0 : 0);
     }
 
     //Auto intake
@@ -125,7 +129,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     boolean qt = ChezyRobot.rightStick.getTrigger();
     double turn = ChezyRobot.rightStick.getX();
     ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), turn, qt, true);
-    
+    System.out.println(Timer.getFPGATimestamp()+", "+(-ChezyRobot.leftStick.getY())+", "+ChezyRobot.drivebase.getLeftEncoderDistance()+", "+ChezyRobot.drivebase.getRightEncoderDistance());
     //System.out.println(", " + Timer.getFPGATimestamp() + ", " + (ChezyRobot.operatorJoystick.getShooterState() ? 1.0 : 0.0) + ", " + ChezyRobot.shooter.lastRpm + ", 0.01");
   }
   

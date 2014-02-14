@@ -47,4 +47,12 @@ public class Path {
       return null;
     }
   }
+  
+  public String toString() {
+    String str = "Path:\n";
+    for (int i = 0; i < num_waypoints_; ++i) {
+      str += " Waypoint " + i + ": (" + waypoints_[i].x + ", " + waypoints_[i].y + ", " + waypoints_[i].theta + ")\n";;
+    }
+    return str;
+  }
 }

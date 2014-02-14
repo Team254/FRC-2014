@@ -52,6 +52,10 @@ public class Trajectory {
       segments_[i] = new Segment();
     }
   }
+  
+  public Trajectory(Segment[] segments) {
+    this.segments_ = segments;
+  }
 
   public int getNumSegments() {
     return segments_.length;
