@@ -1,7 +1,5 @@
 package com.team254.lib.trajectory;
 
-import com.team254.lib.util.ChezyMath;
-
 /**
  * Factory class for creating Trajectories.
  *
@@ -46,18 +44,18 @@ public class TrajectoryGenerator {
     }
   }
 
-    ///// CONSTANTS /////
+  ///// CONSTANTS /////
   // Move from the start to the goal at a constant velocity.  Acceleration and
   // jerk limits are ignored, and start and goal vel are ignored (since the
   // velocity at all times will be max_vel).
   public static final Strategy StepStrategy = new Strategy("StepStrategy");
 
-    // Move from the start to the goal with a trapezoidal speed profile.
+  // Move from the start to the goal with a trapezoidal speed profile.
   // Jerk limits are ignored.
   public static final Strategy TrapezoidalStrategy
           = new Strategy("TrapezoidalStrategy");
 
-    // Move from the start tot he goal with a S-curve speed profile.  All limits
+  // Move from the start tot he goal with a S-curve speed profile.  All limits
   // are obeyed, but only point-to-point moves (start_vel = goal_vel = 0) are
   // currently supported.
   public static final Strategy SCurvesStrategy
@@ -170,11 +168,9 @@ public class TrajectoryGenerator {
     // Don't do any wrapping because we don't know units.
     double total_heading_change = goal_heading - start_heading;
     for (int i = 0; i < traj.getNumSegments(); ++i) {
-      traj.segments_[i].heading =  start_heading + total_heading_change
+      traj.segments_[i].heading = start_heading + total_heading_change
               * (traj.segments_[i].pos)
               / traj.segments_[traj.getNumSegments() - 1].pos;
-      traj.segments_[i].delta_heading = total_heading_change / 
-              traj.getNumSegments();
     }
 
     return traj;
@@ -202,7 +198,7 @@ public class TrajectoryGenerator {
     last.jerk = 0;
     last.dt = dt;
 
-        // f2 is the average of the last f2_length samples from f1, so while we
+    // f2 is the average of the last f2_length samples from f1, so while we
     // can recursively compute f2's sum, we need to keep a buffer for f1.
     double[] f1 = new double[length];
     f1[0] = (start_vel / max_vel) * f1_length;
@@ -249,7 +245,7 @@ public class TrajectoryGenerator {
       }
       traj.segments_[i].x = traj.segments_[i].pos;
       traj.segments_[i].y = 0;
-      
+
       // Acceleration and jerk are the differences in velocity and
       // acceleration, respectively.
       traj.segments_[i].acc = (traj.segments_[i].vel - last.vel) / dt;

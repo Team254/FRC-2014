@@ -10,9 +10,21 @@ public class Trajectory {
 
   public static class Segment {
 
-    public double pos, vel, acc, jerk, heading, delta_heading, dt, x, y;
+    public double pos, vel, acc, jerk, heading, dt, x, y;
 
     public Segment() {
+    }
+
+    public Segment(double pos, double vel, double acc, double jerk,
+            double heading, double dt, double x, double y) {
+      this.pos = pos;
+      this.vel = vel;
+      this.acc = acc;
+      this.jerk = jerk;
+      this.heading = heading;
+      this.dt = dt;
+      this.x = x;
+      this.y = y;
     }
 
     public Segment(Segment to_copy) {
@@ -21,7 +33,6 @@ public class Trajectory {
       acc = to_copy.acc;
       jerk = to_copy.jerk;
       heading = to_copy.heading;
-      delta_heading = to_copy.delta_heading;
       dt = to_copy.dt;
       x = to_copy.x;
       y = to_copy.y;
@@ -29,8 +40,7 @@ public class Trajectory {
 
     public String toString() {
       return "pos: " + pos + "; vel: " + vel + "; acc: " + acc + "; jerk: "
-              + jerk + "; heading: " + heading + "; delta_heading: " + 
-              delta_heading;
+              + jerk + "; heading: " + heading;
     }
   }
 
@@ -97,45 +107,17 @@ public class Trajectory {
       str += segment.acc + "\t";
       str += segment.jerk + "\t";
       str += segment.heading + "\t";
-      str += segment.delta_heading + "\t";
       str += "\n";
     }
 
     return str;
   }
-  
+
   public String toStringProfile() {
     return toString();
   }
-  
-  public void print() {
-    for (int i = 0; i < getNumSegments(); ++i) {
-      Trajectory.Segment segment = getSegment(i);
-      String str = "";
-      str += i + ", ";
-      str += segment.pos + ", ";
-      str += segment.vel + ", ";
-      str += segment.acc + ", ";
-      str += segment.jerk + ", ";
-      str += segment.heading + ", ";
-      str += segment.delta_heading;
-      System.out.println(str);
-    }
-  }
-  
-  public void printEuclidean() {
-    for (int i = 0; i < getNumSegments(); ++i) {
-      Trajectory.Segment segment = getSegment(i);
-      String str = "";
-      str += i + ", ";
-      str += segment.x + ", ";
-      str += segment.y + ", ";
-      str += segment.heading + ", ";
-      System.out.println(str);
-    }
-  }
-  
-  public String toStringEuclidean() { 
+
+  public String toStringEuclidean() {
     String str = "Segment\tx\ty\tHeading\n";
     for (int i = 0; i < getNumSegments(); ++i) {
       Trajectory.Segment segment = getSegment(i);
@@ -147,13 +129,5 @@ public class Trajectory {
     }
 
     return str;
-  }
-  
-  public void flip() {
-    for (int i = 0; i < getNumSegments(); ++i) {
-      Trajectory.Segment segment = getSegment(i);
-      segment.heading = segment.heading * -1.0;
-      segment.delta_heading = segment.delta_heading * -1.0;
-    }
   }
 }

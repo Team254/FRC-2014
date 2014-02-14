@@ -1,5 +1,4 @@
 package com.team254.lib.util;
-import com.sun.squawk.util.MathUtils;
 
 /**
  * This class holds a bunch of static methods and variables needed for
@@ -54,7 +53,21 @@ public class ChezyMath {
 
   // implementation of atan2
   public static double atan2(double arg1, double arg2) {
-    return MathUtils.atan2(arg1, arg2);
+    if (arg1 + arg2 == arg1) {
+      if (arg1 >= 0) {
+        return PIO2;
+      }
+      return -PIO2;
+    }
+    arg1 = atan(arg1 / arg2);
+    if (arg2 < 0) {
+      if (arg1 <= 0) {
+        return arg1 + Math.PI;
+      }
+      return arg1 - Math.PI;
+    }
+    return arg1;
+
   }
 
   // implementation of asin

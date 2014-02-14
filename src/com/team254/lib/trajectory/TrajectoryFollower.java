@@ -49,6 +49,7 @@ public class TrajectoryFollower {
       last_error_ = error;
       current_heading = segment.heading;
       current_segment++;
+      //System.out.println("so far: " + distance_so_far + "; output: " + output);
       return output;
     } else {
       return 0;
