@@ -70,6 +70,7 @@ public class ChezyRobot {
     // Add all subsystems to a 100Hz Looper
     subsystemUpdater100Hz.addLoopable(drivebase);
     subsystemUpdater100Hz.addLoopable(frontIntake);
+    subsystemUpdater100Hz.addLoopable(rearIntake);
     subsystemUpdater100Hz.addLoopable(shooter);
     subsystemUpdater100Hz.addLoopable(navigator);
     subsystemUpdater100Hz.addLoopable(clapper);

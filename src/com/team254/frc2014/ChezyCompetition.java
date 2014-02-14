@@ -38,12 +38,12 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     lcd = DriverStationLCD.getInstance();
     ChezyRobot.initRobot();
     ChezyRobot.subsystemUpdater100Hz.start();
-    ChezyRobot.drivebase.gyro.startCalibrateThread();
+    //ChezyRobot.drivebase.gyro.startCalibrateThread();
     lcdUpdateTimer.start();
   }
 
   public void autonomousInit() {
-    ChezyRobot.drivebase.gyro.stopCalibrating();
+    //ChezyRobot.drivebase.gyro.stopCalibrating();
     ChezyRobot.drivebase.resetGyro();
     currentAutoMode = selector.currentAutoMode();
     if (currentAutoMode != null) {
@@ -58,11 +58,11 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     }
     ChezyRobot.drivebase.turnOffControllers();
     ChezyRobot.drivebase.resetGyro();
-    ChezyRobot.drivebase.gyro.startCalibrateThread();
+    //ChezyRobot.drivebase.gyro.startCalibrateThread();
   }
 
   public void teleopInit() {
-    ChezyRobot.drivebase.gyro.stopCalibrating();
+    //ChezyRobot.drivebase.gyro.stopCalibrating();
     if (currentAutoMode != null) {
       currentAutoMode.stop();
     }

@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.Hashtable;
 
 /**
@@ -40,7 +41,7 @@ public class Drivebase extends Subsystem implements Loopable {
   // private Ultrasonic ultrasonic = new Ultrasonic(Constants.ultrasonicInputPort.getInt(),
   //       Constants.ultrasonicOutputPort.getInt());
   //Gyro
-  public ChezyGyro gyro;
+  public Gyro gyro;
   private Controller controller;
 
   public void setLeftRightPower(double leftPower, double rightPower) {
@@ -57,7 +58,7 @@ public class Drivebase extends Subsystem implements Loopable {
   public Drivebase() {
     super("Drivebase");
     //System.out.println("Making gyro!");
-    gyro = new ChezyGyro(Constants.gyroPort.getInt());
+    gyro = new Gyro(Constants.gyroPort.getInt());
     //System.out.println("Done making gyro!");
     //ultrasonic.setEnabled(true);
     // ultrasonic.setAutomaticMode(true);
@@ -142,6 +143,12 @@ public class Drivebase extends Subsystem implements Loopable {
   public void resetEncoders() {
     leftEncoder.reset();
     rightEncoder.reset();
+  }
+  
+  public void update() {
+    SmartDashboard.putNumber("driveLeftEncoder", getLeftEncoderDistance());
+    SmartDashboard.putNumber("driveRightEncoder", getRightEncoderDistance());
+    SmartDashboard.putNumber("gyro", getGyroAngle());
   }
 
 }
