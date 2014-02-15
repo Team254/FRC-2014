@@ -3,7 +3,7 @@ package com.team254.frc2014.subsystems;
 import com.team254.lib.Loopable;
 import com.team254.lib.Subsystem;
 import com.team254.lib.util.Util;
-import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
@@ -19,11 +19,12 @@ public class Intake extends Subsystem implements Loopable {
 
   private Talon roller;
   private Solenoid actuator;
-  private DigitalInput bumpSwitch;
+  private AnalogChannel bumpSwitch;
   public Encoder encoder;
   boolean flip = false;
+  private static final int kBumpSwitchThreshold = 400;
 
-  public Intake(String name, Talon roller, Encoder encoder, DigitalInput bumpSwitch, Solenoid actuator, boolean flip) {
+  public Intake(String name, Talon roller, Encoder encoder, AnalogChannel bumpSwitch, Solenoid actuator, boolean flip) {
     super(name);
     this.roller = roller;
     this.encoder = encoder;
@@ -77,7 +78,7 @@ public class Intake extends Subsystem implements Loopable {
   }
 
   public boolean getIntakeSensor() {
-    return !bumpSwitch.get();
+    return (bumpSwitch.getValue() < kBumpSwitchThreshold);
   }
 
   public Hashtable serialize() {

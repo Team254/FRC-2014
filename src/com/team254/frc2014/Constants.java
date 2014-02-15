@@ -75,8 +75,8 @@ public class Constants extends ConstantsBase {
   public static final Constant driveTurnKILow = new Constant("driveTurnKILow", 0);
   public static final Constant driveTurnKDLow = new Constant("driveTurnKDLow", 0.045);
 
-  public static final Constant frontIntakeSwitchPort = new Constant("intakeBumperSwitch", 13);
-  public static final Constant rearIntakeSwitchPort = new Constant("intakeBumperSwitch", 9);
+  public static final Constant frontIntakeSwitchPort = new Constant("frontIntakeSwitchPort", 2);
+  public static final Constant rearIntakeSwitchPort = new Constant("rearIntakeSwitchPort", 3);
   
   public static final Constant intakeUpButtonPort = new Constant("intakeUpPort", 10);
   public static final Constant intakeDownButtonPort = new Constant("intakeDownPort", 9);

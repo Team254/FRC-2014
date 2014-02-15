@@ -10,6 +10,7 @@ import com.team254.frc2014.subsystems.Navigator;
 import com.team254.frc2014.controllers.RpmFlywheelController;
 import com.team254.frc2014.subsystems.*;
 import com.team254.lib.MultiLooper;
+import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -39,12 +40,12 @@ public class ChezyRobot {
   // Set up the intakes
   public static final Talon frontIntakeRoller = new Talon(Constants.frontIntakeRollerPort.getInt());
   public static final Solenoid frontIntakeSolenoid = new Solenoid(Constants.frontIntakeSolenoidPort.getInt());
-  public static final DigitalInput frontIntakeSwitch = new DigitalInput(Constants.frontIntakeSwitchPort.getInt());
+  public static final AnalogChannel frontIntakeSwitch = new AnalogChannel(Constants.frontIntakeSwitchPort.getInt());
   public static final Encoder frontIntakeEncoder = new Encoder(Constants.frontIntakeEncoderPortA.getInt(), Constants.frontIntakeEncoderPortB.getInt());
   
   public static final Talon rearIntakeRoller = new Talon(Constants.rearIntakeRollerPort.getInt());
   public static final Solenoid rearIntakeSolenoid = new Solenoid(Constants.rearIntakeSolenoidPort.getInt());
-  public static final DigitalInput rearIntakeSwitch = new DigitalInput(Constants.rearIntakeSwitchPort.getInt());
+  public static final AnalogChannel rearIntakeSwitch = new AnalogChannel(Constants.rearIntakeSwitchPort.getInt());
   public static final Encoder rearIntakeEncoder = new Encoder(Constants.rearIntakeEncoderPortA.getInt(), Constants.rearIntakeEncoderPortB.getInt());
   
   public static final Intake frontIntake = new Intake("Front Intake", frontIntakeRoller, frontIntakeEncoder, frontIntakeSwitch, frontIntakeSolenoid, true);
