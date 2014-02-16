@@ -1,6 +1,6 @@
 package com.team254.frc2014.actions;
 
-import com.team254.lib.Route;
+import com.team254.path.Path;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj.Timer;
 public class DriveRouteAction extends Action {
 
   double heading;
-  Route r;
+  Path path;
 
-  public DriveRouteAction(Route route, double timeout) {
-    r = route;
+  public DriveRouteAction(Path route, double timeout) {
+    path = route;
     setTimeout(timeout);
   }
 
@@ -24,7 +24,7 @@ public class DriveRouteAction extends Action {
   public void init() {
     System.out.println("Init Drive " + Timer.getFPGATimestamp());
     drivebase.resetEncoders();
-    driveController.loadProfile(r.leftTrajectory, r.rightTrajectory, 1.0, heading);
+    driveController.loadProfile(path.getLeftWheelTrajectory(), path.getRightWheelTrajectory(), 1.0, heading);
     drivebase.useController(driveController);
     driveController.enable();
   }
