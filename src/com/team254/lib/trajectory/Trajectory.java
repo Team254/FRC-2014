@@ -1,5 +1,7 @@
 package com.team254.lib.trajectory;
 
+import com.team254.lib.util.ChezyMath;
+
 /**
  * Implementation of a Trajectory using arrays as the underlying storage
  * mechanism.
@@ -13,7 +15,7 @@ public class Trajectory {
       this.left = left;
       this.right = right;
     }
-    
+
     public Trajectory left;
     public Trajectory right;
   }
@@ -55,6 +57,7 @@ public class Trajectory {
   }
 
   Segment[] segments_ = null;
+  boolean inverted_y_ = false;
 
   public Trajectory(int length) {
     segments_ = new Segment[length];
@@ -66,6 +69,10 @@ public class Trajectory {
   public Trajectory(Segment[] segments) {
     segments_ = segments;
   }
+  
+  public void setInvertedY(boolean inverted) {
+    inverted_y_ = inverted;
+  }
 
   public int getNumSegments() {
     return segments_.length;
@@ -73,7 +80,15 @@ public class Trajectory {
 
   public Segment getSegment(int index) {
     if (index < getNumSegments()) {
-      return segments_[index];
+      if (!inverted_y_) {
+        return segments_[index];
+      } else {
+        Segment segment = new Segment(segments_[index]);
+        segment.y *= -1;
+        segment.heading = ChezyMath.boundAngle0to2PiRadians(2*Math.PI - 
+                segment.heading);
+        return segment;
+      }
     } else {
       return new Segment();
     }
@@ -105,10 +120,16 @@ public class Trajectory {
   public Trajectory copy() {
     Trajectory cloned
             = new Trajectory(getNumSegments());
-    for (int i = 0; i < getNumSegments(); ++i) {
-      cloned.segments_[i] = new Segment(segments_[i]);
-    }
+    cloned.segments_ = copySegments(this.segments_);
     return cloned;
+  }
+  
+  private Segment[] copySegments(Segment[] tocopy) {
+    Segment[] copied = new Segment[tocopy.length];
+    for (int i = 0; i < tocopy.length; ++i) {
+      copied[i] = new Segment(tocopy[i]);
+    }
+    return copied;
   }
 
   public String toString() {
