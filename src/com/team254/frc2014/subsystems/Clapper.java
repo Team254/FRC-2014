@@ -81,7 +81,7 @@ public class Clapper extends Subsystem{
       case STATE_START_SHOT:
         rearSolenoid.set(false);
         frontSolenoid.set(true);
-        if(stateTimer.get() > .05) {
+        if(stateTimer.get() > .06) {
           nextState = STATE_UP;
         }
         break;

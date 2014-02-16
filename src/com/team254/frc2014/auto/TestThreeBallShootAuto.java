@@ -17,33 +17,56 @@ public class TestThreeBallShootAuto extends LanedAutoMode {
 
   protected void routine() {
     Timer t = new Timer();
+    
+    drivebase.resetEncoders();
+    drivebase.resetGyro();
+    headingController.setDistance(0);
+    headingController.setHeading(0);
+    drivebase.useController(headingController);
+    
+    
     clapper.wantFront = false;
     clapper.wantRear = false;
     frontIntake.wantDown = true;
     rearIntake.wantDown = true;
-    shooterController.setVelocityGoal(4200);
+    shooterController.setVelocityGoal(4000);
     waitTime(2.0);
     t.start();
-    clapper.wantFront = true;
-    clapper.wantRear = true;
-    waitTime(1.0);
-    clapper.wantRear = false;
-    waitTime(0.2);
+ 
+    rearIntake.setManualRollerPower(0);
+    clapper.wantShot = true;
+    waitTime(.5);
+    clapper.wantShot = false;
+    rearIntake.setManualRollerPower(0);
+   
+    shooterController.setVelocityGoal(4300);
+    rearIntake.setManualRollerPower(.5);
+    waitTime(0.3);
     rearIntake.wantDown = false;
-    waitTime(0.8);
-    clapper.wantRear = true;
-    waitTime(1.0);
-    clapper.wantFront = false;
+    waitTime(.4);
+    rearIntake.setManualRollerPower(0);
+    waitTime(.9);
+    
+    rearIntake.setManualRollerPower(1);
+    clapper.wantShot = true;
+    waitTime(.5);
+    clapper.wantShot = false;
+    rearIntake.setManualRollerPower(0);
+
     waitTime(0.2);
+    frontIntake.setManualRollerPower(0.5);
     frontIntake.wantDown = false;
     waitTime(0.8);
-    clapper.wantFront = true;
-    waitTime(.25);
-    System.out.println(t.get());
-    frontIntake.wantDown = true;
-
-    waitTime(1.0);
+    frontIntake.setManualRollerPower(0.00);
+    waitTime(0.5);
     
+    rearIntake.setManualRollerPower(1);
+    clapper.wantShot = true;
+    waitTime(.5);
+    clapper.wantShot = false;
+    System.out.println(t.get());
+    rearIntake.setManualRollerPower(0);
+    shooterController.setVelocityGoal(0);
   }
 
   public FieldPosition getFieldPosition() {

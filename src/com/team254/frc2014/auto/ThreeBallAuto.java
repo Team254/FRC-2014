@@ -2,8 +2,6 @@ package com.team254.frc2014.auto;
 
 import com.team254.frc2014.FieldPosition;
 import com.team254.frc2014.LanedAutoMode;
-import com.team254.lib.trajectory.Trajectory;
-import com.team254.path.CenterLanePath;
 import com.team254.path.Path;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -30,7 +28,7 @@ public class ThreeBallAuto extends LanedAutoMode {
     boolean goLeft = goLeftCounter % 2 == 0;
     System.out.println("Going left? " + goLeft);
     System.out.println("here");
-    Path path = new CenterLanePath();
+    Path path = null;//new CenterLanePath();
     
     shooterController.setVelocityGoal(4200);
     

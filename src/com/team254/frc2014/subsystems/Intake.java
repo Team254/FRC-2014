@@ -42,10 +42,12 @@ public class Intake extends Subsystem implements Loopable {
   public static final int STATE_MANUAL = 4;
   public static final int STATE_GATHER_EXTRA_BALL = 5;
   public static final int STATE_GATHER_EXTRA_BALL_BACKOFF = 6;
+  public static final int STATE_SHOOTING = 7;
   private int state = STATE_MANUAL;
   public boolean wantGather = false;
   public boolean wantExtraGather = false;
   public boolean wantDown = false;
+  public boolean wantShoot = false;
 
   private void setRollerPower(double power) {
     power = Util.limit(power * (flip ? -1.0 : 1.0), 1.0);
@@ -99,6 +101,8 @@ public class Intake extends Subsystem implements Loopable {
           newState = STATE_GATHER_BALL;
         } else if (wantExtraGather) {
           newState = STATE_GATHER_EXTRA_BALL;
+        } else if (wantShoot) {
+          newState = STATE_SHOOTING;
         }
         break;
       case STATE_HOLD_POSITION:
@@ -109,6 +113,9 @@ public class Intake extends Subsystem implements Loopable {
         if (!getIntakeSensor() && stateTimer.get() > .5) {
           //retryExtra = true;
           //newState = STATE_GATHER_EXTRA_BALL;
+        }
+        if (!wantExtraGather) {
+          newState = STATE_MANUAL;
         }
         break;
       case STATE_GATHER_BALL:
@@ -153,6 +160,14 @@ public class Intake extends Subsystem implements Loopable {
           encoder.reset();
           rollerGoal = 0;
           newState = STATE_HOLD_POSITION;
+        }
+        break;
+        
+      case STATE_SHOOTING:
+        setRollerPower(1);
+        if (!wantShoot && stateTimer.get() > 1.0) {
+          setRollerPower(0);
+          newState = STATE_MANUAL;
         }
         break;
     }
