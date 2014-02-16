@@ -11,7 +11,7 @@ import com.team254.lib.trajectory.Trajectory;
 public class TextFileDeserializer implements IPathDeserializer {
 
   public Path deserialize(String serialized) {
-    StringTokenizer tokenizer = new StringTokenizer(serialized);
+    StringTokenizer tokenizer = new StringTokenizer(serialized, "\n");
     
     String name = tokenizer.nextToken();
     int num_elements = Integer.parseInt(tokenizer.nextToken());
