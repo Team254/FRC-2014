@@ -7,6 +7,16 @@ package com.team254.lib.trajectory;
  * @author Jared341
  */
 public class Trajectory {
+  
+  public static class Pair {
+    public Pair(Trajectory left, Trajectory right) {
+      this.left = left;
+      this.right = right;
+    }
+    
+    public Trajectory left;
+    public Trajectory right;
+  }
 
   public static class Segment {
 
@@ -46,7 +56,7 @@ public class Trajectory {
 
   Segment[] segments_ = null;
 
-  Trajectory(int length) {
+  public Trajectory(int length) {
     segments_ = new Segment[length];
     for (int i = 0; i < length; ++i) {
       segments_[i] = new Segment();
@@ -54,7 +64,7 @@ public class Trajectory {
   }
   
   public Trajectory(Segment[] segments) {
-    this.segments_ = segments;
+    segments_ = segments;
   }
 
   public int getNumSegments() {
