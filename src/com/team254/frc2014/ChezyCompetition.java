@@ -75,7 +75,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     ChezyRobot.frontIntake.setAutoIntake(false);
     ChezyRobot.drivebase.resetEncoders();
     ChezyRobot.shooter.setHood(false);
-    ChezyRobot.shooterController.setVelocityGoal(4200);
+    ChezyRobot.shooterController.setVelocityGoal(5000);
     // This is just here for testing purposes
   }
   double wantedRpm = 4000;
@@ -130,7 +130,16 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.shooterController.setVelocityGoal(4200);
     }
     * */
-    ChezyRobot.shooterController.setVelocityGoal(ChezyRobot.operatorJoystick.getShooterState() ? wantedRpm : 0);
+    // ChezyRobot.shooterController.setVelocityGoal(ChezyRobot.operatorJoystick.getShooterState() ? wantedRpm : 0);
+    if (ChezyRobot.operatorJoystick.getRawButton(3)) {
+      ChezyRobot.shooterController.setVelocityGoal(5000);
+      ChezyRobot.shooter.setHood(false);
+    }
+    if (ChezyRobot.operatorJoystick.getRawButton(4)) {
+      ChezyRobot.shooterController.setVelocityGoal(3300);
+      ChezyRobot.shooter.setHood(true);
+    }
+    
     
     if (ChezyRobot.operatorJoystick.getShooterState()) {
       ChezyRobot.shooterController.enable();
