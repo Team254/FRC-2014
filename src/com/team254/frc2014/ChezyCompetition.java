@@ -8,6 +8,7 @@ import com.team254.frc2014.auto.TestDriveAuto;
 import com.team254.frc2014.auto.TestThreeBallShootAuto;
 import com.team254.frc2014.auto.TestUltrasonicAuto;
 import com.team254.frc2014.auto.ThreeBallAuto;
+import com.team254.frc2014.auto.TwoBallAuto;
 import com.team254.lib.ChezyIterativeRobot;
 import com.team254.lib.Server;
 import com.team254.lib.util.Latch;
@@ -25,6 +26,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   
   public void initAutoModes() {
     selector.addAutoMode(new ThreeBallAuto());
+    selector.addAutoMode(new TwoBallAuto());
     selector.addAutoMode(new TestThreeBallShootAuto());
     selector.addAutoMode(new TestDriveAuto());
     selector.addAutoMode(new TestUltrasonicAuto());
