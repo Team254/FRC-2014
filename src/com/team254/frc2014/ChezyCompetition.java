@@ -28,7 +28,6 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     selector.addAutoMode(new TestThreeBallShootAuto());
     selector.addAutoMode(new TestDriveAuto());
     selector.addAutoMode(new TestUltrasonicAuto());
-
   }
 
   public void robotInit() {

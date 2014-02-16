@@ -19,9 +19,10 @@ public class ThreeBallAuto extends LanedAutoMode {
   static Path path = new CenterLanePath();
   protected void routine() {
     
-    boolean goLeft = true;
+    boolean goLeft =(Math.floor(Timer.getFPGATimestamp()) % 2 == 0);
     Timer t = new Timer();
     t.start();
+ 
     
     // Turn on wheel
     shooterController.setVelocityGoal(4000);
