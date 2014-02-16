@@ -7,8 +7,8 @@ import com.team254.frc2014.actions.DriveAtHeadingUntilYCoordinateAction;
 import com.team254.frc2014.actions.DriveRouteAction;
 import com.team254.frc2014.actions.DriveToUltrasonicRangeAction;
 import com.team254.frc2014.actions.WaitAction;
-import com.team254.lib.Route;
 import com.team254.lib.util.ChezyMath;
+import com.team254.path.Path;
 
 /**
  * AutoMode provides a model which all autonomi will follow.
@@ -104,7 +104,7 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
   }
   
   
-  public void driveRoute(Route r, double timeout) {
+  public void drivePath(Path r, double timeout) {
     runAction(new DriveRouteAction(r, timeout)); 
   }
   
