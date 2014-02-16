@@ -18,6 +18,5 @@ public class WaitAction extends Action {
   }
 
   public void done() {
-    System.out.println("WaitAction " + this.toString() + "DONE");
   }
 }

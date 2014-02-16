@@ -2,6 +2,7 @@ package com.team254.frc2014.auto;
 
 import com.team254.frc2014.FieldPosition;
 import com.team254.frc2014.LanedAutoMode;
+import com.team254.frc2014.paths.CenterLanePath;
 import com.team254.path.Path;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -16,7 +17,8 @@ public class TestDriveAuto extends LanedAutoMode {
     super("Test driving");
   }
   
-
+  Path path = new CenterLanePath();
+  
   public static int goLeftCounter = 0;
   
   protected void routine() {
@@ -26,7 +28,7 @@ public class TestDriveAuto extends LanedAutoMode {
     boolean goLeft = goLeftCounter % 2 == 0;
     System.out.println("Going left? " + goLeft);
     System.out.println("here");
-    Path path = null;//new CenterLanePath();
+    //new CenterLanePath();
     t.start();
     drivePath(path, 10);
     drivebase.resetEncoders();

@@ -4,6 +4,7 @@ import com.team254.lib.Controller;
 import com.team254.lib.trajectory.Trajectory;
 import com.team254.lib.trajectory.TrajectoryFollower;
 import com.team254.lib.util.ChezyMath;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * TrajectoryDriveController.java
  * This controller drives the robot along a specified trajectory.
@@ -19,7 +20,7 @@ public class TrajctoryDriveController extends Controller {
   TrajectoryFollower followerRight = new TrajectoryFollower("right");
   double direction;
   double heading;
-  double kTurn = -1.0/21.0;
+  double kTurn = -1.0/40.0;
 
   public boolean onTarget() {
     return followerLeft.isFinishedTrajectory(); //mFollower.onTarget(distanceThreshold);
@@ -63,6 +64,7 @@ public class TrajctoryDriveController extends Controller {
 
       double angleDiffRads = ChezyMath.getDifferenceInAngleRadians(observedHeading, goalHeading);// different coordinates
       double angleDiff = Math.toDegrees(angleDiffRads);
+      SmartDashboard.putNumber("DriveControllerAngle", angleDiff);
       double turn = kTurn * angleDiff;
       drivebase.setLeftRightPower(speedLeft + turn, speedRight - turn);
     }

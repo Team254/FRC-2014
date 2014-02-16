@@ -41,8 +41,10 @@ public class Intake extends Subsystem implements Loopable {
   public static final int STATE_DELIVER_BALL = 3;
   public static final int STATE_MANUAL = 4;
   public static final int STATE_GATHER_EXTRA_BALL = 5;
-  public static final int STATE_GATHER_EXTRA_BALL_BACKOFF = 6;
+  public static final int STATE_LETGO_BEFORE_SHOOT = 6;
   public static final int STATE_SHOOTING = 7;
+  public static final int STATE_GATHER_LETOFF = 8;
+
   private int state = STATE_MANUAL;
   public boolean wantGather = false;
   public boolean wantExtraGather = false;
@@ -106,14 +108,16 @@ public class Intake extends Subsystem implements Loopable {
         }
         break;
       case STATE_HOLD_POSITION:
-        retryExtra = false;
-        double error = getIntakePosition() - rollerGoal;
-        double motor = error * -1.2;
-        setRollerPower(motor);
-        if (!getIntakeSensor() && stateTimer.get() > .5) {
-          //retryExtra = true;
-          //newState = STATE_GATHER_EXTRA_BALL;
+        
+        if (!getIntakeSensor()) {
+          setRollerPower(.75);
+        } else {
+          setRollerPower(0);
         }
+        if (wantShoot) {
+          newState = STATE_LETGO_BEFORE_SHOOT;
+        }
+        
         if (!wantExtraGather) {
           newState = STATE_MANUAL;
         }
@@ -143,9 +147,9 @@ public class Intake extends Subsystem implements Loopable {
         break;
       case STATE_GATHER_EXTRA_BALL:
         setPositionDown(true);
-        setRollerPower(.85);
+        setRollerPower(.75);
         if (getIntakeSensor()) {
-          newState = STATE_GATHER_EXTRA_BALL_BACKOFF;
+          newState = STATE_GATHER_LETOFF;
         } else if (retryExtra && stateTimer.get() < .5) {
           ;
         } else if (!wantExtraGather) {
@@ -153,13 +157,25 @@ public class Intake extends Subsystem implements Loopable {
           newState = STATE_MANUAL;
         }
         break;
-      case STATE_GATHER_EXTRA_BALL_BACKOFF:
-        setRollerPower(-.45);
-        if (stateTimer.get() > .25) {
+        
+      case STATE_GATHER_LETOFF:
+        setRollerPower(-.05);
+        if (stateTimer.get() > .2) {
+          setRollerPower(0);
+          newState = STATE_HOLD_POSITION;
+        } else if (stateTimer.get() > .1) {
+          setRollerPower(0);
+        }
+        break;
+      case STATE_LETGO_BEFORE_SHOOT:
+        setRollerPower(-.2);
+        if (stateTimer.get() > .18) {
           setRollerPower(0);
           encoder.reset();
           rollerGoal = 0;
-          newState = STATE_HOLD_POSITION;
+          if (!wantShoot || !wantExtraGather) {
+            newState = STATE_HOLD_POSITION;
+          }
         }
         break;
         
