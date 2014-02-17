@@ -47,7 +47,7 @@ public class Intake extends Subsystem implements Loopable {
 
   private int state = STATE_MANUAL;
   public boolean wantGather = false;
-  public boolean wantExtraGather = false;
+  public boolean wantBumperGather = false;
   public boolean wantDown = false;
   public boolean wantShoot = false;
 
@@ -101,7 +101,7 @@ public class Intake extends Subsystem implements Loopable {
         setRollerPower(manualRollerPower); 
         if (wantGather) {
           newState = STATE_GATHER_BALL;
-        } else if (wantExtraGather) {
+        } else if (wantBumperGather) {
           newState = STATE_GATHER_EXTRA_BALL;
         } else if (wantShoot) {
           newState = STATE_SHOOTING;
@@ -118,7 +118,7 @@ public class Intake extends Subsystem implements Loopable {
           newState = STATE_LETGO_BEFORE_SHOOT;
         }
         
-        if (!wantExtraGather) {
+        if (!wantBumperGather) {
           newState = STATE_MANUAL;
         }
         break;
@@ -152,7 +152,7 @@ public class Intake extends Subsystem implements Loopable {
           newState = STATE_GATHER_LETOFF;
         } else if (retryExtra && stateTimer.get() < .5) {
           ;
-        } else if (!wantExtraGather) {
+        } else if (!wantBumperGather) {
           setPositionDown(false);
           newState = STATE_MANUAL;
         }
@@ -173,7 +173,7 @@ public class Intake extends Subsystem implements Loopable {
           setRollerPower(0);
           encoder.reset();
           rollerGoal = 0;
-          if (!wantShoot || !wantExtraGather) {
+          if (!wantShoot || !wantBumperGather) {
             newState = STATE_HOLD_POSITION;
           }
         }

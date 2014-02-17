@@ -30,7 +30,7 @@ public class TwoBallAuto extends LanedAutoMode {
     // Grab balls from ground
     clapper.wantFront = false;
     clapper.wantRear = false;
-    rearIntake.wantExtraGather = true;
+    rearIntake.wantBumperGather = true;
     waitTime(.5);
     
 
@@ -65,7 +65,7 @@ public class TwoBallAuto extends LanedAutoMode {
    shooterController.setVelocityGoal(4300);
     
     // Queue 2nd ball
-    rearIntake.wantExtraGather = false;
+    rearIntake.wantBumperGather = false;
     rearIntake.wantDown = true;
     rearIntake.setManualRollerPower(1.0);
     waitTime(0.3);

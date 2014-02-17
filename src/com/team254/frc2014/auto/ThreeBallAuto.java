@@ -30,8 +30,8 @@ public class ThreeBallAuto extends LanedAutoMode {
     // Grab balls from ground
     clapper.wantFront = false;
     clapper.wantRear = false;
-    frontIntake.wantExtraGather = true;
-    rearIntake.wantExtraGather = true;
+    frontIntake.wantBumperGather = true;
+    rearIntake.wantBumperGather = true;
     waitTime(.5);
     
 
@@ -66,7 +66,7 @@ public class ThreeBallAuto extends LanedAutoMode {
    shooterController.setVelocityGoal(4300);
     
     // Queue 2nd ball
-    rearIntake.wantExtraGather = false;
+    rearIntake.wantBumperGather = false;
     rearIntake.wantDown = true;
     rearIntake.setManualRollerPower(1.0);
     waitTime(0.3);
@@ -89,7 +89,7 @@ public class ThreeBallAuto extends LanedAutoMode {
     frontIntake.wantShoot = false;
     
     // Queue 3rd ball
-    frontIntake.wantExtraGather = false;
+    frontIntake.wantBumperGather = false;
     frontIntake.wantDown = true;
     frontIntake.setManualRollerPower(0.5);
     waitTime(0.3);

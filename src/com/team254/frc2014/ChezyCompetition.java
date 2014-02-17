@@ -104,7 +104,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     ChezyRobot.frontIntake.wantGather = ChezyRobot.operatorJoystick.getAutoIntakeButtonState();
    // ChezyRobot.rearIntake.wantGather = ChezyRobot.operatorJoystick.getAutoIntakeButtonState();
     //More Auto intake
-    ChezyRobot.frontIntake.wantExtraGather = ChezyRobot.operatorJoystick.getRawButton(2);
+    ChezyRobot.frontIntake.wantBumperGather = ChezyRobot.operatorJoystick.getRawButton(2);
    // ChezyRobot.rearIntake.wantExtraGather = ChezyRobot.operatorJoystick.getRawButton(2);
 
     //Intake solenoid
@@ -162,9 +162,13 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     } else {
       ChezyRobot.drivebase.setLowgear(false);
     }
+    
+    
     boolean qt = ChezyRobot.rightStick.getTrigger();
     double turn = ChezyRobot.rightStick.getX();
-    ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), turn, qt, true);
+    double scaledTurn = turn * turn * (turn < 0 ? -1.0 : 1.0);
+    
+    ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), scaledTurn, qt, true);
 
   }
   
