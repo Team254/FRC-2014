@@ -10,6 +10,7 @@ import com.team254.lib.util.Util;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Timer;
 import java.util.Hashtable;
 
 /**
@@ -23,6 +24,23 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
   private Talon shooterA = new Talon(Constants.leftShooterWheelPort.getInt());
   private Talon shooterB = new Talon(Constants.rightShooterWheelPort.getInt());
   public Counter counter = new Counter(Constants.shooterReflectorPort.getInt());
+  
+  
+  // States
+  public final int STATE_CLOSED = 0;
+  public final int STATE_WAIT_FOR_RPM_DROP = 1;
+  public final int STATE_WAIT_FOR_CATCH = 2;
+  public final int STATE_CATCH_OWN_SHOT = 3;
+  public final int STATE_CATCH_OTHER_SHOT = 4;
+  
+  // desired action flags
+  public boolean wantCatch = false;
+  public boolean wantShotCatch = false;
+  
+  private boolean firstStateRun;
+  private int state = STATE_CLOSED;
+  private Timer stateTimer = new Timer();
+          
   private ThrottledPrinter p = new ThrottledPrinter(.1);
   
   private void setShooterPower(double power) {
@@ -37,6 +55,7 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
       controller.enable();
     }
     counter.start();
+    stateTimer.start();
   }
 
   public Hashtable serialize() {
@@ -52,7 +71,7 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
   }
   
   public double lastRpm = 0;
-
+  public double penultimateRpm =  0;
   public void setCatcher(boolean down) {
     catcher.set(down);
   }
@@ -62,11 +81,68 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
   }
   
   public void update() {
-    updateVelocity();
+    // Update the controller
+    updateSensedVelocity();
     super.update();
+    
+    int nextState = state;
+    
+    switch (state) {
+      case STATE_CLOSED:
+        catcher.set(false);
+        controller.setRevese(false);
+        if (wantShotCatch) {
+          nextState = STATE_WAIT_FOR_RPM_DROP;
+        } else if (wantCatch) {
+          nextState = STATE_CATCH_OTHER_SHOT;
+        }
+        break;
+      case STATE_WAIT_FOR_RPM_DROP:
+        if (firstStateRun) {
+          penultimateRpm = lastRpm;
+        }
+        if(lastRpm < penultimateRpm - 1000.0) {
+           nextState = STATE_WAIT_FOR_CATCH;
+        }
+        controller.setRevese(false);
+        catcher.set(false);
+        break;
+      case STATE_WAIT_FOR_CATCH:
+        if (stateTimer.get() > 0.15) {
+          nextState = STATE_CATCH_OWN_SHOT;
+        }
+        catcher.set(false);
+        controller.setRevese(false);
+        break;
+      case STATE_CATCH_OWN_SHOT:
+        // reverse flywheel and open catcher
+        controller.setRevese(true);
+        catcher.set(true);
+        if (!wantShotCatch) {
+          nextState = STATE_CLOSED;
+        }
+        break;
+        
+      case STATE_CATCH_OTHER_SHOT:
+        // reverse flywheel and open catcher
+        controller.setRevese(true);
+        catcher.set(true);
+        if (!wantCatch) {
+          nextState = STATE_CLOSED;
+        }
+        break;
+      default:
+        break;
+    }
+    firstStateRun = false;
+    if (nextState != state) {
+      state = nextState;
+      stateTimer.reset();
+      firstStateRun = true;
+    }
   }
 
-  public double updateVelocity() {
+  public double updateSensedVelocity() {
     int kCountsPerRev = 1;
     double period = counter.getPeriod();
     double rpm = 60.0 / (period * (double) kCountsPerRev);

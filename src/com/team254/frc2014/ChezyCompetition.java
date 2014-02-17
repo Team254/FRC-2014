@@ -96,16 +96,16 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.frontIntake.setManualRollerPower(-1);
       ChezyRobot.rearIntake.setManualRollerPower(-1);
     } else {
+      // Run rollers in reverse if clapper button is pressed (for pass)
       ChezyRobot.frontIntake.setManualRollerPower(ChezyRobot.operatorJoystick.getRearClapperButtonState() ? -1.0 : 0);
       ChezyRobot.rearIntake.setManualRollerPower(ChezyRobot.operatorJoystick.getFrontClapperButtonState() ? -1.0 : 0);
     }
 
     //Auto intake
     ChezyRobot.frontIntake.wantGather = ChezyRobot.operatorJoystick.getAutoIntakeButtonState();
-   // ChezyRobot.rearIntake.wantGather = ChezyRobot.operatorJoystick.getAutoIntakeButtonState();
+
     //More Auto intake
     ChezyRobot.frontIntake.wantBumperGather = ChezyRobot.operatorJoystick.getRawButton(2);
-   // ChezyRobot.rearIntake.wantExtraGather = ChezyRobot.operatorJoystick.getRawButton(2);
 
     //Intake solenoid
     if (ChezyRobot.operatorJoystick.getIntakeDownSwitchState()) {
@@ -119,20 +119,8 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     } else {
       ChezyRobot.frontIntake.wantDown = false;
     }
-    
-    //catcher
-      ChezyRobot.shooter.setCatcher(ChezyRobot.operatorJoystick.catcherPressed());
-    
+ 
     // Shooter presets
-    /*
-    if (ChezyRobot.operatorJoystick.getRawButton(3)) { // truss
-      ChezyRobot.shooter.setHood(true);
-      ChezyRobot.shooterController.setVelocityGoal(3700);
-    } else if (ChezyRobot.operatorJoystick.getRawButton(4)) { // shot
-      ChezyRobot.shooter.setHood(false);
-      ChezyRobot.shooterController.setVelocityGoal(4200);
-    }
-    * */
     // ChezyRobot.shooterController.setVelocityGoal(ChezyRobot.operatorJoystick.getShooterState() ? wantedRpm : 0);
     if (ChezyRobot.operatorJoystick.getRawButton(3)) {
       ChezyRobot.shooterController.setVelocityGoal(5000);
@@ -150,12 +138,20 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.shooterController.disable();
     }
     
-    //Clapper Buttons
-    ChezyRobot.clapper.wantShot = ChezyRobot.operatorJoystick.getClapperUpButtonState();
+    // Shooting Buttons
+    ChezyRobot.clapper.wantShot = ChezyRobot.operatorJoystick.getShotButtonState() || ChezyRobot.operatorJoystick.getTrussShotButtonState();
+    ChezyRobot.clapper.wantTimedShot = ChezyRobot.operatorJoystick.getTrussShotButtonState();
+    
+    // Pass buttons
     ChezyRobot.clapper.wantFront = ChezyRobot.operatorJoystick.getFrontClapperButtonState();
     ChezyRobot.clapper.wantRear = ChezyRobot.operatorJoystick.getRearClapperButtonState();
-    ChezyRobot.rearIntake.wantShoot = ChezyRobot.operatorJoystick.getClapperUpButtonState();
+    
+    // Run the rear roller in reverse if needed
+    ChezyRobot.rearIntake.wantShoot = ChezyRobot.operatorJoystick.getShotButtonState() || ChezyRobot.operatorJoystick.getTrussShotButtonState();
 
+    ChezyRobot.shooter.wantShotCatch = ChezyRobot.operatorJoystick.getTrussShotButtonState();
+
+ 
     // Gearing
     if(ChezyRobot.rightStick.getRawButton(2)) {
       ChezyRobot.drivebase.setLowgear(true);

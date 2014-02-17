@@ -20,7 +20,7 @@ public class OperatorJoystick extends Joystick {
     return this.getZ() < 0.0;
   }
   
-  public boolean catcherPressed() {
+  public boolean getTrussShotButtonState() {
     return this.getRawButton(5);
   }
  
@@ -66,7 +66,7 @@ public class OperatorJoystick extends Joystick {
     super(port);
   }
 
-  boolean getClapperUpButtonState() {
+  boolean getShotButtonState() {
     return this.getRawButton(6);
   }
   

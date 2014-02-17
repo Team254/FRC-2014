@@ -17,13 +17,15 @@ public class Clapper extends Subsystem{
   public boolean wantShot;
   public boolean wantFront;
   public boolean wantRear;
+  public boolean wantTimedShot;
   
   private final int STATE_DOWN = 0;
   private final int STATE_UP = 1;
   private final int STATE_FRONT_UP = 2;
   private final int STATE_REAR_UP = 3;
   public final int STATE_START_SHOT = 4;
-  private int state= STATE_DOWN;
+  public final int STATE_TIMED_SHOT_DOWN = 5;
+  private int state = STATE_DOWN;
   private Timer stateTimer = new Timer();
   
   public Hashtable serialize() {
@@ -67,10 +69,14 @@ public class Clapper extends Subsystem{
           nextState = STATE_REAR_UP;
         }
         break;
+        
+       
       case STATE_UP:
         rearSolenoid.set(true);
         frontSolenoid.set(true);
-        if(!wantShot && !wantFront && !wantRear && stateTimer.get() > .5) {
+        if (wantShot && wantTimedShot && stateTimer.get() > .5) {
+          nextState = STATE_TIMED_SHOT_DOWN;
+        } else if(!wantShot && !wantFront && !wantRear && stateTimer.get() > .5) {
           nextState = STATE_DOWN;
         } else if(!wantFront && wantRear) {
           nextState = STATE_REAR_UP;
@@ -104,6 +110,14 @@ public class Clapper extends Subsystem{
         } else if(!wantRear) {
           nextState = STATE_DOWN;
         } 
+        break;
+       
+      case STATE_TIMED_SHOT_DOWN:
+        rearSolenoid.set(false);
+        frontSolenoid.set(false);
+        if (!wantShot) {
+          nextState = STATE_DOWN;
+        }
         break;
 
       default:
