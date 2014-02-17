@@ -20,7 +20,7 @@ public class OperatorJoystick extends Joystick {
     return this.getZ() < 0.0;
   }
   
-  public boolean getPopperOnState() {
+  public boolean catcherPressed() {
     return this.getRawButton(5);
   }
  

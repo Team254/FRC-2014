@@ -120,6 +120,9 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.frontIntake.wantDown = false;
     }
     
+    //catcher
+      ChezyRobot.shooter.setCatcher(ChezyRobot.operatorJoystick.catcherPressed());
+    
     // Shooter presets
     /*
     if (ChezyRobot.operatorJoystick.getRawButton(3)) { // truss

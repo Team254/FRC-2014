@@ -19,11 +19,12 @@ import java.util.Hashtable;
 public class Shooter extends Subsystem implements Loopable, ControlOutput, ControlSource {
 
   private Solenoid hood = new Solenoid(Constants.hoodSolenoidPort.getInt());
+  private Solenoid catcher = new Solenoid(Constants.catcherSolenoidPort.getInt());
   private Talon shooterA = new Talon(Constants.leftShooterWheelPort.getInt());
   private Talon shooterB = new Talon(Constants.rightShooterWheelPort.getInt());
   public Counter counter = new Counter(Constants.shooterReflectorPort.getInt());
   private ThrottledPrinter p = new ThrottledPrinter(.1);
-
+  
   private void setShooterPower(double power) {
     power = Util.limit(power, 1.0);
     shooterA.set(-power);
@@ -52,7 +53,9 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
   
   public double lastRpm = 0;
 
-  
+  public void setCatcher(boolean down) {
+    catcher.set(down);
+  }
   public double get() {
     double ret = (lastRpm * Math.PI * 2.0) / 60.0;
     return ret;
