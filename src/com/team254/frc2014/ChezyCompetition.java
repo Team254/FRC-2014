@@ -75,7 +75,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     ChezyRobot.frontIntake.setAutoIntake(false);
     ChezyRobot.drivebase.resetEncoders();
     ChezyRobot.shooter.setHood(false);
-    ChezyRobot.shooterController.setVelocityGoal(5000);
+    ChezyRobot.shooterController.setVelocityGoal(4300);
     // This is just here for testing purposes
   }
   double wantedRpm = 4000;
@@ -123,7 +123,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     // Shooter presets
     // ChezyRobot.shooterController.setVelocityGoal(ChezyRobot.operatorJoystick.getShooterState() ? wantedRpm : 0);
     if (ChezyRobot.operatorJoystick.getRawButton(3)) {
-      ChezyRobot.shooterController.setVelocityGoal(5000);
+      ChezyRobot.shooterController.setVelocityGoal(4300);
       ChezyRobot.shooter.setHood(false);
     }
     if (ChezyRobot.operatorJoystick.getRawButton(4)) {
@@ -162,9 +162,8 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     
     boolean qt = ChezyRobot.rightStick.getTrigger();
     double turn = ChezyRobot.rightStick.getX();
-    double scaledTurn = turn * turn * (turn < 0 ? -1.0 : 1.0);
     
-    ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), scaledTurn, qt, true);
+    ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), turn, qt, !ChezyRobot.rightStick.getRawButton(2));
 
   }
   
@@ -201,10 +200,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     lcdUpdateTimer.reset();
     lcd.println(DriverStationLCD.Line.kUser1, 1, selector.getSeletedId() + ") " +  selector.currentAutoMode().getDescription() + "                  ");
     lcd.println(DriverStationLCD.Line.kUser2, 1, "Lane: " +  selector.getLaneName() + "                  ");
-    lcd.println(DriverStationLCD.Line.kUser4, 1,
-            " r X:  " + Math.floor(ChezyRobot.rightStick.getX() * 100) / 100
-            + " Y: " + Math.floor(ChezyRobot.rightStick.getY() * 100) / 100
-            + " Z: " + Math.floor(ChezyRobot.rightStick.getZ() * 10) / 10);
+    lcd.println(DriverStationLCD.Line.kUser4, 1, "F:" + ChezyRobot.frontIntake.getIntakeSensor() + " R:" + ChezyRobot.rearIntake.getIntakeSensor());
     lcd.println(DriverStationLCD.Line.kUser3, 1, "LE: " + Math.floor(ChezyRobot.drivebase.getLeftEncoderDistance() * 10) / 10 + " RE: " + Math.floor(ChezyRobot.drivebase.getRightEncoderDistance() * 10) / 10);
     lcd.println(DriverStationLCD.Line.kUser5, 1, "g: " + Math.floor(wantedRpm * 100) / 100 + " m: " + Math.floor(ChezyRobot.shooter.getLastRpm() * 10) / 10);
     lcd.println(DriverStationLCD.Line.kUser6, 1, "g: " + Math.floor(ChezyRobot.drivebase.getGyroAngle() * 10) / 10);

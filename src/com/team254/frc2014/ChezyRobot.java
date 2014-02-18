@@ -41,15 +41,13 @@ public class ChezyRobot {
   public static final Talon frontIntakeRoller = new Talon(Constants.frontIntakeRollerPort.getInt());
   public static final Solenoid frontIntakeSolenoid = new Solenoid(Constants.frontIntakeSolenoidPort.getInt());
   public static final AnalogChannel frontIntakeSwitch = new AnalogChannel(Constants.frontIntakeSwitchPort.getInt());
-  public static final Encoder frontIntakeEncoder = new Encoder(Constants.frontIntakeEncoderPortA.getInt(), Constants.frontIntakeEncoderPortB.getInt());
   
   public static final Talon rearIntakeRoller = new Talon(Constants.rearIntakeRollerPort.getInt());
   public static final Solenoid rearIntakeSolenoid = new Solenoid(Constants.rearIntakeSolenoidPort.getInt());
   public static final AnalogChannel rearIntakeSwitch = new AnalogChannel(Constants.rearIntakeSwitchPort.getInt());
-  public static final Encoder rearIntakeEncoder = new Encoder(Constants.rearIntakeEncoderPortA.getInt(), Constants.rearIntakeEncoderPortB.getInt());
   
-  public static final Intake frontIntake = new Intake("Front Intake", frontIntakeRoller, frontIntakeEncoder, frontIntakeSwitch, frontIntakeSolenoid, true);
-  public static final Intake rearIntake = new Intake("Rear Intake", rearIntakeRoller, rearIntakeEncoder, rearIntakeSwitch, rearIntakeSolenoid, true);
+  public static final Intake frontIntake = new Intake("Front Intake", frontIntakeRoller, frontIntakeSwitch, frontIntakeSolenoid, true);
+  public static final Intake rearIntake = new Intake("Rear Intake", rearIntakeRoller, rearIntakeSwitch, rearIntakeSolenoid, true);
   
   public static final CheesyDriveHelper cdh = new CheesyDriveHelper(drivebase);
   

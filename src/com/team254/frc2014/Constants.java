@@ -64,7 +64,7 @@ public class Constants extends ConstantsBase {
   public static final Constant shooterReflectorPort = new Constant("shooterReflectorPort", 13);
 
   // Drive tuning
-  public static final Constant sensitivityHigh = new Constant("sensitivityHigh", .85);
+  public static final Constant sensitivityHigh = new Constant("sensitivityHigh", .75);
   public static final Constant sensitivityLow = new Constant("sensitivityLow", .75);
 
   public static final Constant driveStraightKPLow = new Constant("driveStraightKPLow", 0.07);

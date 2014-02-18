@@ -50,7 +50,7 @@ public class CheesyDriveHelper {
     }
 
     double leftPwm, rightPwm, overPower;
-    double sensitivity = 1.7;
+    double sensitivity;
 
     double angularPower;
     double linearPower;

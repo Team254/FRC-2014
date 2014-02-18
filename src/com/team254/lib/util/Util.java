@@ -115,7 +115,7 @@ public class Util {
    * @param ra
    * @return
    */
-  public static boolean goLeftinAuto(boolean ld, boolean rd,
+  public static boolean isLeftGoal(boolean ld, boolean rd,
                                      boolean la, boolean ra) {
     if(la && !ra){
       return true;

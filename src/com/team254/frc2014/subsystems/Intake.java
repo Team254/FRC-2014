@@ -20,18 +20,15 @@ public class Intake extends Subsystem implements Loopable {
   private Talon roller;
   private Solenoid actuator;
   private AnalogChannel bumpSwitch;
-  public Encoder encoder;
   boolean flip = false;
   private static final int kBumpSwitchThreshold = 400;
 
-  public Intake(String name, Talon roller, Encoder encoder, AnalogChannel bumpSwitch, Solenoid actuator, boolean flip) {
+  public Intake(String name, Talon roller, AnalogChannel bumpSwitch, Solenoid actuator, boolean flip) {
     super(name);
     this.roller = roller;
-    this.encoder = encoder;
     this.bumpSwitch = bumpSwitch;
     this.actuator = actuator;
     this.flip = flip;
-    encoder.start();
     stateTimer.start();
   }
 
@@ -68,11 +65,8 @@ public class Intake extends Subsystem implements Loopable {
   private void setPositionDown(boolean state) {
     actuator.set(state);
   }
-
-  public double getIntakePosition() {
-    return encoder.get() / 32.0;
-  }
-
+ 
+ 
   public boolean getSolenoidState() {
     return actuator.get();
   }
@@ -93,6 +87,7 @@ public class Intake extends Subsystem implements Loopable {
   Timer rolloutTimer = new Timer();
   private boolean retryExtra = false;
 
+  int i = 0;
   public void update() {
     int newState = state;
     switch (state) {
@@ -127,7 +122,6 @@ public class Intake extends Subsystem implements Loopable {
         setPositionDown(true);
         setRollerPower(1);
         if (getIntakeSensor() || !wantGather) {
-          encoder.reset();
           newState = STATE_DELIVER_BALL;
         }
         break;
@@ -171,7 +165,6 @@ public class Intake extends Subsystem implements Loopable {
         setRollerPower(-.2);
         if (stateTimer.get() > .18) {
           setRollerPower(0);
-          encoder.reset();
           rollerGoal = 0;
           if (!wantShoot || !wantBumperGather) {
             newState = STATE_HOLD_POSITION;
