@@ -13,7 +13,7 @@ public class ShooterGains {
             new double[] {0.082593, 0.438446},  // L
             new double[] {0.968446, 0.318496},  // K
             new double[] {12.000000},  // Umax
-            new double[] {0.000000}),  // Umin
+            new double[] {-0.5000000}),  // Umin
         };
   }
 }

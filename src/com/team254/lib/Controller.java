@@ -22,7 +22,7 @@ public abstract class Controller extends ChezyRobot implements Loopable {
   }
   
   protected boolean reverse = false;
-  public void setRevese(boolean on) {
+  public void setReverse(boolean on) {
     reverse = on;
   }
 

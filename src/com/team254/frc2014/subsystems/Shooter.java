@@ -32,6 +32,7 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
   public final int STATE_WAIT_FOR_CATCH = 2;
   public final int STATE_CATCH_OWN_SHOT = 3;
   public final int STATE_CATCH_OTHER_SHOT = 4;
+  public final int STATE_WHEEL_SETTLE = 5;
   
   // desired action flags
   public boolean wantCatch = false;
@@ -90,7 +91,7 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
     switch (state) {
       case STATE_CLOSED:
         catcher.set(false);
-        controller.setRevese(false);
+        controller.setReverse(false);
         if (wantShotCatch) {
           nextState = STATE_WAIT_FOR_RPM_DROP;
         } else if (wantCatch) {
@@ -101,10 +102,10 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
         if (firstStateRun) {
           penultimateRpm = lastRpm;
         }
-        if(lastRpm < penultimateRpm - 1000.0) {
+        if(stateTimer.get() > .75 || lastRpm < penultimateRpm - 1000.0) {
            nextState = STATE_WAIT_FOR_CATCH;
         }
-        controller.setRevese(false);
+        controller.setReverse(false);
         catcher.set(false);
         break;
       case STATE_WAIT_FOR_CATCH:
@@ -112,25 +113,34 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
           nextState = STATE_CATCH_OWN_SHOT;
         }
         catcher.set(false);
-        controller.setRevese(false);
+        controller.setReverse(false);
         break;
       case STATE_CATCH_OWN_SHOT:
         // reverse flywheel and open catcher
-        controller.setRevese(true);
+        controller.setReverse(false);
         catcher.set(true);
         if (!wantShotCatch) {
-          nextState = STATE_CLOSED;
+          nextState = STATE_WHEEL_SETTLE;
         }
         break;
         
       case STATE_CATCH_OTHER_SHOT:
         // reverse flywheel and open catcher
-        controller.setRevese(true);
+        controller.setReverse(false);
         catcher.set(true);
         if (!wantCatch) {
-          nextState = STATE_CLOSED;
+          nextState = STATE_WHEEL_SETTLE;
         }
         break;
+        
+      case STATE_WHEEL_SETTLE:
+        controller.disable();
+        controller.setReverse(false);
+        catcher.set(false);
+        if (stateTimer.get() > 2.0) {
+          controller.enable();
+          nextState = STATE_CLOSED;
+        }
       default:
         break;
     }
