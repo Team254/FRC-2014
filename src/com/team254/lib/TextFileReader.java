@@ -32,7 +32,6 @@ public class TextFileReader {
     } catch (IOException e) {
       e.printStackTrace();
       System.err.println("Could not open file connection!");
-    } finally {
       closeFile();
     }
   }
