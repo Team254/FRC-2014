@@ -2,7 +2,7 @@ package com.team254.frc2014.auto;
 
 import com.team254.frc2014.FieldPosition;
 import com.team254.frc2014.LanedAutoMode;
-import com.team254.frc2014.paths.CenterLanePath;
+import com.team254.frc2014.paths.AutoPaths;
 import com.team254.lib.trajectory.Path;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -16,7 +16,7 @@ public class TestThreeBallShootAuto extends LanedAutoMode {
   public TestThreeBallShootAuto() {
     super("Test Shoooting");
   }
-  static Path path = new CenterLanePath();
+  static Path path = AutoPaths.get("CenterLanePath");
   protected void routine() {
     
     boolean goLeft = false;

@@ -2,8 +2,7 @@ package com.team254.frc2014.auto;
 
 import com.team254.frc2014.FieldPosition;
 import com.team254.frc2014.LanedAutoMode;
-import com.team254.frc2014.paths.CenterLanePath;
-import com.team254.frc2014.paths.StraightAheadPath;
+import com.team254.frc2014.paths.AutoPaths;
 import com.team254.lib.trajectory.Path;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -17,7 +16,7 @@ public class TwoBallStraightAheadAuto extends LanedAutoMode {
   public TwoBallStraightAheadAuto() {
     super("Two ball: Straight ahead");
   }
-  static Path path = new StraightAheadPath();
+  static Path path = AutoPaths.get("StraightAheadPath");
   protected void routine() {
     
     boolean goLeft =(Math.floor(Timer.getFPGATimestamp()) % 2 == 0);

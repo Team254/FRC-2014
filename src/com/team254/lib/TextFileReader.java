@@ -69,6 +69,7 @@ public class TextFileReader {
     String line;
     while ((line = readLine()) != null) {
       buffer.append(line);
+      buffer.append("\n");
     }
     return buffer.toString();
   }

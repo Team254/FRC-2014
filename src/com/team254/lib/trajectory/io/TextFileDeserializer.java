@@ -12,6 +12,9 @@ public class TextFileDeserializer implements IPathDeserializer {
 
   public Path deserialize(String serialized) {
     StringTokenizer tokenizer = new StringTokenizer(serialized, "\n");
+    System.out.println("Parsing path string...");
+    System.out.println("String has " + serialized.length() + " chars");
+    System.out.println("Found " + tokenizer.countTokens() + " tokens");
     
     String name = tokenizer.nextToken();
     int num_elements = Integer.parseInt(tokenizer.nextToken());
@@ -51,6 +54,7 @@ public class TextFileDeserializer implements IPathDeserializer {
       left.setSegment(i, segment);
     }
     
+    System.out.println("...finished parsing path from string.");
     return new Path(name, new Trajectory.Pair(left, right));
   }
   

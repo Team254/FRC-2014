@@ -2,7 +2,7 @@ package com.team254.frc2014.auto;
 
 import com.team254.frc2014.FieldPosition;
 import com.team254.frc2014.LanedAutoMode;
-import com.team254.frc2014.paths.CenterLanePath;
+import com.team254.frc2014.paths.AutoPaths;
 import com.team254.lib.trajectory.Path;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -13,10 +13,12 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class ThreeBallAuto extends LanedAutoMode {
 
+  static Path path = AutoPaths.get("CenterLanePath");
+  
   public ThreeBallAuto() {
     super("Three ball");
   }
-  static Path path = new CenterLanePath();
+  
   protected void routine() {
     
     boolean goLeft = lane == MIDDLE_LANE;//(Math.floor(Timer.getFPGATimestamp()) % 2 == 0);

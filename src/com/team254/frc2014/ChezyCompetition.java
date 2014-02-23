@@ -9,6 +9,7 @@ import com.team254.frc2014.auto.TestThreeBallShootAuto;
 import com.team254.frc2014.auto.TestUltrasonicAuto;
 import com.team254.frc2014.auto.ThreeBallAuto;
 import com.team254.frc2014.auto.TwoBallAuto;
+import com.team254.frc2014.paths.AutoPaths;
 import com.team254.lib.ChezyIterativeRobot;
 import com.team254.lib.Server;
 import com.team254.lib.util.Latch;
@@ -25,6 +26,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   DriverStationLCD lcd;
   
   public void initAutoModes() {
+    AutoPaths.loadPaths();
     selector.addAutoMode(new ThreeBallAuto());
     selector.addAutoMode(new TwoBallAuto());
     selector.addAutoMode(new TestThreeBallShootAuto());
@@ -139,15 +141,18 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     }
     
     // Shooting Buttons
-    ChezyRobot.clapper.wantShot = ChezyRobot.operatorJoystick.getShotButtonState() || ChezyRobot.operatorJoystick.getTrussShotButtonState();
-    ChezyRobot.clapper.wantTimedShot = ChezyRobot.operatorJoystick.getTrussShotButtonState();
+    //ChezyRobot.clapper.wantShot = ChezyRobot.operatorJoystick.getShotButtonState() || ChezyRobot.operatorJoystick.getTrussShotButtonState();
+    ChezyRobot.clapper.wantShot = ChezyRobot.clapper.wantTimedShot = 
+            ChezyRobot.leftStick.getRawButton(2) || ChezyRobot.leftStick.getRawButton(1);
+    //ChezyRobot.clapper.wantTimedShot = ChezyRobot.operatorJoystick.getTrussShotButtonState();
     
     // Pass buttons
     ChezyRobot.clapper.wantFront = ChezyRobot.operatorJoystick.getFrontClapperButtonState();
     ChezyRobot.clapper.wantRear = ChezyRobot.operatorJoystick.getRearClapperButtonState();
     
     // Run the rear roller in reverse if needed
-    ChezyRobot.rearIntake.wantShoot = ChezyRobot.operatorJoystick.getShotButtonState() || ChezyRobot.operatorJoystick.getTrussShotButtonState();
+    //ChezyRobot.rearIntake.wantShoot = ChezyRobot.operatorJoystick.getShotButtonState() || ChezyRobot.operatorJoystick.getTrussShotButtonState();
+    ChezyRobot.rearIntake.wantShoot = ChezyRobot.clapper.wantShot;
 
     ChezyRobot.shooter.wantShotCatch = ChezyRobot.operatorJoystick.getTrussShotButtonState();
 
