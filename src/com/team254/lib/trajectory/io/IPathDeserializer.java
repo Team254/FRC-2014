@@ -1,6 +1,6 @@
 package com.team254.lib.trajectory.io;
 
-import com.team254.path.Path;
+import com.team254.lib.trajectory.Path;
 
 /**
  * Interface for methods that deserializes a Path or Trajectory.

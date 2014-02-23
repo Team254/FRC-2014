@@ -26,6 +26,28 @@
     <property name="user.properties.file" value="build.properties"/>
     <property file="${user.home}/.sunspotfrc.properties"/>
     <import file="${sunspot.home}/build.xml"/>
+    
+    <property name="ftp-server" value="${remoteaddress}" />
+	<property name="ftp-userid" value="root" />
+	<property name="ftp-password" value="" />
+	<property name="ftp-remotedir" value="/ni-rt/system/" />
+    
+    <target name="-post-compile">
+      <echo>Executing post-compile</echo>
+      <sequential>
+        <echo>Deploying paths to cRIO...</echo>
+        <ftp 
+			server="${ftp-server}" remotedir="${ftp-remotedir}"
+			userid="${ftp-userid}" password="${ftp-password}"
+			action="send" verbose="yes" depends="yes">
+			<fileset dir="${src.dir}/../paths">
+              <include name="*.txt"/>
+            </fileset>
+		</ftp>
+        <echo>Done deploying paths.</echo>
+      </sequential>
+    </target>
+
 
     <!--
 
@@ -90,4 +112,5 @@
     For more information on using ant, see http://ant.apache.org.
 
     -->
+    
 </project>

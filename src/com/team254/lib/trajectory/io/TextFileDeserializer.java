@@ -1,6 +1,6 @@
 package com.team254.lib.trajectory.io;
 
-import com.team254.path.Path;
+import com.team254.lib.trajectory.Path;
 import com.sun.squawk.util.StringTokenizer;
 import com.team254.lib.trajectory.Trajectory;
 

@@ -1,18 +1,18 @@
 package com.team254.frc2014.actions;
 
-import com.team254.path.Path;
+import com.team254.lib.trajectory.Path;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
  * DrivePathAction causes the robot to drive along a Path
  *
  */
-public class DriveRouteAction extends Action {
+public class DrivePathAction extends Action {
 
   double heading;
   Path path;
 
-  public DriveRouteAction(Path route, double timeout) {
+  public DrivePathAction(Path route, double timeout) {
     path = route;
     setTimeout(timeout);
   }

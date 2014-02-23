@@ -1,7 +1,7 @@
 package com.team254.frc2014.paths;
 
 import com.team254.lib.trajectory.Trajectory;
-import com.team254.path.Path;
+import com.team254.lib.trajectory.Path;
 
 public class StraightAheadPath extends Path {
   private static final Trajectory kLeftWheel = new Trajectory( new Trajectory.Segment[] {
