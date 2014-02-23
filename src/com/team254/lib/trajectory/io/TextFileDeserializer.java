@@ -51,7 +51,7 @@ public class TextFileDeserializer implements IPathDeserializer {
       segment.x = Double.parseDouble(line_tokenizer.nextToken());
       segment.y = Double.parseDouble(line_tokenizer.nextToken());
       
-      left.setSegment(i, segment);
+      right.setSegment(i, segment);
     }
     
     System.out.println("...finished parsing path from string.");
