@@ -2,7 +2,7 @@ package com.team254.frc2014;
 
 import com.team254.frc2014.controllers.HoldPositionController;
 import com.team254.frc2014.controllers.OpenLoopController;
-import com.team254.frc2014.controllers.TrajctoryDriveController;
+import com.team254.frc2014.controllers.TrajectoryDriveController;
 import com.team254.frc2014.subsystems.Drivebase;
 import com.team254.frc2014.subsystems.HotGoalDetector;
 import com.team254.frc2014.subsystems.Intake;
@@ -12,8 +12,6 @@ import com.team254.frc2014.subsystems.*;
 import com.team254.lib.MultiLooper;
 import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
@@ -58,7 +56,7 @@ public class ChezyRobot {
   
   // Controllers
   public static MultiLooper subsystemUpdater100Hz = new MultiLooper(1.0 / 100.0);
-  public static TrajctoryDriveController driveController = new TrajctoryDriveController();
+  public static TrajectoryDriveController driveController = new TrajectoryDriveController();
   public static HoldPositionController headingController = new HoldPositionController();
   public static HotGoalDetector hotGoalDetector = new HotGoalDetector();
   public static Navigator navigator = new Navigator(drivebase);

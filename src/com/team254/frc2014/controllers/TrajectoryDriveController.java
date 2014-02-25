@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * This controller drives the robot along a specified trajectory.
  * @author tombot
  */
-public class TrajctoryDriveController extends Controller {
+public class TrajectoryDriveController extends Controller {
 
-  public TrajctoryDriveController() {
+  public TrajectoryDriveController() {
     init();
   }
   Trajectory trajectory;
