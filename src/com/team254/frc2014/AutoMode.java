@@ -7,8 +7,10 @@ import com.team254.frc2014.actions.DriveAtHeadingUntilYCoordinateAction;
 import com.team254.frc2014.actions.DrivePathAction;
 import com.team254.frc2014.actions.DriveToUltrasonicRangeAction;
 import com.team254.frc2014.actions.WaitAction;
+import com.team254.frc2014.actions.WaitUntilAutonTimeAction;
 import com.team254.lib.util.ChezyMath;
 import com.team254.lib.trajectory.Path;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * AutoMode provides a model which all autonomi will follow.
@@ -19,6 +21,7 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
   Thread autoThread = new Thread(this);
   private boolean alive = true;
   protected String description;
+  protected Timer autoTimer = new Timer();
   
   public AutoMode(String description) {
     this.description = description;
@@ -33,6 +36,8 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
   public void run() {
     System.out.println("Starting auto mode!");
     try {
+      autoTimer.reset();
+      autoTimer.start();
       routine();
     } catch (RuntimeException e) {
       System.out.println(e.getMessage());
@@ -71,6 +76,116 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
       startCurrentAction();
     }
   }
+  
+  public void shootThree() {
+     // Wait for 5 seconds in
+    rearIntake.wantShoot = frontIntake.wantShoot = true;
+    waitTime(.5);
+    
+    // Shoot first ball
+    clapper.wantShot = true;
+    waitTime(.5);
+    clapper.wantShot = false;
+    rearIntake.wantShoot = frontIntake.wantShoot = false;
+    
+    // Speed up for 2nd and 3rd shots
+   shooterController.setVelocityGoal(4300);
+    
+    // Queue 2nd ball
+    rearIntake.wantBumperGather = false;
+    rearIntake.wantDown = true;
+    rearIntake.setManualRollerPower(1.0);
+    waitTime(0.3);
+    rearIntake.wantDown = false;
+    waitTime(.4);
+    rearIntake.setManualRollerPower(0);
+    
+    // Settle time
+    waitTime(.75);
+    
+    // Shoot second ball
+    frontIntake.wantShoot = true;
+    waitTime(.25);
+    rearIntake.setManualRollerPower(1);
+    clapper.wantShot = true;
+    waitTime(.5);
+    clapper.wantShot = false;
+    rearIntake.setManualRollerPower(0);
+    waitTime(0.3);
+    frontIntake.wantShoot = false;
+    
+    // Queue 3rd ball
+    frontIntake.wantBumperGather = false;
+    frontIntake.wantDown = true;
+    frontIntake.setManualRollerPower(1.0);
+    waitTime(0.3);
+    frontIntake.setManualRollerPower(.3);
+    frontIntake.wantDown = false;
+    waitTime(0.5);
+    frontIntake.setManualRollerPower(0.00);
+
+    
+    // Settle time
+    waitTime(.5);
+    
+    // Shoot thirdball
+    rearIntake.setManualRollerPower(1);
+    clapper.wantShot = true;
+    waitTime(.5);
+    clapper.wantShot = false;
+  }
+  
+  public void shootOne() {
+    // Speed up for 2nd and 3rd shots
+    shooterController.setVelocityGoal(4300);
+    // Wait for 5 seconds in
+    // Shoot second ball
+    waitTime(.5);
+    rearIntake.setManualRollerPower(1);
+    clapper.wantShot = true;
+    waitTime(.5);
+    clapper.wantShot = false;
+    rearIntake.setManualRollerPower(0);
+    waitTime(0.3);
+    
+  }
+  
+  public void shootTwo() {
+    // Wait for 5 seconds in
+    waitTime(.5);
+    rearIntake.wantShoot = true;
+    waitTime(1.0);
+
+    // Shoot first ball
+    clapper.wantShot = true;
+    waitTime(.5);
+    clapper.wantShot = false;
+    rearIntake.wantShoot = false;
+    
+    // Speed up for 2nd and 3rd shots
+   shooterController.setVelocityGoal(4300);
+    
+    // Queue 2nd ball
+    rearIntake.wantBumperGather = false;
+    rearIntake.wantDown = true;
+    rearIntake.setManualRollerPower(1.0);
+    waitTime(0.3);
+    rearIntake.wantDown = false;
+    waitTime(.4);
+    rearIntake.setManualRollerPower(0);
+    
+    // Settle time
+    waitTime(1.25);
+    
+    // Shoot second ball
+    waitTime(.25);
+    rearIntake.setManualRollerPower(1);
+    clapper.wantShot = true;
+    waitTime(.5);
+    clapper.wantShot = false;
+    rearIntake.setManualRollerPower(0);
+    waitTime(0.3);
+  }
 
   public void drive(double feet, double timeout) {
     runAction(new DriveAction(feet, timeout));
@@ -85,6 +200,10 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
   
   public void waitTime(double seconds) {
     runAction(new WaitAction(seconds));
+  }
+  
+  public void waitUntilTime(double seconds) {
+    runAction(new WaitUntilAutonTimeAction(autoTimer, seconds));
   }
 
   public void dimeStop() {

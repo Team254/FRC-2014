@@ -58,10 +58,6 @@ public class AutoModeSelector {
     switch (configuration.lane) {
       case ConfigurationAutoMode.MIDDLE_LANE:
         return "Middle";
-      case ConfigurationAutoMode.OUTSIDE_LANE:
-        return "Outside";
-      case ConfigurationAutoMode.INSIDE_LANE:
-        return "Inside";
       case ConfigurationAutoMode.WALL_LANE:
         return "Wall";
     }
@@ -70,7 +66,7 @@ public class AutoModeSelector {
   
   public void decrementNumBalls() {
     configuration.numBalls--;
-    if (configuration.numBalls < 1) {
+    if (configuration.numBalls < 0) {
       configuration.numBalls = 3;
     }
     currentAutoMode();

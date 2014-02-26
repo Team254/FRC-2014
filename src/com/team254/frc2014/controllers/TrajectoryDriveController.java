@@ -20,7 +20,7 @@ public class TrajectoryDriveController extends Controller {
   TrajectoryFollower followerRight = new TrajectoryFollower("right");
   double direction;
   double heading;
-  double kTurn = -1.0/40.0;
+  double kTurn = -3.0/80.0;
 
   public boolean onTarget() {
     return followerLeft.isFinishedTrajectory(); //mFollower.onTarget(distanceThreshold);

@@ -4,11 +4,8 @@ package com.team254.frc2014;
  * This is where the magic happens!
  *
  */
-import com.team254.frc2014.auto.TestDriveAuto;
 import com.team254.frc2014.auto.TestThreeBallShootAuto;
-import com.team254.frc2014.auto.TestUltrasonicAuto;
 import com.team254.frc2014.auto.AerialAssistAuto;
-import com.team254.frc2014.auto.TwoBallAuto;
 import com.team254.frc2014.paths.AutoPaths;
 import com.team254.lib.ChezyIterativeRobot;
 import com.team254.lib.Server;
@@ -28,10 +25,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   public void initAutoModes() {
     AutoPaths.loadPaths();
     selector.addAutoMode(new AerialAssistAuto());
-    selector.addAutoMode(new TwoBallAuto());
     selector.addAutoMode(new TestThreeBallShootAuto());
-    selector.addAutoMode(new TestDriveAuto());
-    selector.addAutoMode(new TestUltrasonicAuto());
   }
 
   public void robotInit() {
@@ -193,7 +187,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     if (autoSelectLatch.update(ChezyRobot.operatorJoystick.getIntakeButtonState())) {
       selector.increment();
     }
-    if (laneSelectLatch.update(ChezyRobot.operatorJoystick.getExhaustButtonState())) {
+    if (laneSelectLatch.update(ChezyRobot.operatorJoystick.getExhaustButtonState() || ChezyRobot.rightStick.getRawButton(2))) {
       selector.incrementLane();
     }
     if (numBallsSelectLatch.update(ChezyRobot.leftStick.getRawButton(1))) {
@@ -217,7 +211,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     lcd.println(DriverStationLCD.Line.kUser5, 1, "LE: " + Math.floor(ChezyRobot.drivebase.getLeftEncoderDistance() * 10) / 10 + " RE: " + Math.floor(ChezyRobot.drivebase.getRightEncoderDistance() * 10) / 10);
     lcd.println(DriverStationLCD.Line.kUser4, 1, "F:" + ChezyRobot.frontIntake.getIntakeSensor() + " R:" + ChezyRobot.rearIntake.getIntakeSensor());
    // lcd.println(DriverStationLCD.Line.kUser5, 1, "g: " + Math.floor(wantedRpm * 100) / 100 + " m: " + Math.floor(ChezyRobot.shooter.getLastRpm() * 10) / 10);
-    lcd.println(DriverStationLCD.Line.kUser6, 1, "gyro: " + Math.floor(ChezyRobot.drivebase.getGyroAngle() * 10) / 10 + "        ");
+    lcd.println(DriverStationLCD.Line.kUser6, 1,  Math.floor(Timer.getFPGATimestamp() * 10) / 10 +  " gyro: " + Math.floor(ChezyRobot.drivebase.getGyroAngle() * 10) / 10 + "        ");
     lcd.updateLCD();
   }
 }

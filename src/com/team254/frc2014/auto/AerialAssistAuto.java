@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class AerialAssistAuto extends ConfigurationAutoMode {
 
-  static Path path = AutoPaths.get("CenterLanePath");
+  static Path centerPath = AutoPaths.get("CenterLanePath");
+  static Path wallPath = AutoPaths.get("WallLanePath");
   
   public AerialAssistAuto() {
     super("Default auto mode");
@@ -21,96 +22,53 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
   
   protected void routine() {
     
-    boolean goLeft = config.lane == MIDDLE_LANE;//(Math.floor(Timer.getFPGATimestamp()) % 2 == 0);
-    Timer t = new Timer();
-    t.start();
- 
+    boolean goLeft = true;//config.lane == MIDDLE_LANE;//(Math.floor(Timer.getFPGATimestamp()) % 2 == 0);
+
     
     // Turn on wheel
-    shooterController.setVelocityGoal(4000);
+    shooterController.setVelocityGoal(config.numBalls == 0 ? 0 : config.numBalls > 1 ? 4000 : 4300);
     
     // Grab balls from ground
     clapper.wantFront = false;
     clapper.wantRear = false;
-    frontIntake.wantBumperGather = true;
-    rearIntake.wantBumperGather = true;
+    frontIntake.wantBumperGather = true && config.numBalls >= 3;
+    rearIntake.wantBumperGather = true && config.numBalls >= 2;
     waitTime(.5);
     
 
+    Path path = centerPath;
+    if (config.lane == ConfigurationAutoMode.WALL_LANE) {
+      path = wallPath;
+    } else if (config.lane == ConfigurationAutoMode.MIDDLE_LANE) {
+      path = centerPath;
+    }
     // Drive to correct place
     if (goLeft)
       path.goLeft();
     else
       path.goRight();
     drivePath(path, 10);
+    System.out.println("Finished driving at: " + autoTimer.get());
    
     // Hold position
     drivebase.resetEncoders();
-    System.out.println("Drive time: " + t.get());
     headingController.setDistance(0);
-    headingController.setHeading(Math.toDegrees(Math.PI/6.0) * (goLeft ? 1.0 : -1.0));
+    headingController.setHeading(Math.toDegrees(path.getEndHeading()));
     drivebase.useController(headingController);
     
-    // Wait for 5 seconds in
-    waitTime(.5);
-    rearIntake.wantShoot = frontIntake.wantShoot = true;
-    waitTime(.6);
-    
-    
-    System.out.println("Shooting 1st ball at: " + t.get());
-    // Shoot first ball
-    clapper.wantShot = true;
-    waitTime(.5);
-    clapper.wantShot = false;
-    rearIntake.wantShoot = frontIntake.wantShoot = false;
-    
-    // Speed up for 2nd and 3rd shots
-   shooterController.setVelocityGoal(4300);
-    
-    // Queue 2nd ball
-    rearIntake.wantBumperGather = false;
-    rearIntake.wantDown = true;
-    rearIntake.setManualRollerPower(1.0);
-    waitTime(0.3);
-    rearIntake.wantDown = false;
-    waitTime(.4);
-    rearIntake.setManualRollerPower(0);
-    
-    // Settle time
-    waitTime(.75);
-    
-    // Shoot second ball
-    frontIntake.wantShoot = true;
-    waitTime(.25);
-    rearIntake.setManualRollerPower(1);
-    clapper.wantShot = true;
-    waitTime(.5);
-    clapper.wantShot = false;
-    rearIntake.setManualRollerPower(0);
-    waitTime(0.3);
-    frontIntake.wantShoot = false;
-    
-    // Queue 3rd ball
-    frontIntake.wantBumperGather = false;
-    frontIntake.wantDown = true;
-    frontIntake.setManualRollerPower(0.5);
-    waitTime(0.3);
-    frontIntake.wantDown = false;
-    waitTime(0.5);
-    frontIntake.setManualRollerPower(0.00);
-
-    
-    // Settle time
-    waitTime(1.0);
-    
-    // Shoot thirdball
-    rearIntake.setManualRollerPower(1);
-    clapper.wantShot = true;
-    waitTime(.5);
-    clapper.wantShot = false;
-    
+    // Wait until hot goal is about to switch
+    waitUntilTime(4.0);
+ 
+    System.out.println("Shooting 1st ball at: " + autoTimer.get());
+    if (config.numBalls == 3) {
+      shootThree();
+    } else if (config.numBalls == 2) {
+      shootTwo();
+    } else if (config.numBalls == 1)  {
+      shootOne();
+    }
     // Print out time
-    System.out.println("Auto done at: " + t.get());
+    System.out.println("Auto done at: " + autoTimer.get());
     
     // Clean up
     rearIntake.setManualRollerPower(0);
