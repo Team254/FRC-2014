@@ -1,7 +1,7 @@
 package com.team254.frc2014.auto;
 
 import com.team254.frc2014.FieldPosition;
-import com.team254.frc2014.LanedAutoMode;
+import com.team254.frc2014.ConfigurationAutoMode;
 import com.team254.frc2014.paths.AutoPaths;
 import com.team254.lib.trajectory.Path;
 import edu.wpi.first.wpilibj.Timer;
@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
  * @author Mani Gnanasivam
  * @author EJ Sebathia
  */
-public class TwoBallStraightAheadAuto extends LanedAutoMode {
+public class TwoBallStraightAheadAuto extends ConfigurationAutoMode {
 
   public TwoBallStraightAheadAuto() {
     super("Two ball: Straight ahead");

@@ -1,23 +1,26 @@
 package com.team254.frc2014;
 
+import com.team254.frc2014.AutoModeSelector.Configuration;
+
 /**
  * LanedAutoMode.java
  * LanedAutoMode defines all autonomi which utilize lanes.
  * @author tombot
  */
-public abstract class LanedAutoMode extends AutoMode {
+public abstract class ConfigurationAutoMode extends AutoMode {
 
-  public LanedAutoMode(String d) {
+  public ConfigurationAutoMode(String d) {
     super(d);
   }
-  
-  protected int lane = MIDDLE_LANE;
+
   public static final int MIDDLE_LANE = 0;
   public static final int INSIDE_LANE = 1;
   public static final int OUTSIDE_LANE = 2;
   public static final int WALL_LANE = 3;
+  
+  protected Configuration config;
 
-  public void setLane(int lane) {
-    this.lane = lane;
+  public void setConfiguration(Configuration config) {
+    this.config = config;
   }
 }
