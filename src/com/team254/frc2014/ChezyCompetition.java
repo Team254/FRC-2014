@@ -138,8 +138,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     
     // Shooting Buttons
     //ChezyRobot.clapper.wantShot = ChezyRobot.operatorJoystick.getShotButtonState() || ChezyRobot.operatorJoystick.getTrussShotButtonState();
-    ChezyRobot.clapper.wantShot = ChezyRobot.clapper.wantTimedShot = 
-            ChezyRobot.leftStick.getRawButton(2) || ChezyRobot.leftStick.getRawButton(1);
+    ChezyRobot.clapper.wantShot = ChezyRobot.clapper.wantTimedShot =  ChezyRobot.leftStick.getRawButton(2) || ChezyRobot.leftStick.getRawButton(1);
     //ChezyRobot.clapper.wantTimedShot = ChezyRobot.operatorJoystick.getTrussShotButtonState();
     
     // Pass buttons
@@ -150,7 +149,8 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     //ChezyRobot.rearIntake.wantShoot = ChezyRobot.operatorJoystick.getShotButtonState() || ChezyRobot.operatorJoystick.getTrussShotButtonState();
     ChezyRobot.rearIntake.wantShoot = ChezyRobot.clapper.wantShot;
 
-    ChezyRobot.shooter.wantShotCatch = ChezyRobot.operatorJoystick.getTrussShotButtonState();
+    ChezyRobot.shooter.wantShotCatch = ChezyRobot.operatorJoystick.getTrussShotButtonState() && ChezyRobot.operatorJoystick.getShooterState();
+    ChezyRobot.shooter.wantCatch = ChezyRobot.operatorJoystick.getTrussShotButtonState() && !ChezyRobot.operatorJoystick.getShooterState();
 
  
     // Gearing
@@ -163,6 +163,9 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     
     boolean qt = ChezyRobot.rightStick.getTrigger();
     double turn = ChezyRobot.rightStick.getX();
+    if (qt) {
+      turn /= 2.0;
+    }
     
     ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), turn, qt, !ChezyRobot.rightStick.getRawButton(2));
 

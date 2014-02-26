@@ -37,6 +37,7 @@ public class Constants extends ConstantsBase {
 
   public static final Constant shifterPort = new Constant("shifterPort", 1);
   public static final Constant catcherSolenoidPort = new Constant("catcherSolenoidPort", 2);
+  public static final Constant catcherLockSolenoidPort = new Constant("catcherLockSolenoidPort", 8);
   public static final Constant rearClapperSolenoidPort = new Constant("rearClapperSolenoidPort", 3); 
   public static final Constant frontClapperSolenoidPort = new Constant("frontClapperSolenoidPort", 4); 
   public static final Constant hoodSolenoidPort = new Constant("hoodSolenoidPort", 7);
