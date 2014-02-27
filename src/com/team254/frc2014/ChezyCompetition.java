@@ -48,6 +48,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     if (currentAutoMode != null) {
       currentAutoMode.start();
     }
+    System.out.println("cfs:auto_start");
   }
 
   public void disabledInit() {
@@ -60,6 +61,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     //ChezyRobot.drivebase.gyro.startCalibrateThread();
     ChezyRobot.clapper.wantFront = false;
     ChezyRobot.clapper.wantRear = false;
+    System.out.println("cfs:disable_start");
   }
 
   public void teleopInit() {
@@ -72,6 +74,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     ChezyRobot.drivebase.resetEncoders();
     ChezyRobot.shooter.setHood(false);
     ChezyRobot.shooterController.setVelocityGoal(4300);
+    System.out.println("cfs:teleop_start");
     // This is just here for testing purposes
   }
   double wantedRpm = 4000;
@@ -138,7 +141,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     
     // Shooting Buttons
     //ChezyRobot.clapper.wantShot = ChezyRobot.operatorJoystick.getShotButtonState() || ChezyRobot.operatorJoystick.getTrussShotButtonState();
-    ChezyRobot.clapper.wantShot = ChezyRobot.clapper.wantTimedShot =  ChezyRobot.leftStick.getRawButton(2) || ChezyRobot.leftStick.getRawButton(1);
+    ChezyRobot.clapper.wantShot = ChezyRobot.clapper.wantTimedShot =  ChezyRobot.leftStick.getRawButton(2) || ChezyRobot.leftStick.getRawButton(1) || ChezyRobot.operatorJoystick.getShotButtonState();
     //ChezyRobot.clapper.wantTimedShot = ChezyRobot.operatorJoystick.getTrussShotButtonState();
     
     // Pass buttons
@@ -164,7 +167,8 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     boolean qt = ChezyRobot.rightStick.getTrigger();
     double turn = ChezyRobot.rightStick.getX();
     if (qt) {
-      turn /= 2.0;
+      boolean turnNeg = turn < 0.0;
+      turn = Math.abs(turn * turn) * (turnNeg ? -1.0 : 1.0);
     }
     
     ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), turn, qt, !ChezyRobot.rightStick.getRawButton(2));
