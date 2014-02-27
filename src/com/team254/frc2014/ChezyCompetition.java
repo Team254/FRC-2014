@@ -105,9 +105,6 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     //Auto intake
     ChezyRobot.frontIntake.wantGather = ChezyRobot.operatorJoystick.getAutoIntakeButtonState();
 
-    //More Auto intake
-    ChezyRobot.frontIntake.wantBumperGather = ChezyRobot.operatorJoystick.getRawButton(2);
-
     //Intake solenoid
     if (ChezyRobot.operatorJoystick.getIntakeDownSwitchState()) {
       ChezyRobot.rearIntake.wantDown = true ;
@@ -130,6 +127,10 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     if (ChezyRobot.operatorJoystick.getRawButton(4)) {
       ChezyRobot.shooterController.setVelocityGoal(3500);
       ChezyRobot.shooter.setHood(true);
+    }
+    if (ChezyRobot.operatorJoystick.getRawButton(2)) {
+      ChezyRobot.shooterController.setVelocityGoal(5000);
+      ChezyRobot.shooter.setHood(false);
     }
     
     
