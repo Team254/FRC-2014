@@ -214,7 +214,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     }
     lcdUpdateTimer.reset();
     lcd.println(DriverStationLCD.Line.kUser1, 1, "M:" + selector.currentAutoMode().getDescription() + "                  ");
-    lcd.println(DriverStationLCD.Line.kUser2, 1, "Pos: Center | #B:" +  selector.getNumBalls() +  "        ");
+    lcd.println(DriverStationLCD.Line.kUser2, 1, "Pos: Center | #B:" +  selector.getNumBallsWithPreference() + "        ");
     lcd.println(DriverStationLCD.Line.kUser3, 1, "L: " +  selector.getLaneName() + " | Deke:" + (selector.getDoDeke() ? "Yes" : "No") + "        ");
     lcd.println(DriverStationLCD.Line.kUser5, 1, "LE: " + Math.floor(ChezyRobot.drivebase.getLeftEncoderDistance() * 10) / 10 + " RE: " + Math.floor(ChezyRobot.drivebase.getRightEncoderDistance() * 10) / 10);
     lcd.println(DriverStationLCD.Line.kUser4, 1, "F:" + ChezyRobot.frontIntake.getIntakeSensor() + " R:" + ChezyRobot.rearIntake.getIntakeSensor());

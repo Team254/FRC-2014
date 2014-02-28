@@ -14,15 +14,17 @@ public class AutoModeSelector {
     public int lane;
     public int numBalls;
     boolean doDeke = false;
-    public Configuration(int startPos, int lane, int numBalls, boolean doDeke) {
+    boolean preferRearBall = true;
+    public Configuration(int startPos, int lane, int numBalls, boolean doDeke, boolean preferRearBall) {
       this.startPos = startPos;
       this.lane = lane;
       this.numBalls = numBalls;
       this.doDeke = doDeke;
+      this.preferRearBall = preferRearBall;
     }
   }
   
-  Configuration configuration = new Configuration(0, ConfigurationAutoMode.MIDDLE_LANE, 3, false);
+  Configuration configuration = new Configuration(0, ConfigurationAutoMode.MIDDLE_LANE, 3, false, true);
   private int currentIndex = 0;
   Vector autoModes = new Vector();
   
@@ -77,11 +79,30 @@ public class AutoModeSelector {
     currentAutoMode();
   }
   
+  
   public boolean getDoDeke() {
     return configuration.doDeke;
   }
   
   public int getNumBalls() {
     return configuration.numBalls;
+  }
+  
+  public void togglePreferRearBall() {
+    configuration.preferRearBall = !configuration.preferRearBall;
+    currentAutoMode();
+  }
+  
+  public boolean getPreferRearBall() {
+    return configuration.preferRearBall;
+  }
+  
+  public String getNumBallsWithPreference() {
+    int n = getNumBalls();
+    String s = "" + n;
+    if (n == 2) {
+      s += getPreferRearBall() ? "R" : "F";
+    }
+    return s;
   }
 }
