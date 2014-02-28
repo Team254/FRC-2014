@@ -150,7 +150,47 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     
   }
   
-  public void shootTwo() {
+    public void shootTwoWithFrontBall() {
+    // Wait for 5 seconds in
+    waitTime(.5);
+    frontIntake.wantShoot = true;
+    waitTime(.75);
+
+    // Shoot first ball
+    rearIntake.setManualRollerPower(1);
+    waitTime(.25);
+    clapper.wantShot = true;
+    waitTime(.5);
+    clapper.wantShot = false;
+    rearIntake.setManualRollerPower(0);
+    frontIntake.wantShoot = false;
+    
+    // Speed up for 2nd and 3rd shots
+    shooterController.setVelocityGoal(4300);
+    
+    // Queue 2nd ball
+    frontIntake.wantBumperGather = false;
+    frontIntake.wantDown = true;
+    frontIntake.setManualRollerPower(1.0);
+    waitTime(0.3);
+    frontIntake.wantDown = false;
+    waitTime(.4);
+    frontIntake.setManualRollerPower(0);
+    
+    // Settle time
+    waitTime(1.25);
+    
+    // Shoot second ball
+    waitTime(.25);
+    rearIntake.setManualRollerPower(1);
+    clapper.wantShot = true;
+    waitTime(.5);
+    clapper.wantShot = false;
+    rearIntake.setManualRollerPower(0);
+    waitTime(0.3);
+  }
+  
+  public void shootTwoWithRearBall() {
     // Wait for 5 seconds in
     waitTime(.5);
     rearIntake.wantShoot = true;

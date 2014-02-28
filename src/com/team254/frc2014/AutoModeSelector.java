@@ -13,8 +13,8 @@ public class AutoModeSelector {
     public int startPos;
     public int lane;
     public int numBalls;
-    boolean doDeke = false;
-    boolean preferRearBall = true;
+    public boolean doDeke = false;
+    public boolean preferRearBall = true;
     public Configuration(int startPos, int lane, int numBalls, boolean doDeke, boolean preferRearBall) {
       this.startPos = startPos;
       this.lane = lane;

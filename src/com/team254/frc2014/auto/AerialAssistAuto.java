@@ -31,8 +31,8 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     // Grab balls from ground
     clapper.wantFront = false;
     clapper.wantRear = false;
-    frontIntake.wantBumperGather = true && config.numBalls >= 3;
-    rearIntake.wantBumperGather = true && config.numBalls >= 2;
+    frontIntake.wantBumperGather = config.numBalls == 3 || (config.numBalls == 2 && !config.preferRearBall);
+    rearIntake.wantBumperGather = config.numBalls == 3 || (config.numBalls == 2 && config.preferRearBall);
     waitTime(.5);
     
 
@@ -63,7 +63,11 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     if (config.numBalls == 3) {
       shootThree();
     } else if (config.numBalls == 2) {
-      shootTwo();
+      if (config.preferRearBall) {
+        shootTwoWithRearBall();
+      } else {
+        shootTwoWithFrontBall();
+      }
     } else if (config.numBalls == 1)  {
       shootOne();
     }
