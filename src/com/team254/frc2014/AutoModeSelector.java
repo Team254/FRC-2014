@@ -67,7 +67,16 @@ public class AutoModeSelector {
   }
   
   public void decrementNumBalls() {
-    configuration.numBalls--;
+    if (configuration.numBalls != 2) {
+      configuration.preferRearBall = true;
+    }
+
+    if (configuration.numBalls == 2 && configuration.preferRearBall) {
+      configuration.preferRearBall = false;
+    } else {
+      configuration.numBalls--;
+    }
+
     if (configuration.numBalls < 0) {
       configuration.numBalls = 3;
     }
@@ -88,7 +97,7 @@ public class AutoModeSelector {
     return configuration.numBalls;
   }
   
-  public void togglePreferRearBall() {
+  private void togglePreferRearBall() {
     configuration.preferRearBall = !configuration.preferRearBall;
     currentAutoMode();
   }
