@@ -4,8 +4,8 @@ package com.team254.frc2014;
  * This is where the magic happens!
  *
  */
-import com.team254.frc2014.auto.TestThreeBallShootAuto;
 import com.team254.frc2014.auto.AerialAssistAuto;
+import com.team254.frc2014.auto.TestThreeBallShootAuto;
 import com.team254.frc2014.paths.AutoPaths;
 import com.team254.lib.ChezyIterativeRobot;
 import com.team254.lib.Server;
@@ -36,12 +36,10 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     ChezyRobot.initRobot();
     ChezyRobot.shooterController.enable();
     ChezyRobot.subsystemUpdater100Hz.start();
-    //ChezyRobot.drivebase.gyro.startCalibrateThread();
     lcdUpdateTimer.start();
   }
 
   public void autonomousInit() {
-    //ChezyRobot.drivebase.gyro.stopCalibrating();
     ChezyRobot.drivebase.resetGyro();
     ChezyRobot.shooterController.enable();
     currentAutoMode = selector.currentAutoMode();
@@ -58,14 +56,12 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     }
     ChezyRobot.drivebase.turnOffControllers();
     ChezyRobot.drivebase.resetGyro();
-    //ChezyRobot.drivebase.gyro.startCalibrateThread();
     ChezyRobot.clapper.wantFront = false;
     ChezyRobot.clapper.wantRear = false;
     System.out.println("cfs:disable_start");
   }
 
   public void teleopInit() {
-    //ChezyRobot.drivebase.gyro.stopCalibrating();
     if (currentAutoMode != null) {
       currentAutoMode.stop();
     }
@@ -86,77 +82,67 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   Latch doDekeLatch = new Latch();
 
   public void teleopPeriodic() {
-    // Update button edges
-    ChezyRobot.operatorJoystick.update();
-
+    double frontRollerPower = 0;
+    double rearRollerPower = 0;
     // Intake Roller
-    if (ChezyRobot.operatorJoystick.getIntakeButtonState()) {
-      ChezyRobot.frontIntake.setManualRollerPower(1);
-      ChezyRobot.rearIntake.setManualRollerPower(1);
-    } else if (ChezyRobot.operatorJoystick.getExhaustButtonState()) {
-      ChezyRobot.frontIntake.setManualRollerPower(-1);
-      ChezyRobot.rearIntake.setManualRollerPower(-1);
-    } else {
-      // Run rollers in reverse if clapper button is pressed (for pass)
-      ChezyRobot.frontIntake.setManualRollerPower(ChezyRobot.operatorJoystick.getRearClapperButtonState() ? -1.0 : 0);
-      ChezyRobot.rearIntake.setManualRollerPower(ChezyRobot.operatorJoystick.getFrontClapperButtonState() ? -1.0 : 0);
+    if (ChezyRobot.operatorJoystick.getIntakeButton()) {
+      frontRollerPower = rearRollerPower = 1;
+    } else if (ChezyRobot.operatorJoystick.getExhaustButton()) {
+      frontRollerPower = rearRollerPower = -1;
+    } else if (ChezyRobot.operatorJoystick.getPassFrontButton()) {
+      frontRollerPower = -1;
+    } else if (ChezyRobot.operatorJoystick.getPassRearButton()) {
+      rearRollerPower = -1;
+    }
+  
+    // Intakes
+    if (ChezyRobot.operatorJoystick.getAutoIntakeOff()) { // manual intake
+      ChezyRobot.frontIntake.wantGather = false;
+      ChezyRobot.rearIntake.wantGather = false;
+      if (ChezyRobot.operatorJoystick.getAutoIntakeFrontButton()) {
+        frontRollerPower = 1;
+      } else if (ChezyRobot.operatorJoystick.getAutoIntakeRearButton()) {
+        rearRollerPower = 1;
+      }
+      ChezyRobot.frontIntake.wantDown = ChezyRobot.operatorJoystick.getAutoIntakeFrontButton();
+      ChezyRobot.rearIntake.wantDown = ChezyRobot.operatorJoystick.getAutoIntakeRearButton();
+    } else { // auto intake
+      ChezyRobot.frontIntake.wantGather = ChezyRobot.operatorJoystick.getAutoIntakeFrontButton();
+      ChezyRobot.rearIntake.wantGather = ChezyRobot.operatorJoystick.getAutoIntakeRearButton();
     }
 
-    //Auto intake
-    ChezyRobot.frontIntake.wantGather = ChezyRobot.operatorJoystick.getAutoIntakeButtonState();
-
-    //Intake solenoid
-    if (ChezyRobot.operatorJoystick.getIntakeDownSwitchState()) {
-      ChezyRobot.rearIntake.wantDown = true ;
-    } else {
-      ChezyRobot.rearIntake.wantDown = false;
-    } 
-    
-    if (ChezyRobot.operatorJoystick.getIntakeUpSwitchState()) {
-      ChezyRobot.frontIntake.wantDown = (true);
-    } else {
-      ChezyRobot.frontIntake.wantDown = false;
-    }
- 
     // Shooter presets
     // ChezyRobot.shooterController.setVelocityGoal(ChezyRobot.operatorJoystick.getShooterState() ? wantedRpm : 0);
-    if (ChezyRobot.operatorJoystick.getRawButton(3)) {
+    if (ChezyRobot.operatorJoystick.getShooterOffButton()) {
+      ChezyRobot.shooterController.disable();
+      ChezyRobot.shooterController.setVelocityGoal(0);
+    }
+    if (ChezyRobot.operatorJoystick.getPreset1Button()) {
+      ChezyRobot.shooterController.enable();
       ChezyRobot.shooterController.setVelocityGoal(4300);
       ChezyRobot.shooter.setHood(false);
     }
-    if (ChezyRobot.operatorJoystick.getRawButton(4)) {
+    if (ChezyRobot.operatorJoystick.getPreset2Button()) {
       ChezyRobot.shooterController.setVelocityGoal(3500);
       ChezyRobot.shooter.setHood(true);
     }
-    if (ChezyRobot.operatorJoystick.getRawButton(2)) {
+    if (ChezyRobot.operatorJoystick.getPreset3Button()) {
       ChezyRobot.shooterController.setVelocityGoal(5000);
       ChezyRobot.shooter.setHood(false);
     }
     
-    
-    if (ChezyRobot.operatorJoystick.getShooterState()) {
-      ChezyRobot.shooterController.enable();
-    } else {
-      ChezyRobot.shooterController.disable();
-    }
-    
     // Shooting Buttons
-    //ChezyRobot.clapper.wantShot = ChezyRobot.operatorJoystick.getShotButtonState() || ChezyRobot.operatorJoystick.getTrussShotButtonState();
-    ChezyRobot.clapper.wantShot = ChezyRobot.clapper.wantTimedShot =  ChezyRobot.leftStick.getRawButton(2) || ChezyRobot.leftStick.getRawButton(1) || ChezyRobot.operatorJoystick.getShotButtonState();
-    //ChezyRobot.clapper.wantTimedShot = ChezyRobot.operatorJoystick.getTrussShotButtonState();
+    ChezyRobot.clapper.wantShot = ChezyRobot.clapper.wantTimedShot =  ChezyRobot.leftStick.getRawButton(2) || ChezyRobot.leftStick.getRawButton(1);
     
     // Pass buttons
-    ChezyRobot.clapper.wantFront = ChezyRobot.operatorJoystick.getFrontClapperButtonState();
-    ChezyRobot.clapper.wantRear = ChezyRobot.operatorJoystick.getRearClapperButtonState();
+    ChezyRobot.clapper.wantFront = ChezyRobot.operatorJoystick.getPassRearButton();
+    ChezyRobot.clapper.wantRear = ChezyRobot.operatorJoystick.getPassFrontButton();
     
     // Run the rear roller in reverse if needed
-    //ChezyRobot.rearIntake.wantShoot = ChezyRobot.operatorJoystick.getShotButtonState() || ChezyRobot.operatorJoystick.getTrussShotButtonState();
     ChezyRobot.rearIntake.wantShoot = ChezyRobot.clapper.wantShot;
+    ChezyRobot.shooter.wantShotCatch = ChezyRobot.operatorJoystick.getAutoCatchButton();
+    ChezyRobot.shooter.wantCatch = ChezyRobot.operatorJoystick.getOpenCatcherButton();
 
-    ChezyRobot.shooter.wantShotCatch = ChezyRobot.operatorJoystick.getTrussShotButtonState() && ChezyRobot.operatorJoystick.getShooterState();
-    ChezyRobot.shooter.wantCatch = ChezyRobot.operatorJoystick.getTrussShotButtonState() && !ChezyRobot.operatorJoystick.getShooterState();
-
- 
     // Gearing
     if(ChezyRobot.rightStick.getRawButton(2)) {
       ChezyRobot.drivebase.setLowgear(true);
@@ -164,16 +150,16 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.drivebase.setLowgear(false);
     }
     
-    
+    // Cheesy Drive
     boolean qt = ChezyRobot.rightStick.getTrigger();
     double turn = ChezyRobot.rightStick.getX();
     if (qt) {
+      // Square the inputs on turn in quick turn
       boolean turnNeg = turn < 0.0;
       turn = Math.abs(turn * turn) * (turnNeg ? -1.0 : 1.0);
     }
     
     ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), turn, qt, !ChezyRobot.rightStick.getRawButton(2));
-
   }
   
   public void allPeriodic() {
@@ -192,16 +178,16 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   }
 
   public void disabledPeriodic() {
-    if (autoSelectLatch.update(ChezyRobot.operatorJoystick.getIntakeButtonState())) {
+    if (autoSelectLatch.update(ChezyRobot.operatorJoystick.getIntakeButton())) {
       selector.increment();
     }
-    if (laneSelectLatch.update(ChezyRobot.operatorJoystick.getExhaustButtonState() || ChezyRobot.rightStick.getRawButton(2))) {
+    if (laneSelectLatch.update(ChezyRobot.operatorJoystick.getPassFrontButton())) {
       selector.incrementLane();
     }
-    if (numBallsSelectLatch.update(ChezyRobot.leftStick.getRawButton(1))) {
+    if (numBallsSelectLatch.update(ChezyRobot.operatorJoystick.getExhaustButton())) {
       selector.decrementNumBalls();
     }
-    if (doDekeLatch.update(ChezyRobot.rightStick.getRawButton(1))) {
+    if (doDekeLatch.update(ChezyRobot.operatorJoystick.getPassRearButton())) {
       selector.toggleDoDeke();
     }
     
@@ -221,7 +207,6 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     lcd.println(DriverStationLCD.Line.kUser3, 1, "L: " +  selector.getLaneName() + " | Deke:" + (selector.getDoDeke() ? "Yes" : "No") + "        ");
     lcd.println(DriverStationLCD.Line.kUser5, 1, "LE: " + Math.floor(ChezyRobot.drivebase.getLeftEncoderDistance() * 10) / 10 + " RE: " + Math.floor(ChezyRobot.drivebase.getRightEncoderDistance() * 10) / 10);
     lcd.println(DriverStationLCD.Line.kUser4, 1, "F:" + ChezyRobot.frontIntake.getIntakeSensor() + " R:" + ChezyRobot.rearIntake.getIntakeSensor());
-   // lcd.println(DriverStationLCD.Line.kUser5, 1, "g: " + Math.floor(wantedRpm * 100) / 100 + " m: " + Math.floor(ChezyRobot.shooter.getLastRpm() * 10) / 10);
     lcd.println(DriverStationLCD.Line.kUser6, 1,  Math.floor(Timer.getFPGATimestamp() * 10) / 10 +  " gyro: " + Math.floor(ChezyRobot.drivebase.getGyroAngle() * 10) / 10 + "        ");
     lcd.updateLCD();
   }
