@@ -21,10 +21,6 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
   }
   
   protected void routine() {
-    
-    boolean goLeft = true;//config.lane == MIDDLE_LANE;//(Math.floor(Timer.getFPGATimestamp()) % 2 == 0);
-
-    
     // Turn on wheel
     shooterController.setVelocityGoal(config.numBalls == 0 ? 0 : config.numBalls > 1 ? 4000 : 4300);
     
@@ -34,6 +30,10 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     frontIntake.wantBumperGather = config.numBalls == 3 || (config.numBalls == 2 && !config.preferRearBall);
     rearIntake.wantBumperGather = config.numBalls == 3 || (config.numBalls == 2 && config.preferRearBall);
     waitTime(.5);
+    
+    hotGoalDetector.updateAutonomous();
+    hotGoalDetector.gotoLeftGoal();
+    boolean goLeft = true;//config.lane == MIDDLE_LANE;//(Math.floor(Timer.getFPGATimestamp()) % 2 == 0)
     
 
     Path path = centerPath;

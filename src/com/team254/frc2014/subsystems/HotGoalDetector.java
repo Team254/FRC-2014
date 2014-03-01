@@ -19,6 +19,34 @@ public class HotGoalDetector extends Subsystem {
   private boolean autonLeft;
   private boolean autonRight;
   
+    /**
+   * Returns true if the robot should go left, false if right.
+   * @param ld
+   * @param rd
+   * @param la
+   * @param ra
+   * @return
+   */
+  public static boolean isLeftGoal(boolean ld, boolean rd,
+                                     boolean la, boolean ra) {
+    if(la && !ra){
+      return true;
+    } else if (ra && !la) {
+      return false;
+    } else if(!ra && !la) {
+      if(ld){
+        return false; // we saw left and now dont. assume right stayed up and we are blind.
+      } else if(rd) {
+        return true; // we saw right and now dont. assume left stayed up and we are blind.
+      } else {
+        //Uncertain
+        return true;
+      }
+    } else {
+      //Uncertain
+      return false;
+    }
+  }
 
   public HotGoalDetector() {
     super("HotGoalDetector");
@@ -36,7 +64,6 @@ public class HotGoalDetector extends Subsystem {
   }
   
   public void updateDisabled() {
-    
     disabledLeft = getLeft();
     disabledRight = getRight();
   }
@@ -47,7 +74,7 @@ public class HotGoalDetector extends Subsystem {
   }
   
   public boolean gotoLeftGoal() {
-    return Util.isLeftGoal(disabledLeft, disabledRight, autonLeft, autonRight);
+    return !isLeftGoal(disabledLeft, disabledRight, autonLeft, autonRight);
   }
   
   public boolean hotGoalIsOnLeft() {

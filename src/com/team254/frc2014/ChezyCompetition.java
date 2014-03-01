@@ -204,6 +204,9 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     if (doDekeLatch.update(ChezyRobot.rightStick.getRawButton(1))) {
       selector.toggleDoDeke();
     }
+    
+    // Hot goal detector updating
+    ChezyRobot.hotGoalDetector.updateDisabled();
   }
 
   // LCD

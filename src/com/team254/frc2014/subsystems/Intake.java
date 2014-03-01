@@ -127,7 +127,7 @@ public class Intake extends Subsystem implements Loopable {
         break;
       case STATE_DELIVER_BALL:
 
-        if (stateTimer.get() < .7) {
+        if (stateTimer.get() < 1.0) {
           setPositionDown(false);
           setRollerPower(1);
         } else if (wantGather) {
