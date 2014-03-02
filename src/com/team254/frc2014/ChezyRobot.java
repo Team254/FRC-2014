@@ -71,6 +71,7 @@ public class ChezyRobot {
     subsystemUpdater100Hz.addLoopable(shooter);
     subsystemUpdater100Hz.addLoopable(navigator);
     subsystemUpdater100Hz.addLoopable(clapper);
+    subsystemUpdater100Hz.addLoopable(hotGoalDetector);
     compressor.start();
     shooter.useController(shooterController);
   }

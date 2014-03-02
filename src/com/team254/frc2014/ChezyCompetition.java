@@ -5,6 +5,7 @@ package com.team254.frc2014;
  *
  */
 import com.team254.frc2014.auto.AerialAssistAuto;
+import com.team254.frc2014.auto.TestGooglyEyes;
 import com.team254.frc2014.auto.TestThreeBallShootAuto;
 import com.team254.frc2014.paths.AutoPaths;
 import com.team254.lib.ChezyIterativeRobot;
@@ -25,6 +26,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   public void initAutoModes() {
     AutoPaths.loadPaths();
     selector.addAutoMode(new AerialAssistAuto());
+        selector.addAutoMode(new TestGooglyEyes());
     selector.addAutoMode(new TestThreeBallShootAuto());
   }
 
@@ -58,6 +60,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     ChezyRobot.drivebase.resetGyro();
     ChezyRobot.clapper.wantFront = false;
     ChezyRobot.clapper.wantRear = false;
+    ChezyRobot.hotGoalDetector.reset();
     System.out.println("cfs:disable_start");
   }
 
@@ -69,7 +72,8 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     ChezyRobot.frontIntake.setAutoIntake(false);
     ChezyRobot.drivebase.resetEncoders();
     ChezyRobot.shooter.setHood(false);
-    ChezyRobot.shooterController.setVelocityGoal(4300);
+    ChezyRobot.shooterController.disable();
+    ChezyRobot.shooterController.setVelocityGoal(0);
     System.out.println("cfs:teleop_start");
     // This is just here for testing purposes
   }
@@ -110,29 +114,42 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.frontIntake.wantGather = ChezyRobot.operatorJoystick.getAutoIntakeFrontButton();
       ChezyRobot.rearIntake.wantGather = ChezyRobot.operatorJoystick.getAutoIntakeRearButton();
     }
+    
 
     // Shooter presets
-    // ChezyRobot.shooterController.setVelocityGoal(ChezyRobot.operatorJoystick.getShooterState() ? wantedRpm : 0);
+    // Off
     if (ChezyRobot.operatorJoystick.getShooterOffButton()) {
       ChezyRobot.shooterController.disable();
       ChezyRobot.shooterController.setVelocityGoal(0);
     }
+    // Running
     if (ChezyRobot.operatorJoystick.getPreset1Button()) {
+      ChezyRobot.shooterController.enable();
+      ChezyRobot.shooterController.setVelocityGoal(3500);
+      ChezyRobot.shooter.setHood(true);
+    }
+    // Close
+    if (ChezyRobot.operatorJoystick.getPreset2Button()) {
+      ChezyRobot.shooterController.enable();
+      ChezyRobot.shooterController.setVelocityGoal(5000);
+      ChezyRobot.shooter.setHood(false);
+    }
+    //Far
+    if (ChezyRobot.operatorJoystick.getPreset3Button()) {
       ChezyRobot.shooterController.enable();
       ChezyRobot.shooterController.setVelocityGoal(4300);
       ChezyRobot.shooter.setHood(false);
     }
-    if (ChezyRobot.operatorJoystick.getPreset2Button()) {
-      ChezyRobot.shooterController.setVelocityGoal(3500);
-      ChezyRobot.shooter.setHood(true);
-    }
-    if (ChezyRobot.operatorJoystick.getPreset3Button()) {
-      ChezyRobot.shooterController.setVelocityGoal(5000);
+    // Super Far
+    if (ChezyRobot.operatorJoystick.getPreset4Button()) {
+      ChezyRobot.shooterController.enable();
+      ChezyRobot.shooterController.setVelocityGoal(7000);
       ChezyRobot.shooter.setHood(false);
     }
+
     
     // Shooting Buttons
-    ChezyRobot.clapper.wantShot = ChezyRobot.clapper.wantTimedShot =  ChezyRobot.leftStick.getRawButton(2) || ChezyRobot.leftStick.getRawButton(1);
+    ChezyRobot.clapper.wantShot = ChezyRobot.clapper.wantTimedShot =  ChezyRobot.leftStick.getRawButton(2) || ChezyRobot.leftStick.getRawButton(1) || ChezyRobot.operatorJoystick.getShootButton();
     
     // Pass buttons
     ChezyRobot.clapper.wantFront = ChezyRobot.operatorJoystick.getPassRearButton();
@@ -160,6 +177,11 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     }
     
     ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), turn, qt, !ChezyRobot.rightStick.getRawButton(2));
+    
+    // Set rollers
+    ChezyRobot.frontIntake.setManualRollerPower(frontRollerPower);
+    ChezyRobot.rearIntake.setManualRollerPower(rearRollerPower);
+    
   }
   
   public void allPeriodic() {
@@ -174,6 +196,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     } else if (wantedRpm < 0) {
       wantedRpm = 0;
     }
+    //p.println("left: " + ChezyRobot.hotGoalDetector.getLeft() + " right " + ChezyRobot.hotGoalDetector.getRight());
     lcd();
   }
 
@@ -184,15 +207,12 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     if (laneSelectLatch.update(ChezyRobot.operatorJoystick.getPassFrontButton())) {
       selector.incrementLane();
     }
-    if (numBallsSelectLatch.update(ChezyRobot.operatorJoystick.getExhaustButton())) {
+    if (numBallsSelectLatch.update(ChezyRobot.operatorJoystick.getExhaustButton() || ChezyRobot.rightStick.getRawButton(1))) {
       selector.decrementNumBalls();
     }
     if (doDekeLatch.update(ChezyRobot.operatorJoystick.getPassRearButton())) {
       selector.toggleDoDeke();
     }
-    
-    // Hot goal detector updating
-    ChezyRobot.hotGoalDetector.updateDisabled();
   }
 
   // LCD

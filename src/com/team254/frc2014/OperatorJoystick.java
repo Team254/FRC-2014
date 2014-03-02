@@ -64,7 +64,7 @@ public class OperatorJoystick extends Joystick {
   }
 
   public boolean getAutoIntakeOff() {
-    return this.getTwist() < 0.0;
+    return getRawAxis(4) < 0.1;
   }
 
   public boolean getPreset4Button() {
@@ -75,7 +75,7 @@ public class OperatorJoystick extends Joystick {
     return getY() > 0;
   }
 
-  public boolean getPreset6Button() {
+  public boolean getShootButton() {
     return getX() < 0;
   }
 }

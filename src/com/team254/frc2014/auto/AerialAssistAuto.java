@@ -21,7 +21,10 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
   }
   
   protected void routine() {
+    hotGoalDetector.startSampling();
+
     // Turn on wheel
+    shooterController.enable();
     shooterController.setVelocityGoal(config.numBalls == 0 ? 0 : config.numBalls > 1 ? 4000 : 4300);
     
     // Grab balls from ground
@@ -31,9 +34,9 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     rearIntake.wantBumperGather = config.numBalls == 3 || (config.numBalls == 2 && config.preferRearBall);
     waitTime(.5);
     
-    hotGoalDetector.updateAutonomous();
-    hotGoalDetector.gotoLeftGoal();
-    boolean goLeft = true;//config.lane == MIDDLE_LANE;//(Math.floor(Timer.getFPGATimestamp()) % 2 == 0)
+    boolean onLeft = hotGoalDetector.hotGoalStartedOnLeft();
+    boolean goLeft = !onLeft;
+    System.out.println("Hot goal started on left: "  + onLeft);
     
 
     Path path = centerPath;
