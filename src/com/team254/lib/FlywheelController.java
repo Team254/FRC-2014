@@ -18,9 +18,10 @@ public class FlywheelController extends StateSpaceController {
   double prevPos;
   double goal;
   double curVel;
-  double period = 1 / 100.0;
+  double period = 1.0 / 100.0;
   double outputVoltage = 0.0;
-  double targetError = 25;
+  double targetError = 10;
+
   Debouncer filter = new Debouncer(.15);
 
   public FlywheelController(String name, ControlOutput output,
@@ -107,7 +108,7 @@ public class FlywheelController extends StateSpaceController {
   }
 
   public boolean onTargetRaw() {
-    return enabled && Math.abs(Xhat.get(1) - velGoal) < targetError; //Math.abs(curVel - velGoal) < targetError;
+    return enabled && Math.abs(Xhat.get(1) - velGoal) < targetError;
   }
   boolean onTarget = false;
   public boolean onTarget() {

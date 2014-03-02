@@ -1,5 +1,6 @@
 package com.team254.frc2014.subsystems;
 
+import com.team254.frc2014.ChezyRobot;
 import com.team254.frc2014.Constants;
 import com.team254.lib.Subsystem;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -19,6 +20,16 @@ public class Clapper extends Subsystem{
   public boolean wantRear;
   public boolean wantTimedShot;
   
+  public void setControlLoopsOn() {
+    waitForWheel = true;
+  }
+  
+  public void setControlLoopsOff() {
+    waitForWheel = false;
+  }
+  
+  private boolean waitForWheel = false;
+  public boolean doingRunning = false;
   private final int STATE_DOWN = 0;
   private final int STATE_UP = 1;
   private final int STATE_FRONT_UP = 2;
@@ -61,7 +72,7 @@ public class Clapper extends Subsystem{
       case STATE_DOWN:
         rearSolenoid.set(false);
         frontSolenoid.set(false);
-        if(wantShot) {
+        if(wantShot && (doingRunning || !waitForWheel || ChezyRobot.shooterController.onTarget())) {
           nextState = STATE_START_SHOT;
         } else if(wantFront) {
           nextState = STATE_FRONT_UP;
