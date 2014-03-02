@@ -25,7 +25,7 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
 
     // Turn on wheel
     shooterController.enable();
-    shooterController.setVelocityGoal(config.numBalls == 0 ? 0 : config.numBalls > 1 ? 4000 : 4300);
+    shooterController.setVelocityGoal(config.numBalls == 0 ? 0 : config.numBalls > 1 ? 4150 : 4300);
     
     // Grab balls from ground
     clapper.wantFront = false;

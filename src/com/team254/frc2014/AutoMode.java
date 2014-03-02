@@ -119,7 +119,7 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     frontIntake.wantDown = true;
     frontIntake.setManualRollerPower(1.0);
     waitTime(0.3);
-    frontIntake.setManualRollerPower(.3);
+    frontIntake.setManualRollerPower(1.0);
     frontIntake.wantDown = false;
     waitTime(0.5);
     frontIntake.setManualRollerPower(0.00);
