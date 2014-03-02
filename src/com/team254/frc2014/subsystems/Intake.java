@@ -22,13 +22,15 @@ public class Intake extends Subsystem implements Loopable {
   private AnalogChannel bumpSwitch;
   boolean flip = false;
   private static final int kBumpSwitchThreshold = 400;
+  private double deliverTime = 1.0;
 
-  public Intake(String name, Talon roller, AnalogChannel bumpSwitch, Solenoid actuator, boolean flip) {
+  public Intake(String name, Talon roller, AnalogChannel bumpSwitch, Solenoid actuator, boolean flip, double deliverTime) {
     super(name);
     this.roller = roller;
     this.bumpSwitch = bumpSwitch;
     this.actuator = actuator;
     this.flip = flip;
+    this.deliverTime = deliverTime;
     stateTimer.start();
   }
 
@@ -127,7 +129,7 @@ public class Intake extends Subsystem implements Loopable {
         break;
       case STATE_DELIVER_BALL:
 
-        if (stateTimer.get() < 1.0) {
+        if (stateTimer.get() < deliverTime) {
           setPositionDown(false);
           setRollerPower(1);
         } else if (wantGather) {

@@ -44,8 +44,8 @@ public class ChezyRobot {
   public static final Solenoid rearIntakeSolenoid = new Solenoid(Constants.rearIntakeSolenoidPort.getInt());
   public static final AnalogChannel rearIntakeSwitch = new AnalogChannel(Constants.rearIntakeSwitchPort.getInt());
   
-  public static final Intake frontIntake = new Intake("Front Intake", frontIntakeRoller, frontIntakeSwitch, frontIntakeSolenoid, true);
-  public static final Intake rearIntake = new Intake("Rear Intake", rearIntakeRoller, rearIntakeSwitch, rearIntakeSolenoid, true);
+  public static final Intake frontIntake = new Intake("Front Intake", frontIntakeRoller, frontIntakeSwitch, frontIntakeSolenoid, true, 1.0);
+  public static final Intake rearIntake = new Intake("Rear Intake", rearIntakeRoller, rearIntakeSwitch, rearIntakeSolenoid, true, .65);
   
   public static final CheesyDriveHelper cdh = new CheesyDriveHelper(drivebase);
   

@@ -40,19 +40,19 @@ public class OperatorJoystick extends Joystick {
   }
 
   public boolean getExhaustButton() {
-    return getRawButton(7);
-  }
-
-  public boolean getIntakeButton() {
-    return getRawButton(8);
-  }
-
-  public boolean getPassRearButton() {
     return getRawButton(9);
   }
 
-  public boolean getPassFrontButton() {
+  public boolean getIntakeButton() {
     return getRawButton(10);
+  }
+
+  public boolean getPassRearButton() {
+    return getRawButton(7);
+  }
+
+  public boolean getPassFrontButton() {
+    return getRawButton(8);
   }
 
   public boolean getAutoIntakeFrontButton() {
