@@ -133,34 +133,34 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     if (ChezyRobot.operatorJoystick.getPreset1Button()) {
       ChezyRobot.clapper.doingRunning = true;
       ChezyRobot.shooterController.enable();
-      ChezyRobot.shooterController.setVelocityGoal(3500);
+      ChezyRobot.shooterController.setVelocityGoal(Constants.runningClosePreset.getDouble());
       ChezyRobot.shooter.setHood(true);
     }
     // static close
     if (ChezyRobot.operatorJoystick.getPreset2Button()) {
       ChezyRobot.shooterController.enable();
-      ChezyRobot.shooterController.setVelocityGoal(5300);
+      ChezyRobot.shooterController.setVelocityGoal(Constants.staticClosePreset.getDouble());
       ChezyRobot.shooter.setHood(false);
       ChezyRobot.clapper.doingRunning = false;
     }
     // static Far
     if (ChezyRobot.operatorJoystick.getPreset3Button()) {
       ChezyRobot.shooterController.enable();
-      ChezyRobot.shooterController.setVelocityGoal(4300);
+      ChezyRobot.shooterController.setVelocityGoal(Constants.staticFarPreset.getDouble());
       ChezyRobot.shooter.setHood(false);
       ChezyRobot.clapper.doingRunning = false;
     }
     // running far
     if (ChezyRobot.operatorJoystick.getPreset4Button()) {
       ChezyRobot.shooterController.enable();
-      ChezyRobot.shooterController.setVelocityGoal(4600);
+      ChezyRobot.shooterController.setVelocityGoal(Constants.runningFarPreset.getDouble());
       ChezyRobot.shooter.setHood(false);
       ChezyRobot.clapper.doingRunning = true;
     }
-    // Super Far
+    // Hella Far
     if (ChezyRobot.operatorJoystick.getPreset6Button()) {
       ChezyRobot.shooterController.enable();
-      ChezyRobot.shooterController.setVelocityGoal(6000);
+      ChezyRobot.shooterController.setVelocityGoal(Constants.hellaFarPreset.getDouble());
       ChezyRobot.shooter.setHood(false);
       ChezyRobot.clapper.doingRunning = false;
     }
