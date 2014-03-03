@@ -20,6 +20,10 @@ public abstract class Controller extends ChezyRobot implements Loopable {
   public void disable() {
     enabled = false;
   }
+
+  public boolean enabled() {
+    return enabled;
+  }
   
   protected boolean reverse = false;
   public void setReverse(boolean on) {

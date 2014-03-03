@@ -129,29 +129,36 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.shooterController.setVelocityGoal(0);
       ChezyRobot.clapper.doingRunning = false;
     }
-    // Running
+    // Running close
     if (ChezyRobot.operatorJoystick.getPreset1Button()) {
       ChezyRobot.clapper.doingRunning = true;
       ChezyRobot.shooterController.enable();
       ChezyRobot.shooterController.setVelocityGoal(3500);
       ChezyRobot.shooter.setHood(true);
     }
-    // Close
+    // static close
     if (ChezyRobot.operatorJoystick.getPreset2Button()) {
       ChezyRobot.shooterController.enable();
-      ChezyRobot.shooterController.setVelocityGoal(5200);
+      ChezyRobot.shooterController.setVelocityGoal(5300);
       ChezyRobot.shooter.setHood(false);
       ChezyRobot.clapper.doingRunning = false;
     }
-    //Far
+    // static Far
     if (ChezyRobot.operatorJoystick.getPreset3Button()) {
       ChezyRobot.shooterController.enable();
-      ChezyRobot.shooterController.setVelocityGoal(4100);
+      ChezyRobot.shooterController.setVelocityGoal(4300);
       ChezyRobot.shooter.setHood(false);
       ChezyRobot.clapper.doingRunning = false;
     }
-    // Super Far
+    // running far
     if (ChezyRobot.operatorJoystick.getPreset4Button()) {
+      ChezyRobot.shooterController.enable();
+      ChezyRobot.shooterController.setVelocityGoal(4600);
+      ChezyRobot.shooter.setHood(false);
+      ChezyRobot.clapper.doingRunning = true;
+    }
+    // Super Far
+    if (ChezyRobot.operatorJoystick.getPreset6Button()) {
       ChezyRobot.shooterController.enable();
       ChezyRobot.shooterController.setVelocityGoal(6000);
       ChezyRobot.shooter.setHood(false);
@@ -160,7 +167,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
 
     
     // Shooting Buttons
-    ChezyRobot.clapper.wantShot = ChezyRobot.clapper.wantTimedShot =  ChezyRobot.leftStick.getRawButton(2) || ChezyRobot.leftStick.getRawButton(1) || ChezyRobot.operatorJoystick.getShootButton();
+    ChezyRobot.clapper.wantShot = ChezyRobot.clapper.wantTimedShot =  ChezyRobot.leftStick.getRawButton(2) || ChezyRobot.leftStick.getRawButton(1);
     
     // Pass buttons
     ChezyRobot.clapper.wantFront = ChezyRobot.operatorJoystick.getPassRearButton();
@@ -168,6 +175,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     
     // Run the rear roller in reverse if needed
     ChezyRobot.rearIntake.wantShoot = ChezyRobot.clapper.wantShot;
+   // ChezyRobot.frontIntake.wantShoot = ChezyRobot.clapper.wantShot;
     ChezyRobot.shooter.wantShotCatch = ChezyRobot.operatorJoystick.getAutoCatchButton();
     ChezyRobot.shooter.wantCatch = ChezyRobot.operatorJoystick.getOpenCatcherButton();
 
@@ -193,7 +201,9 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     ChezyRobot.frontIntake.setManualRollerPower(frontRollerPower);
     ChezyRobot.rearIntake.setManualRollerPower(rearRollerPower);
     
+    ChezyRobot.batteryBuzzer.set(ChezyRobot.operatorJoystick.getPreset5Button());
   }
+
   
   public void allPeriodic() {
     if (downLatch.update(ChezyRobot.operatorJoystick.getRawButton(3))) {

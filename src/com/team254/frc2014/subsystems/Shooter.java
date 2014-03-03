@@ -8,9 +8,11 @@ import com.team254.lib.Subsystem;
 import com.team254.lib.util.ThrottledPrinter;
 import com.team254.lib.util.Util;
 import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.Hashtable;
 
 /**
@@ -85,8 +87,9 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
   public void update() {
     // Update the controller
     updateSensedVelocity();
+    SmartDashboard.putNumber("ShooterRPM", lastRpm);
+    SmartDashboard.putNumber("BatteryV", DriverStation.getInstance().getBatteryVoltage());
     super.update();
-    
     int nextState = state;
     
     switch (state) {

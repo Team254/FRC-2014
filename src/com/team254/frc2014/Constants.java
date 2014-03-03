@@ -95,6 +95,8 @@ public class Constants extends ConstantsBase {
   public static final double fieldWidth = 26.0;
   public static final double distanceToWhiteLine = 18.0;
 
+  
+  public static final Constant rearRollerShootPower = new Constant("rearRollerShootPower", 0.5);
   static {
     // Set any overridden constants from the file on startup.
     readConstantsFromFile();

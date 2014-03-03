@@ -1,5 +1,7 @@
 package com.team254.frc2014.subsystems;
 
+import com.team254.frc2014.ChezyRobot;
+import com.team254.frc2014.Constants;
 import com.team254.lib.Loopable;
 import com.team254.lib.Subsystem;
 import com.team254.lib.util.Util;
@@ -8,6 +10,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.Hashtable;
 
 /**
@@ -175,7 +178,8 @@ public class Intake extends Subsystem implements Loopable {
         break;
         
       case STATE_SHOOTING:
-        setRollerPower(1);
+        setRollerPower(Constants.rearRollerShootPower.getDouble());
+        SmartDashboard.putNumber("rpmShot", ChezyRobot.shooter.lastRpm);
         if (!wantShoot && stateTimer.get() > 1.0) {
           setRollerPower(0);
           newState = STATE_MANUAL;

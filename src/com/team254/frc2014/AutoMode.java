@@ -106,7 +106,7 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     // Shoot second ball
     frontIntake.wantShoot = true;
     waitTime(.25);
-    rearIntake.setManualRollerPower(1);
+    rearIntake.setManualRollerPower(Constants.rearRollerShootPower.getDouble());
     clapper.wantShot = true;
     waitTime(.5);
     clapper.wantShot = false;
@@ -129,7 +129,7 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     waitTime(.5);
     
     // Shoot thirdball
-    rearIntake.setManualRollerPower(1);
+    rearIntake.setManualRollerPower(Constants.rearRollerShootPower.getDouble());
     clapper.wantShot = true;
     waitTime(.5);
     clapper.wantShot = false;
@@ -141,7 +141,7 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     // Wait for 5 seconds in
     // Shoot second ball
     waitTime(.5);
-    rearIntake.setManualRollerPower(1);
+    rearIntake.setManualRollerPower(Constants.rearRollerShootPower.getDouble());
     clapper.wantShot = true;
     waitTime(.5);
     clapper.wantShot = false;
@@ -157,7 +157,7 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     waitTime(.75);
 
     // Shoot first ball
-    rearIntake.setManualRollerPower(1);
+    rearIntake.setManualRollerPower(Constants.rearRollerShootPower.getDouble());
     waitTime(.25);
     clapper.wantShot = true;
     waitTime(.5);
@@ -182,7 +182,7 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     
     // Shoot second ball
     waitTime(.25);
-    rearIntake.setManualRollerPower(1);
+    rearIntake.setManualRollerPower(Constants.rearRollerShootPower.getDouble());
     clapper.wantShot = true;
     waitTime(.5);
     clapper.wantShot = false;
@@ -219,7 +219,7 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     
     // Shoot second ball
     waitTime(.25);
-    rearIntake.setManualRollerPower(1);
+    rearIntake.setManualRollerPower(Constants.rearRollerShootPower.getDouble());
     clapper.wantShot = true;
     waitTime(.5);
     clapper.wantShot = false;

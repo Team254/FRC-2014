@@ -75,7 +75,7 @@ public class OperatorJoystick extends Joystick {
     return getY() > 0;
   }
 
-  public boolean getShootButton() {
+  public boolean getPreset6Button() {
     return getX() < 0;
   }
 }

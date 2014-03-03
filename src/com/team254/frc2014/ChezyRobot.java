@@ -12,6 +12,7 @@ import com.team254.frc2014.subsystems.*;
 import com.team254.lib.MultiLooper;
 import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
@@ -54,6 +55,8 @@ public class ChezyRobot {
   public static final OperatorJoystick operatorJoystick = new OperatorJoystick(Constants.gamepadPort.getInt());
   public static final AutoModeSelector ams = new AutoModeSelector();
   
+  public static final DigitalOutput batteryBuzzer = new DigitalOutput(10);
+  
   // Controllers
   public static MultiLooper subsystemUpdater100Hz = new MultiLooper(1.0 / 100.0);
   public static TrajectoryDriveController driveController = new TrajectoryDriveController();
@@ -68,10 +71,11 @@ public class ChezyRobot {
     subsystemUpdater100Hz.addLoopable(drivebase);
     subsystemUpdater100Hz.addLoopable(frontIntake);
     subsystemUpdater100Hz.addLoopable(rearIntake);
-    subsystemUpdater100Hz.addLoopable(shooter);
     subsystemUpdater100Hz.addLoopable(navigator);
     subsystemUpdater100Hz.addLoopable(clapper);
     subsystemUpdater100Hz.addLoopable(hotGoalDetector);
+    subsystemUpdater100Hz.addLoopable(shooter);
+    
     compressor.start();
     shooter.useController(shooterController);
   }
