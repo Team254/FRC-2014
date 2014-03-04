@@ -164,6 +164,16 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.shooter.setHood(false);
       ChezyRobot.clapper.doingRunning = false;
     }
+    // HP Shot
+    if (ChezyRobot.operatorJoystick.getPreset5Button()) {
+      ChezyRobot.shooterController.enable();
+      ChezyRobot.shooterController.setVelocityGoal(Constants.hpShotPreset.getDouble());
+      ChezyRobot.shooter.setHood(false);
+      ChezyRobot.clapper.doingRunning = false;
+    }
+    
+    //ChezyRobot.operatorJoystick.getPreset5Button()
+
 
     
     // Shooting Buttons
@@ -201,7 +211,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     ChezyRobot.frontIntake.setManualRollerPower(frontRollerPower);
     ChezyRobot.rearIntake.setManualRollerPower(rearRollerPower);
     
-    ChezyRobot.batteryBuzzer.set(ChezyRobot.operatorJoystick.getPreset5Button());
+   // ChezyRobot.batteryBuzzer.set(ChezyRobot.operatorJoystick.getPreset5Button());
   }
 
   
