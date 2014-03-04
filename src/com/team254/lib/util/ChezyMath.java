@@ -170,7 +170,7 @@ public class ChezyMath {
     }
     return angle;
   }
-
+  
   public ChezyMath() {
   }
 }
