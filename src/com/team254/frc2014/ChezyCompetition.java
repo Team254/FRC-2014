@@ -88,6 +88,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   Latch laneSelectLatch = new Latch();
   Latch numBallsSelectLatch = new Latch();
   Latch doDekeLatch = new Latch();
+  Latch gyroInitLatch = new Latch();
 
   public void teleopPeriodic() {
     double frontRollerPower = 0;
@@ -232,7 +233,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   }
 
   public void disabledPeriodic() {
-    if (autoSelectLatch.update(ChezyRobot.operatorJoystick.getShooterOffButton() && ChezyRobot.operatorJoystick.getPreset2Button())) { //secrets!
+    if (autoSelectLatch.update(ChezyRobot.operatorJoystick.getShooterOffButton() && ChezyRobot.operatorJoystick.getPreset2Button() && ChezyRobot.operatorJoystick.getAutoCatchButton())) { //secrets!
       selector.increment();
     }
     if (laneSelectLatch.update(ChezyRobot.operatorJoystick.getIntakeButton())) {
@@ -243,6 +244,10 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     }
     if (doDekeLatch.update(ChezyRobot.operatorJoystick.getExhaustButton())) {
       selector.toggleDoDeke();
+    }
+    
+    if (gyroInitLatch.update(ChezyRobot.operatorJoystick.getPreset6Button())) {
+      ChezyRobot.drivebase.gyro.initGyro();
     }
   }
 
