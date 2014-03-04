@@ -12,6 +12,7 @@ import com.team254.lib.util.ConstantsBase;
 
 public class Constants extends ConstantsBase {
   // Declare the constants and their default values here.
+
   // Control board mappings
   public static final Constant leftJoystickPort = new Constant("leftJoystickPort", 1);
   public static final Constant rightJoystickPort = new Constant("rightJoystickPort", 2);
@@ -34,7 +35,6 @@ public class Constants extends ConstantsBase {
   // Solenoids
   public static final Constant pressureSwitch = new Constant("pressureSwitch",  14);
   public static final Constant compressorRelay = new Constant("compressorRelay", 1);
-
   public static final Constant shifterPort = new Constant("shifterPort", 1);
   public static final Constant catcherSolenoidPort = new Constant("catcherSolenoidPort", 2);
   public static final Constant catcherLockSolenoidPort = new Constant("catcherLockSolenoidPort", 8);
@@ -43,7 +43,6 @@ public class Constants extends ConstantsBase {
   public static final Constant hoodSolenoidPort = new Constant("hoodSolenoidPort", 7);
   public static final Constant frontIntakeSolenoidPort = new Constant("frontIntakeSolenoidPort", 5);
   public static final Constant rearIntakeSolenoidPort = new Constant("rearIntakeSolenoidPort", 6);
-
 
   // Operator control mappings
   public static final Constant autonSelectControlPort = new Constant("autonSelectControlPort",11);
@@ -68,13 +67,6 @@ public class Constants extends ConstantsBase {
   public static final Constant sensitivityHigh = new Constant("sensitivityHigh", .75);
   public static final Constant sensitivityLow = new Constant("sensitivityLow", .75);
 
-  public static final Constant driveStraightKPLow = new Constant("driveStraightKPLow", 0.07);
-  public static final Constant driveStraightKILow = new Constant("driveStraightKILow", 0);
-  public static final Constant driveStraightKDLow = new Constant("driveStraightKDLow", 0.02);
-
-  public static final Constant driveTurnKPLow = new Constant("driveTurnKPLow", 0.03);
-  public static final Constant driveTurnKILow = new Constant("driveTurnKILow", 0);
-  public static final Constant driveTurnKDLow = new Constant("driveTurnKDLow", 0.045);
 
   public static final Constant frontIntakeSwitchPort = new Constant("frontIntakeSwitchPort", 2);
   public static final Constant rearIntakeSwitchPort = new Constant("rearIntakeSwitchPort", 3);
@@ -91,11 +83,7 @@ public class Constants extends ConstantsBase {
   
   public static final Constant robotWidth = new Constant("robotWidth", 25.5 / 12.0);
   public static final Constant robotDt = new Constant("robotDt", 1.0 / 100.0);
-  
-  public static final double fieldWidth = 26.0;
-  public static final double distanceToWhiteLine = 18.0;
-
-  
+    
   public static final Constant rearRollerShootPower = new Constant("rearRollerShootPower", 0.5);
   
   public static final Constant runningClosePreset = new Constant("runningClosePreset", 3550);
@@ -104,6 +92,10 @@ public class Constants extends ConstantsBase {
   public static final Constant staticClosePreset = new Constant("staticClosePreset", 5300);
   public static final Constant hellaFarPreset = new Constant("hellaFarPreset", 6500);
   public static final Constant hpShotPreset = new Constant("hpShotPreset", 5800);
+  
+  public static final double fieldWidth = 26.0;
+  public static final double distanceToWhiteLine = 18.0;
+  
   static {
     // Set any overridden constants from the file on startup.
     readConstantsFromFile();
