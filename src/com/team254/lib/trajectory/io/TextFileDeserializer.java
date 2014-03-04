@@ -3,6 +3,7 @@ package com.team254.lib.trajectory.io;
 import com.team254.lib.trajectory.Path;
 import com.sun.squawk.util.StringTokenizer;
 import com.team254.lib.trajectory.Trajectory;
+import com.team254.lib.util.FastParser;
 
 /**
  *
@@ -25,14 +26,14 @@ public class TextFileDeserializer implements IPathDeserializer {
       StringTokenizer line_tokenizer = new StringTokenizer(
               tokenizer.nextToken(), " ");
       
-      segment.pos = Double.parseDouble(line_tokenizer.nextToken());
-      segment.vel = Double.parseDouble(line_tokenizer.nextToken());
-      segment.acc = Double.parseDouble(line_tokenizer.nextToken());
-      segment.jerk = Double.parseDouble(line_tokenizer.nextToken());
-      segment.heading = Double.parseDouble(line_tokenizer.nextToken());
-      segment.dt = Double.parseDouble(line_tokenizer.nextToken());
-      segment.x = Double.parseDouble(line_tokenizer.nextToken());
-      segment.y = Double.parseDouble(line_tokenizer.nextToken());
+      segment.pos = FastParser.parseFormattedDouble(line_tokenizer.nextToken());
+      segment.vel = FastParser.parseFormattedDouble(line_tokenizer.nextToken());
+      segment.acc = FastParser.parseFormattedDouble(line_tokenizer.nextToken());
+      segment.jerk = FastParser.parseFormattedDouble(line_tokenizer.nextToken());
+      segment.heading = FastParser.parseFormattedDouble(line_tokenizer.nextToken());
+      segment.dt = FastParser.parseFormattedDouble(line_tokenizer.nextToken());
+      segment.x = FastParser.parseFormattedDouble(line_tokenizer.nextToken());
+      segment.y = FastParser.parseFormattedDouble(line_tokenizer.nextToken());
       
       left.setSegment(i, segment);
     }
@@ -42,14 +43,14 @@ public class TextFileDeserializer implements IPathDeserializer {
       StringTokenizer line_tokenizer = new StringTokenizer(
               tokenizer.nextToken(), " ");
       
-      segment.pos = Double.parseDouble(line_tokenizer.nextToken());
-      segment.vel = Double.parseDouble(line_tokenizer.nextToken());
-      segment.acc = Double.parseDouble(line_tokenizer.nextToken());
-      segment.jerk = Double.parseDouble(line_tokenizer.nextToken());
-      segment.heading = Double.parseDouble(line_tokenizer.nextToken());
-      segment.dt = Double.parseDouble(line_tokenizer.nextToken());
-      segment.x = Double.parseDouble(line_tokenizer.nextToken());
-      segment.y = Double.parseDouble(line_tokenizer.nextToken());
+      segment.pos = FastParser.parseFormattedDouble(line_tokenizer.nextToken());
+      segment.vel = FastParser.parseFormattedDouble(line_tokenizer.nextToken());
+      segment.acc = FastParser.parseFormattedDouble(line_tokenizer.nextToken());
+      segment.jerk = FastParser.parseFormattedDouble(line_tokenizer.nextToken());
+      segment.heading = FastParser.parseFormattedDouble(line_tokenizer.nextToken());
+      segment.dt = FastParser.parseFormattedDouble(line_tokenizer.nextToken());
+      segment.x = FastParser.parseFormattedDouble(line_tokenizer.nextToken());
+      segment.y = FastParser.parseFormattedDouble(line_tokenizer.nextToken());
       
       right.setSegment(i, segment);
     }
