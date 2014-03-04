@@ -232,16 +232,16 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   }
 
   public void disabledPeriodic() {
-    if (autoSelectLatch.update(ChezyRobot.operatorJoystick.getIntakeButton())) {
+    if (autoSelectLatch.update(ChezyRobot.operatorJoystick.getShooterOffButton() && ChezyRobot.operatorJoystick.getPreset2Button())) { //secrets!
       selector.increment();
     }
-    if (laneSelectLatch.update(ChezyRobot.operatorJoystick.getPassFrontButton())) {
+    if (laneSelectLatch.update(ChezyRobot.operatorJoystick.getIntakeButton())) {
       selector.incrementLane();
     }
-    if (numBallsSelectLatch.update(ChezyRobot.operatorJoystick.getExhaustButton() || ChezyRobot.rightStick.getRawButton(1))) {
+    if (numBallsSelectLatch.update(ChezyRobot.operatorJoystick.getPassFrontButton())) {
       selector.decrementNumBalls();
     }
-    if (doDekeLatch.update(ChezyRobot.operatorJoystick.getPassRearButton())) {
+    if (doDekeLatch.update(ChezyRobot.operatorJoystick.getExhaustButton())) {
       selector.toggleDoDeke();
     }
   }

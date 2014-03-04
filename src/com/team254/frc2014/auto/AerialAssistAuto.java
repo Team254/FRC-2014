@@ -56,7 +56,17 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     // Hold position
     drivebase.resetEncoders();
     headingController.setDistance(0);
-    headingController.setHeading(Math.toDegrees(path.getEndHeading()));
+    double endHeading = Math.toDegrees(path.getEndHeading());
+    System.out.println("before: " + endHeading);
+    if (config.lane == ConfigurationAutoMode.MIDDLE_LANE && config.doDeke) {
+      if (!goLeft) {
+        endHeading = (360.0 - endHeading) * 0.8;
+      } else {
+        endHeading = endHeading * -0.8;
+      }
+    }
+    System.out.println("after: " + endHeading);
+    headingController.setHeading(endHeading);
     drivebase.useController(headingController);
     
     // Wait until hot goal is about to switch

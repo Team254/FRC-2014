@@ -10,7 +10,7 @@ import com.team254.lib.util.ChezyMath;
  */
 public class HoldPositionController extends Controller {
 
-  private double kTurn = -1.0 / 25.0;
+  private double kTurn = -1.0 / 33.0;
   private double kDrive = .85;
   private double heading = 0;
   private double distance = 0;
