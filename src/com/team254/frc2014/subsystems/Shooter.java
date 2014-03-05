@@ -23,7 +23,6 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
 
   private Solenoid hood = new Solenoid(Constants.hoodSolenoidPort.getInt());
   private Solenoid catcher = new Solenoid(Constants.catcherSolenoidPort.getInt());
-  private Solenoid catcherLock = new Solenoid(Constants.catcherLockSolenoidPort.getInt());
   private Talon shooterA = new Talon(Constants.leftShooterWheelPort.getInt());
   private Talon shooterB = new Talon(Constants.rightShooterWheelPort.getInt());
   public Counter counter = new Counter(Constants.shooterReflectorPort.getInt());
@@ -95,7 +94,6 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
     switch (state) {
       case STATE_CLOSED:
         catcher.set(false);
-        catcherLock.set(false);
         if (wantShotCatch) {
           nextState = STATE_WAIT_FOR_RPM_DROP;
         } else if (wantCatch) {
@@ -111,10 +109,8 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
            nextState = STATE_WAIT_FOR_CATCH;
         }
         catcher.set(false);
-        catcherLock.set(false);
         break;
       case STATE_WAIT_FOR_CATCH:
-        catcherLock.set(true);
         if (stateTimer.get() > 0.15) {
           nextState = STATE_CATCH_OWN_SHOT;
         }
@@ -123,7 +119,6 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
         break;
       case STATE_CATCH_OWN_SHOT:
         // reverse flywheel and open catcher
-        catcherLock.set(true);
         catcher.set(stateTimer.get() > .45);
         if (!wantShotCatch) {
           nextState = STATE_CLOSED;
@@ -132,7 +127,6 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
         
       case STATE_CATCH_OTHER_SHOT:
         // reverse flywheel and open catcher
-        catcherLock.set(true);
         catcher.set(stateTimer.get() > .15);
         if (!wantCatch) {
           nextState = STATE_CLOSED;
@@ -142,7 +136,6 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
       case STATE_WHEEL_SETTLE:
         controller.disable();
         catcher.set(false);
-        catcherLock.set(false);
         if (stateTimer.get() > 2.0) {
           controller.enable();
           nextState = STATE_CLOSED;

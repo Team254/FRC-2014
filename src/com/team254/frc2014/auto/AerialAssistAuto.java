@@ -1,5 +1,6 @@
 package com.team254.frc2014.auto;
 
+import com.team254.frc2014.ChezyRobot;
 import com.team254.frc2014.FieldPosition;
 import com.team254.frc2014.ConfigurationAutoMode;
 import com.team254.frc2014.paths.AutoPaths;
@@ -30,6 +31,10 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     
     hotGoalDetector.startSampling();
 
+    
+    // Setller
+    settler.set(true);
+    
     // Turn on wheel
     shooterController.enable();
     shooterController.setVelocityGoal(wantedStartRpm);

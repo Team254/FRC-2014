@@ -57,6 +57,8 @@ public class ChezyRobot {
   
   public static final DigitalOutput batteryBuzzer = new DigitalOutput(10);
   
+  public static final Solenoid settler = new Solenoid(Constants.settlerSolenoidPort.getInt());
+  
   // Controllers
   public static MultiLooper subsystemUpdater100Hz = new MultiLooper(1.0 / 100.0);
   public static TrajectoryDriveController driveController = new TrajectoryDriveController();

@@ -86,13 +86,14 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     waitTime(.5);
     
     // Shoot first ball
+    settler.set(false);
     clapper.wantShot = true;
-    waitTime(.5);
+    waitTime(.45);
     clapper.wantShot = false;
     rearIntake.wantShoot = frontIntake.wantShoot = false;
     
     // Speed up for 2nd and 3rd shots
-   shooterController.setVelocityGoal(wantedEndRpm);
+    shooterController.setVelocityGoal(wantedEndRpm);
     
     // Queue 2nd ball
     rearIntake.wantBumperGather = false;
@@ -104,14 +105,17 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     rearIntake.setManualRollerPower(0);
     
     // Settle time
-    waitTime(.75);
+    waitTime(.25);
+    settler.set(true);
+    waitTime(.25);
     
     // Shoot second ball
     frontIntake.wantShoot = true;
     waitTime(.25);
     rearIntake.setManualRollerPower(Constants.rearRollerShootPower.getDouble());
+    settler.set(false);
     clapper.wantShot = true;
-    waitTime(.5);
+    waitTime(.45);
     clapper.wantShot = false;
     rearIntake.setManualRollerPower(0);
     waitTime(0.3);
@@ -129,12 +133,15 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
 
     
     // Settle time
-    waitTime(.5);
+    waitTime(.25);
+    settler.set(true);
+    waitTime(.6);
     
     // Shoot thirdball
+    settler.set(false);
     rearIntake.setManualRollerPower(Constants.rearRollerShootPower.getDouble());
     clapper.wantShot = true;
-    waitTime(.5);
+    waitTime(.45);
     clapper.wantShot = false;
   }
   

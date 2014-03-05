@@ -212,8 +212,8 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     // Set rollers
     ChezyRobot.frontIntake.setManualRollerPower(frontRollerPower);
     ChezyRobot.rearIntake.setManualRollerPower(rearRollerPower);
-    
-   // ChezyRobot.batteryBuzzer.set(ChezyRobot.operatorJoystick.getPreset5Button());
+ 
+    ChezyRobot.settler.set(false);
   }
 
   
