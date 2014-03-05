@@ -21,7 +21,7 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
   protected double farIntakeDownPreset = 4150;
   protected double farIntakeUpPreset = 4300;
   protected double closeIntakeDownPreset = 5150;
-  protected double closeIntakeUpPreset = 5300;
+  protected double closeIntakeUpPreset = 5200;
   protected double wantedStartRpm = farIntakeDownPreset;
   protected double wantedEndRpm = farIntakeUpPreset;
     
