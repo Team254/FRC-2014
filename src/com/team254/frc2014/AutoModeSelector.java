@@ -15,16 +15,18 @@ public class AutoModeSelector {
     public int numBalls;
     public boolean doDeke = false;
     public boolean preferRearBall = true;
-    public Configuration(int startPos, int lane, int numBalls, boolean doDeke, boolean preferRearBall) {
+    public boolean endClose = false;
+    public Configuration(int startPos, int lane, int numBalls, boolean doDeke, boolean preferRearBall, boolean endClose) {
       this.startPos = startPos;
       this.lane = lane;
       this.numBalls = numBalls;
       this.doDeke = doDeke;
       this.preferRearBall = preferRearBall;
+      this.endClose = endClose;
     }
   }
   
-  Configuration configuration = new Configuration(0, ConfigurationAutoMode.MIDDLE_LANE, 3, false, true);
+  Configuration configuration = new Configuration(0, ConfigurationAutoMode.MIDDLE_LANE, 3, false, true, false);
   private int currentIndex = 0;
   Vector autoModes = new Vector();
   
@@ -88,6 +90,14 @@ public class AutoModeSelector {
     currentAutoMode();
   }
   
+  public void toggleEndClose() {
+    configuration.endClose = !configuration.endClose;
+    currentAutoMode();
+  }
+  
+  public boolean getEndClose() {
+    return configuration.endClose;
+  }
   
   public boolean getDoDeke() {
     return configuration.doDeke;

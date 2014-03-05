@@ -13,7 +13,7 @@ import java.util.Hashtable;
  * @author Stephen Pinkerton
  */
 public class AutoPaths {
-  static String[] kPathNames = {"CenterLanePath", "StraightAheadPath", "WallLanePath"};
+  static String[] kPathNames = {"CenterLanePathFar", "CenterLanePathClose", "StraightAheadPath", "WallLanePath"};
   
   static Hashtable paths_ = new Hashtable();
   

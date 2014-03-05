@@ -18,6 +18,13 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
   private boolean alive = true;
   protected String description;
   protected Timer autoTimer = new Timer();
+  protected double farIntakeDownPreset = 4150;
+  protected double farIntakeUpPreset = 4300;
+  protected double closeIntakeDownPreset = 5150;
+  protected double closeIntakeUpPreset = 5300;
+  protected double wantedStartRpm = farIntakeDownPreset;
+  protected double wantedEndRpm = farIntakeUpPreset;
+    
   
   public AutoMode(String description) {
     this.description = description;
@@ -85,7 +92,7 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     rearIntake.wantShoot = frontIntake.wantShoot = false;
     
     // Speed up for 2nd and 3rd shots
-   shooterController.setVelocityGoal(4300);
+   shooterController.setVelocityGoal(wantedEndRpm);
     
     // Queue 2nd ball
     rearIntake.wantBumperGather = false;
@@ -133,7 +140,7 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
   
   public void shootOne() {
     // Speed up for 2nd and 3rd shots
-    shooterController.setVelocityGoal(4300);
+    shooterController.setVelocityGoal(wantedEndRpm);
     // Wait for 5 seconds in
     // Shoot second ball
     waitTime(.5);
@@ -162,7 +169,7 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     frontIntake.wantShoot = false;
     
     // Speed up for 2nd and 3rd shots
-    shooterController.setVelocityGoal(4300);
+    shooterController.setVelocityGoal(wantedEndRpm);
     
     // Queue 2nd ball
     frontIntake.wantBumperGather = false;
@@ -199,7 +206,7 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     rearIntake.wantShoot = false;
     
     // Speed up for 2nd and 3rd shots
-   shooterController.setVelocityGoal(4300);
+   shooterController.setVelocityGoal(wantedEndRpm);
     
     // Queue 2nd ball
     rearIntake.wantBumperGather = false;

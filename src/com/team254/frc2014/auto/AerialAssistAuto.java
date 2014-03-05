@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class AerialAssistAuto extends ConfigurationAutoMode {
 
-  static Path centerPath = AutoPaths.get("CenterLanePath");
+  static Path centerPathFar = AutoPaths.get("CenterLanePathFar");
+  static Path centerPathClose = AutoPaths.get("CenterLanePathClose");
   static Path wallPath = AutoPaths.get("WallLanePath");
   
   public AerialAssistAuto() {
@@ -21,11 +22,17 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
   }
   
   protected void routine() {
+    if (config.lane == ConfigurationAutoMode.MIDDLE_LANE && config.endClose) {
+      wantedStartRpm = config.numBalls == 0 ? 0 : config.numBalls > 1 ? closeIntakeDownPreset : closeIntakeUpPreset;
+    } else {
+      wantedStartRpm = config.numBalls == 0 ? 0 : config.numBalls > 1 ? farIntakeDownPreset : farIntakeUpPreset;
+    }
+    
     hotGoalDetector.startSampling();
 
     // Turn on wheel
     shooterController.enable();
-    shooterController.setVelocityGoal(config.numBalls == 0 ? 0 : config.numBalls > 1 ? 4150 : 4300);
+    shooterController.setVelocityGoal(wantedStartRpm);
     
     // Grab balls from ground
     clapper.wantFront = false;
@@ -39,11 +46,15 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     System.out.println("Hot goal started on left: "  + onLeft);
     
 
-    Path path = centerPath;
+    Path path = centerPathClose;
     if (config.lane == ConfigurationAutoMode.WALL_LANE) {
       path = wallPath;
     } else if (config.lane == ConfigurationAutoMode.MIDDLE_LANE) {
-      path = centerPath;
+      if (config.endClose) {
+        path = centerPathClose;
+      } else {
+        path = centerPathFar;
+      }
     }
     // Drive to correct place
     if (goLeft)
@@ -71,6 +82,8 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     
     // Wait until hot goal is about to switch
     waitUntilTime(4.0);
+ 
+    wantedEndRpm = (config.lane == ConfigurationAutoMode.MIDDLE_LANE && config.endClose) ? closeIntakeUpPreset : farIntakeUpPreset;
  
     System.out.println("Shooting 1st ball at: " + autoTimer.get());
     if (config.numBalls == 3) {
