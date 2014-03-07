@@ -1,5 +1,6 @@
 package com.team254.frc2014.subsystems;
 
+import com.team254.frc2014.ChezyRobot;
 import com.team254.lib.Subsystem;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
@@ -16,6 +17,7 @@ public class HotGoalDetector extends Subsystem  {
   private int leftCount = 0;
   private int rightCount = 0;
   private boolean sampling = false;
+  private boolean notSure = false;
   
   public void reset() {
     sampling = false;
@@ -44,7 +46,16 @@ public class HotGoalDetector extends Subsystem  {
   
   public boolean hotGoalStartedOnLeft() {
     System.out.println("left: " + leftCount + "right " + rightCount);
-    return leftCount > rightCount;
+    boolean goLeft = leftCount > rightCount;
+    ChezyRobot.leftCount = leftCount;
+    ChezyRobot.rightCount = rightCount;
+    ChezyRobot.goLeftAuto = goLeft;
+    notSure = Math.abs(leftCount - rightCount) < 2;
+    return goLeft;
+  }
+  
+  public boolean getNotSure() {
+    return notSure;
   }
   
   public void startSampling() {

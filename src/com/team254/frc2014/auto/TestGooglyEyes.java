@@ -25,14 +25,12 @@ public class TestGooglyEyes extends ConfigurationAutoMode {
     t.start();
 
     // Turn on wheel
-    shooterController.setVelocityGoal(4000);
+    //shooterController.setVelocityGoal(4000);
     
     // Grab balls from ground
     clapper.wantFront = false;
     clapper.wantRear = false;
-    frontIntake.wantBumperGather = true;
-    rearIntake.wantBumperGather = true;
-    waitTime(.5);
+    waitTime(1.0);
     
     boolean onLeft = hotGoalDetector.hotGoalStartedOnLeft();
     boolean goLeft = !onLeft;

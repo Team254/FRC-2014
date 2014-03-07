@@ -45,7 +45,9 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     frontIntake.wantBumperGather = config.numBalls == 3 || (config.numBalls == 2 && !config.preferRearBall);
     rearIntake.wantBumperGather = config.numBalls == 3 || (config.numBalls == 2 && config.preferRearBall);
     waitTime(.5);
+    waitTime(.5);
     
+    hotGoalDetector.stopSampling();
     boolean onLeft = hotGoalDetector.hotGoalStartedOnLeft();
     boolean goLeft = !onLeft;
     System.out.println("Hot goal started on left: "  + onLeft);
@@ -86,7 +88,9 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     drivebase.useController(headingController);
     
     // Wait until hot goal is about to switch
-    waitUntilTime(4.0);
+    if (!hotGoalDetector.getNotSure()) {
+     waitUntilTime(4.0);
+    }
  
     wantedEndRpm = (config.lane == ConfigurationAutoMode.MIDDLE_LANE && config.endClose) ? closeIntakeUpPreset : farIntakeUpPreset;
  

@@ -67,6 +67,10 @@ public class ChezyRobot {
   public static Navigator navigator = new Navigator(drivebase);
   public static OpenLoopController openLoopShooterController = new OpenLoopController(shooter);
   public static final RpmFlywheelController shooterController = new RpmFlywheelController("ShooterController", shooter, shooter, ShooterGains.getGains()[0], 1.0/100.0);
+  
+  public static boolean goLeftAuto = false;
+  public static int leftCount = 0;
+  public static int rightCount = 0;
 
   public static void initRobot() {
     // Add all subsystems to a 100Hz Looper
