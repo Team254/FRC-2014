@@ -41,7 +41,9 @@ public class HotGoalDetector extends Subsystem  {
   
   private void updateVotes() {
     leftCount += getLeftRaw() ? 1 : 0;
+    ChezyRobot.leftTotal++;
     rightCount += getRightRaw() ? 1 : 0;
+    ChezyRobot.rightTotal++;
   }
   
   public boolean goLeft() {
@@ -55,7 +57,7 @@ public class HotGoalDetector extends Subsystem  {
   }
   
   public boolean probablySawGoalChange() {
-    return Math.abs(leftCount - rightCount) > 10;
+    return Math.abs(leftCount - rightCount) > 6;
   }
   
   public boolean getNotSure() {
@@ -69,6 +71,7 @@ public class HotGoalDetector extends Subsystem  {
   public void stopSampling() {
     sampling = false;
   }
+  
   public void update() {
     super.update();
     if (sampling) {

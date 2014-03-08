@@ -21,7 +21,7 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
   protected Timer autoTimer = new Timer();
   protected double farIntakeDownPreset = 4150;
   protected double farIntakeUpPreset = 4300;
-  protected double closeIntakeDownPreset = 5150;
+  protected double closeIntakeDownPreset = 5050;
   protected double closeIntakeUpPreset = 5200;
   protected double wantedStartRpm = farIntakeDownPreset;
   protected double wantedEndRpm = farIntakeUpPreset;
@@ -102,13 +102,13 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     rearIntake.setManualRollerPower(1.0);
     waitTime(0.3);
     rearIntake.wantDown = false;
-    waitTime(.4);
+    waitTime(.35);
     rearIntake.setManualRollerPower(0);
     
     // Settle time
     waitTime(.25);
     settler.set(true);
-    waitTime(.25);
+    waitTime(.20);
     
     // Shoot second ball
     frontIntake.wantShoot = true;
@@ -118,6 +118,7 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     clapper.wantShot = true;
     waitTime(.45);
     clapper.wantShot = false;
+    
     rearIntake.setManualRollerPower(0);
     waitTime(0.3);
     frontIntake.wantShoot = false;
@@ -129,14 +130,14 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     waitTime(0.3);
     frontIntake.setManualRollerPower(1.0);
     frontIntake.wantDown = false;
-    waitTime(0.5);
+    waitTime(0.45);
     frontIntake.setManualRollerPower(0.00);
 
     
     // Settle time
     waitTime(.25);
     settler.set(true);
-    waitTime(.6);
+    waitTime(.5);
     
     // Shoot thirdball
     settler.set(false);

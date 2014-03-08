@@ -72,6 +72,8 @@ public class ChezyRobot {
   public static int leftCount = 0;
   public static int rightCount = 0;
 
+   public static int leftTotal = 0;
+  public static int rightTotal = 0;
   public static void initRobot() {
     // Add all subsystems to a 100Hz Looper
     subsystemUpdater100Hz.addLoopable(drivebase);

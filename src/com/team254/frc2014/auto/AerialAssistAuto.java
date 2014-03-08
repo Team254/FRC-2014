@@ -27,22 +27,19 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
   }
   
   protected void routine() {
+    // Start voting 
+    hotGoalDetector.startSampling();
+   
     if (endingInOpenField() && config.endClose) {
       wantedStartRpm = config.numBalls == 0 ? 0 : config.numBalls > 1 ? closeIntakeDownPreset : closeIntakeUpPreset;
     } else {
       wantedStartRpm = config.numBalls == 0 ? 0 : config.numBalls > 1 ? farIntakeDownPreset : farIntakeUpPreset;
     }
 
-    // Start voting 
-    hotGoalDetector.startSampling();
-
     // Settler down
     settler.set(true);
     
-    // Turn on wheel
-    shooterController.enable();
-    shooterController.setVelocityGoal(wantedStartRpm);
-    
+
     // Grab balls from ground
     clapper.wantFront = false;
     clapper.wantRear = false;
@@ -50,7 +47,12 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     rearIntake.wantBumperGather = config.numBalls == 3 || (config.numBalls == 2 && config.preferRearBall);
     
     // Wait for interrupt from hot goal sensor
-    waitForHotGoalToSwitch(2);
+    waitForHotGoalToSwitch(1.6);
+    
+    // Turn on wheel
+    shooterController.enable();
+    shooterController.setVelocityGoal(wantedStartRpm);
+    
 
     // Grab "time of match start" timeshift
     double timeOfSwitch = autoTimer.get();
@@ -88,7 +90,7 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     System.out.println("Before deke heading: " + endHeading);
     
     // Do deke if needed
-    if (endingInOpenField() && config.doDeke) {
+    if (endingInOpenField() && config.doDeke && false) {
       if (!goLeft) {
         endHeading = (360.0 - endHeading) * 0.8;
       } else {
@@ -104,7 +106,7 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     
     // Wait until hot goal is about to switch
     if (!hotGoalDetector.getNotSure()) {
-     waitUntilTime(timeOfSwitch + 4.0);
+     waitUntilTime(timeOfSwitch + 3.4);
     }
     
     
