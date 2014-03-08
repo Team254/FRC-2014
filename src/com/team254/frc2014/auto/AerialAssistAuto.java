@@ -18,21 +18,25 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
   static Path centerPathClose = AutoPaths.get("CenterLanePathClose");
   static Path wallPath = AutoPaths.get("WallLanePath");
   
+  protected boolean endingInOpenField() {
+    return config.lane == ConfigurationAutoMode.MIDDLE_LANE;
+  }
+  
   public AerialAssistAuto() {
     super("Default auto mode");
   }
   
   protected void routine() {
-    if (config.lane == ConfigurationAutoMode.MIDDLE_LANE && config.endClose) {
+    if (endingInOpenField() && config.endClose) {
       wantedStartRpm = config.numBalls == 0 ? 0 : config.numBalls > 1 ? closeIntakeDownPreset : closeIntakeUpPreset;
     } else {
       wantedStartRpm = config.numBalls == 0 ? 0 : config.numBalls > 1 ? farIntakeDownPreset : farIntakeUpPreset;
     }
-    
+
+    // Start voting 
     hotGoalDetector.startSampling();
 
-    
-    // Setller
+    // Settler down
     settler.set(true);
     
     // Turn on wheel
@@ -45,13 +49,16 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     frontIntake.wantBumperGather = config.numBalls == 3 || (config.numBalls == 2 && !config.preferRearBall);
     rearIntake.wantBumperGather = config.numBalls == 3 || (config.numBalls == 2 && config.preferRearBall);
     
+    // Wait for interrupt from hot goal sensor
     waitForHotGoalToSwitch(2);
+
+    // Grab "time of match start" timeshift
     double timeOfSwitch = autoTimer.get();
     
+    // Stop voting
     hotGoalDetector.stopSampling();
     boolean goLeft = hotGoalDetector.goLeft();
     System.out.println("Hot goal started on left: "  + !goLeft);
-    
 
     Path path = centerPathClose;
     if (config.lane == ConfigurationAutoMode.WALL_LANE) {
@@ -63,11 +70,14 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
         path = centerPathFar;
       }
     }
+
     // Drive to correct place
-    if (goLeft)
+    if (goLeft) {
       path.goLeft();
-    else
+    }
+    else {
       path.goRight();
+    }
     drivePath(path, 10);
     System.out.println("Finished driving at: " + autoTimer.get());
    
@@ -75,15 +85,20 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     drivebase.resetEncoders();
     headingController.setDistance(0);
     double endHeading = Math.toDegrees(path.getEndHeading());
-    System.out.println("before: " + endHeading);
-    if (config.lane == ConfigurationAutoMode.MIDDLE_LANE && config.doDeke) {
+    System.out.println("Before deke heading: " + endHeading);
+    
+    // Do deke if needed
+    if (endingInOpenField() && config.doDeke) {
       if (!goLeft) {
         endHeading = (360.0 - endHeading) * 0.8;
       } else {
         endHeading = endHeading * -0.8;
       }
     }
-    System.out.println("after: " + endHeading);
+ 
+    System.out.println("After deke heading : " + endHeading);
+    
+    // Turn on heading controller
     headingController.setHeading(endHeading);
     drivebase.useController(headingController);
     
@@ -91,10 +106,12 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     if (!hotGoalDetector.getNotSure()) {
      waitUntilTime(timeOfSwitch + 4.0);
     }
+    
+    
+    // Last shot rpm
+    wantedEndRpm = (endingInOpenField() && config.endClose) ? closeIntakeUpPreset : farIntakeUpPreset;
  
-    wantedEndRpm = (config.lane == ConfigurationAutoMode.MIDDLE_LANE && config.endClose) ? closeIntakeUpPreset : farIntakeUpPreset;
- 
-    System.out.println("Shooting 1st ball at: " + autoTimer.get() + " | time of hot switch: " + timeOfSwitch);
+    System.out.println("Shooting 1st ball at: " + autoTimer.get() + " after time of hot switch: " + timeOfSwitch);
     if (config.numBalls == 3) {
       shootThree();
     } else if (config.numBalls == 2) {
@@ -106,6 +123,7 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     } else if (config.numBalls == 1)  {
       shootOne();
     }
+ 
     // Print out time
     System.out.println("Auto done at: " + autoTimer.get());
     
