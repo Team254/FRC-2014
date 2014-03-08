@@ -48,9 +48,8 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     waitTime(.5);
     
     hotGoalDetector.stopSampling();
-    boolean onLeft = hotGoalDetector.hotGoalStartedOnLeft();
-    boolean goLeft = !onLeft;
-    System.out.println("Hot goal started on left: "  + onLeft);
+    boolean goLeft = hotGoalDetector.goLeft();
+    System.out.println("Hot goal started on left: "  + !goLeft);
     
 
     Path path = centerPathClose;

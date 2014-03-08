@@ -32,7 +32,7 @@ public class TestGooglyEyes extends ConfigurationAutoMode {
     clapper.wantRear = false;
     waitTime(1.0);
     
-    boolean onLeft = hotGoalDetector.hotGoalStartedOnLeft();
+    boolean onLeft = hotGoalDetector.goLeft();
     boolean goLeft = !onLeft;
     System.out.println("Hot goal started on left: "  + onLeft);
     

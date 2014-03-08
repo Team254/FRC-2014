@@ -44,13 +44,13 @@ public class HotGoalDetector extends Subsystem  {
     rightCount += getRightRaw() ? 1 : 0;
   }
   
-  public boolean hotGoalStartedOnLeft() {
+  public boolean goLeft() {
     System.out.println("left: " + leftCount + "right " + rightCount);
-    boolean goLeft = leftCount > rightCount;
+    boolean goLeft = leftCount < rightCount;
     ChezyRobot.leftCount = leftCount;
     ChezyRobot.rightCount = rightCount;
     ChezyRobot.goLeftAuto = goLeft;
-    notSure = Math.abs(leftCount - rightCount) < 2;
+    notSure = Math.abs(leftCount - rightCount) < 3;
     return goLeft;
   }
   

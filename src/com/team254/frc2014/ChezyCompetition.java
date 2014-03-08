@@ -168,14 +168,14 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.shooterController.enable();
       ChezyRobot.shooterController.setVelocityGoal(Constants.hellaFarPreset.getDouble());
       ChezyRobot.shooter.setHood(false);
-      ChezyRobot.clapper.doingRunning = false;
+      ChezyRobot.clapper.doingRunning = true;
     }
     // HP Shot
     if (ChezyRobot.operatorJoystick.getPreset5Button()) {
       ChezyRobot.shooterController.enable();
       ChezyRobot.shooterController.setVelocityGoal(Constants.hpShotPreset.getDouble());
       ChezyRobot.shooter.setHood(false);
-      ChezyRobot.clapper.doingRunning = false;
+      ChezyRobot.clapper.doingRunning = true;
     }
     
     //ChezyRobot.operatorJoystick.getPreset5Button()
@@ -272,7 +272,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
    // lcd.println(DriverStationLCD.Line.kUser5, 1, "LE: " + Math.floor(ChezyRobot.drivebase.getLeftEncoderDistance() * 10) / 10 + " RE: " + Math.floor(ChezyRobot.drivebase.getRightEncoderDistance() * 10) / 10);
     lcd.println(DriverStationLCD.Line.kUser4, 1, "F:" + (ChezyRobot.frontIntake.getIntakeSensor() ? "1" : "0") + "R:" + (ChezyRobot.rearIntake.getIntakeSensor() ? "1" : "0") + " L:" + (ChezyRobot.hotGoalDetector.getLeftRaw() ? "1" : "0") + "R:" + (ChezyRobot.hotGoalDetector.getRightRaw() ? "1" : "0") + "     " );
     lcd.println(DriverStationLCD.Line.kUser6, 1,  Math.floor(Timer.getFPGATimestamp() * 10) / 10 +  " gyro: " + Math.floor(ChezyRobot.drivebase.getGyroAngle() * 10) / 10 + "        ");
-    lcd.println(DriverStationLCD.Line.kUser5, 1, "gl?:" + (ChezyRobot.goLeftAuto ? "1" : "0") + " l:" + ChezyRobot.leftCount + " r:" + ChezyRobot.rightCount); 
+    lcd.println(DriverStationLCD.Line.kUser5, 1, "goL:" + (ChezyRobot.goLeftAuto ? "1" : "0") + " l:" + ChezyRobot.leftCount + " r:" + ChezyRobot.rightCount + " NS:" +( ChezyRobot.hotGoalDetector.getNotSure() ? "1" : "0") ); 
     lcd.updateLCD();
   }
 }
