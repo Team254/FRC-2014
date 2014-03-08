@@ -54,6 +54,10 @@ public class HotGoalDetector extends Subsystem  {
     return goLeft;
   }
   
+  public boolean probablySawGoalChange() {
+    return Math.abs(leftCount - rightCount) > 10;
+  }
+  
   public boolean getNotSure() {
     return notSure;
   }

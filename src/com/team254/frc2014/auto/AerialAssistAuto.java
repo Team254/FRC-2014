@@ -44,8 +44,9 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     clapper.wantRear = false;
     frontIntake.wantBumperGather = config.numBalls == 3 || (config.numBalls == 2 && !config.preferRearBall);
     rearIntake.wantBumperGather = config.numBalls == 3 || (config.numBalls == 2 && config.preferRearBall);
-    waitTime(.5);
-    waitTime(.5);
+    
+    waitForHotGoalToSwitch(2);
+    double timeOfSwitch = autoTimer.get();
     
     hotGoalDetector.stopSampling();
     boolean goLeft = hotGoalDetector.goLeft();
@@ -88,12 +89,12 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     
     // Wait until hot goal is about to switch
     if (!hotGoalDetector.getNotSure()) {
-     waitUntilTime(4.0);
+     waitUntilTime(timeOfSwitch + 4.0);
     }
  
     wantedEndRpm = (config.lane == ConfigurationAutoMode.MIDDLE_LANE && config.endClose) ? closeIntakeUpPreset : farIntakeUpPreset;
  
-    System.out.println("Shooting 1st ball at: " + autoTimer.get());
+    System.out.println("Shooting 1st ball at: " + autoTimer.get() + " | time of hot switch: " + timeOfSwitch);
     if (config.numBalls == 3) {
       shootThree();
     } else if (config.numBalls == 2) {

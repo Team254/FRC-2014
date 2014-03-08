@@ -5,6 +5,7 @@ import com.team254.frc2014.actions.DriveAction;
 import com.team254.frc2014.actions.DrivePathAction;
 import com.team254.frc2014.actions.WaitAction;
 import com.team254.frc2014.actions.WaitUntilAutonTimeAction;
+import com.team254.frc2014.actions.WaitForHotGoalToSwitchAction;
 import com.team254.lib.trajectory.Path;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -248,6 +249,10 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
 
   public void drive(double feet, double timeout) {
     runAction(new DriveAction(feet, timeout));
+  }
+  
+  public void waitForHotGoalToSwitch(double timeout) {
+    runAction(new WaitForHotGoalToSwitchAction(timeout));
   }
 
   public void driveAndCoast(double feet, double timeout) {

@@ -17,7 +17,6 @@ public class TestGooglyEyes extends ConfigurationAutoMode {
   public TestGooglyEyes() {
     super("TestGooglyEyes");
   }
-  static Path path = AutoPaths.get("CenterLanePath");
   protected void routine() {
     hotGoalDetector.startSampling();
     
@@ -30,11 +29,17 @@ public class TestGooglyEyes extends ConfigurationAutoMode {
     // Grab balls from ground
     clapper.wantFront = false;
     clapper.wantRear = false;
-    waitTime(1.0);
+    waitForHotGoalToSwitch(2.0);
     
-    boolean onLeft = hotGoalDetector.goLeft();
-    boolean goLeft = !onLeft;
-    System.out.println("Hot goal started on left: "  + onLeft);
+    boolean goLeft = hotGoalDetector.goLeft();
+    System.out.println("go left: "  + goLeft);
+    
+    
+    shooterController.setVelocityGoal(4000);
+    waitTime(3.0);
+    shooterController.setVelocityGoal(0);
+    
+
     
     
     
