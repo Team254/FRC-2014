@@ -35,6 +35,7 @@ public class Constants extends ConstantsBase {
   // Solenoids
   public static final Constant pressureSwitch = new Constant("pressureSwitch",  14);
   public static final Constant compressorRelay = new Constant("compressorRelay", 1);
+  public static final Constant shooterLed = new Constant("ShooterLed", 10);
   public static final Constant shifterPort = new Constant("shifterPort", 1);
   public static final Constant catcherSolenoidPort = new Constant("catcherSolenoidPort", 2);
   public static final Constant settlerSolenoidPort = new Constant("settlerSolenoidPort", 8);
@@ -60,9 +61,9 @@ public class Constants extends ConstantsBase {
   public static final Constant ultrasonicInputPort = new Constant("ultrasonicPortA", 10);
   public static final Constant ultrasonicOutputPort = new Constant("ultrasonicPortB", 11);
 
-  // Shooter encodsers
+  // Shooter encoders
   public static final Constant shooterReflectorPort = new Constant("shooterReflectorPort", 13);
-
+  
   // Drive tuning
   public static final Constant sensitivityHigh = new Constant("sensitivityHigh", .75);
   public static final Constant sensitivityLow = new Constant("sensitivityLow", .75);

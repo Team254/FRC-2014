@@ -178,6 +178,11 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.clapper.doingRunning = true;
     }
     
+    if(ChezyRobot.shooterController.onTarget()) {
+      ChezyRobot.shooter.shooterLed.set(true);
+    } else {
+      ChezyRobot.shooter.shooterLed.set(false);
+    }
     //ChezyRobot.operatorJoystick.getPreset5Button()
 
 

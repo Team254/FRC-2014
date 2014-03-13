@@ -7,11 +7,7 @@ import com.team254.lib.Loopable;
 import com.team254.lib.Subsystem;
 import com.team254.lib.util.ThrottledPrinter;
 import com.team254.lib.util.Util;
-import edu.wpi.first.wpilibj.Counter;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.Hashtable;
 
@@ -25,7 +21,8 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
   private Solenoid catcher = new Solenoid(Constants.catcherSolenoidPort.getInt());
   private Talon shooterA = new Talon(Constants.leftShooterWheelPort.getInt());
   private Talon shooterB = new Talon(Constants.rightShooterWheelPort.getInt());
-  public Counter counter = new Counter(Constants.shooterReflectorPort.getInt());
+  public Counter counter = new Counter(Constants.shooterReflectorPort.getInt());  
+  public DigitalOutput shooterLed = new DigitalOutput(Constants.shooterLed.getInt()); 
   
   
   // States
