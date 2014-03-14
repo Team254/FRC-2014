@@ -54,9 +54,7 @@ public class ChezyRobot {
   public static final Joystick rightStick = new Joystick(Constants.rightJoystickPort.getInt());
   public static final OperatorJoystick operatorJoystick = new OperatorJoystick(Constants.gamepadPort.getInt());
   public static final AutoModeSelector ams = new AutoModeSelector();
-  
-  public static final DigitalOutput batteryBuzzer = new DigitalOutput(10);
-  
+
   public static final Solenoid settler = new Solenoid(Constants.settlerSolenoidPort.getInt());
   
   // Controllers
