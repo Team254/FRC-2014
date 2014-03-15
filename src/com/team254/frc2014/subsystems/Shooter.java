@@ -21,8 +21,9 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
   private Solenoid catcher = new Solenoid(Constants.catcherSolenoidPort.getInt());
   private Talon shooterA = new Talon(Constants.leftShooterWheelPort.getInt());
   private Talon shooterB = new Talon(Constants.rightShooterWheelPort.getInt());
-  public Counter counter = new Counter(Constants.shooterReflectorPort.getInt());  
-  public DigitalOutput shooterLed = new DigitalOutput(Constants.shooterLed.getInt()); 
+  public Counter counter = new Counter(Constants.shooterReflectorPort.getInt());
+  public DigitalOutput shooterLed = new DigitalOutput(Constants.shooterLed.getInt());
+  public Relay shooterLedRelay = new Relay(Constants.shooterLedRelay.getInt());
   
   
   // States

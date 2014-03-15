@@ -14,6 +14,7 @@ import com.team254.lib.Server;
 import com.team254.lib.util.Latch;
 import com.team254.lib.util.ThrottledPrinter;
 import edu.wpi.first.wpilibj.DriverStationLCD;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Timer;
 
 public class ChezyCompetition extends ChezyIterativeRobot {
@@ -178,10 +179,12 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.clapper.doingRunning = true;
     }
     
-    if(ChezyRobot.shooterController.onTarget()) {
+    if(ChezyRobot.shooterController.onTarget() && ChezyRobot.shooterController.enabled()) {
       ChezyRobot.shooter.shooterLed.set(true);
+      ChezyRobot.shooter.shooterLedRelay.set(Relay.Value.kForward);
     } else {
       ChezyRobot.shooter.shooterLed.set(false);
+      ChezyRobot.shooter.shooterLedRelay.set(Relay.Value.kOff);
     }
     //ChezyRobot.operatorJoystick.getPreset5Button()
 
