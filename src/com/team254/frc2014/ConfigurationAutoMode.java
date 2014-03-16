@@ -13,9 +13,9 @@ public abstract class ConfigurationAutoMode extends AutoMode {
     super(d);
   }
 
-  public static final int MIDDLE_LANE = 0;
+  public static final int MIDDLE_LANE = 1;
   public static final int WALL_LANE = 2;
-  public static final int INSIDE_LANE = 1;
+  public static final int INSIDE_LANE = 0;
   protected Configuration config;
 
   public void setConfiguration(Configuration config) {

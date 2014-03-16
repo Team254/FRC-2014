@@ -26,7 +26,7 @@ public class AutoModeSelector {
     }
   }
   
-  Configuration configuration = new Configuration(0, ConfigurationAutoMode.MIDDLE_LANE, 3, false, true, false);
+  Configuration configuration = new Configuration(0, ConfigurationAutoMode.INSIDE_LANE, 3, false, true, false);
   private int currentIndex = 0;
   Vector autoModes = new Vector();
   
