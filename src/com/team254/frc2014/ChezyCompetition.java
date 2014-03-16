@@ -259,7 +259,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       selector.decrementNumBalls();
     }
     if (doDekeLatch.update(ChezyRobot.operatorJoystick.getExhaustButton())) {
-      selector.toggleDoDeke();
+     // selector.toggleDoDeke();
     }
     if (endCloseLatch.update(ChezyRobot.operatorJoystick.getPassRearButton())) {
       selector.toggleEndClose();
@@ -279,7 +279,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     lcdUpdateTimer.reset();
     lcd.println(DriverStationLCD.Line.kUser3, 1, "M:" + selector.currentAutoMode().getDescription() + "                  ");
     lcd.println(DriverStationLCD.Line.kUser1, 1, "#B:" +  selector.getNumBallsWithPreference() + " | End:" + (selector.getEndClose() ? "Close" : "Far") +"          ");
-    lcd.println(DriverStationLCD.Line.kUser2, 1, "L: " +  selector.getLaneName() + " | Deke:" + (selector.getDoDeke() ? "Yes" : "No") + "        ");
+    lcd.println(DriverStationLCD.Line.kUser2, 1, "Path: " +  selector.getPathName() + "           ");
     //lcd.println(DriverStationLCD.Line.kUser5, 1, "LE: " + Math.floor(ChezyRobot.drivebase.getLeftEncoderDistance() * 10) / 10 + " RE: " + Math.floor(ChezyRobot.drivebase.getRightEncoderDistance() * 10) / 10);
     lcd.println(DriverStationLCD.Line.kUser4, 1, "F:" + (ChezyRobot.frontIntake.getIntakeSensor() ? "1" : "0") + "R:" + (ChezyRobot.rearIntake.getIntakeSensor() ? "1" : "0") + " L:" + (ChezyRobot.hotGoalDetector.getLeftRaw() ? "1" : "0") + "R:" + (ChezyRobot.hotGoalDetector.getRightRaw() ? "1" : "0") + "     " );
     lcd.println(DriverStationLCD.Line.kUser6, 1,  Math.floor(Timer.getFPGATimestamp() * 10) / 10 +  " gyro: " + Math.floor(ChezyRobot.drivebase.getGyroAngle() * 10) / 10 + "        ");

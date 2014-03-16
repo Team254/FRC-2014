@@ -58,14 +58,14 @@ public class AutoModeSelector {
     currentAutoMode();
   }
   
-  public String getLaneName() {
+  public String getPathName() {
     switch (configuration.lane) {
       case ConfigurationAutoMode.MIDDLE_LANE:
-        return "Middle";
+        return "Middle Lane";
       case ConfigurationAutoMode.INSIDE_LANE:
-        return "Inside";
+        return "Inside Lane";
       case ConfigurationAutoMode.WALL_LANE:
-        return "Wall";
+        return "Wall Lane";
     }
     return "broked!";
   }

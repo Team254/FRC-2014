@@ -97,7 +97,7 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     System.out.println("Before deke heading: " + endHeading);
     
     // Do deke if needed
-    if (endingInOpenField() && config.doDeke) {
+    if (endingInOpenField() && config.doDeke && false) {
       if (!goLeft) {
         endHeading = (360.0 - endHeading) * 0.8;
       } else {
