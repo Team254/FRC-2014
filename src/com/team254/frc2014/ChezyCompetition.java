@@ -8,6 +8,7 @@ import com.team254.frc2014.auto.AerialAssistAuto;
 import com.team254.frc2014.auto.TestBumperGather;
 import com.team254.frc2014.auto.TestGooglyEyes;
 import com.team254.frc2014.auto.TestThreeBallShootAuto;
+import com.team254.frc2014.auto.TuneDriveAuto;
 import com.team254.frc2014.paths.AutoPaths;
 import com.team254.lib.ChezyIterativeRobot;
 import com.team254.lib.Server;
@@ -31,6 +32,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     selector.addAutoMode(new TestBumperGather());
     selector.addAutoMode(new TestGooglyEyes());
     selector.addAutoMode(new TestThreeBallShootAuto());
+    selector.addAutoMode(new TuneDriveAuto());
   }
 
   public void robotInit() {
@@ -179,13 +181,6 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.clapper.doingRunning = true;
     }
     
-    if(ChezyRobot.shooterController.onTarget() && ChezyRobot.shooterController.enabled()) {
-      ChezyRobot.shooter.shooterLed.set(true);
-      ChezyRobot.shooter.shooterLedRelay.set(Relay.Value.kForward);
-    } else {
-      ChezyRobot.shooter.shooterLed.set(false);
-      ChezyRobot.shooter.shooterLedRelay.set(Relay.Value.kOff);
-    }
     //ChezyRobot.operatorJoystick.getPreset5Button()
 
 
@@ -243,6 +238,14 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     }
     //p.println("left: " + ChezyRobot.hotGoalDetector.getLeft() + " right " + ChezyRobot.hotGoalDetector.getRight());
     lcd();
+    
+    if(ChezyRobot.shooterController.onTarget() && ChezyRobot.shooterController.enabled() && ChezyRobot.shooterController.getVelocityGoal() > 0) {
+      ChezyRobot.shooter.shooterLed.set(true);
+      ChezyRobot.shooter.shooterLedRelay.set(Relay.Value.kForward);
+    } else {
+      ChezyRobot.shooter.shooterLed.set(false);
+      ChezyRobot.shooter.shooterLedRelay.set(Relay.Value.kOff);
+    }
   }
 
   public void disabledPeriodic() {
@@ -256,7 +259,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       selector.decrementNumBalls();
     }
     if (doDekeLatch.update(ChezyRobot.operatorJoystick.getExhaustButton())) {
-      //selector.toggleDoDeke();
+      selector.toggleDoDeke();
     }
     if (endCloseLatch.update(ChezyRobot.operatorJoystick.getPassRearButton())) {
       selector.toggleEndClose();

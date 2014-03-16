@@ -91,6 +91,11 @@ public class Constants extends ConstantsBase {
   public static final Constant hellaFarPreset = new Constant("hellaFarPreset", 6500);
   public static final Constant hpShotPreset = new Constant("hpShotPreset", 5800);
   
+  public static final Constant headingKp = new Constant("headingKp", (-1.0 / 25.0));
+  public static final Constant headingKpFar = new Constant("headingKpFar", (-1.0 / 100.0));
+  public static final Constant headingKi = new Constant("headingKi", (-1.0 / 1000.0));
+  
+  
   public static final double fieldWidth = 26.0;
   public static final double distanceToWhiteLine = 18.0;
   
