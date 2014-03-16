@@ -62,6 +62,8 @@ public class AutoModeSelector {
     switch (configuration.lane) {
       case ConfigurationAutoMode.MIDDLE_LANE:
         return "Middle";
+      case ConfigurationAutoMode.INSIDE_LANE:
+        return "Inside";
       case ConfigurationAutoMode.WALL_LANE:
         return "Wall";
     }
