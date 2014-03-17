@@ -84,16 +84,16 @@ public class Constants extends ConstantsBase {
     
   public static final Constant rearRollerShootPower = new Constant("rearRollerShootPower", 0.5);
   
-  public static final Constant runningClosePreset = new Constant("runningClosePreset", 3600);
+  public static final Constant runningClosePreset = new Constant("runningClosePreset", 4000);
   public static final Constant runningFarPreset = new Constant("runningFarPreset", 4750);
-  public static final Constant staticFarPreset = new Constant("staticFarPreset", 5150);
+  public static final Constant staticFarPreset = new Constant("staticFarPreset", 5200);
   public static final Constant staticClosePreset = new Constant("staticClosePreset", 4400);
   public static final Constant hellaFarPreset = new Constant("hellaFarPreset", 6500);
-  public static final Constant hpShotPreset = new Constant("hpShotPreset", 5800);
+  public static final Constant hpShotPreset = new Constant("hpShotPreset", 5350);
   
-  public static final Constant headingKp = new Constant("headingKp", (-1.0 / 25.0));
-  public static final Constant headingKpFar = new Constant("headingKpFar", (-1.0 / 100.0));
-  public static final Constant headingKi = new Constant("headingKi", (-1.0 / 1000.0));
+  public static final Constant headingKp = new Constant("headingKp", -0.035);
+  public static final Constant headingKpFar = new Constant("headingKpFar", -0.01);
+  public static final Constant headingKi = new Constant("headingKi", -0.0002);
   
   
   public static final double fieldWidth = 26.0;

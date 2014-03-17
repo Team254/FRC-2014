@@ -18,9 +18,10 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
   static Path centerPathClose = AutoPaths.get("CenterLanePathClose");
   static Path insidePathFar = AutoPaths.get("InsideLanePathFar");
   static Path wallPath = AutoPaths.get("WallLanePath");
+  static Path straightPath = AutoPaths.get("StraightAheadPath");
   
   protected boolean endingInOpenField() {
-    return config.lane == ConfigurationAutoMode.MIDDLE_LANE;
+    return config.pathToTake == ConfigurationAutoMode.MIDDLE_LANE;
   }
   
   public AerialAssistAuto() {
@@ -64,15 +65,17 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     System.out.println("Hot goal started on left: "  + !goLeft);
 
     Path path = insidePathFar;
-    if (config.lane == ConfigurationAutoMode.WALL_LANE) {
+    if (config.pathToTake == ConfigurationAutoMode.WALL_LANE) {
       path = wallPath;
-    } else if (config.lane == ConfigurationAutoMode.MIDDLE_LANE) {
+    } else if (config.pathToTake == ConfigurationAutoMode.STRAIGHT_PATH) {
+      path = straightPath;
+    } else if (config.pathToTake == ConfigurationAutoMode.MIDDLE_LANE) {
       if (config.endClose) {
         path = centerPathClose;
       } else {
         path = centerPathFar;
       }
-    } else if (config.lane == ConfigurationAutoMode.INSIDE_LANE) {
+    } else if (config.pathToTake == ConfigurationAutoMode.INSIDE_LANE) {
       if (config.endClose) {
         path = insidePathFar; // TODO: make this
       } else {

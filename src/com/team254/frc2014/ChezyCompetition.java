@@ -262,7 +262,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
      // selector.toggleDoDeke();
     }
     if (endCloseLatch.update(ChezyRobot.operatorJoystick.getPassRearButton())) {
-      selector.toggleEndClose();
+      //selector.toggleEndClose();
     }
     
     if (gyroInitLatch.update(ChezyRobot.operatorJoystick.getPreset6Button())) {

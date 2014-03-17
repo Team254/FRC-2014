@@ -11,14 +11,14 @@ public class AutoModeSelector {
   
   public class Configuration {
     public int startPos;
-    public int lane;
+    public int pathToTake;
     public int numBalls;
     public boolean doDeke = false;
     public boolean preferRearBall = true;
     public boolean endClose = false;
     public Configuration(int startPos, int lane, int numBalls, boolean doDeke, boolean preferRearBall, boolean endClose) {
       this.startPos = startPos;
-      this.lane = lane;
+      this.pathToTake = lane;
       this.numBalls = numBalls;
       this.doDeke = doDeke;
       this.preferRearBall = preferRearBall;
@@ -51,21 +51,23 @@ public class AutoModeSelector {
   }
   
   public void incrementLane() {
-    configuration.lane++;
-    if (configuration.lane > ConfigurationAutoMode.WALL_LANE) {
-      configuration.lane = ConfigurationAutoMode.MIDDLE_LANE;
+    configuration.pathToTake++;
+    if (configuration.pathToTake > ConfigurationAutoMode.STRAIGHT_PATH) {
+      configuration.pathToTake = ConfigurationAutoMode.INSIDE_LANE;
     }
     currentAutoMode();
   }
   
   public String getPathName() {
-    switch (configuration.lane) {
+    switch (configuration.pathToTake) {
       case ConfigurationAutoMode.MIDDLE_LANE:
         return "Middle Lane";
       case ConfigurationAutoMode.INSIDE_LANE:
         return "Inside Lane";
       case ConfigurationAutoMode.WALL_LANE:
         return "Wall Lane";
+      case ConfigurationAutoMode.STRAIGHT_PATH:
+        return "Straight ahead";
     }
     return "broked!";
   }
