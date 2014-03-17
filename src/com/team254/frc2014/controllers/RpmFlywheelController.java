@@ -19,6 +19,7 @@ public class RpmFlywheelController extends FlywheelController {
   public RpmFlywheelController(String name, ControlOutput output,
           ControlSource sensor, StateSpaceGains gains, double period) {
     super(name, output, sensor, gains, period);
+    setNarrowOnTargetWindow();
   }
   
   public void setVelocityGoal(double v) {
@@ -27,5 +28,17 @@ public class RpmFlywheelController extends FlywheelController {
   
   public double getVelocityGoal() {
     return (super.getVelocityGoal() * 60.0) / (Math.PI * 2.0); 
+  }
+  
+  public void setWideOnTargetWindow() {
+    setOnTargetWindow(110);
+  }
+  
+  public void setNarrowOnTargetWindow() {
+    setOnTargetWindow(80);
+  }
+  
+  private void setOnTargetWindow(double windowSize) {
+    targetError = (windowSize * Math.PI * 2.0) / 60.0;
   }
 }

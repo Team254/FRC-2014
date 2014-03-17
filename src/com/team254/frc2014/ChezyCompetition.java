@@ -137,6 +137,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.shooterController.disable();
       ChezyRobot.shooterController.setVelocityGoal(0);
       ChezyRobot.clapper.doingRunning = false;
+      ChezyRobot.shooterController.setNarrowOnTargetWindow();
     }
     // Running close
     if (ChezyRobot.operatorJoystick.getPreset1Button()) {
@@ -144,6 +145,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.shooterController.enable();
       ChezyRobot.shooterController.setVelocityGoal(Constants.runningClosePreset.getDouble());
       ChezyRobot.shooter.setHood(true);
+      ChezyRobot.shooterController.setWideOnTargetWindow();
     }
     // static close
     if (ChezyRobot.operatorJoystick.getPreset2Button()) {
@@ -151,6 +153,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.shooterController.setVelocityGoal(Constants.staticClosePreset.getDouble());
       ChezyRobot.shooter.setHood(true);
       ChezyRobot.clapper.doingRunning = false;
+      ChezyRobot.shooterController.setNarrowOnTargetWindow();
     }
     // static Far
     if (ChezyRobot.operatorJoystick.getPreset3Button()) {
@@ -158,6 +161,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.shooterController.setVelocityGoal(Constants.staticFarPreset.getDouble());
       ChezyRobot.shooter.setHood(false);
       ChezyRobot.clapper.doingRunning = false;
+      ChezyRobot.shooterController.setNarrowOnTargetWindow();
     }
     // running far
     if (ChezyRobot.operatorJoystick.getPreset4Button()) {
@@ -165,6 +169,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.shooterController.setVelocityGoal(Constants.runningFarPreset.getDouble());
       ChezyRobot.shooter.setHood(false);
       ChezyRobot.clapper.doingRunning = true;
+      ChezyRobot.shooterController.setWideOnTargetWindow();
     }
     // Hella Far
     if (ChezyRobot.operatorJoystick.getPreset6Button()) {
@@ -172,6 +177,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.shooterController.setVelocityGoal(Constants.hellaFarPreset.getDouble());
       ChezyRobot.shooter.setHood(false);
       ChezyRobot.clapper.doingRunning = true;
+      ChezyRobot.shooterController.setWideOnTargetWindow();
     }
     // HP Shot
     if (ChezyRobot.operatorJoystick.getPreset5Button()) {
@@ -179,6 +185,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.shooterController.setVelocityGoal(Constants.hpShotPreset.getDouble());
       ChezyRobot.shooter.setHood(false);
       ChezyRobot.clapper.doingRunning = true;
+      ChezyRobot.shooterController.setWideOnTargetWindow();
     }
     
     //ChezyRobot.operatorJoystick.getPreset5Button()
