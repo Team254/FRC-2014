@@ -18,7 +18,16 @@ public class HotGoalDetector extends Subsystem  {
   private int rightCount = 0;
   private boolean sampling = false;
   private boolean notSure = false;
+  private boolean crossEyed = false;
   
+  public void toggleCrossEyed() {
+    crossEyed = !crossEyed;
+  }
+
+  public boolean isCrossEyed() {
+    return crossEyed;
+  }
+
   public void reset() {
     sampling = false;
     leftCount = rightCount = 0;
@@ -53,6 +62,9 @@ public class HotGoalDetector extends Subsystem  {
     ChezyRobot.rightCount = rightCount;
     ChezyRobot.goLeftAuto = goLeft;
     notSure = Math.abs(leftCount - rightCount) < 3;
+    if (crossEyed) {
+      goLeft = !goLeft;
+    }
     return goLeft;
   }
   
