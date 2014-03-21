@@ -116,7 +116,7 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     
     // Wait until hot goal is about to switch
     if (!hotGoalDetector.getNotSure()) {
-     waitUntilTime(timeOfSwitch + 3.4);
+     waitUntilTime(timeOfSwitch + 3.65);
     }
     
     
