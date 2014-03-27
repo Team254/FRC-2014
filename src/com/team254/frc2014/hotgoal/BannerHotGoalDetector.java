@@ -1,6 +1,7 @@
-package com.team254.frc2014.subsystems;
+package com.team254.frc2014.hotgoal;
 
 import com.team254.frc2014.ChezyRobot;
+import com.team254.frc2014.hotgoal.HotGoalDetector;
 import com.team254.lib.Subsystem;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
@@ -10,7 +11,7 @@ import java.util.Hashtable;
  * This determines which side has the hot goal lit.
  * @author tombot
  */
-public class HotGoalDetector extends Subsystem  {
+public class BannerHotGoalDetector extends Subsystem implements HotGoalDetector  {
   private static DigitalInput leftSensor = new DigitalInput(12);
   private static DigitalInput rightSensor = new DigitalInput(11);
   
@@ -33,7 +34,7 @@ public class HotGoalDetector extends Subsystem  {
     leftCount = rightCount = 0;
   }
 
-  public HotGoalDetector() {
+  public BannerHotGoalDetector() {
     super("HotGoalDetector");
   }
   

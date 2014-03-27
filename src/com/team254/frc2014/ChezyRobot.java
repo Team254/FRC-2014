@@ -4,7 +4,7 @@ import com.team254.frc2014.controllers.HoldPositionController;
 import com.team254.frc2014.controllers.OpenLoopController;
 import com.team254.frc2014.controllers.TrajectoryDriveController;
 import com.team254.frc2014.subsystems.Drivebase;
-import com.team254.frc2014.subsystems.HotGoalDetector;
+import com.team254.frc2014.hotgoal.BannerHotGoalDetector;
 import com.team254.frc2014.subsystems.Intake;
 import com.team254.frc2014.subsystems.Navigator;
 import com.team254.frc2014.controllers.RpmFlywheelController;
@@ -61,7 +61,7 @@ public class ChezyRobot {
   public static MultiLooper subsystemUpdater100Hz = new MultiLooper(1.0 / 100.0);
   public static TrajectoryDriveController driveController = new TrajectoryDriveController();
   public static HoldPositionController headingController = new HoldPositionController();
-  public static HotGoalDetector hotGoalDetector = new HotGoalDetector();
+  public static BannerHotGoalDetector hotGoalDetector = new BannerHotGoalDetector();
   public static Navigator navigator = new Navigator(drivebase);
   public static OpenLoopController openLoopShooterController = new OpenLoopController(shooter);
   public static final RpmFlywheelController shooterController = new RpmFlywheelController("ShooterController", shooter, shooter, ShooterGains.getGains()[0], 1.0/100.0);
