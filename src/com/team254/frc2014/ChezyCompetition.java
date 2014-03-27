@@ -22,7 +22,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   AutoMode currentAutoMode = null;
   AutoModeSelector selector = new AutoModeSelector();
   Server s = new Server();
-  Thread t;
+  Thread webServerThread;
   ThrottledPrinter p = new ThrottledPrinter(.5);
   DriverStationLCD lcd;
   
@@ -37,8 +37,8 @@ public class ChezyCompetition extends ChezyIterativeRobot {
 
   public void robotInit() {
     initAutoModes();
-    t = new Thread(s);
-    t.start();
+    webServerThread = new Thread(s);
+    webServerThread.start();
     lcd = DriverStationLCD.getInstance();
     ChezyRobot.initRobot();
     ChezyRobot.shooterController.enable();
