@@ -18,7 +18,7 @@ LEFT_LR = (250 + X_OFFSET, 300)
 RIGHT_UL = (WEBCAM_WIDTH_PX - 250 + X_OFFSET, 200)
 RIGHT_LR = (WEBCAM_WIDTH_PX - 150 + X_OFFSET, 300)
 
-MAX_COLOR_DISTANCE = 50
+MAX_COLOR_DISTANCE = 20
 
 UPDATE_RATE_HZ = 25.0
 PERIOD = (1.0 / UPDATE_RATE_HZ) * 1000.0
@@ -35,9 +35,9 @@ def color_distance(c1, c2):
     return abs(diff)
 
 def color_if_far(img, distance, ul, lr):
-    if distance > MAX_COLOR_DISTANCE:
+    if distance < MAX_COLOR_DISTANCE:
         cv.rectangle(img, ul, lr, (0, 255, 255), -1)
-    return distance > MAX_COLOR_DISTANCE
+    return distance < MAX_COLOR_DISTANCE
 
 def draw_static(img):
     bg = np.zeros((img.shape[0], WIDTH_PX, 3), dtype=np.uint8)
