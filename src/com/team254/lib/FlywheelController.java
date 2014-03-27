@@ -18,11 +18,10 @@ public class FlywheelController extends StateSpaceController {
   double prevPos;
   double goal;
   double curVel;
-  double period = 1.0 / 100.0;
   double outputVoltage = 0.0;
   public double targetError = 9;
 
-  Debouncer filter = new Debouncer(.15);
+  Debouncer filter;
 
   public FlywheelController(String name, ControlOutput output,
           ControlSource sensor, StateSpaceGains gains) {
@@ -38,6 +37,7 @@ public class FlywheelController extends StateSpaceController {
     this.y = new Matrix(1, 1);
     this.r = new Matrix(2, 1);
     this.period = period;
+    filter = new Debouncer(period * 3.0);
   }
 
   public void capU() {
