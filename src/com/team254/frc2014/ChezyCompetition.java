@@ -8,6 +8,7 @@ import com.team254.frc2014.auto.AerialAssistAuto;
 import com.team254.frc2014.auto.TestBumperGather;
 import com.team254.frc2014.auto.TestGooglyEyes;
 import com.team254.frc2014.auto.TestThreeBallShootAuto;
+import com.team254.frc2014.auto.TestVisionHotGoal;
 import com.team254.frc2014.auto.TuneDriveAuto;
 import com.team254.frc2014.paths.AutoPaths;
 import com.team254.lib.ChezyIterativeRobot;
@@ -30,7 +31,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     AutoPaths.loadPaths();
     selector.addAutoMode(new AerialAssistAuto());
     selector.addAutoMode(new TestBumperGather());
-    selector.addAutoMode(new TestGooglyEyes());
+    selector.addAutoMode(new TestVisionHotGoal());
     selector.addAutoMode(new TestThreeBallShootAuto());
     selector.addAutoMode(new TuneDriveAuto());
   }

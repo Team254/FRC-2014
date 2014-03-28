@@ -13,5 +13,7 @@ public interface HotGoalDetector {
   public void startSampling();
   public void stopSampling();
   public boolean getNotSure();
+  public void reset();
+  public boolean goLeft();
   
 }

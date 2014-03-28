@@ -3,6 +3,7 @@ package com.team254.frc2014.hotgoal;
  * @author tombot
  */
 
+import com.team254.frc2014.ChezyRobot;
 import edu.wpi.first.wpilibj.Timer;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,16 +15,18 @@ import javax.microedition.io.SocketConnection;
 
 public class VisionHotGoalDetector implements Runnable, HotGoalDetector {
 
-  private final int PORT;
+  private final int listenPort;
   private static Hashtable subsystems;
   private Vector connections;
   private boolean voting = false;
-  private int leftVotes = 0, rightVotes = 0;
+  private int leftVotes = 0, rightVotes = 0, totalVotes = 0;
 
   private void vote(boolean left, boolean right) {
     if (voting) {
       leftVotes += left ? 1 : 0;
       rightVotes += right ? 1 : 0;
+      totalVotes++;
+      System.out.println("Left: " + leftVotes + " right: " + rightVotes + " total: " + totalVotes);
     }
   }
 
@@ -41,6 +44,19 @@ public class VisionHotGoalDetector implements Runnable, HotGoalDetector {
 
   public boolean getNotSure() {
     return Math.abs(leftVotes - rightVotes) < 6;
+  }
+
+  public void reset() {
+    leftVotes = rightVotes = totalVotes = 0;
+  }
+
+  public boolean goLeft() {
+    System.out.println("left: " + leftVotes + "right " + rightVotes);
+    boolean goLeft = leftVotes < rightVotes;
+    ChezyRobot.leftCount = leftVotes;
+    ChezyRobot.rightCount = rightVotes;
+    ChezyRobot.goLeftAuto = goLeft;
+    return goLeft;
   }
 
   /* 
@@ -70,7 +86,7 @@ public class VisionHotGoalDetector implements Runnable, HotGoalDetector {
             for (int i = 0; i < read; ++i) {
               byte reading = b[i];
               boolean leftGoal = (reading & (1 << 1)) > 0;
-              boolean rightGoal = (reading & (1 << 1)) > 0;
+              boolean rightGoal = (reading & (1 << 0)) > 0;
               VisionHotGoalDetector.this.vote(leftGoal, rightGoal);
             }
             lastHeartbeat = Timer.getFPGATimestamp();
@@ -94,7 +110,7 @@ public class VisionHotGoalDetector implements Runnable, HotGoalDetector {
   public void run() {
     ServerSocketConnection s = null;
     try {
-      s = (ServerSocketConnection) Connector.open("serversocket://:" + PORT);
+      s = (ServerSocketConnection) Connector.open("serversocket://:" + listenPort);
       Vector threads = new Vector();
       while (true) {
         SocketConnection connection = (SocketConnection) s.acceptAndOpen();
@@ -112,7 +128,7 @@ public class VisionHotGoalDetector implements Runnable, HotGoalDetector {
   }
 
   public VisionHotGoalDetector(int port) {
-    PORT = port;
+    listenPort = port;
     connections = new Vector();
   }
 }

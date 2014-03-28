@@ -8,6 +8,7 @@ import com.team254.frc2014.hotgoal.BannerHotGoalDetector;
 import com.team254.frc2014.subsystems.Intake;
 import com.team254.frc2014.subsystems.Navigator;
 import com.team254.frc2014.controllers.RpmFlywheelController;
+import com.team254.frc2014.hotgoal.VisionHotGoalDetector;
 import com.team254.frc2014.subsystems.*;
 import com.team254.lib.MultiLooper;
 import edu.wpi.first.wpilibj.AnalogChannel;
@@ -61,16 +62,21 @@ public class ChezyRobot {
   public static MultiLooper subsystemUpdater100Hz = new MultiLooper(1.0 / 100.0);
   public static TrajectoryDriveController driveController = new TrajectoryDriveController();
   public static HoldPositionController headingController = new HoldPositionController();
-  public static BannerHotGoalDetector hotGoalDetector = new BannerHotGoalDetector();
   public static Navigator navigator = new Navigator(drivebase);
   public static OpenLoopController openLoopShooterController = new OpenLoopController(shooter);
   public static final RpmFlywheelController shooterController = new RpmFlywheelController("ShooterController", shooter, shooter, ShooterGains.getGains()[0], 1.0/100.0);
+  
+  
+  
+  public static final BannerHotGoalDetector hotGoalDetector = new BannerHotGoalDetector();
+  public static final VisionHotGoalDetector visionHotGoalDetector = new VisionHotGoalDetector();
+  public static final Thread hotGoalThread = new Thread(visionHotGoalDetector);
   
   public static boolean goLeftAuto = false;
   public static int leftCount = 0;
   public static int rightCount = 0;
 
-   public static int leftTotal = 0;
+  public static int leftTotal = 0;
   public static int rightTotal = 0;
   public static void initRobot() {
     // Add all subsystems to a 100Hz Looper
@@ -81,6 +87,8 @@ public class ChezyRobot {
     subsystemUpdater100Hz.addLoopable(clapper);
     subsystemUpdater100Hz.addLoopable(hotGoalDetector);
     subsystemUpdater100Hz.addLoopable(shooter);
+    
+    hotGoalThread.start();
     
     compressor.start();
     shooter.useController(shooterController);
