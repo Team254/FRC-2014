@@ -26,4 +26,9 @@ public class TimedBoolean {
     on = true;
     t.reset();
   }
+  
+  public void trigger(double newTimeout) {
+    this.timeout = newTimeout();
+    trigger();
+  }
 }
