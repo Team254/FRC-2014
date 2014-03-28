@@ -12,7 +12,6 @@ public abstract class Subsystem implements Loopable {
   protected Controller controller;
 
   public abstract Hashtable serialize();
-  
     public void useController(Controller c) {
     if (controller != null) {
       controller.disable();

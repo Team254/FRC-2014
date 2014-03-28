@@ -1,10 +1,12 @@
 package com.team254.frc2014.subsystems;
 
 import com.team254.frc2014.Constants;
+import com.team254.frc2014.controllers.RpmFlywheelController;
 import com.team254.lib.ControlOutput;
 import com.team254.lib.ControlSource;
 import com.team254.lib.Loopable;
 import com.team254.lib.Subsystem;
+import com.team254.lib.TimedBoolean;
 import com.team254.lib.util.ThrottledPrinter;
 import com.team254.lib.util.Util;
 import edu.wpi.first.wpilibj.*;
@@ -24,28 +26,31 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
   public Counter counter = new Counter(Constants.shooterReflectorPort.getInt());
   public DigitalOutput shooterLed = new DigitalOutput(Constants.shooterLed.getInt());
   public Relay shooterLedRelay = new Relay(Constants.shooterLedRelay.getInt());
+  private TimedBoolean doBrakeReverse = new TimedBoolean(3.0);
+  private TimedBoolean doBrakeForward = new TimedBoolean(3.0);
   
-  
-  // States
-  public final int STATE_CLOSED = 0;
-  public final int STATE_WAIT_FOR_RPM_DROP = 1;
-  public final int STATE_WAIT_FOR_CATCH = 2;
-  public final int STATE_CATCH_OWN_SHOT = 3;
-  public final int STATE_CATCH_OTHER_SHOT = 4;
-  public final int STATE_WHEEL_SETTLE = 5;
-  
+
   // desired action flags
-  public boolean wantCatch = false;
-  public boolean wantShotCatch = false;
-  
-  private boolean firstStateRun;
-  private int state = STATE_CLOSED;
-  private Timer stateTimer = new Timer();
-          
+  public boolean wantCatcherOpen = false;
   private ThrottledPrinter p = new ThrottledPrinter(.1);
   
   private void setShooterPower(double power) {
+    
+    double goal = ((RpmFlywheelController)controller).getVelocityGoal();
+    boolean reverse = goal < 0;
     power = Util.limit(power, 1.0);
+    if (reverse) {
+      power *= -1.0;
+    }
+    if (doBrakeForward.get()) {
+      power = 0.05;
+    } else if (doBrakeReverse.get()) {
+      power = -.05;
+    }
+    if (!controller.enabled()) {
+      power = 0;
+    }
+    SmartDashboard.putNumber("ShooterPWM", power);
     shooterA.set(-power);
     shooterB.set(power);
   }
@@ -56,7 +61,6 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
       controller.enable();
     }
     counter.start();
-    stateTimer.start();
   }
 
   public Hashtable serialize() {
@@ -73,79 +77,34 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
   
   public double lastRpm = 0;
   public double penultimateRpm =  0;
-  public void setCatcher(boolean down) {
-    catcher.set(down);
+  
+  
+  public void setCatcher(boolean open) {
+    catcher.set(open);
   }
+
   public double get() {
     double ret = (lastRpm * Math.PI * 2.0) / 60.0;
     return ret;
   }
   
+  private double lastGoal = 0;
   public void update() {
     // Update the controller
     updateSensedVelocity();
-    SmartDashboard.putNumber("ShooterRPM", lastRpm);
-    SmartDashboard.putNumber("BatteryV", DriverStation.getInstance().getBatteryVoltage());
     super.update();
-    int nextState = state;
-    
-    switch (state) {
-      case STATE_CLOSED:
-        catcher.set(false);
-        if (wantShotCatch) {
-          nextState = STATE_WAIT_FOR_RPM_DROP;
-        } else if (wantCatch) {
-          nextState = STATE_CATCH_OTHER_SHOT;
-        }
-        break;
-      case STATE_WAIT_FOR_RPM_DROP:
-        
-        if (firstStateRun) {
-          penultimateRpm = lastRpm;
-        }
-        if(lastRpm < penultimateRpm - 1000.0) {
-           nextState = STATE_WAIT_FOR_CATCH;
-        }
-        catcher.set(false);
-        break;
-      case STATE_WAIT_FOR_CATCH:
-        if (stateTimer.get() > 0.15) {
-          nextState = STATE_CATCH_OWN_SHOT;
-        }
-        catcher.set(false);
-        controller.setReverse(false);
-        break;
-      case STATE_CATCH_OWN_SHOT:
-        // reverse flywheel and open catcher
-        catcher.set(stateTimer.get() > .45);
-        if (!wantShotCatch) {
-          nextState = STATE_CLOSED;
-        }
-        break;
-        
-      case STATE_CATCH_OTHER_SHOT:
-        // reverse flywheel and open catcher
-        catcher.set(stateTimer.get() > .15);
-        if (!wantCatch) {
-          nextState = STATE_CLOSED;
-        }
-        break;
-        
-      case STATE_WHEEL_SETTLE:
-        controller.disable();
-        catcher.set(false);
-        if (stateTimer.get() > 2.0) {
-          controller.enable();
-          nextState = STATE_CLOSED;
-        }
-      default:
-        break;
-    }
-    firstStateRun = false;
-    if (nextState != state) {
-      state = nextState;
-      stateTimer.reset();
-      firstStateRun = true;
+    catcher.set(wantCatcherOpen);
+    if (controller != null) {
+      double goal = ((RpmFlywheelController)controller).getVelocityGoal();
+      if (goal < 0 && lastGoal >= 0 &&  Math.abs(lastRpm) > 500.0) {
+        System.out.println("Triggering Reverse Brake");
+        doBrakeReverse.trigger();
+      }
+      if (goal >= 0 && lastGoal < 0 &&  Math.abs(lastRpm) > 500.0) {
+        System.out.println("Triggering Forward Brake");
+        doBrakeForward.trigger();
+      }
+      lastGoal = goal;
     }
   }
 

@@ -27,4 +27,8 @@ public class OpenLoopController extends Controller {
   public void reset() {
     this.pwm = 0;
   }
+  
+  public double getGoal() {
+    return 0;
+  }
 }

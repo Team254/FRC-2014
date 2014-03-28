@@ -188,12 +188,24 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.shooterController.setWideOnTargetWindow();
     }
     
-    //ChezyRobot.operatorJoystick.getPreset5Button()
+    // Inbounding
+    ChezyRobot.operatorJoystick.inboundButton.update();
+    ChezyRobot.shooter.wantCatcherOpen = ChezyRobot.operatorJoystick.inboundButton.get();
+    if (ChezyRobot.operatorJoystick.inboundButton.wasPressed()) {
+      ChezyRobot.shooterController.enable();
+      ChezyRobot.shooterController.setVelocityGoal(Constants.inboundRpmPreset.getDouble());
+      ChezyRobot.shooter.setHood(true);
+      ChezyRobot.clapper.doingRunning = false;
+    } else if (ChezyRobot.operatorJoystick.inboundButton.wasReleased()) {
+      ChezyRobot.shooterController.disable();
+      ChezyRobot.clapper.doingRunning = false;
+      ChezyRobot.shooterController.setNarrowOnTargetWindow();
+    }
 
 
     
     // Shooting Buttons
-    ChezyRobot.clapper.wantShot = ChezyRobot.clapper.wantTimedShot =  ChezyRobot.leftStick.getRawButton(2) || ChezyRobot.leftStick.getRawButton(1);
+    ChezyRobot.clapper.wantShot = ChezyRobot.clapper.wantTimedShot =  ChezyRobot.leftStick.getRawButton(2) || ChezyRobot.leftStick.getRawButton(1) || ChezyRobot.operatorJoystick.getAutoCatchButton();
     
     // Pass buttons
     ChezyRobot.clapper.wantFront = ChezyRobot.operatorJoystick.getPassRearButton();
@@ -201,9 +213,6 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     
     // Run the rear roller in reverse if needed
     ChezyRobot.rearIntake.wantShoot = ChezyRobot.clapper.wantShot;
-   // ChezyRobot.frontIntake.wantShoot = ChezyRobot.clapper.wantShot;
-    ChezyRobot.shooter.wantShotCatch = ChezyRobot.operatorJoystick.getAutoCatchButton();
-    ChezyRobot.shooter.wantCatch = ChezyRobot.operatorJoystick.getOpenCatcherButton();
 
     // Gearing
     if(ChezyRobot.rightStick.getRawButton(2)) {
@@ -246,7 +255,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     //p.println("left: " + ChezyRobot.hotGoalDetector.getLeft() + " right " + ChezyRobot.hotGoalDetector.getRight());
     lcd();
     
-    if(ChezyRobot.shooterController.onTarget() && ChezyRobot.shooterController.enabled() && ChezyRobot.shooterController.getVelocityGoal() > 0) {
+    if(ChezyRobot.shooterController.onTarget() && ChezyRobot.shooterController.enabled() && Math.abs(ChezyRobot.shooterController.getVelocityGoal()) > 0) {
       ChezyRobot.shooter.shooterLed.set(true);
       ChezyRobot.shooter.shooterLedRelay.set(Relay.Value.kForward);
     } else {

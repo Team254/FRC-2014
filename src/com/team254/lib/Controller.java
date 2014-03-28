@@ -12,6 +12,7 @@ public abstract class Controller extends ChezyRobot implements Loopable {
   
   public abstract void update();
   public abstract void reset();
+  public abstract double getGoal();
   
   public void enable() {
     enabled = true;
@@ -24,10 +25,4 @@ public abstract class Controller extends ChezyRobot implements Loopable {
   public boolean enabled() {
     return enabled;
   }
-  
-  protected boolean reverse = false;
-  public void setReverse(boolean on) {
-    reverse = on;
-  }
-
 }

@@ -84,7 +84,7 @@ public class FlywheelController extends StateSpaceController {
       this.output.set(0.0);
       goal = curSensorVel;
     } else {
-      this.output.set((outputVoltage / voltage) * (reverse ? -1.0 : 1.0));
+      this.output.set((outputVoltage / voltage) * 1.0);
     }
 
     onTarget = filter.update(onTargetRaw());
@@ -123,7 +123,7 @@ public class FlywheelController extends StateSpaceController {
   }
 
   public double getGoal() {
-    return 0;
+    return getVelocityGoal();
   }
 
   public void reset() {

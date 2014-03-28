@@ -19,9 +19,11 @@ public class OperatorJoystick extends Joystick {
     return getRawButton(1);
   }
 
-  public boolean getOpenCatcherButton() {
+  public boolean getInboundButton() {
     return getRawButton(2);
   }
+  
+  public ChezyButton inboundButton = new ChezyButton(this, 2);
 
   public boolean getShooterOffButton() {
     return getRawButton(3);

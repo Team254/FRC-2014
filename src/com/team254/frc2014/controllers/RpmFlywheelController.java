@@ -21,15 +21,20 @@ public class RpmFlywheelController extends FlywheelController {
     super(name, output, sensor, gains, period);
     setNarrowOnTargetWindow();
   }
-  
+  private boolean negativeGoal = false;
   public void setVelocityGoal(double v) {
-    super.setVelocityGoal((v * Math.PI * 2.0) / 60.0);
+    negativeGoal = v < 0;
+    super.setVelocityGoal(Math.abs((v * Math.PI * 2.0) / 60.0));
   }
   
   public double getVelocityGoal() {
-    return (super.getVelocityGoal() * 60.0) / (Math.PI * 2.0); 
+    return (super.getVelocityGoal() * 60.0) / (Math.PI * 2.0) * (negativeGoal ? -1.0 : 1.0); 
   }
   
+  public double getGoal() {
+    return getVelocityGoal();
+  }
+ 
   public void setWideOnTargetWindow() {
     setOnTargetWindow(110);
   }

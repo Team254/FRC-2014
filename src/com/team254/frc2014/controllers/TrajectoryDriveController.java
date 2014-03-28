@@ -73,4 +73,8 @@ public class TrajectoryDriveController extends Controller {
   public void setTrajectory(Trajectory t) {
     this.trajectory = t;
   }
+
+  public double getGoal() {
+    return 0;
+  }
 }

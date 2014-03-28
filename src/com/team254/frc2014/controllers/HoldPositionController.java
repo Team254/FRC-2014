@@ -53,4 +53,9 @@ public class HoldPositionController extends Controller {
   public void reset() {
     sumError = 0;
   }
+  
+  public double getGoal() {
+    return 0;
+  }
 }
+
