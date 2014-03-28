@@ -5,22 +5,22 @@ import socket
 import sys
 import datetime, time
 
-HOST, PORT = "localhost", 1180
+HOST, PORT = "10.2.54.2", 1180
 
 WIDTH_PX = 1000
 WEBCAM_WIDTH_PX = 640
 WEBCAM_HEIGHT_PX = 360
 X_OFFSET = (WIDTH_PX - WEBCAM_WIDTH_PX)/2
 
-LEFT_UL = (150 + X_OFFSET, 200)
-LEFT_LR = (250 + X_OFFSET, 300)
+LEFT_UL = (240 + X_OFFSET, 200)
+LEFT_LR = (310 + X_OFFSET, 250)
 
-RIGHT_UL = (WEBCAM_WIDTH_PX - 250 + X_OFFSET, 200)
-RIGHT_LR = (WEBCAM_WIDTH_PX - 150 + X_OFFSET, 300)
+RIGHT_UL = (WEBCAM_WIDTH_PX - 310 + X_OFFSET, 200)
+RIGHT_LR = (WEBCAM_WIDTH_PX - 240 + X_OFFSET, 250)
 
 MAX_COLOR_DISTANCE = 20
 
-UPDATE_RATE_HZ = 25.0
+UPDATE_RATE_HZ = 40.0
 PERIOD = (1.0 / UPDATE_RATE_HZ) * 1000.0
 
 def getTimeMillis():
@@ -67,6 +67,8 @@ if __name__ == '__main__':
     nom_right = None
     
     last_t = getTimeMillis()
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((HOST, PORT))
     while 1:
         _, img = capture.read()
         small_img = cv.flip(cv.resize(img, (WEBCAM_WIDTH_PX, WEBCAM_HEIGHT_PX)), 1)
@@ -81,18 +83,22 @@ if __name__ == '__main__':
             cur_time = getTimeMillis()
             # Throttle the output
             if last_t + PERIOD <= cur_time: 
-                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                
                 try:
-                    s.connect((HOST, PORT))
+                    
                     bytes = bytearray()
                     v = (left_on << 1) | (right_on << 0)
                     bytes.append(v)
+                    s.send(bytes)
                     print "dleft: %f | %d, dright: %f | %d" % (left_dist, left_on, right_dist, right_on)
-                    s.sendall(bytes)
                 except:
                     print "Could not connect"
-                finally:
-                    s.close()
+                    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    s.connect((HOST, PORT))
+                    
+                    #time.sleep(1.0)
+
+
                 last_t = cur_time
 
         cv.imshow("img", bg)
