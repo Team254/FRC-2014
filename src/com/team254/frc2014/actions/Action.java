@@ -30,7 +30,7 @@ public abstract class Action extends ChezyRobot {
     }
     while (shouldRun && !execute() && !isTimedOut()) {
       try {
-        Thread.sleep(10);
+        Thread.sleep(30);
       } catch (InterruptedException ex) {
       }
     }

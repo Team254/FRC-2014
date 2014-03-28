@@ -19,12 +19,7 @@ public class MultiLooper implements Loopable {
     for (i = 0; i < loopables.size(); ++i) {
       Loopable c = (Loopable) loopables.elementAt(i);
       if (c != null) {
-        try {
           c.update();
-        } catch (RuntimeException e) {
-          System.out.println("Null pointer in " + c.toString());
-          e.printStackTrace();
-        }
       }
     }
   }

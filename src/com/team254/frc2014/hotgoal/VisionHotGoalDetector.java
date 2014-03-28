@@ -26,7 +26,6 @@ public class VisionHotGoalDetector implements Runnable, HotGoalDetector {
       leftVotes += left ? 1 : 0;
       rightVotes += right ? 1 : 0;
       totalVotes++;
-      System.out.println("Left: " + leftVotes + " right: " + rightVotes + " total: " + totalVotes);
     }
   }
 
@@ -91,12 +90,11 @@ public class VisionHotGoalDetector implements Runnable, HotGoalDetector {
             }
             lastHeartbeat = Timer.getFPGATimestamp();
           }
-          if (gotData) {
-            try {
-              Thread.sleep(50); // sleep a bit
-            } catch (InterruptedException ex) {
-              ex.printStackTrace();
-            }
+
+          try {
+            Thread.sleep(50); // sleep a bit
+          } catch (InterruptedException ex) {
+            ex.printStackTrace();
           }
         }
         is.close();
@@ -117,6 +115,11 @@ public class VisionHotGoalDetector implements Runnable, HotGoalDetector {
         Thread t = new Thread(new VisionHotGoalDetector.ConnectionHandler(connection));
         t.start();
         connections.addElement(connection);
+        try {
+          Thread.sleep(100);
+        } catch (InterruptedException ex) {
+          ex.printStackTrace();
+        }
       }
     } catch (IOException e) {
       System.out.println("There was an error el oh el" + e);

@@ -1,11 +1,10 @@
 package com.team254.frc2014.auto;
 
-import com.team254.frc2014.ChezyRobot;
-import com.team254.frc2014.FieldPosition;
 import com.team254.frc2014.ConfigurationAutoMode;
+import com.team254.frc2014.FieldPosition;
 import com.team254.frc2014.paths.AutoPaths;
 import com.team254.lib.trajectory.Path;
-import edu.wpi.first.wpilibj.Timer;
+
 
 /**
  *
@@ -30,7 +29,8 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
   
   protected void routine() {
     // Start voting 
-    hotGoalDetector.startSampling();
+    visionHotGoalDetector.reset();
+    visionHotGoalDetector.startSampling();
    
     if (endingInOpenField() && config.endClose) {
       wantedStartRpm = config.numBalls == 0 ? 0 : config.numBalls > 1 ? closeIntakeDownPreset : closeIntakeUpPreset;
@@ -60,8 +60,8 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     double timeOfSwitch = autoTimer.get();
     
     // Stop voting
-    hotGoalDetector.stopSampling();
-    boolean goLeft = hotGoalDetector.goLeft();
+    visionHotGoalDetector.stopSampling();
+    boolean goLeft = visionHotGoalDetector.goLeft();
     System.out.println("Hot goal started on left: "  + !goLeft);
 
     Path path = insidePathFar;
@@ -115,9 +115,7 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     drivebase.useController(headingController);
     
     // Wait until hot goal is about to switch
-    if (!hotGoalDetector.getNotSure()) {
-     waitUntilTime(timeOfSwitch + 3.65);
-    }
+    waitUntilTime(4.5);
     
     
     // Last shot rpm
