@@ -28,7 +28,7 @@ public class TimedBoolean {
   }
   
   public void trigger(double newTimeout) {
-    this.timeout = newTimeout();
+    this.timeout = newTimeout;
     trigger();
   }
 }
