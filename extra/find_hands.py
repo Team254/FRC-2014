@@ -60,7 +60,7 @@ def detect_colors(img):
     return left, right
 
 if __name__ == '__main__':
-    cv.namedWindow("img",1)
+    cv.namedWindow("HotChez",1)
     capture = cv.VideoCapture(0)
 
     nom_left = None
@@ -108,7 +108,7 @@ if __name__ == '__main__':
 
                 
 
-        cv.imshow("img", bg)
+        cv.imshow("HotChez", bg)
         key = cv.waitKey(10) & 255
         if key == 27:
             break
