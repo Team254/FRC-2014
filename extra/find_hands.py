@@ -12,11 +12,11 @@ WEBCAM_WIDTH_PX = 640
 WEBCAM_HEIGHT_PX = 360
 X_OFFSET = (WIDTH_PX - WEBCAM_WIDTH_PX)/2
 
-LEFT_UL = (240 + X_OFFSET, 200)
-LEFT_LR = (310 + X_OFFSET, 250)
+LEFT_UL = (240 + X_OFFSET, 250)
+LEFT_LR = (310 + X_OFFSET, 300)
 
-RIGHT_UL = (WEBCAM_WIDTH_PX - 310 + X_OFFSET, 200)
-RIGHT_LR = (WEBCAM_WIDTH_PX - 240 + X_OFFSET, 250)
+RIGHT_UL = (WEBCAM_WIDTH_PX - 310 + X_OFFSET, 250)
+RIGHT_LR = (WEBCAM_WIDTH_PX - 240 + X_OFFSET, 300)
 
 MAX_COLOR_DISTANCE = 20
 
@@ -68,7 +68,12 @@ if __name__ == '__main__':
     
     last_t = getTimeMillis()
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((HOST, PORT))
+    s.settimeout(.05)
+    try:
+        s.connect((HOST, PORT))
+    except:
+        print "Could not connect at boot"
+
     while 1:
         _, img = capture.read()
         small_img = cv.flip(cv.resize(img, (WEBCAM_WIDTH_PX, WEBCAM_HEIGHT_PX)), 1)
@@ -85,21 +90,23 @@ if __name__ == '__main__':
             if last_t + PERIOD <= cur_time: 
                 
                 try:
-                    
                     bytes = bytearray()
                     v = (left_on << 1) | (right_on << 0)
                     bytes.append(v)
                     s.send(bytes)
                     print "dleft: %f | %d, dright: %f | %d" % (left_dist, left_on, right_dist, right_on)
+                    last_t = cur_time
                 except:
                     print "Could not connect"
-                    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                    s.connect((HOST, PORT))
-                    
-                    #time.sleep(1.0)
+                    try:
+                        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                        s.settimeout(.05)
+                        s.connect((HOST, PORT))
+                    except:
+                        print "failed to reconnect"
+                        last_t = cur_time + 1000
 
-
-                last_t = cur_time
+                
 
         cv.imshow("img", bg)
         key = cv.waitKey(10) & 255
