@@ -206,7 +206,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
 
     
     // Shooting Buttons
-    ChezyRobot.clapper.wantShot = ChezyRobot.clapper.wantTimedShot =  ChezyRobot.leftStick.getRawButton(2) || ChezyRobot.leftStick.getRawButton(1) || ChezyRobot.operatorJoystick.getAutoCatchButton();
+    ChezyRobot.clapper.wantShot = ChezyRobot.clapper.wantTimedShot =  ChezyRobot.leftStick.getRawButton(2) || ChezyRobot.leftStick.getRawButton(1);
     
     // Pass buttons
     ChezyRobot.clapper.wantFront = ChezyRobot.operatorJoystick.getPassRearButton();
