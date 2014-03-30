@@ -22,14 +22,15 @@ public class TestBumperGather extends ConfigurationAutoMode {
     boolean goLeft = false;
     Timer t = new Timer();
     t.start();
-    
+    settler.set(true);
 
     // Grab balls from ground
     clapper.wantFront = false;
     clapper.wantRear = false;
     frontIntake.wantBumperGather = true;
     rearIntake.wantBumperGather = true;
-    waitTime(.5);
+    waitTime(6);
+    settler.set(false);
     goLeft = !hotGoalDetector.goLeft();
     System.out.println("Going Left? " + goLeft);
     

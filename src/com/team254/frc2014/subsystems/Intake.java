@@ -147,7 +147,7 @@ public class Intake extends Subsystem implements Loopable {
       case STATE_GATHER_EXTRA_BALL:
         setPositionDown(true);
         setRollerPower(.75);
-        if (getIntakeSensor()) {
+        if (getIntakeSensor() || stateTimer.get() > .5) {
           newState = STATE_GATHER_LETOFF;
         } else if (retryExtra && stateTimer.get() < .5) {
           ;

@@ -57,6 +57,7 @@ public class ChezyRobot {
   public static final AutoModeSelector ams = new AutoModeSelector();
 
   public static final Solenoid settler = new Solenoid(Constants.settlerSolenoidPort.getInt());
+  public static final Solenoid popUpPistion = settler;
   
   // Controllers
   public static MultiLooper subsystemUpdater100Hz = new MultiLooper(1.0 / 100.0);
