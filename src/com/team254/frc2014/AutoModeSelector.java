@@ -1,5 +1,6 @@
 package com.team254.frc2014;
 
+import com.team254.frc2014.paths.AutoPaths;
 import java.util.Vector;
 
 /**
@@ -15,18 +16,16 @@ public class AutoModeSelector {
     public int numBalls;
     public boolean doDeke = false;
     public boolean preferRearBall = true;
-    public boolean endClose = false;
-    public Configuration(int startPos, int lane, int numBalls, boolean doDeke, boolean preferRearBall, boolean endClose) {
+    public Configuration(int startPos, int path, int numBalls, boolean doDeke, boolean preferRearBall) {
       this.startPos = startPos;
-      this.pathToTake = lane;
+      this.pathToTake = path;
       this.numBalls = numBalls;
       this.doDeke = doDeke;
       this.preferRearBall = preferRearBall;
-      this.endClose = endClose;
     }
   }
   
-  Configuration configuration = new Configuration(0, ConfigurationAutoMode.INSIDE_LANE, 3, false, true, false);
+  Configuration configuration = new Configuration(0, 0, 3, false, true);
   private int currentIndex = 0;
   Vector autoModes = new Vector();
   
@@ -52,22 +51,15 @@ public class AutoModeSelector {
   
   public void incrementLane() {
     configuration.pathToTake++;
-    if (configuration.pathToTake > ConfigurationAutoMode.STRAIGHT_PATH) {
-      configuration.pathToTake = ConfigurationAutoMode.INSIDE_LANE;
+    if (configuration.pathToTake >= AutoPaths.kPathDescriptions.length) {
+      configuration.pathToTake = 0;
     }
     currentAutoMode();
   }
   
   public String getPathName() {
-    switch (configuration.pathToTake) {
-      case ConfigurationAutoMode.MIDDLE_LANE:
-        return "Middle Lane";
-      case ConfigurationAutoMode.INSIDE_LANE:
-        return "Inside Lane";
-      case ConfigurationAutoMode.WALL_LANE:
-        return "Wall Lane";
-      case ConfigurationAutoMode.STRAIGHT_PATH:
-        return "Straight ahead";
+    if (configuration.pathToTake >= 0 && configuration.pathToTake < AutoPaths.kPathDescriptions.length) {
+      return AutoPaths.kPathDescriptions[configuration.pathToTake];
     }
     return "broked!";
   }
@@ -92,15 +84,6 @@ public class AutoModeSelector {
   public void toggleDoDeke() {
     configuration.doDeke = !configuration.doDeke;
     currentAutoMode();
-  }
-  
-  public void toggleEndClose() {
-    configuration.endClose = !configuration.endClose;
-    currentAutoMode();
-  }
-  
-  public boolean getEndClose() {
-    return configuration.endClose;
   }
   
   public boolean getDoDeke() {

@@ -13,8 +13,17 @@ import java.util.Hashtable;
  * @author Stephen Pinkerton
  */
 public class AutoPaths {
-  static String[] kPathNames = {"CenterLanePathFar", "InsideLanePathFar", "StraightAheadPath", "WallLanePath"};
-  
+  // Make sure these match up!
+  public final static String[] kPathNames = { "InsideLanePathFar",
+                                              "InsideLanePathClose", 
+                                              "CenterLanePathFar",
+                                              "StraightAheadPath",
+                                              "WallLanePath"};
+  public final static String[] kPathDescriptions = { "Inside Lane, Far", 
+                                                     "Inside Lane, Close",
+                                                     "Middle Lane",
+                                                     "Straight ahead",
+                                                     "Wall Lane"};
   static Hashtable paths_ = new Hashtable();
   
   public static void loadPaths() {
@@ -34,5 +43,9 @@ public class AutoPaths {
   
   public static Path get(String name) {
     return (Path)paths_.get(name);
+  }
+  
+  public static Path getByIndex(int index) {
+    return (Path)paths_.get(kPathNames[index]);
   }
 }
