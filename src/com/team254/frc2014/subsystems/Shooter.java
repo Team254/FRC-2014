@@ -26,8 +26,8 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
   public Counter counter = new Counter(Constants.shooterReflectorPort.getInt());
   public DigitalOutput shooterLed = new DigitalOutput(Constants.shooterLed.getInt());
   public Relay shooterLedRelay = new Relay(Constants.shooterLedRelay.getInt());
-  private TimedBoolean doBrakeReverse = new TimedBoolean(3.0);
-  private TimedBoolean doBrakeForward = new TimedBoolean(3.0);
+  private TimedBoolean doBrakeReverse = new TimedBoolean(1.35);
+  private TimedBoolean doBrakeForward = new TimedBoolean(1.0);
   
 
   // desired action flags
@@ -43,9 +43,9 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
       power *= -1.0;
     }
     if (doBrakeForward.get()) {
-      power = 0.05;
+      power = 0.085;
     } else if (doBrakeReverse.get()) {
-      power = -.05;
+      power = -.085;
     }
     if (!controller.enabled()) {
       power = 0;
@@ -106,6 +106,7 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
       }
       lastGoal = goal;
     }
+    //System.out.println(Timer.getFPGATimestamp() + ", " + Math.abs(shooterA.get()) + ", " + lastRpm + ", 0.01");
   }
 
   public double updateSensedVelocity() {

@@ -84,7 +84,7 @@ public class Constants extends ConstantsBase {
     
   public static final Constant rearRollerShootPower = new Constant("rearRollerShootPower", 0.5);
   
-  public static final Constant runningClosePreset = new Constant("runningClosePreset", 4000);
+  public static final Constant runningClosePreset = new Constant("runningClosePreset", 5200);
   public static final Constant runningFarPreset = new Constant("runningFarPreset", 4700);
   public static final Constant staticFarPreset = new Constant("staticFarPreset", 5200);
   public static final Constant staticClosePreset = new Constant("staticClosePreset", 4350);
