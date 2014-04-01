@@ -26,6 +26,8 @@ MAX_COLOR_DISTANCE = 20
 UPDATE_RATE_HZ = 40.0
 PERIOD = (1.0 / UPDATE_RATE_HZ) * 1000.0
 
+connected = False
+
 def getTimeMillis():
     return int(round(time.time() * 1000))
 
@@ -45,9 +47,13 @@ def color_if_far(img, distance, ul, lr):
 def draw_static(img):
     bg = np.zeros((img.shape[0], WIDTH_PX, 3), dtype=np.uint8)
     bg[:,X_OFFSET:X_OFFSET+WEBCAM_WIDTH_PX,:] = img
-    cv.rectangle(bg, LEFT_UL, LEFT_LR, (0, 255, 0), 3)
-    cv.rectangle(bg, RIGHT_UL, RIGHT_LR, (0, 255, 0), 3)
-    cv.rectangle(bg, CAL_UL, CAL_LR, (0, 0, 255), 3)
+    cv.rectangle(bg, LEFT_UL, LEFT_LR, (0, 255, 255), 3)
+    cv.rectangle(bg, RIGHT_UL, RIGHT_LR, (0, 255, 255), 3)
+    cv.rectangle(bg, CAL_UL, CAL_LR, (255, 255, 255), 3)
+    if connected:
+        cv.rectangle(bg, (0, 0), (bg.shape[1]-1, bg.shape[0]-1), (255, 0, 0), 6)
+    else:
+        cv.rectangle(bg, (0, 0), (bg.shape[1]-1, bg.shape[0]-1), (0, 0, 255), 6)
     return bg
 
 def detect_color(img, box):
@@ -81,12 +87,12 @@ if __name__ == '__main__':
         bg = draw_static(small_img)
         cal, left, right = detect_colors(cv.cvtColor(bg, cv.COLOR_BGR2HSV))
 
-        print "(%f, %f, %f) (%f, %f, %f)" % (left[0],left[1],left[2],right[0],right[1],right[2])
+        #print "(%f, %f, %f) (%f, %f, %f)" % (left[0],left[1],left[2],right[0],right[1],right[2])
         left_dist = color_distance(left, cal)
         right_dist = color_distance(right, cal)
 
-        left_on = color_if_far(bg, left_dist, (0, 0), ((WIDTH_PX-WEBCAM_WIDTH_PX)/2, WEBCAM_HEIGHT_PX))
-        right_on = color_if_far(bg, right_dist, ((WIDTH_PX+WEBCAM_WIDTH_PX)/2, 0), (WIDTH_PX, WEBCAM_HEIGHT_PX))
+        left_on = color_if_far(bg, left_dist, (6, 6), ((WIDTH_PX-WEBCAM_WIDTH_PX)/2-6, WEBCAM_HEIGHT_PX-6))
+        right_on = color_if_far(bg, right_dist, ((WIDTH_PX+WEBCAM_WIDTH_PX)/2+6, 6), (WIDTH_PX-6, WEBCAM_HEIGHT_PX-6))
         cur_time = getTimeMillis()
         # Throttle the output
         if last_t + PERIOD <= cur_time: 
@@ -97,8 +103,10 @@ if __name__ == '__main__':
                 s.send(bytes)
                 print "dleft: %f | %d, dright: %f | %d" % (left_dist, left_on, right_dist, right_on)
                 last_t = cur_time
+                connected = True
             except:
                 print "Could not connect"
+                connected = False
                 try:
                     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                     s.settimeout(.05)
