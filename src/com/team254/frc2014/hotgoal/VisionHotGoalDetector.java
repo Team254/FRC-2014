@@ -20,6 +20,11 @@ public class VisionHotGoalDetector implements Runnable, HotGoalDetector {
   private Vector connections;
   private boolean voting = false;
   private int leftVotes = 0, rightVotes = 0, totalVotes = 0;
+  double lastHeartbeatTime = -1;
+  
+  public boolean hasClientConnection() {
+    return lastHeartbeatTime > 0 && (Timer.getFPGATimestamp() - lastHeartbeatTime) < 3.0; 
+  }
 
   private void vote(boolean left, boolean right) {
     if (voting) {
@@ -77,6 +82,7 @@ public class VisionHotGoalDetector implements Runnable, HotGoalDetector {
         byte[] b = new byte[1024];
         double timeout = 10.0;
         double lastHeartbeat = Timer.getFPGATimestamp();
+        VisionHotGoalDetector.this.lastHeartbeatTime = lastHeartbeat;
         while (Timer.getFPGATimestamp() < lastHeartbeat + timeout) {
           boolean gotData = false;
           while (is.available() > 0) {
@@ -89,6 +95,7 @@ public class VisionHotGoalDetector implements Runnable, HotGoalDetector {
               VisionHotGoalDetector.this.vote(leftGoal, rightGoal);
             }
             lastHeartbeat = Timer.getFPGATimestamp();
+            VisionHotGoalDetector.this.lastHeartbeatTime = lastHeartbeat;
           }
 
           try {

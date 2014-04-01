@@ -195,7 +195,8 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.shooter.setHood(false);
       ChezyRobot.clapper.doingRunning = false;
     } else if (ChezyRobot.operatorJoystick.autonInboundButton.wasReleased()) {
-      ChezyRobot.shooterController.disable();
+      ChezyRobot.shooterController.enable();
+      ChezyRobot.shooterController.setVelocityGoal(0);
       ChezyRobot.clapper.doingRunning = false;
       ChezyRobot.shooterController.setNarrowOnTargetWindow();
     }
@@ -294,10 +295,10 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     }
     lcdUpdateTimer.reset();
     lcd.println(DriverStationLCD.Line.kUser3, 1, "M:" + selector.currentAutoMode().getDescription() + "                  ");
-    lcd.println(DriverStationLCD.Line.kUser1, 1, "#B:" +  selector.getNumBallsWithPreference() + "                  ");
+    lcd.println(DriverStationLCD.Line.kUser1, 1, "#B:" +  selector.getNumBallsWithPreference() + "               ");
     lcd.println(DriverStationLCD.Line.kUser2, 1, "Path: " +  selector.getPathName() + "           ");
     //lcd.println(DriverStationLCD.Line.kUser5, 1, "LE: " + Math.floor(ChezyRobot.drivebase.getLeftEncoderDistance() * 10) / 10 + " RE: " + Math.floor(ChezyRobot.drivebase.getRightEncoderDistance() * 10) / 10);
-    lcd.println(DriverStationLCD.Line.kUser4, 1, "F:" + (ChezyRobot.frontIntake.getIntakeSensor() ? "1" : "0") + "R:" + (ChezyRobot.rearIntake.getIntakeSensor() ? "1" : "0") + " L:" + (ChezyRobot.hotGoalDetector.getLeftRaw() ? "1" : "0") + "R:" + (ChezyRobot.hotGoalDetector.getRightRaw() ? "1" : "0") + "     " );
+    lcd.println(DriverStationLCD.Line.kUser4, 1, "F:" + (ChezyRobot.frontIntake.getIntakeSensor() ? "1" : "0") + "R:" + (ChezyRobot.rearIntake.getIntakeSensor() ? "1" : "0") + " Vision: " + (ChezyRobot.visionHotGoalDetector.hasClientConnection() ? "Yes":"No") + "      ");
     lcd.println(DriverStationLCD.Line.kUser6, 1,  Math.floor(Timer.getFPGATimestamp() * 10) / 10 +  " gyro: " + Math.floor(ChezyRobot.drivebase.getGyroAngle() * 10) / 10 + "        ");
     lcd.println(DriverStationLCD.Line.kUser5, 1, "" + (ChezyRobot.goLeftAuto ? "L" : "R") + " L" + ChezyRobot.leftCount +"/"+ ChezyRobot.leftTotal + " R" + ChezyRobot.rightCount +"/" + ChezyRobot.rightTotal + " NS:" +( ChezyRobot.hotGoalDetector.getNotSure() ? "1" : "0") ); 
     lcd.updateLCD();
