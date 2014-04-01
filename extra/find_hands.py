@@ -12,6 +12,9 @@ WEBCAM_WIDTH_PX = 640
 WEBCAM_HEIGHT_PX = 360
 X_OFFSET = (WIDTH_PX - WEBCAM_WIDTH_PX)/2
 
+CAL_UL = (X_OFFSET + WEBCAM_WIDTH_PX/2 - 20, 180)
+CAL_LR = (X_OFFSET + WEBCAM_WIDTH_PX/2 + 20, 220)
+
 LEFT_UL = (240 + X_OFFSET, 250)
 LEFT_LR = (310 + X_OFFSET, 300)
 
@@ -44,6 +47,7 @@ def draw_static(img):
     bg[:,X_OFFSET:X_OFFSET+WEBCAM_WIDTH_PX,:] = img
     cv.rectangle(bg, LEFT_UL, LEFT_LR, (0, 255, 0), 3)
     cv.rectangle(bg, RIGHT_UL, RIGHT_LR, (0, 255, 0), 3)
+    cv.rectangle(bg, CAL_UL, CAL_LR, (0, 0, 255), 3)
     return bg
 
 def detect_color(img, box):
@@ -53,19 +57,16 @@ def detect_color(img, box):
     return (h,s,v)
 
 def detect_colors(img):
+    cal = detect_color(img, (CAL_UL, CAL_LR))
     left = detect_color(img, (LEFT_UL, LEFT_LR))
     right = detect_color(img, (RIGHT_UL, RIGHT_LR))
 
-    # print "(%f, %f, %f) (%f, %f, %f)" % (left[0],left[1],left[2],right[0],right[1],right[2])
-    return left, right
+    return cal, left, right
 
 if __name__ == '__main__':
     cv.namedWindow("HotChez",1)
     capture = cv.VideoCapture(0)
 
-    nom_left = None
-    nom_right = None
-    
     last_t = getTimeMillis()
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.settimeout(.05)
@@ -78,42 +79,36 @@ if __name__ == '__main__':
         _, img = capture.read()
         small_img = cv.flip(cv.resize(img, (WEBCAM_WIDTH_PX, WEBCAM_HEIGHT_PX)), 1)
         bg = draw_static(small_img)
-        left, right = detect_colors(cv.cvtColor(bg, cv.COLOR_BGR2HSV))
-        if nom_left is not None:
-            left_dist = color_distance(left, nom_left)
-            right_dist = color_distance(right, nom_right)
-            
-            left_on = color_if_far(bg, left_dist, (0, 0), ((WIDTH_PX-WEBCAM_WIDTH_PX)/2, WEBCAM_HEIGHT_PX))
-            right_on = color_if_far(bg, right_dist, ((WIDTH_PX+WEBCAM_WIDTH_PX)/2, 0), (WIDTH_PX, WEBCAM_HEIGHT_PX))
-            cur_time = getTimeMillis()
-            # Throttle the output
-            if last_t + PERIOD <= cur_time: 
-                
-                try:
-                    bytes = bytearray()
-                    v = (left_on << 1) | (right_on << 0)
-                    bytes.append(v)
-                    s.send(bytes)
-                    print "dleft: %f | %d, dright: %f | %d" % (left_dist, left_on, right_dist, right_on)
-                    last_t = cur_time
-                except:
-                    print "Could not connect"
-                    try:
-                        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                        s.settimeout(.05)
-                        s.connect((HOST, PORT))
-                    except:
-                        print "failed to reconnect"
-                        last_t = cur_time + 1000
+        cal, left, right = detect_colors(cv.cvtColor(bg, cv.COLOR_BGR2HSV))
 
-                
+        print "(%f, %f, %f) (%f, %f, %f)" % (left[0],left[1],left[2],right[0],right[1],right[2])
+        left_dist = color_distance(left, cal)
+        right_dist = color_distance(right, cal)
+
+        left_on = color_if_far(bg, left_dist, (0, 0), ((WIDTH_PX-WEBCAM_WIDTH_PX)/2, WEBCAM_HEIGHT_PX))
+        right_on = color_if_far(bg, right_dist, ((WIDTH_PX+WEBCAM_WIDTH_PX)/2, 0), (WIDTH_PX, WEBCAM_HEIGHT_PX))
+        cur_time = getTimeMillis()
+        # Throttle the output
+        if last_t + PERIOD <= cur_time: 
+            try:
+                bytes = bytearray()
+                v = (left_on << 1) | (right_on << 0)
+                bytes.append(v)
+                s.send(bytes)
+                print "dleft: %f | %d, dright: %f | %d" % (left_dist, left_on, right_dist, right_on)
+                last_t = cur_time
+            except:
+                print "Could not connect"
+                try:
+                    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    s.settimeout(.05)
+                    s.connect((HOST, PORT))
+                except:
+                    print "failed to reconnect"
+                    last_t = cur_time + 1000    
 
         cv.imshow("HotChez", bg)
         key = cv.waitKey(10) & 255
         if key == 27:
             break
-        elif key == ord('c'):
-            nom_left = left
-            nom_right = right
-            print "(%f, %f, %f) (%f, %f, %f)" % (left[0],left[1],left[2],right[0],right[1],right[2])
     s.close()
