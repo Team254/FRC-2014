@@ -92,6 +92,8 @@ public class Constants extends ConstantsBase {
   public static final Constant hpShotPreset = new Constant("hpShotPreset", 5600);
   public static final Constant inboundRpmPreset = new Constant("inboundRpmPreset", -2600);
   
+  public static final Constant autonClosePreset = new Constant("autonClosePreset", 5700);
+  
   
   public static final Constant headingKp = new Constant("headingKp", -0.035);
   public static final Constant headingKpFar = new Constant("headingKpFar", -0.01);

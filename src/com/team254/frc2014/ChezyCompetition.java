@@ -187,14 +187,14 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     }
     
     // Inbounding
-    ChezyRobot.operatorJoystick.inboundButton.update();
-    ChezyRobot.shooter.wantCatcherOpen = ChezyRobot.operatorJoystick.inboundButton.get();
-    if (ChezyRobot.operatorJoystick.inboundButton.wasPressed()) {
+    ChezyRobot.operatorJoystick.autonInboundButton.update();
+    ChezyRobot.shooter.wantCatcherOpen = ChezyRobot.operatorJoystick.autonInboundButton.get() || ChezyRobot.operatorJoystick.getNoMotorInboundButton();
+    if (ChezyRobot.operatorJoystick.autonInboundButton.wasPressed()) {
       ChezyRobot.shooterController.enable();
       ChezyRobot.shooterController.setVelocityGoal(Constants.inboundRpmPreset.getDouble());
       ChezyRobot.shooter.setHood(false);
       ChezyRobot.clapper.doingRunning = false;
-    } else if (ChezyRobot.operatorJoystick.inboundButton.wasReleased()) {
+    } else if (ChezyRobot.operatorJoystick.autonInboundButton.wasReleased()) {
       ChezyRobot.shooterController.disable();
       ChezyRobot.clapper.doingRunning = false;
       ChezyRobot.shooterController.setNarrowOnTargetWindow();
@@ -229,14 +229,13 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     }
     
     ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), turn, qt, !ChezyRobot.rightStick.getRawButton(2));
-    
-    ChezyRobot.popUpPistion.set(ChezyRobot.leftStick.getRawButton(2));
+
     
     // Set rollers
     ChezyRobot.frontIntake.setManualRollerPower(frontRollerPower);
     ChezyRobot.rearIntake.setManualRollerPower(rearRollerPower);
  
-    //ChezyRobot.settler.set(false);
+    ChezyRobot.settler.set(false);
   }
 
   
@@ -265,7 +264,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   }
 
   public void disabledPeriodic() {
-    if (autoSelectLatch.update(ChezyRobot.operatorJoystick.getShooterOffButton() && ChezyRobot.operatorJoystick.getPreset2Button() && ChezyRobot.operatorJoystick.getAutoCatchButton())) { //secrets!
+    if (autoSelectLatch.update(ChezyRobot.operatorJoystick.getShooterOffButton() && ChezyRobot.operatorJoystick.getPreset2Button() && ChezyRobot.operatorJoystick.getNoMotorInboundButton())) { //secrets!
       selector.increment();
     }
     if (laneSelectLatch.update(ChezyRobot.operatorJoystick.getIntakeButton())) {

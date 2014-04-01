@@ -44,7 +44,7 @@ public class TestGooglyEyes extends ConfigurationAutoMode {
 
 
     waitTime(1);
-    System.out.println("t: " + autoTimer.get() + " " + ChezyRobot.operatorJoystick.getAutoCatchButton());
+    System.out.println("t: " + autoTimer.get() + " " + ChezyRobot.operatorJoystick.getNoMotorInboundButton());
 
     waitTime(1);
     System.out.println("t: " + autoTimer.get() + " " + ChezyRobot.operatorJoystick.getPreset1Button());

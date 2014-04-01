@@ -43,9 +43,15 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
       power *= -1.0;
     }
     if (doBrakeForward.get()) {
-      power = 0.085;
+      if(Math.abs(lastRpm) < 500) {
+        doBrakeForward.off();
+      }
+      power = 0.2;
     } else if (doBrakeReverse.get()) {
-      power = -.085;
+      if(Math.abs(lastRpm) < 500) {
+        doBrakeReverse.off();
+      }
+      power = -.2;
     }
     if (!controller.enabled()) {
       power = 0;
