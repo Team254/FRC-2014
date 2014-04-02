@@ -48,34 +48,20 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     rearIntake.wantBumperGather = config.numBalls == 3 || (config.numBalls == 2 && config.preferRearBall);
     
     // Wait for interrupt from hot goal sensor
-    waitForHotGoalToSwitch(1.6);
+    waitUntilTime(1.5);
     
     // Turn on wheel
     shooterController.enable();
     shooterController.setVelocityGoal(wantedStartRpm);
     
-
-    // Grab "time of match start" timeshift
-    double timeOfSwitch = autoTimer.get();
-    
-    // Stop voting
-    visionHotGoalDetector.stopSampling();
-    boolean goLeft = visionHotGoalDetector.goLeft();
-    System.out.println("Hot goal started on left: "  + !goLeft);
-
     Path path = AutoPaths.getByIndex(config.pathToTake);
     if (path == null) {
       path = AutoPaths.get("InsideLanePathFar");
     }
 
-    // Drive to correct place
-    if (goLeft) {
-      path.goLeft();
-    }
-    else {
-      path.goRight();
-    }
-    drivePath(path, 10);
+    drivePathWithFlip(path, visionHotGoalDetector, 10);
+    visionHotGoalDetector.stopSampling();
+
     System.out.println("Finished driving at: " + autoTimer.get());
    
     // Hold position
@@ -94,7 +80,6 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     // Last shot rpm
     wantedEndRpm = endingClose ? closeIntakeUpPreset : farIntakeUpPreset;
  
-    System.out.println("Shooting 1st ball at: " + autoTimer.get() + " after time of hot switch: " + timeOfSwitch);
     if (config.numBalls == 3) {
       shootThree();
     } else if (config.numBalls == 2) {

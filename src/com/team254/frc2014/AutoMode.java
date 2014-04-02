@@ -3,9 +3,11 @@ package com.team254.frc2014;
 import com.team254.frc2014.actions.Action;
 import com.team254.frc2014.actions.DriveAction;
 import com.team254.frc2014.actions.DrivePathAction;
+import com.team254.frc2014.actions.DrivePathWithPathFlipperAction;
 import com.team254.frc2014.actions.WaitAction;
-import com.team254.frc2014.actions.WaitUntilAutonTimeAction;
 import com.team254.frc2014.actions.WaitForHotGoalToSwitchAction;
+import com.team254.frc2014.actions.WaitUntilAutonTimeAction;
+import com.team254.frc2014.hotgoal.HotGoalDetector;
 import com.team254.lib.trajectory.Path;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -278,6 +280,10 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
   
   public void drivePath(Path r, double timeout) {
     runAction(new DrivePathAction(r, timeout)); 
+  }
+  
+  public void drivePathWithFlip(Path r, HotGoalDetector detector, double timeout) {
+    runAction(new DrivePathWithPathFlipperAction(r, detector, timeout)); 
   }
 
 }

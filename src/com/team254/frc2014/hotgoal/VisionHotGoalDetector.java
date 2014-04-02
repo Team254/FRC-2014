@@ -35,7 +35,7 @@ public class VisionHotGoalDetector implements Runnable, HotGoalDetector {
   }
 
   public boolean probablySawGoalChange() {
-    return Math.abs(leftVotes - rightVotes) > 6;
+    return Math.abs(leftVotes - rightVotes) > 3;
   }
 
   public void startSampling() {

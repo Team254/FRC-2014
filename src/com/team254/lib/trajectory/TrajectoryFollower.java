@@ -70,4 +70,8 @@ public class TrajectoryFollower {
   public boolean isFinishedTrajectory() {
     return current_segment >= profile_.getNumSegments();
   }
+  
+  public int getCurrentSegment() {
+    return current_segment;
+  }
 }

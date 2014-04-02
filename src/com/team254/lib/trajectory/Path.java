@@ -39,6 +39,12 @@ public class Path {
   public Trajectory getRightWheelTrajectory() {
     return (go_left_ ? go_left_pair_.right : go_left_pair_.left);
   }
+  
+  public boolean canFlip(int segmentNum) {
+    Segment a = go_left_pair_.right.getSegment(segmentNum);
+    Segment b = go_left_pair_.left.getSegment(segmentNum);
+    return (a.pos == b.pos) && (a.vel == b.vel);
+  }
 
   public double getEndHeading() {
     int numSegments = getLeftWheelTrajectory().getNumSegments();
