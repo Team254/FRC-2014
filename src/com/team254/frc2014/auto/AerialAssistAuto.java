@@ -27,6 +27,7 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
   
   protected void routine() {
     boolean endingClose = endsClose(config);
+    
     // Start voting 
     visionHotGoalDetector.reset();
     visionHotGoalDetector.startSampling();
@@ -40,7 +41,6 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     // Settler down
     settler.set(true);
     
-
     // Grab balls from ground
     clapper.wantFront = false;
     clapper.wantRear = false;

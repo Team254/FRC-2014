@@ -69,11 +69,11 @@ public class TrajectoryDriveController extends Controller {
       double speedRight = direction * followerRight.calculate(distanceR);
       
       double goalHeading = followerLeft.getHeading();
-      double observedHeading =  drivebase.getGyroAngleInRadians();
+      double observedHeading = drivebase.getGyroAngleInRadians();
 
-      double angleDiffRads = ChezyMath.getDifferenceInAngleRadians(observedHeading, goalHeading);// different coordinates
+      double angleDiffRads = ChezyMath.getDifferenceInAngleRadians(observedHeading, goalHeading);
       double angleDiff = Math.toDegrees(angleDiffRads);
-      SmartDashboard.putNumber("DriveControllerAngle", angleDiff);
+
       double turn = kTurn * angleDiff;
       drivebase.setLeftRightPower(speedLeft + turn, speedRight - turn);
     }
