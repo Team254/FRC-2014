@@ -4,6 +4,32 @@ import cv2 as cv
 import socket
 import sys
 import datetime, time
+import random
+
+hashtags = [
+        "#65pts",
+        "#3ubertubs",
+        "#7discauto",
+        "#hewent2jared",
+        "#loltimber",
+        "#ejswag",
+        "#caprisunluvr",
+        "#suchshoot",
+        "#travus",
+        "#patfairbanks",
+        "#qualiteeaward",
+        "#makuhdashots",
+        "wow",
+        "#blubannarz",
+        "#pewpew",
+        "#vrooooom",
+        "FFFFFFFUUUUUUUUUUUUU",
+        "#saftiefrist",
+        "#kanagasabapathy",
+        "#einstineorbust",
+        "#trusskids",
+        "#inspirashun"
+        ]
 
 HOST, PORT = "10.2.54.2", 1180
 
@@ -39,6 +65,12 @@ def color_distance(c1, c2):
         diff -= 360
     return abs(diff)
 
+def choose_swag():
+    return random.choice(hashtags)
+
+def apply_swag(img, swag, location):
+    cv.putText(img, swag, location, cv.FONT_HERSHEY_PLAIN, 3, (0, 128, 255), 3)
+
 def color_if_far(img, distance, ul, lr):
     if distance < MAX_COLOR_DISTANCE:
         cv.rectangle(img, ul, lr, (0, 255, 255), -1)
@@ -73,6 +105,13 @@ if __name__ == '__main__':
     cv.namedWindow("HotChez",1)
     capture = cv.VideoCapture(0)
 
+    swag = None
+    swag_min = (100, 50)
+    swag_max = (700, 180)
+    swag_loc = (WIDTH_PX/2-100, 100)
+    left_last = False
+    right_last = False
+
     last_t = getTimeMillis()
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.settimeout(.05)
@@ -93,6 +132,16 @@ if __name__ == '__main__':
 
         left_on = color_if_far(bg, left_dist, (6, 6), ((WIDTH_PX-WEBCAM_WIDTH_PX)/2-6, WEBCAM_HEIGHT_PX-6))
         right_on = color_if_far(bg, right_dist, ((WIDTH_PX+WEBCAM_WIDTH_PX)/2+6, 6), (WIDTH_PX-6, WEBCAM_HEIGHT_PX-6))
+        if left_on and not left_last:
+            swag = choose_swag()
+            swag_loc = (random.randint(swag_min[0], swag_max[0]), random.randint(swag_min[1], swag_max[1]))
+        if right_on and not right_last:
+            swag = choose_swag()
+            swag_loc = (random.randint(swag_min[0], swag_max[0]), random.randint(swag_min[1], swag_max[1]))
+        if left_on or right_on:
+            apply_swag(bg, swag, swag_loc)
+        left_last = left_on
+        right_last = right_on
         cur_time = getTimeMillis()
         # Throttle the output
         if last_t + PERIOD <= cur_time: 
