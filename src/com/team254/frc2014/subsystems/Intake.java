@@ -25,7 +25,7 @@ public class Intake extends Subsystem implements Loopable {
   private AnalogChannel bumpSwitch;
   boolean flip = false;
   private static final int kBumpSwitchThreshold = 400;
-  private double deliverTime = 1.0;
+  private double deliverTime = 1.5;
 
   public Intake(String name, Talon roller, AnalogChannel bumpSwitch, Solenoid actuator, boolean flip, double deliverTime) {
     super(name);

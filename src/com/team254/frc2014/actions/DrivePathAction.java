@@ -18,6 +18,8 @@ public class DrivePathAction extends Action {
   }
 
   public boolean execute() {
+    // We need to set the Trajectory each update as it may have been flipped from under us
+    driveController.loadProfileNoReset(path.getLeftWheelTrajectory(), path.getRightWheelTrajectory());
     return isTimedOut() || driveController.onTarget();
   }
 

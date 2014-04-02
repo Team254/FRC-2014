@@ -69,7 +69,7 @@ public class ChezyRobot {
   
   
   
-  public static final BannerHotGoalDetector hotGoalDetector = new BannerHotGoalDetector();
+  public static final BannerHotGoalDetector bannerHotGoalDetector = new BannerHotGoalDetector();
   public static final VisionHotGoalDetector visionHotGoalDetector = new VisionHotGoalDetector();
   public static final Thread hotGoalThread = new Thread(visionHotGoalDetector);
   
@@ -79,6 +79,8 @@ public class ChezyRobot {
 
   public static int leftTotal = 0;
   public static int rightTotal = 0;
+  
+  public static String hotGoalDirection = "UNSURE";
   public static void initRobot() {
     // Add all subsystems to a 100Hz Looper
     subsystemUpdater100Hz.addLoopable(drivebase);
@@ -86,7 +88,6 @@ public class ChezyRobot {
     subsystemUpdater100Hz.addLoopable(rearIntake);
     subsystemUpdater100Hz.addLoopable(navigator);
     subsystemUpdater100Hz.addLoopable(clapper);
-    subsystemUpdater100Hz.addLoopable(hotGoalDetector);
     subsystemUpdater100Hz.addLoopable(shooter);
     
     hotGoalThread.start();

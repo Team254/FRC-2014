@@ -18,7 +18,7 @@ public class TestBumperGather extends ConfigurationAutoMode {
   }
 
   protected void routine() {
-    hotGoalDetector.startSampling();
+    bannerHotGoalDetector.startSampling();
     boolean goLeft = false;
     Timer t = new Timer();
     t.start();
@@ -31,7 +31,7 @@ public class TestBumperGather extends ConfigurationAutoMode {
     rearIntake.wantBumperGather = true;
     waitTime(6);
     settler.set(false);
-    goLeft = !hotGoalDetector.goLeft();
+    goLeft = !bannerHotGoalDetector.goLeft();
     System.out.println("Going Left? " + goLeft);
     
     

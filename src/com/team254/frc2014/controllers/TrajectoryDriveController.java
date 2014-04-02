@@ -38,13 +38,22 @@ public class TrajectoryDriveController extends Controller {
     this.direction = direction;
     this.heading = heading;
   }
+  
+  public void loadProfileNoReset(Trajectory leftProfile, Trajectory rightProfile) {
+    followerLeft.setTrajectory(leftProfile);
+    followerRight.setTrajectory(rightProfile);
+  }
 
   public void reset() {
     followerLeft.reset();
     followerRight.reset();
     drivebase.resetEncoders();
   }
-
+  
+  public int getFollowerCurrentSegment() {
+    return followerLeft.getCurrentSegment();
+  }
+  
   public void update() {
     if (!enabled) {
       return;

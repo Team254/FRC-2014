@@ -15,15 +15,17 @@ import java.util.Hashtable;
 public class AutoPaths {
   // Make sure these match up!
   public final static String[] kPathNames = { "InsideLanePathFar",
-                                              "InsideLanePathClose", 
                                               "CenterLanePathFar",
+                                              "WallLanePath",
+                                              "InsideLanePathClose", 
                                               "StraightAheadPath",
-                                              "WallLanePath"};
-  public final static String[] kPathDescriptions = { "Inside Lane, Far", 
-                                                     "Inside Lane, Close",
+                                              };
+  public final static String[] kPathDescriptions = { "Inside, Far", 
                                                      "Middle Lane",
+                                                     "Wall Lane",
+                                                     "Inside, Close",
                                                      "Straight ahead",
-                                                     "Wall Lane"};
+                                                     };
   static Hashtable paths_ = new Hashtable();
   
   public static void loadPaths() {

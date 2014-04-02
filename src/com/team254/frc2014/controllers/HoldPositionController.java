@@ -14,7 +14,7 @@ public class HoldPositionController extends Controller {
 
   private double kpTurn = Constants.headingKp.getDouble();
   private double kiTurn = Constants.headingKi.getDouble();
-  private double kDrive = .85;
+  private double kDrive = .9;
   private double heading = 0;
   private double distance = 0;
   
@@ -46,7 +46,7 @@ public class HoldPositionController extends Controller {
   
     
     double turn = (kpTurn * angleDiff) + (kiTurn * sumError);
-    double speed = 0;//(distance - drivebase.getAverageDistance()) * kDrive;
+    double speed = (distance - drivebase.getAverageDistance()) * kDrive;
     drivebase.setLeftRightPower(speed + turn, speed - turn);
   }
 

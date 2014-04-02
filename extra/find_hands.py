@@ -83,9 +83,9 @@ def draw_static(img):
     cv.rectangle(bg, RIGHT_UL, RIGHT_LR, (0, 255, 255), 3)
     cv.rectangle(bg, CAL_UL, CAL_LR, (255, 255, 255), 3)
     if connected:
-        cv.rectangle(bg, (0, 0), (bg.shape[1]-1, bg.shape[0]-1), (255, 0, 0), 6)
+        cv.rectangle(bg, (0, 0), (bg.shape[1]-1, bg.shape[0]-1), (0, 255, 0), 15)
     else:
-        cv.rectangle(bg, (0, 0), (bg.shape[1]-1, bg.shape[0]-1), (0, 0, 255), 6)
+        cv.rectangle(bg, (0, 0), (bg.shape[1]-1, bg.shape[0]-1), (0, 0, 255), 15)
     return bg
 
 def detect_color(img, box):
@@ -150,7 +150,7 @@ if __name__ == '__main__':
                 v = (left_on << 1) | (right_on << 0)
                 bytes.append(v)
                 s.send(bytes)
-                print "dleft: %f | %d, dright: %f | %d" % (left_dist, left_on, right_dist, right_on)
+                #print "dleft: %f | %d, dright: %f | %d" % (left_dist, left_on, right_dist, right_on)
                 last_t = cur_time
                 connected = True
             except:

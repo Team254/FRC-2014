@@ -37,7 +37,7 @@ public class FlywheelController extends StateSpaceController {
     this.y = new Matrix(1, 1);
     this.r = new Matrix(2, 1);
     this.period = period;
-    filter = new Debouncer(period * 3.0);
+    filter = new Debouncer(period * 4);
   }
 
   public void capU() {

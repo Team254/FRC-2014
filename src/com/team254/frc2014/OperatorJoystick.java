@@ -15,15 +15,15 @@ public class OperatorJoystick extends Joystick {
     super(port);
   }
 
-  public boolean getAutoCatchButton() {
-    return getRawButton(1);
-  }
-
-  public boolean getInboundButton() {
+  public boolean getNoMotorInboundButton() {
     return getRawButton(2);
   }
+
+  public boolean getAutoInboundButton() {
+    return getRawButton(1);
+  }
   
-  public ChezyButton inboundButton = new ChezyButton(this, 2);
+  public ChezyButton autonInboundButton = new ChezyButton(this, 1);
 
   public boolean getShooterOffButton() {
     return getRawButton(3);
