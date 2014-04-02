@@ -19,7 +19,7 @@ public class TestGooglyEyes extends ConfigurationAutoMode {
   }
 
   protected void routine() {
-    hotGoalDetector.startSampling();
+    bannerHotGoalDetector.startSampling();
 
     Timer t = new Timer();
     t.start();
@@ -34,7 +34,7 @@ public class TestGooglyEyes extends ConfigurationAutoMode {
     waitForHotGoalToSwitch(1.5);
 
 
-    boolean goLeft = hotGoalDetector.goLeft();
+    boolean goLeft = bannerHotGoalDetector.goLeft();
     System.out.println("go left: " + goLeft);
 
     shooterController.setVelocityGoal(0);

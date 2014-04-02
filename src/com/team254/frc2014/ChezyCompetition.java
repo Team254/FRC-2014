@@ -67,7 +67,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     ChezyRobot.clapper.wantRear = false;
     ChezyRobot.frontIntake.wantBumperGather = false;
     ChezyRobot.rearIntake.wantBumperGather = false;
-    ChezyRobot.hotGoalDetector.reset();
+    ChezyRobot.bannerHotGoalDetector.reset();
     ChezyRobot.clapper.doingRunning = false;
     System.out.println("cfs:disable_start");
   }
@@ -188,7 +188,11 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     
     // Inbounding
     ChezyRobot.operatorJoystick.autonInboundButton.update();
-    ChezyRobot.shooter.wantCatcherOpen = ChezyRobot.operatorJoystick.autonInboundButton.get() || ChezyRobot.operatorJoystick.getNoMotorInboundButton();
+    boolean wantCatcherOpen = ChezyRobot.operatorJoystick.autonInboundButton.get() || ChezyRobot.operatorJoystick.getNoMotorInboundButton();
+    ChezyRobot.shooter.wantCatcherOpen = wantCatcherOpen;
+    if (wantCatcherOpen) {
+      ChezyRobot.shooter.setHood(false);
+    }
     if (ChezyRobot.operatorJoystick.autonInboundButton.wasPressed()) {
       ChezyRobot.shooterController.enable();
       ChezyRobot.shooterController.setVelocityGoal(Constants.inboundRpmPreset.getDouble());
@@ -236,7 +240,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     ChezyRobot.frontIntake.setManualRollerPower(frontRollerPower);
     ChezyRobot.rearIntake.setManualRollerPower(rearRollerPower);
  
-    ChezyRobot.settler.set(false);
+    ChezyRobot.settler.set(ChezyRobot.leftStick.getRawButton(2));
   }
 
   
@@ -279,7 +283,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     }
     if (endCloseLatch.update(ChezyRobot.operatorJoystick.getPassRearButton())) {
       //selector.toggleEndClose();
-      ChezyRobot.hotGoalDetector.toggleCrossEyed();
+      ChezyRobot.bannerHotGoalDetector.toggleCrossEyed();
     }
     
     if (gyroInitLatch.update(ChezyRobot.operatorJoystick.getPreset6Button())) {
@@ -300,7 +304,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     //lcd.println(DriverStationLCD.Line.kUser5, 1, "LE: " + Math.floor(ChezyRobot.drivebase.getLeftEncoderDistance() * 10) / 10 + " RE: " + Math.floor(ChezyRobot.drivebase.getRightEncoderDistance() * 10) / 10);
     lcd.println(DriverStationLCD.Line.kUser4, 1, "F:" + (ChezyRobot.frontIntake.getIntakeSensor() ? "1" : "0") + "R:" + (ChezyRobot.rearIntake.getIntakeSensor() ? "1" : "0") + " Vision: " + (ChezyRobot.visionHotGoalDetector.hasClientConnection() ? "Yes":"No") + "      ");
     lcd.println(DriverStationLCD.Line.kUser6, 1,  Math.floor(Timer.getFPGATimestamp() * 10) / 10 +  " gyro: " + Math.floor(ChezyRobot.drivebase.getGyroAngle() * 10) / 10 + "        ");
-    lcd.println(DriverStationLCD.Line.kUser5, 1, "" + (ChezyRobot.goLeftAuto ? "L" : "R") + " L" + ChezyRobot.leftCount +"/"+ ChezyRobot.leftTotal + " R" + ChezyRobot.rightCount +"/" + ChezyRobot.rightTotal + " NS:" +( ChezyRobot.hotGoalDetector.getNotSure() ? "1" : "0") ); 
+    lcd.println(DriverStationLCD.Line.kUser5, 1, "HOT: " + ChezyRobot.hotGoalDirection + "          "); 
     lcd.updateLCD();
   }
 }

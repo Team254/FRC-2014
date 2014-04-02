@@ -12,7 +12,7 @@ public class WaitForHotGoalToSwitchAction extends Action {
   }
 
   public boolean execute() {
-    return hotGoalDetector.probablySawGoalChange() || isTimedOut();
+    return bannerHotGoalDetector.probablySawGoalChange() || isTimedOut();
   }
 
   public void init() {

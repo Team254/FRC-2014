@@ -21,15 +21,16 @@ public class DrivePathWithPathFlipperAction extends DrivePathAction {
   public boolean execute() {
     int curSegment = driveController.getFollowerCurrentSegment();
     boolean canFlip = path.canFlip(curSegment);
-    System.out.println("Fol: " + curSegment + "  " + canFlip);
     if (!flipped && detector != null) {
 
       
       if (detector.probablySawGoalChange() && canFlip) {
         System.out.println("Got a flip! " + detector.goLeft());
         if (detector.goLeft()) {
+          hotGoalDirection = "LEFT";
           path.goLeft();
         } else {
+          hotGoalDirection = "RIGHT";
           path.goRight();
         }
         flipped = true;
