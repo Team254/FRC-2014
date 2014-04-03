@@ -51,7 +51,7 @@ LEFT_LR = (310 + X_OFFSET, 300)
 RIGHT_UL = (WEBCAM_WIDTH_PX - 310 + X_OFFSET, 250)
 RIGHT_LR = (WEBCAM_WIDTH_PX - 240 + X_OFFSET, 300)
 
-MAX_COLOR_DISTANCE = 20
+MAX_COLOR_DISTANCE = 100
 
 UPDATE_RATE_HZ = 40.0
 PERIOD = (1.0 / UPDATE_RATE_HZ) * 1000.0
@@ -62,12 +62,18 @@ def getTimeMillis():
     return int(round(time.time() * 1000))
 
 def color_distance(c1, c2):
-    diff = (c1[0]-c2[0])
-    while diff < -180:
-        diff += 360
-    while diff > 180:
-        diff -= 360
-    return abs(diff)
+    # Hue
+    total_diff = 0
+    for i in (0, 1, 2):
+        diff = (c1[i]-c2[i])
+        if i == 0:
+            while diff < -180:
+                diff += 360
+            while diff > 180:
+                diff -= 360
+        total_diff += abs(diff)
+    print total_diff
+    return total_diff
 
 def choose_swag():
     return random.choice(hashtags)
