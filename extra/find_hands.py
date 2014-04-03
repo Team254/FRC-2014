@@ -62,10 +62,10 @@ def getTimeMillis():
     return int(round(time.time() * 1000))
 
 def color_distance(c1, c2):
-    # Hue
     total_diff = 0
     for i in (0, 1, 2):
         diff = (c1[i]-c2[i])
+        # Wrap hue angle
         if i == 0:
             while diff < -180:
                 diff += 360
