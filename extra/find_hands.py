@@ -72,7 +72,7 @@ def color_distance(c1, c2):
             while diff > 180:
                 diff -= 360
         total_diff += abs(diff)
-    print total_diff
+    #print total_diff
     return total_diff
 
 def choose_swag():
@@ -115,6 +115,7 @@ if __name__ == '__main__':
     cv.namedWindow("HotChez",1)
     capture = cv.VideoCapture(0)
 
+
     do_swag = "--swag" in sys.argv
     swag = None
     swag_min = (100, 50)
@@ -122,6 +123,9 @@ if __name__ == '__main__':
     swag_loc = (WIDTH_PX/2-100, 100)
     left_last = False
     right_last = False
+    exposure = -4
+    last_exposure = exposure
+    capture.set(15,exposure)
 
     last_t = getTimeMillis()
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -180,4 +184,23 @@ if __name__ == '__main__':
         key = cv.waitKey(10) & 255
         if key == 27:
             break
+        elif key == 119:
+            exposure += 1
+        elif key == 115:
+            exposure -= 1
+
+        if exposure < -7:
+            exposure = -7
+        elif exposure > -1:
+            exposure = -1
+
+        if exposure != last_exposure:
+            print "Changing exposure to "
+            print exposure
+            capture.set(15,exposure)
+
+        last_exposure = exposure
+
+        
+
     s.close()
