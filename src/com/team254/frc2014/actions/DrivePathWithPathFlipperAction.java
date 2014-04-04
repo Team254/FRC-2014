@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class DrivePathWithPathFlipperAction extends DrivePathAction {
   HotGoalDetector detector;
   boolean flipped = false;
+  boolean dontEverFlip = false;
   
   public DrivePathWithPathFlipperAction(Path path, HotGoalDetector detector, double timeout) {
     super(path, timeout);
@@ -21,10 +22,11 @@ public class DrivePathWithPathFlipperAction extends DrivePathAction {
   public boolean execute() {
     int curSegment = driveController.getFollowerCurrentSegment();
     boolean canFlip = path.canFlip(curSegment);
-    if (!flipped && detector != null) {
-
-      
-      if (detector.probablySawGoalChange() && canFlip) {
+    if (!canFlip) {
+      dontEverFlip = true;
+    }
+    if (!flipped && !dontEverFlip && detector != null) {
+      if (canFlip && detector.probablySawGoalChange()) {
         System.out.println("Got a flip! " + detector.goLeft());
         if (detector.goLeft()) {
           hotGoalDirection = "LEFT";

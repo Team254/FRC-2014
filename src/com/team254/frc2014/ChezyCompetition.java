@@ -25,7 +25,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   Server s = new Server();
   ThrottledPrinter p = new ThrottledPrinter(.5);
   DriverStationLCD lcd;
-  
+
   public void initAutoModes() {
     AutoPaths.loadPaths();
     selector.addAutoMode(new AerialAssistAuto());
