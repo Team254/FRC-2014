@@ -52,6 +52,7 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     
     // Turn on wheel
     shooterController.enable();
+    System.out.println("Using " + wantedStartRpm + " RPM for first shot");
     shooterController.setVelocityGoal(wantedStartRpm);
     
     Path path = AutoPaths.getByIndex(config.pathToTake);
@@ -79,6 +80,7 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     
     // Last shot rpm
     wantedEndRpm = endingClose ? closeIntakeUpPreset : farIntakeUpPreset;
+    System.out.println("Using " + wantedEndRpm + " RPM for end shots");
  
     if (config.numBalls == 3) {
       shootThree();
