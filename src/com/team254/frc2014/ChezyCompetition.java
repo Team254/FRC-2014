@@ -46,6 +46,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
 
   public void autonomousInit() {
     ChezyRobot.drivebase.resetGyro();
+    
     ChezyRobot.shooterController.enable();
     ChezyRobot.clapper.setControlLoopsOff();
     currentAutoMode = selector.currentAutoMode();

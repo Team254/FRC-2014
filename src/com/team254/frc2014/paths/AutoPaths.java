@@ -14,6 +14,7 @@ import java.util.Hashtable;
  */
 public class AutoPaths {
   // Make sure these match up!
+  public static final int WALL_LANE_ID = 2;
   public final static String[] kPathNames = { "InsideLanePathFar",
                                               "CenterLanePathFar",
                                               "WallLanePath",

@@ -26,6 +26,9 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
   }
   
   protected void routine() {
+    headingController.setHeading(0);
+    drivebase.useController(headingController);
+    
     boolean endingClose = endsClose(config);
     
     // Start voting 
@@ -48,7 +51,11 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     rearIntake.wantBumperGather = config.numBalls == 3 || (config.numBalls == 2 && config.preferRearBall);
     
     // Wait for interrupt from hot goal sensor
-    waitUntilTime(1.5);
+    double howLongToWait = 1.5;
+    if (config.pathToTake == AutoPaths.WALL_LANE_ID) {
+      howLongToWait = 1.2;
+    }
+    waitUntilTime(howLongToWait);
     
     // Turn on wheel
     shooterController.enable();
