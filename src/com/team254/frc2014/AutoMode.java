@@ -35,7 +35,6 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
   }
 
   protected abstract void routine();
-  public abstract FieldPosition getFieldPosition();
   public String getDescription() {
     return description;
   }

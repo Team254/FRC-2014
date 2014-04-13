@@ -1,7 +1,6 @@
 package com.team254.frc2014.auto;
 
 import com.team254.frc2014.AutoMode;
-import com.team254.frc2014.FieldPosition;
 
 /**
  * TuneDriveAuto.java
@@ -24,10 +23,6 @@ public class TuneDriveAuto extends AutoMode {
       drivebase.useController(headingController);
       waitTime(5);
     }
-  }
-
-  public FieldPosition getFieldPosition() {
-    return null;
   }
 
 }

@@ -1,11 +1,6 @@
 package com.team254.frc2014.auto;
 
-import com.team254.frc2014.ChezyRobot;
-import com.team254.frc2014.FieldPosition;
 import com.team254.frc2014.ConfigurationAutoMode;
-import com.team254.frc2014.paths.AutoPaths;
-import com.team254.lib.trajectory.Path;
-import edu.wpi.first.wpilibj.Timer;
 
 /**
  *
@@ -26,7 +21,4 @@ public class TestVisionHotGoal extends ConfigurationAutoMode {
     System.out.println("Vision go left? " + visionHotGoalDetector.goLeft());
   }
 
-  public FieldPosition getFieldPosition() {
-    return null;
-  }
 }

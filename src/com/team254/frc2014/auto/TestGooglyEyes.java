@@ -1,7 +1,6 @@
 package com.team254.frc2014.auto;
 
 import com.team254.frc2014.ChezyRobot;
-import com.team254.frc2014.FieldPosition;
 import com.team254.frc2014.ConfigurationAutoMode;
 import com.team254.frc2014.paths.AutoPaths;
 import com.team254.lib.trajectory.Path;
@@ -74,7 +73,4 @@ public class TestGooglyEyes extends ConfigurationAutoMode {
     rearIntake.wantBumperGather = false;
   }
 
-  public FieldPosition getFieldPosition() {
-    return null;
-  }
 }

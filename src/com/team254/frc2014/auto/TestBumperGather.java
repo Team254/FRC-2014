@@ -1,6 +1,5 @@
 package com.team254.frc2014.auto;
 
-import com.team254.frc2014.FieldPosition;
 import com.team254.frc2014.ConfigurationAutoMode;
 import com.team254.frc2014.paths.AutoPaths;
 import com.team254.lib.trajectory.Path;
@@ -38,7 +37,4 @@ public class TestBumperGather extends ConfigurationAutoMode {
 
   }
 
-  public FieldPosition getFieldPosition() {
-    return FieldPosition.centeredOnLine;
-  }
 }
