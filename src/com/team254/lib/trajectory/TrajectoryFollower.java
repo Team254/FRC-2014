@@ -74,4 +74,8 @@ public class TrajectoryFollower {
   public int getCurrentSegment() {
     return current_segment;
   }
+  
+  public int getNumSegments() {
+    return profile_.getNumSegments();
+  }
 }

@@ -54,6 +54,10 @@ public class TrajectoryDriveController extends Controller {
     return followerLeft.getCurrentSegment();
   }
   
+  public int getNumSegments() {
+    return followerLeft.getNumSegments();
+  }
+  
   public void update() {
     if (!enabled) {
       return;
