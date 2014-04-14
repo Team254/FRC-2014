@@ -14,13 +14,13 @@ public class AutoModeSelector {
     public boolean startOnLeft;
     public int pathToTake;
     public int numBalls;
-    public boolean doDeke = false;
+    public boolean doSteer = false;
     public boolean preferRearBall = true;
     public Configuration(boolean startOnLeft, int path, int numBalls, boolean doDeke, boolean preferRearBall) {
       this.startOnLeft = startOnLeft;
       this.pathToTake = path;
       this.numBalls = numBalls;
-      this.doDeke = doDeke;
+      this.doSteer = doDeke;
       this.preferRearBall = preferRearBall;
     }
   }
@@ -81,13 +81,13 @@ public class AutoModeSelector {
     currentAutoMode();
   }
   
-  public void toggleDoDeke() {
-    configuration.doDeke = !configuration.doDeke;
+  public void toggleDoSteer() {
+    configuration.doSteer = !configuration.doSteer;
     currentAutoMode();
   }
   
-  public boolean getDoDeke() {
-    return configuration.doDeke;
+  public boolean getDoSteer() {
+    return configuration.doSteer;
   }
   
   public void toggleStartOnLeft() {

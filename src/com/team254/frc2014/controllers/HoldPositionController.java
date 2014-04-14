@@ -15,7 +15,7 @@ public class HoldPositionController extends Controller {
   private double kpTurn = Constants.headingKp.getDouble();
   private double kiTurn = Constants.headingKi.getDouble();
   private double kDrive = .9;
-  private double heading = 0;
+  protected double heading = 0;
   private double distance = 0;
   
   public void setHeading(double h) {

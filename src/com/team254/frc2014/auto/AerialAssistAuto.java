@@ -2,6 +2,7 @@ package com.team254.frc2014.auto;
 
 import com.team254.frc2014.AutoModeSelector.Configuration;
 import com.team254.frc2014.ConfigurationAutoMode;
+import com.team254.frc2014.controllers.HoldPositionController;
 import com.team254.frc2014.paths.AutoPaths;
 import com.team254.lib.trajectory.Path;
 
@@ -72,14 +73,26 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
 
     System.out.println("Finished driving at: " + autoTimer.get());
    
-    // Hold position
-    drivebase.resetEncoders();
-    headingController.setDistance(0);
-    double endHeading = Math.toDegrees(path.getEndHeading());
-        
+    
+    // Maybe activate steering controller for dekes
+    boolean doSteer = config.doSteer;
+    HoldPositionController holdPositionController;
+    if (doSteer) {
+      holdPositionController=  steerHeadingController;
+      // Reset steering stuf
+      steerHeadingController.reset();
+      visionHotGoalDetector.reset();
+      visionHotGoalDetector.startSampling();
+    } else {
+      holdPositionController = headingController;
+    }
+    
     // Turn on heading controller
-    headingController.setHeading(endHeading);
-    drivebase.useController(headingController);
+    holdPositionController.setDistance(0);
+    double endHeading = Math.toDegrees(path.getEndHeading());
+    drivebase.resetEncoders();
+    holdPositionController.setHeading(endHeading);
+    drivebase.useController(holdPositionController);
     
     // Wait until hot goal is about to switch
     waitUntilTime(4.5);
