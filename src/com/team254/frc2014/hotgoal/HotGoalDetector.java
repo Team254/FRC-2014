@@ -15,5 +15,7 @@ public interface HotGoalDetector {
   public boolean getNotSure();
   public void reset();
   public boolean goLeft();
+  public int getLeftCount();
+  public int getRightCount();
   
 }

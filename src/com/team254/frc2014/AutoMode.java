@@ -35,6 +35,7 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
   }
 
   protected abstract void routine();
+
   public String getDescription() {
     return description;
   }

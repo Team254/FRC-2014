@@ -17,9 +17,12 @@ public class DrivePathWithRunningShotAction extends DrivePathAction {
   boolean dontEverFlip = false;
   boolean didShot = false;
   Timer didShotTimer = new Timer();
-  public DrivePathWithRunningShotAction(Path path, HotGoalDetector detector, double timeout) {
+  boolean startedOnLeft = false;
+  
+  public DrivePathWithRunningShotAction(Path path, HotGoalDetector detector, boolean startedOnLeft, double timeout) {
     super(path, timeout);
     this.detector = detector;
+    this.startedOnLeft = startedOnLeft;
   }
   
   public boolean execute() {
@@ -31,7 +34,17 @@ public class DrivePathWithRunningShotAction extends DrivePathAction {
       percentDone = (curSegment * 1.0)  / (numSegments * 1.0);
     }
     
+   
+    
     boolean goalStartedHot = false;
+    
+    if (startedOnLeft && detector.getLeftCount() > 5){
+      goalStartedHot = true;
+    } else if (!startedOnLeft && detector.getRightCount() > 5){
+      goalStartedHot = true;
+    }
+    
+    
     if (goalStartedHot && percentDone > .35 && !didShot) {
       frontIntake.wantShoot = true;
       rearIntake.setManualRollerPower(Constants.rearRollerShootPower.getDouble());

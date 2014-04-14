@@ -1,6 +1,7 @@
 package com.team254.frc2014.auto;
 
 import com.team254.frc2014.AutoMode;
+import com.team254.frc2014.ConfigurationAutoMode;
 import com.team254.frc2014.Constants;
 import com.team254.frc2014.actions.DrivePathWithRunningShotAction;
 import com.team254.frc2014.paths.AutoPaths;
@@ -11,7 +12,7 @@ import com.team254.lib.trajectory.Path;
  *
  * @author tombot
  */
-public class TwoBallHotAutoMode extends AutoMode {
+public class TwoBallHotAutoMode extends ConfigurationAutoMode {
 
   public TwoBallHotAutoMode() {
     super("Two ball hot, straight");
@@ -20,6 +21,7 @@ public class TwoBallHotAutoMode extends AutoMode {
   protected void routine() {
     wantedEndRpm = Constants.autonFarIntakeUpPreset.getDouble();
     wantedStartRpm = Constants.runningFarPreset.getDouble();
+    drivebase.resetEncoders();
     headingController.setHeading(0);
     drivebase.useController(headingController);
 
@@ -76,7 +78,7 @@ public class TwoBallHotAutoMode extends AutoMode {
   }
   
   public DrivePathWithRunningShotAction drivePathWithRunningShot(Path r, double timeout) {
-    DrivePathWithRunningShotAction a = new DrivePathWithRunningShotAction(r, null, timeout);
+    DrivePathWithRunningShotAction a = new DrivePathWithRunningShotAction(r, visionHotGoalDetector, config.startOnLeft, timeout);
     runAction(a);
     return a;
   }

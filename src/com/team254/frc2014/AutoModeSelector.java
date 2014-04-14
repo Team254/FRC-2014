@@ -9,15 +9,15 @@ import java.util.Vector;
  * @author tombot
  */
 public class AutoModeSelector {
-  
+
   public class Configuration {
-    public int startPos;
+    public boolean startOnLeft;
     public int pathToTake;
     public int numBalls;
     public boolean doDeke = false;
     public boolean preferRearBall = true;
-    public Configuration(int startPos, int path, int numBalls, boolean doDeke, boolean preferRearBall) {
-      this.startPos = startPos;
+    public Configuration(boolean startOnLeft, int path, int numBalls, boolean doDeke, boolean preferRearBall) {
+      this.startOnLeft = startOnLeft;
       this.pathToTake = path;
       this.numBalls = numBalls;
       this.doDeke = doDeke;
@@ -25,7 +25,7 @@ public class AutoModeSelector {
     }
   }
   
-  Configuration configuration = new Configuration(0, 0, 3, false, true);
+  Configuration configuration = new Configuration(true, 0, 3, false, true);
   private int currentIndex = 0;
   Vector autoModes = new Vector();
   
@@ -88,6 +88,15 @@ public class AutoModeSelector {
   
   public boolean getDoDeke() {
     return configuration.doDeke;
+  }
+  
+  public void toggleStartOnLeft() {
+    configuration.startOnLeft = !configuration.startOnLeft;
+    currentAutoMode();
+  }
+  
+  public boolean getStartOnLeft() {
+    return configuration.startOnLeft;
   }
   
   public int getNumBalls() {

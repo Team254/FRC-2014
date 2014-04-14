@@ -25,6 +25,7 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
   }
   
   protected void routine() {
+    drivebase.resetEncoders();
     headingController.setHeading(0);
     drivebase.useController(headingController);
     

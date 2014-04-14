@@ -91,5 +91,13 @@ public class BannerHotGoalDetector extends Subsystem implements HotGoalDetector 
       updateVotes();
     }
   }
+
+  public int getLeftCount() {
+    return leftCount;
+  }
+
+  public int getRightCount() {
+    return rightCount;
+  }
   
 }

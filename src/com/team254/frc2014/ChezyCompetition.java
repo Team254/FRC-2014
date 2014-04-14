@@ -95,7 +95,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   Latch autoSelectLatch = new Latch();
   Latch laneSelectLatch = new Latch();
   Latch numBallsSelectLatch = new Latch();
-  Latch doDekeLatch = new Latch();
+  Latch startOnLeftLatch = new Latch();
   Latch endCloseLatch = new Latch();
   Latch gyroInitLatch = new Latch();
 
@@ -281,8 +281,8 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     if (numBallsSelectLatch.update(ChezyRobot.operatorJoystick.getPassFrontButton())) {
       selector.decrementNumBalls();
     }
-    if (doDekeLatch.update(ChezyRobot.operatorJoystick.getExhaustButton())) {
-     // selector.toggleDoDeke();
+    if (startOnLeftLatch.update(ChezyRobot.operatorJoystick.getExhaustButton())) {
+      selector.toggleStartOnLeft();
     }
     if (endCloseLatch.update(ChezyRobot.operatorJoystick.getPassRearButton())) {
       //selector.toggleEndClose();
@@ -302,7 +302,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     }
     lcdUpdateTimer.reset();
     lcd.println(DriverStationLCD.Line.kUser3, 1, "M:" + selector.currentAutoMode().getDescription() + "                  ");
-    lcd.println(DriverStationLCD.Line.kUser1, 1, "#B:" +  selector.getNumBallsWithPreference() + "               ");
+    lcd.println(DriverStationLCD.Line.kUser1, 1, "#B:" +  selector.getNumBallsWithPreference() + " Side:" + (selector.getStartOnLeft() ? "Left" : "Right") +  "            ");
     lcd.println(DriverStationLCD.Line.kUser2, 1, "Path: " +  selector.getPathName() + "           ");
     //lcd.println(DriverStationLCD.Line.kUser5, 1, "LE: " + Math.floor(ChezyRobot.drivebase.getLeftEncoderDistance() * 10) / 10 + " RE: " + Math.floor(ChezyRobot.drivebase.getRightEncoderDistance() * 10) / 10);
     lcd.println(DriverStationLCD.Line.kUser4, 1, "F:" + (ChezyRobot.frontIntake.getIntakeSensor() ? "1" : "0") + "R:" + (ChezyRobot.rearIntake.getIntakeSensor() ? "1" : "0") + " Vision: " + (ChezyRobot.visionHotGoalDetector.hasClientConnection() ? "Yes":"No") + "      ");

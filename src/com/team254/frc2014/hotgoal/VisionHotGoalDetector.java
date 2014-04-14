@@ -63,6 +63,14 @@ public class VisionHotGoalDetector implements Runnable, HotGoalDetector {
     return goLeft;
   }
 
+  public int getLeftCount() {
+    return leftVotes;
+  }
+
+  public int getRightCount() {
+    return rightVotes;
+  }
+
   /* 
    * Spawns a new thread to handle requests and responses 
    */
