@@ -62,17 +62,25 @@ def getTimeMillis():
     return int(round(time.time() * 1000))
 
 def color_distance(c1, c2):
+    ''' Compute the difference between two HSV colors.
+
+    Currently this simply returns the "L1 norm" for distance,
+    or delta_h + delta_s + delta_v.  This is not a very robust
+    way to do it, but it has worked well enough in our tests.
+
+    Recommended reading:
+    http://en.wikipedia.org/wiki/Color_difference
+    '''
     total_diff = 0
     for i in (0, 1, 2):
         diff = (c1[i]-c2[i])
-        # Wrap hue angle
+        # Wrap hue angle...OpenCV represents hue on (0, 180)
         if i == 0:
-            while diff < -180:
-                diff += 360
-            while diff > 180:
-                diff -= 360
+            if diff < -90:
+                diff += 180
+            elif diff > 90:
+                diff -= 180
         total_diff += abs(diff)
-    #print total_diff
     return total_diff
 
 def choose_swag():
