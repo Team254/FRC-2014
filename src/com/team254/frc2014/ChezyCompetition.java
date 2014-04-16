@@ -147,8 +147,8 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     if (ChezyRobot.operatorJoystick.getPreset1Button()) {
       ChezyRobot.clapper.doingRunning = true;
       ChezyRobot.shooterController.enable();
-      ChezyRobot.shooterController.setVelocityGoal(Constants.runningClosePreset.getDouble());
-      ChezyRobot.shooter.setHood(true);
+      ChezyRobot.shooterController.setVelocityGoal(Constants.cheekyPassPreset.getDouble());
+      ChezyRobot.shooter.setHood(false);
       ChezyRobot.shooterController.setWideOnTargetWindow();
     }
     // static close
