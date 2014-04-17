@@ -38,9 +38,9 @@ public class DrivePathWithRunningShotAction extends DrivePathAction {
     
     boolean goalStartedHot = false;
     
-    if (startedOnLeft && detector.getLeftCount() > 5){
+    if (percentDone < .4 && (startedOnLeft && detector.getLeftCount() > 5)){
       goalStartedHot = true;
-    } else if (!startedOnLeft && detector.getRightCount() > 5){
+    } else if (percentDone < .4 && (!startedOnLeft && detector.getRightCount() > 5)){
       goalStartedHot = true;
     }
     
