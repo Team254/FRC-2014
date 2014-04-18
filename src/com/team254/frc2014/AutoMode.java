@@ -111,7 +111,7 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     // Settle time
     waitTime(.25);
     settler.set(true);
-    waitTime(.20);
+    waitTime(.35);
     
     // Shoot second ball
     frontIntake.wantShoot = true;
@@ -140,7 +140,7 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     // Settle time
     waitTime(.25);
     settler.set(true);
-    waitTime(.5);
+    waitTime(.35);
     
     // Shoot thirdball
     settler.set(false);
