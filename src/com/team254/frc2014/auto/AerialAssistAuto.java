@@ -51,17 +51,17 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     frontIntake.wantBumperGather = config.numBalls == 3 || (config.numBalls == 2 && !config.preferRearBall);
     rearIntake.wantBumperGather = config.numBalls == 3 || (config.numBalls == 2 && config.preferRearBall);
     
+    // Turn on wheel
+    shooterController.enable();
+    System.out.println("Using " + wantedStartRpm + " RPM for first shot");
+    shooterController.setVelocityGoal(wantedStartRpm);
+    
     // Wait for interrupt from hot goal sensor
     double howLongToWait = 1.5;
     if (config.pathToTake == AutoPaths.WALL_LANE_ID) {
       howLongToWait = 1.2;
     }
     waitUntilTime(howLongToWait);
-    
-    // Turn on wheel
-    shooterController.enable();
-    System.out.println("Using " + wantedStartRpm + " RPM for first shot");
-    shooterController.setVelocityGoal(wantedStartRpm);
     
     Path path = AutoPaths.getByIndex(config.pathToTake);
     if (path == null) {
