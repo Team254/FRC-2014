@@ -288,8 +288,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       selector.toggleStartOnLeft();
     }
     if (endCloseLatch.update(ChezyRobot.operatorJoystick.getPassRearButton())) {
-      selector.toggleDoSteer();
-      ChezyRobot.bannerHotGoalDetector.toggleCrossEyed();
+
     }
     
     if (gyroInitLatch.update(ChezyRobot.operatorJoystick.getPreset6Button())) {
@@ -306,10 +305,9 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     }
     lcdUpdateTimer.reset();
     lcd.println(DriverStationLCD.Line.kUser1, 1, "M:" + selector.currentAutoMode().getDescription() + "                  ");
-    lcd.println(DriverStationLCD.Line.kUser2, 1, "#B:" +  selector.getNumBallsWithPreference() +  " | Steer:" + (selector.getDoSteer() ? "Yes":"No") + "            ");
+    lcd.println(DriverStationLCD.Line.kUser2, 1, "#B:" +  selector.getNumBallsWithPreference() +  "            ");
     lcd.println(DriverStationLCD.Line.kUser3, 1, "Path: " +  selector.getPathName() + "           ");
-    //lcd.println(DriverStationLCD.Line.kUser5, 1, "LE: " + Math.floor(ChezyRobot.drivebase.getLeftEncoderDistance() * 10) / 10 + " RE: " + Math.floor(ChezyRobot.drivebase.getRightEncoderDistance() * 10) / 10);
-    lcd.println(DriverStationLCD.Line.kUser4, 1, "Side:" + (selector.getStartOnLeft() ? "Left" : "Right") + " | Vision: " + (ChezyRobot.visionHotGoalDetector.hasClientConnection() ? "Yes":"No") + "      ");
+    lcd.println(DriverStationLCD.Line.kUser4, 1, "Side:" + (selector.getStartOnLeft() ? "Left" : "Right") + " | VIZ:" + (ChezyRobot.visionHotGoalDetector.hasClientConnection() ? "Yes":"No") + "      ");
     lcd.println(DriverStationLCD.Line.kUser6, 1,  Math.floor(Timer.getFPGATimestamp() * 10) / 10 +  " gyro: " + Math.floor(ChezyRobot.drivebase.getGyroAngle() * 10) / 10 + "        ");
     lcd.println(DriverStationLCD.Line.kUser5, 1, "HOT: " + ChezyRobot.hotGoalDirection + "          "); 
     lcd.updateLCD();
