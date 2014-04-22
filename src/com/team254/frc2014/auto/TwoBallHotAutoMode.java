@@ -48,6 +48,12 @@ public class TwoBallHotAutoMode extends ConfigurationAutoMode {
     DrivePathWithRunningShotAction driveAction = drivePathWithRunningShot(AutoPaths.get("StraightAheadPath"), 10);
 
     System.out.println("did shot? " + driveAction.didShot());
+    
+    
+    drivebase.resetEncoders();
+    headingController.setDistance(0);
+    headingController.setHeading(0);
+    drivebase.useController(headingController);
 
     // Speed up for 2nd and 3rd shots
     shooterController.setVelocityGoal(Constants.autonFarIntakeUpPreset.getDouble());

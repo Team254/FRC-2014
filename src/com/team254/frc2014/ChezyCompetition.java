@@ -5,12 +5,7 @@ package com.team254.frc2014;
  *
  */
 import com.team254.frc2014.auto.AerialAssistAuto;
-import com.team254.frc2014.auto.TestBumperGather;
-import com.team254.frc2014.auto.TestGooglyEyes;
-import com.team254.frc2014.auto.TestSteerPositionController;
-import com.team254.frc2014.auto.TestThreeBallShootAuto;
-import com.team254.frc2014.auto.TestVisionHotGoal;
-import com.team254.frc2014.auto.TuneDriveAuto;
+import com.team254.frc2014.auto.DoNothingAuto;
 import com.team254.frc2014.auto.TwoBallHotAutoMode;
 import com.team254.frc2014.paths.AutoPaths;
 import com.team254.lib.ChezyIterativeRobot;
@@ -32,11 +27,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     AutoPaths.loadPaths();
     selector.addAutoMode(new AerialAssistAuto());
     selector.addAutoMode(new TwoBallHotAutoMode());
-    selector.addAutoMode(new TestSteerPositionController());
-    selector.addAutoMode(new TestBumperGather());
-    selector.addAutoMode(new TestVisionHotGoal());
-    selector.addAutoMode(new TestThreeBallShootAuto());
-    selector.addAutoMode(new TuneDriveAuto());
+    selector.addAutoMode(new DoNothingAuto());
   }
 
   public void robotInit() {
