@@ -197,9 +197,10 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     // Settle time
     waitTime(0.4);
     settler.set(true);
-    waitTime(0.65);
+    waitTime(0.7);
     
     // Shoot second ball
+    waitTime(.25);
     rearIntake.setManualRollerPower(Constants.rearRollerShootPower.getDouble());
     settler.set(false);
     clapper.wantShot = true;
