@@ -230,7 +230,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       turn = Math.abs(turn * turn) * (turnNeg ? -1.0 : 1.0);
     }
     
-    ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), turn, qt, !ChezyRobot.rightStick.getRawButton(2));
+    ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getBorkedY(), turn, qt, !ChezyRobot.rightStick.getRawButton(2));
 
     
     // Set rollers
@@ -300,7 +300,9 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     lcd.println(DriverStationLCD.Line.kUser3, 1, "Path: " +  selector.getPathName() + "           ");
     lcd.println(DriverStationLCD.Line.kUser4, 1, "Side:" + (selector.getStartOnLeft() ? "Left" : "Right") + " | VIZ:" + (ChezyRobot.visionHotGoalDetector.hasClientConnection() ? "Yes":"No") + "      ");
     lcd.println(DriverStationLCD.Line.kUser6, 1,  Math.floor(Timer.getFPGATimestamp() * 10) / 10 +  " gyro: " + Math.floor(ChezyRobot.drivebase.getGyroAngle() * 10) / 10 + "        ");
-    lcd.println(DriverStationLCD.Line.kUser5, 1, "HOT: " + ChezyRobot.hotGoalDirection + "          "); 
+    //lcd.println(DriverStationLCD.Line.kUser5, 1, "HOT: " + ChezyRobot.hotGoalDirection + "          "); 
+    lcd.println(DriverStationLCD.Line.kUser5, 1, " " + ChezyRobot.leftStick.getBorkedY() + " / "+  ChezyRobot.rightStick.getX( ) +
+            "          "); 
     lcd.updateLCD();
   }
 }
