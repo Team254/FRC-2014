@@ -127,6 +127,7 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     frontIntake.wantShoot = false;
     
     // Queue 3rd ball
+    shooterController.setVelocityGoal(wantedEndRpm + 120);
     frontIntake.wantBumperGather = false;
     frontIntake.wantDown = true;
     frontIntake.setManualRollerPower(1.0);
@@ -183,7 +184,7 @@ public abstract class AutoMode extends ChezyRobot implements Runnable {
     frontIntake.wantShoot = false;
     
     // Speed up for 2nd and 3rd shots
-    shooterController.setVelocityGoal(wantedEndRpm);
+    shooterController.setVelocityGoal(wantedEndRpm + 120);
     
     // Queue 2nd ball
     frontIntake.wantBumperGather = false;

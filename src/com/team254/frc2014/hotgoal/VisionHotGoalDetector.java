@@ -57,6 +57,9 @@ public class VisionHotGoalDetector implements Runnable, HotGoalDetector {
   public boolean goLeft() {
     System.out.println("left: " + leftVotes + "right " + rightVotes);
     boolean goLeft = leftVotes < rightVotes;
+    if (leftVotes == 0 && rightVotes == 0) {
+      goLeft = true;
+    }
     ChezyRobot.leftCount = leftVotes;
     ChezyRobot.rightCount = rightVotes;
     ChezyRobot.goLeftAuto = goLeft;

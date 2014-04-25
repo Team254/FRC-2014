@@ -93,8 +93,8 @@ public class Constants extends ConstantsBase {
   public static final Constant cheekyPassPreset = new Constant("cheekyPassPreset", 2750);
   public static final Constant inboundRpmPreset = new Constant("inboundRpmPreset", -2600);
   
-  public static final Constant autonFarIntakeUpPreset = new Constant("autonFarIntakeUpPreset", 5600);
-  public static final Constant autonFarIntakeDownPreset = new Constant("autonFarIntakeDownPreset", 5150);
+  public static final Constant autonFarIntakeUpPreset = new Constant("autonFarIntakeUpPreset", 5200);
+  public static final Constant autonFarIntakeDownPreset = new Constant("autonFarIntakeDownPreset", 4950);
   public static final Constant autonClosePreset = new Constant("autonClosePreset", 5700);
   
   
