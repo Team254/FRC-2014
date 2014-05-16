@@ -2,20 +2,18 @@ package com.team254.frc2014.subsystems;
 
 import com.team254.lib.Loopable;
 import com.team254.lib.Subsystem;
-import com.team254.lib.util.ThrottledPrinter;
 import java.util.Hashtable;
 
 /**
  * Navigator.java
- * This controls the poisitioning system
- * @author tombot
+ * This controls the positioning system
+ * @author Tom Bottiglieri
  */
 public class Navigator extends Subsystem implements Loopable {
 
   double x = 0, y = 0, heading = 0;
   double lastL, lastR;
   double gyroReference = 0;
-  ThrottledPrinter p = new ThrottledPrinter(.125);
   Drivebase drive;
   public Navigator(Drivebase drive) {
     super("Navigator");
@@ -50,7 +48,6 @@ public class Navigator extends Subsystem implements Loopable {
     lastR = right;
     heading = gyroAngle - gyroReference;
     double magnitude = (diffL + diffR) / 2.0;
-    //p.println("x: " + x + " | y:" + y + " h: " + heading);
     x += magnitude * Math.sin(degreesToRadians(heading));
     y += magnitude * Math.cos(degreesToRadians(heading));
   }

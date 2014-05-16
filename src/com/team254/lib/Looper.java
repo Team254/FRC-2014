@@ -4,7 +4,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Runs a Loopable over several updates.
+ * A Looper is an easy way to create a timed task the gets
+ * called periodically.
+ * 
+ * Just make a new Looper and give it a Loopable.
+ * 
+ * @author Tom Bottiglieri
  */
 public class Looper {
 

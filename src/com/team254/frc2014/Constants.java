@@ -7,7 +7,7 @@ import com.team254.lib.util.ConstantsBase;
  * Variables can be declared here with default values and overridden with a text file uploaded to
  * the robot's file system.
  *
- * @author brandon.gonzalez.451@gmail.com (Brandon Gonzalez)
+ * @author Tom Bottiglieri (tom@team254.com)
  */
 
 public class Constants extends ConstantsBase {

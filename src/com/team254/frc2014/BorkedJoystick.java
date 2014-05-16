@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Joystick;
  * 
  * One of our joysticks is borked. This is a hack.
  *
- * @author tombot
+ * @author Tom Bottiglieri (tom@team254.com)
  */
 public class BorkedJoystick extends Joystick {
   

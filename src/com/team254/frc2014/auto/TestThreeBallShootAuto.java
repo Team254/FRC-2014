@@ -26,8 +26,8 @@ public class TestThreeBallShootAuto extends ConfigurationAutoMode {
     shooterController.setVelocityGoal(4000);
     
     // Grab balls from ground
-    clapper.wantFront = false;
-    clapper.wantRear = false;
+    pinniped.wantFront = false;
+    pinniped.wantRear = false;
     frontIntake.wantBumperGather = true;
     rearIntake.wantBumperGather = true;
     waitTime(.5);
@@ -54,9 +54,9 @@ public class TestThreeBallShootAuto extends ConfigurationAutoMode {
     // Shoot first ball
     rearIntake.wantShoot = frontIntake.wantShoot = true;
     waitTime(.25);
-    clapper.wantShot = true;
+    pinniped.wantShot = true;
     waitTime(.5);
-    clapper.wantShot = false;
+    pinniped.wantShot = false;
     rearIntake.wantShoot = frontIntake.wantShoot = false;
     
     // Speed up for 2nd and 3rd shots
@@ -78,9 +78,9 @@ public class TestThreeBallShootAuto extends ConfigurationAutoMode {
     frontIntake.wantShoot = true;
     waitTime(.25);
     rearIntake.setManualRollerPower(1);
-    clapper.wantShot = true;
+    pinniped.wantShot = true;
     waitTime(.5);
-    clapper.wantShot = false;
+    pinniped.wantShot = false;
     rearIntake.setManualRollerPower(0);
     waitTime(0.3);
     frontIntake.wantShoot = false;
@@ -100,9 +100,9 @@ public class TestThreeBallShootAuto extends ConfigurationAutoMode {
     
     // Shoot thirdball
     rearIntake.setManualRollerPower(1);
-    clapper.wantShot = true;
+    pinniped.wantShot = true;
     waitTime(.5);
-    clapper.wantShot = false;
+    pinniped.wantShot = false;
     
     // Print out time
     System.out.println(t.get());

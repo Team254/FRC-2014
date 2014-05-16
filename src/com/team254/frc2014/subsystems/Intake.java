@@ -1,24 +1,20 @@
 package com.team254.frc2014.subsystems;
 
-import com.team254.frc2014.ChezyRobot;
 import com.team254.frc2014.Constants;
 import com.team254.lib.Loopable;
 import com.team254.lib.Subsystem;
 import com.team254.lib.util.Util;
 import edu.wpi.first.wpilibj.AnalogChannel;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.Hashtable;
 
 /**
  *
- * @author bg
+ * @author Brandon Gonzales
  */
 public class Intake extends Subsystem implements Loopable {
-
 
   private Talon roller;
   private Solenoid actuator;
@@ -28,6 +24,7 @@ public class Intake extends Subsystem implements Loopable {
   private double deliverTime = 1.5;
 
   public Intake(String name, Talon roller, AnalogChannel bumpSwitch, Solenoid actuator, boolean flip, double deliverTime) {
+    // We want to make more than one of these, allow it to be named somewhere else.
     super(name);
     this.roller = roller;
     this.bumpSwitch = bumpSwitch;
@@ -179,7 +176,6 @@ public class Intake extends Subsystem implements Loopable {
         
       case STATE_SHOOTING:
         setRollerPower(Constants.rearRollerShootPower.getDouble());
-        SmartDashboard.putNumber("rpmShot", ChezyRobot.shooter.lastRpm);
         if (!wantShoot && stateTimer.get() > 1.0) {
           setRollerPower(0);
           newState = STATE_MANUAL;

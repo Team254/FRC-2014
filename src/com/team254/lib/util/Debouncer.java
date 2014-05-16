@@ -3,7 +3,7 @@ package com.team254.lib.util;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- * Compensates for "jumps" in analog signals sources.
+ * Compensates for "jumps" in analog signal sources.
  *
  * @author tom@team254.com (Tom Bottiglieri)
  */

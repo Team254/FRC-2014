@@ -3,9 +3,13 @@ package com.team254.lib;
 import java.util.Vector;
 
 /**
- * ControlUpdater.java
- * Runs several Loopers simultaneously.
- * @author tombot
+ * MultiLooper.java
+ * 
+ * Runs several Loopables simultaneously with one Looper.
+ * Useful for running a bunch of control loops
+ * with only one Thread worth of overhead.
+ * 
+ * @author Tom Bottiglieri
  */
 public class MultiLooper implements Loopable {
   private Looper looper;

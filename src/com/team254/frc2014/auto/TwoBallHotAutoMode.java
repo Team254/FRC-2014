@@ -1,6 +1,5 @@
 package com.team254.frc2014.auto;
 
-import com.team254.frc2014.AutoMode;
 import com.team254.frc2014.ConfigurationAutoMode;
 import com.team254.frc2014.Constants;
 import com.team254.frc2014.actions.DrivePathWithRunningShotAction;
@@ -9,8 +8,12 @@ import com.team254.lib.trajectory.Path;
 
 /**
  * TwoBallHotAutoMode.java
+ * 
+ * This auto mode is meant to drive straight and either
+ * a) Shoot 1 ball on the run, then shoot 1 ball while sitting still in the first 5 seconds
+ * b) Drive, then wait until 4.75 seconds to shoot the 2 balls
  *
- * @author tombot
+ * @author Tom Bottiglieri
  */
 public class TwoBallHotAutoMode extends ConfigurationAutoMode {
 
@@ -37,8 +40,8 @@ public class TwoBallHotAutoMode extends ConfigurationAutoMode {
     shooterController.setVelocityGoal(Constants.runningFarPreset.getDouble());
 
     // Grab balls from ground
-    clapper.wantFront = false;
-    clapper.wantRear = false;
+    pinniped.wantFront = false;
+    pinniped.wantRear = false;
     frontIntake.wantBumperGather = true;
 
 
@@ -72,10 +75,10 @@ public class TwoBallHotAutoMode extends ConfigurationAutoMode {
       waitTime(.25);
       rearIntake.setManualRollerPower(Constants.rearRollerShootPower.getDouble());
       settler.set(false);
-      clapper.wantShot = true;
+      pinniped.wantShot = true;
       waitTime(.5);
       System.out.println("2nd shot at: " + autoTimer.get());
-      clapper.wantShot = false;
+      pinniped.wantShot = false;
       rearIntake.setManualRollerPower(0);
       waitTime(0.3);
       shooterController.setVelocityGoal(0);

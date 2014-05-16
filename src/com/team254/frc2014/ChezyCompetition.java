@@ -9,7 +9,7 @@ import com.team254.frc2014.auto.DoNothingAuto;
 import com.team254.frc2014.auto.TwoBallHotAutoMode;
 import com.team254.frc2014.paths.AutoPaths;
 import com.team254.lib.ChezyIterativeRobot;
-import com.team254.lib.Server;
+import com.team254.lib.ChezyHTTPServer;
 import com.team254.lib.util.Latch;
 import com.team254.lib.util.ThrottledPrinter;
 import edu.wpi.first.wpilibj.DriverStationLCD;
@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class ChezyCompetition extends ChezyIterativeRobot {
   AutoMode currentAutoMode = null;
   AutoModeSelector selector = new AutoModeSelector();
-  Server s = new Server();
+  ChezyHTTPServer s = new ChezyHTTPServer();
   ThrottledPrinter p = new ThrottledPrinter(.5);
   DriverStationLCD lcd;
 
@@ -43,9 +43,9 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     ChezyRobot.drivebase.resetGyro();
     
     ChezyRobot.shooterController.enable();
-    ChezyRobot.clapper.setControlLoopsOff();
+    ChezyRobot.pinniped.setControlLoopsOff();
     currentAutoMode = selector.currentAutoMode();
-    ChezyRobot.clapper.doingRunning = false;
+    ChezyRobot.pinniped.doingRunning = false;
     if (currentAutoMode != null) {
       currentAutoMode.start();
     }
@@ -60,12 +60,12 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     }
     ChezyRobot.drivebase.turnOffControllers();
     ChezyRobot.drivebase.resetGyro();
-    ChezyRobot.clapper.wantFront = false;
-    ChezyRobot.clapper.wantRear = false;
+    ChezyRobot.pinniped.wantFront = false;
+    ChezyRobot.pinniped.wantRear = false;
     ChezyRobot.frontIntake.wantBumperGather = false;
     ChezyRobot.rearIntake.wantBumperGather = false;
     ChezyRobot.bannerHotGoalDetector.reset();
-    ChezyRobot.clapper.doingRunning = false;
+    ChezyRobot.pinniped.doingRunning = false;
     System.out.println("cfs:disable_start");
   }
 
@@ -79,7 +79,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     ChezyRobot.shooter.setHood(false);
     ChezyRobot.shooterController.disable();
     ChezyRobot.shooterController.setVelocityGoal(0);
-    ChezyRobot.clapper.doingRunning = false;
+    ChezyRobot.pinniped.doingRunning = false;
     System.out.println("cfs:teleop_start");
     // This is just here for testing purposes
   }
@@ -109,7 +109,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
   
     // Intakes
     if (ChezyRobot.operatorJoystick.getAutoIntakeOff()) { // manual intake
-      ChezyRobot.clapper.setControlLoopsOff();
+      ChezyRobot.pinniped.setControlLoopsOff();
       ChezyRobot.frontIntake.wantGather = false;
       ChezyRobot.rearIntake.wantGather = false;
       if (ChezyRobot.operatorJoystick.getAutoIntakeFrontButton()) {
@@ -120,7 +120,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.frontIntake.wantDown = ChezyRobot.operatorJoystick.getAutoIntakeFrontButton();
       ChezyRobot.rearIntake.wantDown = ChezyRobot.operatorJoystick.getAutoIntakeRearButton();
     } else { // auto intake
-      ChezyRobot.clapper.setControlLoopsOn();
+      ChezyRobot.pinniped.setControlLoopsOn();
       ChezyRobot.frontIntake.wantGather = ChezyRobot.operatorJoystick.getAutoIntakeFrontButton();
       ChezyRobot.rearIntake.wantGather = ChezyRobot.operatorJoystick.getAutoIntakeRearButton();
     }
@@ -131,12 +131,12 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     if (ChezyRobot.operatorJoystick.getShooterOffButton()) {
       ChezyRobot.shooterController.disable();
       ChezyRobot.shooterController.setVelocityGoal(0);
-      ChezyRobot.clapper.doingRunning = false;
+      ChezyRobot.pinniped.doingRunning = false;
       ChezyRobot.shooterController.setNarrowOnTargetWindow();
     }
     // Running close
     if (ChezyRobot.operatorJoystick.getPreset1Button()) {
-      ChezyRobot.clapper.doingRunning = true;
+      ChezyRobot.pinniped.doingRunning = true;
       ChezyRobot.shooterController.enable();
       ChezyRobot.shooterController.setVelocityGoal(Constants.cheekyPassPreset.getDouble());
       ChezyRobot.shooter.setHood(false);
@@ -147,7 +147,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.shooterController.enable();
       ChezyRobot.shooterController.setVelocityGoal(Constants.staticClosePreset.getDouble());
       ChezyRobot.shooter.setHood(true);
-      ChezyRobot.clapper.doingRunning = false;
+      ChezyRobot.pinniped.doingRunning = false;
       ChezyRobot.shooterController.setNarrowOnTargetWindow();
     }
     // static Far
@@ -155,7 +155,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.shooterController.enable();
       ChezyRobot.shooterController.setVelocityGoal(Constants.staticFarPreset.getDouble());
       ChezyRobot.shooter.setHood(false);
-      ChezyRobot.clapper.doingRunning = false;
+      ChezyRobot.pinniped.doingRunning = false;
       ChezyRobot.shooterController.setNarrowOnTargetWindow();
     }
     // running far
@@ -163,7 +163,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.shooterController.enable();
       ChezyRobot.shooterController.setVelocityGoal(Constants.runningFarPreset.getDouble());
       ChezyRobot.shooter.setHood(false);
-      ChezyRobot.clapper.doingRunning = true;
+      ChezyRobot.pinniped.doingRunning = true;
       ChezyRobot.shooterController.setWideOnTargetWindow();
     }
     // Hella Far
@@ -171,7 +171,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.shooterController.enable();
       ChezyRobot.shooterController.setVelocityGoal(Constants.hellaFarPreset.getDouble());
       ChezyRobot.shooter.setHood(false);
-      ChezyRobot.clapper.doingRunning = true;
+      ChezyRobot.pinniped.doingRunning = true;
       ChezyRobot.shooterController.setWideOnTargetWindow();
     }
     // HP Shot
@@ -179,7 +179,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.shooterController.enable();
       ChezyRobot.shooterController.setVelocityGoal(Constants.hpShotPreset.getDouble());
       ChezyRobot.shooter.setHood(false);
-      ChezyRobot.clapper.doingRunning = true;
+      ChezyRobot.pinniped.doingRunning = true;
       ChezyRobot.shooterController.setWideOnTargetWindow();
     }
     
@@ -194,25 +194,25 @@ public class ChezyCompetition extends ChezyIterativeRobot {
       ChezyRobot.shooterController.enable();
       ChezyRobot.shooterController.setVelocityGoal(Constants.inboundRpmPreset.getDouble());
       ChezyRobot.shooter.setHood(false);
-      ChezyRobot.clapper.doingRunning = false;
+      ChezyRobot.pinniped.doingRunning = false;
     } else if (ChezyRobot.operatorJoystick.autonInboundButton.wasReleased()) {
       ChezyRobot.shooterController.enable();
       ChezyRobot.shooterController.setVelocityGoal(0);
-      ChezyRobot.clapper.doingRunning = false;
+      ChezyRobot.pinniped.doingRunning = false;
       ChezyRobot.shooterController.setNarrowOnTargetWindow();
     }
 
 
     
     // Shooting Buttons
-    ChezyRobot.clapper.wantShot = ChezyRobot.clapper.wantTimedShot =  ChezyRobot.leftStick.getRawButton(1);
+    ChezyRobot.pinniped.wantShot = ChezyRobot.pinniped.wantTimedShot =  ChezyRobot.leftStick.getRawButton(1);
     
     // Pass buttons
-    ChezyRobot.clapper.wantFront = ChezyRobot.operatorJoystick.getPassRearButton();
-    ChezyRobot.clapper.wantRear = ChezyRobot.operatorJoystick.getPassFrontButton();
+    ChezyRobot.pinniped.wantFront = ChezyRobot.operatorJoystick.getPassRearButton();
+    ChezyRobot.pinniped.wantRear = ChezyRobot.operatorJoystick.getPassFrontButton();
     
     // Run the rear roller in reverse if needed
-    ChezyRobot.rearIntake.wantShoot = ChezyRobot.clapper.wantShot;
+    ChezyRobot.rearIntake.wantShoot = ChezyRobot.pinniped.wantShot;
 
     // Gearing
     if(ChezyRobot.rightStick.getRawButton(2)) {

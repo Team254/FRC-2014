@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * HoldHeadingController.java
  * This holds the robot in place.
- * @author tombot
+ * @author Tom Bottiglieri
  */
 public class HoldPositionController extends Controller {
 
@@ -26,13 +26,12 @@ public class HoldPositionController extends Controller {
   }
   double sumError = 0;
   public void update() {
-    if (!enabled)
+    if (!enabled) {
       return;
+    }
     kpTurn = Constants.headingKp.getDouble();
     kiTurn = Constants.headingKi.getDouble();
-    SmartDashboard.putNumber("hc:angle",  drivebase.getGyroAngle());
     double angleDiff = ChezyMath.boundAngleNeg180to180Degrees(heading - drivebase.getGyroAngle());
-    SmartDashboard.putNumber("hc:error", angleDiff);
     if (Math.abs(angleDiff) < 15) {
       sumError += angleDiff;
     } 
@@ -44,7 +43,6 @@ public class HoldPositionController extends Controller {
       kpTurn = Constants.headingKpFar.getDouble();          
     }
   
-    
     double turn = (kpTurn * angleDiff);
     double speed = (distance - drivebase.getAverageDistance()) * kDrive;
     drivebase.setLeftRightPower(speed + turn, speed - turn);

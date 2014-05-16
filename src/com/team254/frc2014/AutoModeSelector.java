@@ -5,8 +5,8 @@ import java.util.Vector;
 
 /**
  * AutoModeSelector.java
- * Selects which automode to use
- * @author tombot
+ * Selects which auto mode to use
+ * @author Tom Bottiglieri (tom@team254.com)
  */
 public class AutoModeSelector {
 

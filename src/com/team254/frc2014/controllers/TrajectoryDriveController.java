@@ -4,11 +4,10 @@ import com.team254.lib.Controller;
 import com.team254.lib.trajectory.Trajectory;
 import com.team254.lib.trajectory.TrajectoryFollower;
 import com.team254.lib.util.ChezyMath;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * TrajectoryDriveController.java
  * This controller drives the robot along a specified trajectory.
- * @author tombot
+ * @author Tom Bottiglieri
  */
 public class TrajectoryDriveController extends Controller {
 

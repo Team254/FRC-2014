@@ -1,6 +1,6 @@
 package com.team254.lib;
 /*
- * @author bg
+ * @author Brandon Gonzales
  */
 
 import com.team254.frc2014.Constants;
@@ -17,7 +17,7 @@ import javax.microedition.io.Connector;
 import javax.microedition.io.ServerSocketConnection;
 import javax.microedition.io.SocketConnection;
 
-public class Server implements Runnable {
+public class ChezyHTTPServer implements Runnable {
 
   private final int PORT;
   private static Hashtable subsystems;
@@ -91,12 +91,12 @@ public class Server implements Runnable {
     }
   }
 
-  public Server() {
+  public ChezyHTTPServer() {
     PORT = 41234;
     connections = new Vector();
   }
 
-  public Server(int port) {
+  public ChezyHTTPServer(int port) {
     PORT = port;
     connections = new Vector();
   }

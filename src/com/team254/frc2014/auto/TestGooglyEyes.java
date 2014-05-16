@@ -28,8 +28,8 @@ public class TestGooglyEyes extends ConfigurationAutoMode {
 
     shooterController.setVelocityGoal(5300);
     // Grab balls from ground
-    clapper.wantFront = false;
-    clapper.wantRear = false;
+    pinniped.wantFront = false;
+    pinniped.wantRear = false;
     waitForHotGoalToSwitch(1.5);
 
 
@@ -67,8 +67,8 @@ public class TestGooglyEyes extends ConfigurationAutoMode {
     System.out.println("t: " + autoTimer.get() + " " + ChezyRobot.operatorJoystick.getPreset1Button());
 
 
-    clapper.wantFront = false;
-    clapper.wantRear = false;
+    pinniped.wantFront = false;
+    pinniped.wantRear = false;
     frontIntake.wantBumperGather = false;
     rearIntake.wantBumperGather = false;
   }

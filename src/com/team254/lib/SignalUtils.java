@@ -3,7 +3,7 @@ package com.team254.lib;
 /**
  * SignalUtils.java
  * Some math used in the StateSpace classes
- * @author tombot
+ * @author Tom Bottiglieri
  */
 public class SignalUtils {
 

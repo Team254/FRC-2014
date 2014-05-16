@@ -10,7 +10,7 @@ import java.util.Hashtable;
  *
  * @author Mani Gnanasivam
  */
-public class Clapper extends Subsystem{
+public class Pinniped extends Subsystem{
   public static Solenoid frontSolenoid = new Solenoid(Constants.frontClapperSolenoidPort.getInt());
   public static Solenoid rearSolenoid = new Solenoid(Constants.rearClapperSolenoidPort.getInt());
   public static boolean frontIsUp;
@@ -43,8 +43,8 @@ public class Clapper extends Subsystem{
     return new Hashtable();
   }
   
-  public Clapper() {
-    super("Clapper");
+  public Pinniped() {
+    super("Pinniped");
     stateTimer.start();
   }
   
@@ -66,6 +66,9 @@ public class Clapper extends Subsystem{
     frontIsUp = frontUp;
     rearIsUp = rearUp;
   }
+  
+  // This is called at 100Hz and handles the state machine for the ball
+  // loading/shooting mechanism.
   public void update() {
     int nextState = state;
     switch(state) {
@@ -98,6 +101,8 @@ public class Clapper extends Subsystem{
       case STATE_START_SHOT:
         rearSolenoid.set(false);
         frontSolenoid.set(true);
+        // Fire the front pinniped first so the ball is forced in to the
+        // back of the hood, avoiding pinball action with the flywheel
         if(stateTimer.get() > .06) {
           nextState = STATE_UP;
         }

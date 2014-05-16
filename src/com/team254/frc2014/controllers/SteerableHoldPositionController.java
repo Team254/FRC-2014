@@ -3,7 +3,9 @@ package com.team254.frc2014.controllers;
 /**
  * SteerableHoldPositionController.java
  *
- * @author tombot
+ * Let's steer the robot with Cheesy Vision during auto mode!
+ * 
+ * @author Tom Bottiglieri
  */
 public class SteerableHoldPositionController extends HoldPositionController {
   public final static double STEER_DELTA_HEADING = 4.0;

@@ -1,20 +1,16 @@
 package com.team254.frc2014;
 
 import com.team254.frc2014.controllers.HoldPositionController;
-import com.team254.frc2014.controllers.OpenLoopController;
-import com.team254.frc2014.controllers.TrajectoryDriveController;
-import com.team254.frc2014.subsystems.Drivebase;
-import com.team254.frc2014.hotgoal.BannerHotGoalDetector;
-import com.team254.frc2014.subsystems.Intake;
-import com.team254.frc2014.subsystems.Navigator;
+import com.team254.lib.OpenLoopController;
 import com.team254.frc2014.controllers.RpmFlywheelController;
 import com.team254.frc2014.controllers.SteerableHoldPositionController;
-import com.team254.frc2014.hotgoal.VisionHotGoalDetector;
+import com.team254.frc2014.controllers.TrajectoryDriveController;
+import com.team254.frc2014.hotgoal.BannerHotGoalDetector;
+import com.team254.frc2014.hotgoal.CheesyVisionHotGoalDetector;
 import com.team254.frc2014.subsystems.*;
 import com.team254.lib.MultiLooper;
 import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
@@ -22,7 +18,7 @@ import edu.wpi.first.wpilibj.Talon;
 /**
  * ChezyRobot defines all of the subsystems.
  *
- * @author tombot
+ * @author Tom Bottiglieri (tom@team254.com)
  */
 public class ChezyRobot {
 
@@ -30,13 +26,14 @@ public class ChezyRobot {
     poke();
   }
 
-  private static void poke() {
-  } // this is to combat Java's lazy loading of static classes
+  // this method does nothing. It is here to combat Java's lazy loading of static classes.
+  private static void poke() {} 
+  
   // Subsystems
   public static final Drivebase drivebase = new Drivebase();
   public static final Shooter shooter = new Shooter();
   public static final Compressor compressor = new Compressor(Constants.pressureSwitch.getInt(), Constants.compressorRelay.getInt());
-  public static final Clapper clapper = new Clapper();
+  public static final Pinniped pinniped = new Pinniped();
   
   // Set up the intakes
   public static final Talon frontIntakeRoller = new Talon(Constants.frontIntakeRollerPort.getInt());
@@ -69,27 +66,19 @@ public class ChezyRobot {
   public static OpenLoopController openLoopShooterController = new OpenLoopController(shooter);
   public static final RpmFlywheelController shooterController = new RpmFlywheelController("ShooterController", shooter, shooter, ShooterGains.getGains()[0], 1.0/100.0);
   
-  
-  
   public static final BannerHotGoalDetector bannerHotGoalDetector = new BannerHotGoalDetector();
-  public static final VisionHotGoalDetector visionHotGoalDetector = new VisionHotGoalDetector();
+  public static final CheesyVisionHotGoalDetector visionHotGoalDetector = new CheesyVisionHotGoalDetector();
   public static final Thread hotGoalThread = new Thread(visionHotGoalDetector);
   
-  public static boolean goLeftAuto = false;
-  public static int leftCount = 0;
-  public static int rightCount = 0;
-
-  public static int leftTotal = 0;
-  public static int rightTotal = 0;
-  
   public static String hotGoalDirection = "UNSURE";
+
   public static void initRobot() {
     // Add all subsystems to a 100Hz Looper
     subsystemUpdater100Hz.addLoopable(drivebase);
     subsystemUpdater100Hz.addLoopable(frontIntake);
     subsystemUpdater100Hz.addLoopable(rearIntake);
     subsystemUpdater100Hz.addLoopable(navigator);
-    subsystemUpdater100Hz.addLoopable(clapper);
+    subsystemUpdater100Hz.addLoopable(pinniped);
     subsystemUpdater100Hz.addLoopable(shooter);
     
     hotGoalThread.start();

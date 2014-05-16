@@ -9,8 +9,10 @@ import com.team254.lib.trajectory.Path;
 
 /**
  *
- * @author Mani Gnanasivam
- * @author EJ Sebathia
+ * @author Tom Botiglieri
+ * @author Brandon Gonzales
+ * @author Jared Russel
+ * @author Art Kalb
  */
 public class AerialAssistAuto extends ConfigurationAutoMode {
 
@@ -46,8 +48,8 @@ public class AerialAssistAuto extends ConfigurationAutoMode {
     settler.set(true);
     
     // Grab balls from ground
-    clapper.wantFront = false;
-    clapper.wantRear = false;
+    pinniped.wantFront = false;
+    pinniped.wantRear = false;
     frontIntake.wantBumperGather = config.numBalls == 3 || (config.numBalls == 2 && !config.preferRearBall);
     rearIntake.wantBumperGather = config.numBalls == 3 || (config.numBalls == 2 && config.preferRearBall);
     

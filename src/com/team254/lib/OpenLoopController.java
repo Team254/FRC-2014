@@ -1,4 +1,4 @@
-package com.team254.frc2014.controllers;
+package com.team254.lib;
 
 import com.team254.lib.ControlOutput;
 import com.team254.lib.Controller;

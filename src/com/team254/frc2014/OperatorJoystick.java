@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Joystick;
  * Operator Joystick defines all of the buttons the operator uses on the control
  * panel.
  *
- * @author bg
+ * @author Brandon Gonzales
  */
 public class OperatorJoystick extends Joystick {
 

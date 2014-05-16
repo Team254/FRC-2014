@@ -1,10 +1,8 @@
 package com.team254.frc2014.hotgoal;
 
-import com.team254.frc2014.ChezyRobot;
 import com.team254.frc2014.hotgoal.HotGoalDetector;
 import com.team254.lib.Subsystem;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Timer;
 import java.util.Hashtable;
 
 /**
@@ -51,17 +49,12 @@ public class BannerHotGoalDetector extends Subsystem implements HotGoalDetector 
   
   private void updateVotes() {
     leftCount += getLeftRaw() ? 1 : 0;
-    ChezyRobot.leftTotal++;
     rightCount += getRightRaw() ? 1 : 0;
-    ChezyRobot.rightTotal++;
   }
   
   public boolean goLeft() {
     System.out.println("left: " + leftCount + "right " + rightCount);
     boolean goLeft = leftCount < rightCount;
-    ChezyRobot.leftCount = leftCount;
-    ChezyRobot.rightCount = rightCount;
-    ChezyRobot.goLeftAuto = goLeft;
     notSure = Math.abs(leftCount - rightCount) < 3;
     if (crossEyed) {
       goLeft = !goLeft;

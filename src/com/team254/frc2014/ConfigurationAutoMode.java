@@ -3,9 +3,9 @@ package com.team254.frc2014;
 import com.team254.frc2014.AutoModeSelector.Configuration;
 
 /**
- * LanedAutoMode.java
- * LanedAutoMode defines all autonomi which utilize lanes.
- * @author tombot
+ * ConfigurationAutoMode.java
+ * ConfigurationAutoMode defines all autonomi which utilize configurations.
+ * @author Tom Bottiglieri (tom@team254.com)
  */
 public abstract class ConfigurationAutoMode extends AutoMode {
 

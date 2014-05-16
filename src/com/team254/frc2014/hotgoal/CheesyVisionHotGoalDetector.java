@@ -3,7 +3,6 @@ package com.team254.frc2014.hotgoal;
  * @author tombot
  */
 
-import com.team254.frc2014.ChezyRobot;
 import edu.wpi.first.wpilibj.Timer;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +12,7 @@ import javax.microedition.io.Connector;
 import javax.microedition.io.ServerSocketConnection;
 import javax.microedition.io.SocketConnection;
 
-public class VisionHotGoalDetector implements Runnable, HotGoalDetector {
+public class CheesyVisionHotGoalDetector implements Runnable, HotGoalDetector {
 
   private final int listenPort;
   private static Hashtable subsystems;
@@ -60,9 +59,6 @@ public class VisionHotGoalDetector implements Runnable, HotGoalDetector {
     if (leftVotes == 0 && rightVotes == 0) {
       goLeft = true;
     }
-    ChezyRobot.leftCount = leftVotes;
-    ChezyRobot.rightCount = rightVotes;
-    ChezyRobot.goLeftAuto = goLeft;
     return goLeft;
   }
 
@@ -93,7 +89,7 @@ public class VisionHotGoalDetector implements Runnable, HotGoalDetector {
         byte[] b = new byte[1024];
         double timeout = 10.0;
         double lastHeartbeat = Timer.getFPGATimestamp();
-        VisionHotGoalDetector.this.lastHeartbeatTime = lastHeartbeat;
+        CheesyVisionHotGoalDetector.this.lastHeartbeatTime = lastHeartbeat;
         while (Timer.getFPGATimestamp() < lastHeartbeat + timeout) {
           boolean gotData = false;
           while (is.available() > 0) {
@@ -103,10 +99,10 @@ public class VisionHotGoalDetector implements Runnable, HotGoalDetector {
               byte reading = b[i];
               boolean leftGoal = (reading & (1 << 1)) > 0;
               boolean rightGoal = (reading & (1 << 0)) > 0;
-              VisionHotGoalDetector.this.vote(leftGoal, rightGoal);
+              CheesyVisionHotGoalDetector.this.vote(leftGoal, rightGoal);
             }
             lastHeartbeat = Timer.getFPGATimestamp();
-            VisionHotGoalDetector.this.lastHeartbeatTime = lastHeartbeat;
+            CheesyVisionHotGoalDetector.this.lastHeartbeatTime = lastHeartbeat;
           }
 
           try {
@@ -130,7 +126,7 @@ public class VisionHotGoalDetector implements Runnable, HotGoalDetector {
       Vector threads = new Vector();
       while (true) {
         SocketConnection connection = (SocketConnection) s.acceptAndOpen();
-        Thread t = new Thread(new VisionHotGoalDetector.ConnectionHandler(connection));
+        Thread t = new Thread(new CheesyVisionHotGoalDetector.ConnectionHandler(connection));
         t.start();
         connections.addElement(connection);
         try {
@@ -144,11 +140,11 @@ public class VisionHotGoalDetector implements Runnable, HotGoalDetector {
     }
   }
 
-  public VisionHotGoalDetector() {
+  public CheesyVisionHotGoalDetector() {
     this(1180);
   }
 
-  public VisionHotGoalDetector(int port) {
+  public CheesyVisionHotGoalDetector(int port) {
     listenPort = port;
     connections = new Vector();
   }

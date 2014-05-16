@@ -2,7 +2,7 @@ package com.team254.frc2014.actions;
 
 import com.team254.frc2014.Constants;
 import com.team254.frc2014.hotgoal.HotGoalDetector;
-import com.team254.frc2014.hotgoal.VisionHotGoalDetector;
+import com.team254.frc2014.hotgoal.CheesyVisionHotGoalDetector;
 import com.team254.lib.trajectory.Path;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -49,8 +49,8 @@ public class DrivePathWithRunningShotAction extends DrivePathAction {
       frontIntake.wantShoot = true;
       rearIntake.setManualRollerPower(Constants.rearRollerShootPower.getDouble());
       settler.set(false);
-      clapper.wantTimedShot = true;
-      clapper.wantShot = true;
+      pinniped.wantTimedShot = true;
+      pinniped.wantShot = true;
       didShot = true;
       didShotTimer.start();
     }
@@ -69,7 +69,7 @@ public class DrivePathWithRunningShotAction extends DrivePathAction {
   
   public void done() {
     frontIntake.wantShoot = false;
-    clapper.wantTimedShot = false;
-    clapper.wantShot = false;
+    pinniped.wantTimedShot = false;
+    pinniped.wantShot = false;
   }
 }

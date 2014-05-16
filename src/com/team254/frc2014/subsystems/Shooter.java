@@ -35,13 +35,14 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
   private ThrottledPrinter p = new ThrottledPrinter(.1);
   
   private void setShooterPower(double power) {
-    
     double goal = ((RpmFlywheelController)controller).getVelocityGoal();
     boolean reverse = goal < 0;
     power = Util.limit(power, 1.0);
     if (reverse) {
       power *= -1.0;
     }
+    // The following block implememts a basic software brake
+    // for when we want to reverse wheel direction quickly
     if (doBrakeForward.get()) {
       if(Math.abs(lastRpm) < 500) {
         doBrakeForward.off();
@@ -112,7 +113,6 @@ public class Shooter extends Subsystem implements Loopable, ControlOutput, Contr
       }
       lastGoal = goal;
     }
-    //System.out.println(Timer.getFPGATimestamp() + ", " + Math.abs(shooterA.get()) + ", " + lastRpm + ", 0.01");
   }
 
   public double updateSensedVelocity() {

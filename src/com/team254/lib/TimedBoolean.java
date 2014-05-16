@@ -4,8 +4,10 @@ import edu.wpi.first.wpilibj.Timer;
 
 /**
  * TimedBoolean.java
+ * 
+ * Latch a boolean value for some set time.
  *
- * @author tombot
+ * @author Tom Bottiglieri
  */
 public class TimedBoolean {
 
