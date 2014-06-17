@@ -1,4 +1,4 @@
-<!-- written by: Ryan Johnson, Art Kalb, Maxwell Yun, Viderp Maheshwari -->
+<!-- written by: Ryan Johnson, Art Kalb, Maxwell Yun, Vidur Maheshwari -->
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -79,7 +79,7 @@ var containers = [];
 			$(".buttons").append("<a>" + subsystems[tab] + "</a>");
 		}
 		
-		//Whenever a button is clicked hange the current chart set and change the button style
+		//Whenever a button is clicked change the current chart set and change the button style
 		$(".buttons a").bind("click", function(){
 			current = $(this).html();
 			$(".buttons a").each(function(index, element) {
@@ -236,6 +236,7 @@ var containers = [];
 </script>
 <script>
 	var currentTab = "tab1";
+  //If you want rainbows uncomment me
   /*$('.rainbows').rainbow({ 
     colors: [
         '#FF0000',
