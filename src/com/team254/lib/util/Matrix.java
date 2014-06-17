@@ -110,7 +110,6 @@ public class Matrix {
         for(int p = 0; p < pMax; p++){
           tmp += mat2.data[i + width2 * p] * mat1.data[p + width1 * j];
         }
-        // mat1->row i * mat2->col
         result.data[i + destWidth * j] = tmp;
       }
     }

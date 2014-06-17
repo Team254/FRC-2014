@@ -9,6 +9,9 @@ Help:
 			Line 17
 		com.team254.frc2014.hotgoal.CheesyVisionHotGoalDetector
 			Line 122
+		com.team254.lib.ChezyHTTPServer
+			Line 77
+		
 
 	Can be final?
 		com.team254.frc2014.CheesyDriveHelper
@@ -29,6 +32,24 @@ Help:
 			Lines 19-21
 		com.team254.frc2014.subsystems.Pinniped
 			Line 40
+		com.team254.frc2014.subsystems.Shooter
+			Lines 22-25
+			Lines 29-30
+			Line 33
+		com.team254.lib.ChezyButton
+			Line 16
+		com.team254.lib.ChezyHTTPServer
+			Line 24
+		com.team254.lib.ControlUpdater
+			Line 14
+		com.team254.lib.MultiLooper
+			Lines 15-16
+		com.team254.lib.SubsystemLister
+			Line 19
+		com.team254.lib.util.Matrix
+			Lines 10-12
+		com.team254.lib.util.ThrottledPrinter
+			Line 11
 
 	Thread.sleep called in a loop?
 		com.team254.frc2014.actions.Action
@@ -36,10 +57,16 @@ Help:
 		com.team254.frc2014.hotgoal.CheesyVisionHotGoalDetector
 			Line 111
 			Line 133
+		com.team254.lib.ChezyIterativeRobot
+			Line 29
 
 	Overridable method called in constructor?
 		com.team254.frc2014.controllers.RpmFlywheelController
 			Line 22
+		com.team254.lib.ChezyButton
+			Line 82
+			Line 95
+			Line 110
 
 	Pointless bitwise expression?
 		com.team254.frc2014.hotgoal.CheesyVisionHotGoalDetector
@@ -49,10 +76,51 @@ Help:
 		com.team254.frc2014.hotgoal.CheesyVisionHotGoalDetector
 			Line 111
 			Line 135
+		com.team254.lib.ChezyIterativeRobot
+			Line 31
+		com.team254.lib.TextFileReader
+			Line 33
+			Line 61
+		com.team254.lib.util.ConstantsBase
+			Line 53
 
 	Field hides another field?
 		com.team254.frc2014.subsystems.Drivebase
 			Line 43
+
+	Dereferencing possible null pointer?
+		com.team254.lib.ChezyHTTPServer
+			Line 171
+
+	Use enhanced loop to iterate over the array?
+		com.team254.lib.ChezyHTTPServer
+			Line 174
+		com.team254.lib.util.ConstantsBase
+			Line 26
+
+	Import from the same package?
+		com.team254.lib.OpenLoopController
+			Lines 3-4
+
+	Leaking this in constructor?
+		com.team254.lib.Subsystem
+			Line 39
+		com.team254.lib.util.ConstantsBase
+			Line 90
+	
+	Manual array copy?
+		com.team254.lib.util.Matrix
+			Line 121
+
+	OTHER
+		com.team254.lib.util.ConstantsBase
+			Line 52
+		com.team254.lib.util.Matrix
+			Line 136
+		com.team254.lib.util.Util
+			Line 25
+			Line 56
+		
 
 Changes I made:
 	com.team254.frc2014.CheesyDriveHelper
@@ -100,6 +168,23 @@ Changes I made:
 		Removed random semicolon @ Line 150
 	com.team254.frc2014.subsystems.Pinniped
 		Changed authors so that Mani is not listed as an author
+	com.team254.lib.ChezyHTTPServer
+		Removed code comment between Lines 30 and 31
+		Removed code comment between Lines 54 and 55
+		Removed code comment between Lines 63 and 64
+		Made exception specific @ Line 178
+	com.team254.lib.FlywheelController
+		Removed code comment between Lines 70 and 71
+		Removed code comment @ Line 69
+	com.team254.lib.StateSpaceController
+		Removed code comment between Lines 38 and 39
+		Removed code comment between Lines 82 and 83
+	com.team254.lib.trajectory.TrajectoryFollower
+		Removed code comment between Lines 58 and 59
+	com.team254.lib.util.HtmlResponse
+		Removed code comment between Lines 41 and 42
+	com.team254.lib.util.Matrix
+		Removed code comment between Lines 112 and 113
 		
 
 Files:
@@ -145,40 +230,40 @@ Files:
 [question and resolved] com.team254.frc2014.subsystems.Intake
 [good] com.team254.frc2014.subsystems.Navigator
 [question and resolved] com.team254.frc2014.subsystems.Pinniped
-[unreviewed] com.team254.frc2014.subsystems.Shooter
-[unreviewed] com.team254.lib.ChezyButton
-[unreviewed] com.team254.lib.ChezyGyro
-[unreviewed] com.team254.lib.ChezyHTTPServer
-[unreviewed] com.team254.lib.ChezyIterativeRobot
-[unreviewed] com.team254.lib.ControlOutput
-[unreviewed] com.team254.lib.ControlSource
-[unreviewed] com.team254.lib.ControlUpdater
-[unreviewed] com.team254.lib.Controller
-[unreviewed] com.team254.lib.FlywheelController
-[unreviewed] com.team254.lib.Gains
-[unreviewed] com.team254.lib.Loopable
-[unreviewed] com.team254.lib.Looper
-[unreviewed] com.team254.lib.MultiLooper
-[unreviewed] com.team254.lib.OpenLoopController
-[unreviewed] com.team254.lib.SignalUtils
-[unreviewed] com.team254.lib.StateSpaceController
-[unreviewed] com.team254.lib.StateSpaceGains
-[unreviewed] com.team254.lib.Subsystem
-[unreviewed] com.team254.lib.SubsystemLister
-[unreviewed] com.team254.lib.TextFileReader
-[unreviewed] com.team254.lib.TimedBoolean
-[unreviewed] com.team254.lib.trajectory.Path
-[unreviewed] com.team254.lib.trajectory.Trajectory
-[unreviewed] com.team254.lib.trajectory.TrajectoryFollower
-[unreviewed] com.team254.lib.trajectory.TrajectoryGenerator
-[unreviewed] com.team254.lib.trajectory.io.IPathDeserializer
-[unreviewed] com.team254.lib.trajectory.io.TextFileDeserializer
-[unreviewed] com.team254.lib.util.ChezyMath
-[unreviewed] com.team254.lib.util.ConstantsBase
-[unreviewed] com.team254.lib.util.Debouncer
-[unreviewed] com.team254.lib.util.FastParser
-[unreviewed] com.team254.lib.util.HtmlResponse
-[unreviewed] com.team254.lib.util.Latch
-[unreviewed] com.team254.lib.util.Matrix
-[unreviewed] com.team254.lib.util.ThrottledPrinter
-[unreviewed] com.team254.lib.util.Util
+[question] com.team254.frc2014.subsystems.Shooter
+[good] com.team254.lib.ChezyButton
+[question] com.team254.lib.ChezyGyro
+[question and resolved] com.team254.lib.ChezyHTTPServer
+[question] com.team254.lib.ChezyIterativeRobot
+[good] com.team254.lib.ControlOutput
+[good] com.team254.lib.ControlSource
+[question] com.team254.lib.ControlUpdater
+[good] com.team254.lib.Controller
+[resolved] com.team254.lib.FlywheelController
+[good] com.team254.lib.Gains
+[good] com.team254.lib.Loopable
+[good] com.team254.lib.Looper
+[question] com.team254.lib.MultiLooper
+[question] com.team254.lib.OpenLoopController
+[good] com.team254.lib.SignalUtils
+[resolved] com.team254.lib.StateSpaceController
+[good] com.team254.lib.StateSpaceGains
+[question] com.team254.lib.Subsystem
+[question] com.team254.lib.SubsystemLister
+[question] com.team254.lib.TextFileReader
+[good] com.team254.lib.TimedBoolean
+[good] com.team254.lib.trajectory.Path
+[good] com.team254.lib.trajectory.Trajectory
+[resolved] com.team254.lib.trajectory.TrajectoryFollower
+[good] com.team254.lib.trajectory.TrajectoryGenerator
+[good] com.team254.lib.trajectory.io.IPathDeserializer
+[good] com.team254.lib.trajectory.io.TextFileDeserializer
+[good] com.team254.lib.util.ChezyMath
+[question] com.team254.lib.util.ConstantsBase
+[good] com.team254.lib.util.Debouncer
+[good] com.team254.lib.util.FastParser
+[resolved] com.team254.lib.util.HtmlResponse
+[good] com.team254.lib.util.Latch
+[question and resolved] com.team254.lib.util.Matrix
+[question] com.team254.lib.util.ThrottledPrinter
+[question] com.team254.lib.util.Util
