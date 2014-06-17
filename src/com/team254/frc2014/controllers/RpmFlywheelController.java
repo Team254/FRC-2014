@@ -39,7 +39,7 @@ public class RpmFlywheelController extends FlywheelController {
     setOnTargetWindow(110);
   }
   
-  public void setNarrowOnTargetWindow() {
+  public final void setNarrowOnTargetWindow() {
     setOnTargetWindow(80);
   }
   

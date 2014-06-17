@@ -1,7 +1,6 @@
 package com.team254.lib;
 
-import com.team254.lib.ControlOutput;
-import com.team254.lib.Controller;
+
 
 /**
  * OpenLoopController.java

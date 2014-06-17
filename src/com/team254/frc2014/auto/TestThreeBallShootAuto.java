@@ -7,8 +7,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 /**
  *
- * @author Mani Gnanasivam
- * @author EJ Sebathia
+ * @author tombot
  */
 public class TestThreeBallShootAuto extends ConfigurationAutoMode {
 

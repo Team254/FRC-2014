@@ -1,6 +1,5 @@
 package com.team254.frc2014.hotgoal;
 
-import com.team254.frc2014.hotgoal.HotGoalDetector;
 import com.team254.lib.Subsystem;
 import edu.wpi.first.wpilibj.DigitalInput;
 import java.util.Hashtable;

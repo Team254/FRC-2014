@@ -4,8 +4,7 @@ import com.team254.frc2014.ConfigurationAutoMode;
 
 /**
  *
- * @author Mani Gnanasivam
- * @author EJ Sebathia
+ * @author tombot
  */
 public class TestSteerPositionController extends ConfigurationAutoMode {
 

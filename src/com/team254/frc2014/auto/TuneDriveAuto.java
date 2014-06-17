@@ -18,7 +18,6 @@ public class TuneDriveAuto extends AutoMode {
     // Turn on heading controller
     for (int i = 0; i < 20; ++i){
       heading = (i%2==0) ? 0 : 60;
-      //heading = heading * (i * 1.0);
       headingController.setHeading(heading);
       drivebase.useController(headingController);
       waitTime(5);

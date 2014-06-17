@@ -2,7 +2,6 @@ package com.team254.frc2014.actions;
 
 import com.team254.frc2014.Constants;
 import com.team254.frc2014.hotgoal.HotGoalDetector;
-import com.team254.frc2014.hotgoal.CheesyVisionHotGoalDetector;
 import com.team254.lib.trajectory.Path;
 import edu.wpi.first.wpilibj.Timer;
 

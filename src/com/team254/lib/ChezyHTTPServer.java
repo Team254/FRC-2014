@@ -28,7 +28,6 @@ public class ChezyHTTPServer implements Runnable {
       try {
         OutputStream os = ((SocketConnection) connections.elementAt(i)).openOutputStream();
         os.write(message.getBytes());
-        //System.out.println("pushing data");
         os.close();
       } catch (IOException e) {
         connections.removeElementAt(i);
@@ -51,7 +50,6 @@ public class ChezyHTTPServer implements Runnable {
     public void run() {
       try {
         InputStream is = connection.openInputStream();
-        //System.out.println("New connection from: " + connection.getAddress());
 
         int ch = 0;
         byte[] b = new byte[2048];
@@ -61,7 +59,6 @@ public class ChezyHTTPServer implements Runnable {
           int read = is.read(b);
           req += new String(b);
         }
-        //System.out.println("req: " + req);
         OutputStream os = connection.openOutputStream();
 
         route(req, os);
@@ -177,7 +174,7 @@ public class ChezyHTTPServer implements Runnable {
       String[] arg = Util.split(args[i], "=");
       try {
         postArgs.put(arg[0], new Double(Double.parseDouble(arg[1])));
-      } catch (Exception e) {
+      } catch (NumberFormatException e) {
         System.out.println("Cast exception for: " + arg[0] + ", " + arg[1]);
       }
     }

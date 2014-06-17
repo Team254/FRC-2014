@@ -56,7 +56,6 @@ public class TrajectoryFollower {
       SmartDashboard.putNumber(name + "FollowerSensor", distance_so_far);
       SmartDashboard.putNumber(name + "FollowerGoal", segment.pos);
       SmartDashboard.putNumber(name + "FollowerError", error);
-      //System.out.println("so far: " + distance_so_far + "; output: " + output);
       return output;
     } else {
       return 0;

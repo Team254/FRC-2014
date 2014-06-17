@@ -36,7 +36,6 @@ public abstract class StateSpaceController extends Controller {
 
   public StateSpaceController(String name, int nIn, int nOut, int nStates,
           StateSpaceGains ssg, double period) {
-    //super(name);
     numInputs = nIn;
     numOutputs = nOut;
     numStates = nStates;
@@ -81,7 +80,6 @@ public abstract class StateSpaceController extends Controller {
     Uuncapped.flash(U.getData());
     capU();
 
-    // X_hat = (A - L * C) * X_hat + L * Y + B * U;
     Matrix b_u = Matrix.multiply(B, U);
     Matrix l_y = Matrix.multiply(L, Y);
     Matrix l_c = Matrix.multiply(L, C);

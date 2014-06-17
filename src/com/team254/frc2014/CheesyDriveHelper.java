@@ -72,10 +72,6 @@ public class CheesyDriveHelper {
         }
       }
       sensitivity = Constants.sensitivityLow.getDouble();
-
-      if (Math.abs(throttle) > 0.1) {
-        // sensitivity = 1.0 - (1.0 - sensitivity) / Math.abs(throttle);
-      }
     }
     double negInertiaPower = negInertia * negInertiaScalar;
     negInertiaAccumulator += negInertiaPower;

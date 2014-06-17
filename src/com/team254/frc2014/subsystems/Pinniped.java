@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
 import java.util.Hashtable;
 /**
  *
- * @author Mani Gnanasivam
+ * @author tombot
  */
 public class Pinniped extends Subsystem{
   public static Solenoid frontSolenoid = new Solenoid(Constants.frontClapperSolenoidPort.getInt());

@@ -35,12 +35,8 @@ public class Drivebase extends Subsystem implements Loopable {
   
   //Solenoids
   private Solenoid shifter = new Solenoid(Constants.shifterPort.getInt());
-  //Ultrasonic Sensor
-  // private Ultrasonic ultrasonic = new Ultrasonic(Constants.ultrasonicInputPort.getInt(),
-  //       Constants.ultrasonicOutputPort.getInt());
   //Gyro
   public ChezyGyro gyro;
-  private Controller controller;
 
   public void setLeftRightPower(double leftPower, double rightPower) {
     leftDriveA.set(leftPower);
@@ -55,11 +51,7 @@ public class Drivebase extends Subsystem implements Loopable {
   }
   public Drivebase() {
     super("Drivebase");
-    //System.out.println("Making gyro!");
     gyro = new ChezyGyro(Constants.gyroPort.getInt());
-    //System.out.println("Done making gyro!");
-    //ultrasonic.setEnabled(true);
-    // ultrasonic.setAutomaticMode(true);
     leftEncoder.start();
     rightEncoder.start();
   }
@@ -124,8 +116,7 @@ public class Drivebase extends Subsystem implements Loopable {
   
 
   public double getUltrasonicDistance() {
-    //ultrasonic.ping();
-    return 3; //ultrasonic.getRangeInches() / 12.0;
+    return 3;
   }
 
   public double getAverageDistance() {

@@ -2,14 +2,11 @@ package com.team254.frc2014.auto;
 
 import com.team254.frc2014.ChezyRobot;
 import com.team254.frc2014.ConfigurationAutoMode;
-import com.team254.frc2014.paths.AutoPaths;
-import com.team254.lib.trajectory.Path;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
  *
- * @author Mani Gnanasivam
- * @author EJ Sebathia
+ * @author tombot
  */
 public class TestGooglyEyes extends ConfigurationAutoMode {
 
@@ -23,8 +20,7 @@ public class TestGooglyEyes extends ConfigurationAutoMode {
     Timer t = new Timer();
     t.start();
 
-    // Turn on wheel
-    //shooterController.setVelocityGoal(4000);
+
 
     shooterController.setVelocityGoal(5300);
     // Grab balls from ground

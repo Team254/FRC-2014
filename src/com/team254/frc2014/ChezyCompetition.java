@@ -253,7 +253,7 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     } else if (wantedRpm < 0) {
       wantedRpm = 0;
     }
-    //p.println("left: " + ChezyRobot.hotGoalDetector.getLeft() + " right " + ChezyRobot.hotGoalDetector.getRight());
+    
     lcd();
     
     if(ChezyRobot.shooterController.onTarget() && ChezyRobot.shooterController.enabled() && Math.abs(ChezyRobot.shooterController.getVelocityGoal()) > 0) {
