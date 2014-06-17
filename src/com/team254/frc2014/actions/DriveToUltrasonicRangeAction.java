@@ -23,8 +23,7 @@ public class DriveToUltrasonicRangeAction extends Action {
     }
     double error = (lastGoodValue - range);
     p.println("" + error);
-    //drivebase.setLeftRightPower(0, 0);
-    return false; //driveController.distanceGoalSettled();
+    return false;
   }
 
   private boolean isGoodValue(double value) {

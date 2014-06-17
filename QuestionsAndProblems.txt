@@ -1,0 +1,184 @@
+Help:
+
+	Assigned value is never used?
+		com.team254.frc2014.CheesyDriveHelper
+			Line 85
+			Line 98
+			Line 100
+		com.team254.frc2014.auto.TuneDriveAuto
+			Line 17
+		com.team254.frc2014.hotgoal.CheesyVisionHotGoalDetector
+			Line 122
+
+	Can be final?
+		com.team254.frc2014.CheesyDriveHelper
+			Line 12
+			Line 14
+			Line 15
+		com.team254.frc2014.controllers.HoldPositionController
+			Line 16
+		com.team254.frc2014.hotgoal.BannerHotGoalDetector
+			Line 12
+			Line 13
+		com.team254.frc2014.subsystems.Drivebase
+			Lines 24-29
+			Line 31
+			Line 33
+			Line 37
+		com.team254.frc2014.subsystems.Intake
+			Lines 19-21
+		com.team254.frc2014.subsystems.Pinniped
+			Line 40
+
+	Thread.sleep called in a loop?
+		com.team254.frc2014.actions.Action
+			Line 33
+		com.team254.frc2014.hotgoal.CheesyVisionHotGoalDetector
+			Line 111
+			Line 133
+
+	Overridable method called in constructor?
+		com.team254.frc2014.controllers.RpmFlywheelController
+			Line 22
+
+	Pointless bitwise expression?
+		com.team254.frc2014.hotgoal.CheesyVisionHotGoalDetector
+			Line 101
+
+	Print stack trace?
+		com.team254.frc2014.hotgoal.CheesyVisionHotGoalDetector
+			Line 111
+			Line 135
+
+	Field hides another field?
+		com.team254.frc2014.subsystems.Drivebase
+			Line 43
+
+Changes I made:
+	com.team254.frc2014.CheesyDriveHelper
+		Unused If Block between lines 74 and 75
+	com.team254.frc2014.CheesyCompetition
+		Removed code comment @ 256
+	com.team254.frc2014.actions.DriveAction
+		Removed code comment between lines 74 and 75
+	com.team254.frc2014.actions.DrivePathWithPathFlipperAction
+		Removed unused import between Lines 3 and 4
+		Removed unused import between Lines 4 and 5
+	com.team254.frc2014.actions.DrivePathWithRunningShotAction
+		Removed unused import between Lines 4 and 5
+	com.team254.frc2014.actions.DriveToUltrasonicRangeAction
+		Removed code comment between Lines 25 and 26
+		Removed code comment at end of Line 26
+	com.team254.frc2014.auto.TestBumperGather
+		Removed two unused imports between Lines 3 and 4
+		Changed authors so that Mani and EJ are not listed as authors
+	com.team254.frc2014.auto.TestGooglyEyes
+		Removed two unused imports between Lines 4 and 5
+		Changed authors so that Mani and EJ are not listed as authors
+		Removed code comment and corresponding comment between lines 22 and 23
+	com.team254.frc2014.auto.TestSteerPositionController
+		Changed authors so that Mani and EJ are not listed as authors
+	com.team254.frc2014.auto.TestThreeBallShootAuto
+		Changed authors so that Mani and EJ are not listed as authors
+	com.team254.frc2014.auto.TestVisionHotGoal
+		Changed authors so that Mani and EJ are not listed as authors
+	com.team254.frc2014.auto.TuneDriveAuto
+		Removed code comment between Lines 20 and 21
+	com.team254.frc2014.controllers.HoldPositionController
+		Removed unused import between Lines 5 and 6
+	com.team254.frc2014.controllers.TrajectoryDriveController
+		Removed code comment @ Line 25
+	com.team254.frc2014.hotgoal.BannerHotGoalDetector
+		Removed unused import between Lines 2 and 3
+	com.team254.frc2014.subsystems.Drivebase
+		Removed code comment and corresponding comment between Lines 37 and 38
+		Removed code comment between Lines 54 and 55
+		Removed code comment between Lines 55 and 56
+		Removed code comment between Lines 119 and 120
+		Removed code comment @ Line 120
+	com.team254.frc2014.subsystems.Intake
+		Removed random semicolon @ Line 150
+	com.team254.frc2014.subsystems.Pinniped
+		Changed authors so that Mani is not listed as an author
+		
+
+Files:
+=======
+
+[good] com.team254.frc2014.AutoMode
+[good] com.team254.frc2014.AutoModeSelector
+[good] com.team254.frc2014.BorkedJoystick
+[question and resolved] com.team254.frc2014.CheesyDriveHelper
+[resolved] com.team254.frc2014.CheesyCompetiton
+[good] com.team254.frc2014.ChezyRobot
+[good] com.team254.frc2014.ConfigurationAutoMode
+[good] com.team254.frc2014.Constants
+[good] com.team254.frc2014.OperatorJoystick
+[good] com.team254.frc2014.ShooterGains
+[question] com.team254.frc2014.actions.Action
+[resolved] com.team254.frc2014.actions.DriveAction
+[good] com.team254.frc2014.actions.DrivePathAction
+[resolved] com.team254.frc2014.actions.DrivePathWithPathFlipperAction
+[resolved] com.team254.frc2014.actions.DrivePathWithRunningShotAction
+[resolved] com.team254.frc2014.actions.DriveToUltrasonicRangeAction
+[good] com.team254.frc2014.actions.WaitAction
+[good] com.team254.frc2014.actions.WaitForHotGoalToSwitchAction
+[good] com.team254.frc2014.actions.WaitUntilAutonTimeAction
+[good] com.team254.frc2014.auto.AerialAssistAuto
+[good] com.team254.frc2014.auto.DoNothingAuto
+[resolved] com.team254.frc2014.auto.TestBumperGather
+[resolved] com.team254.frc2014.auto.TestGooglyEyes
+[resolved] com.team254.frc2014.auto.TestSteerPositionController
+[resolved] com.team254.frc2014.auto.TestThreeBallShootAuto
+[resolved] com.team254.frc2014.auto.TestVisionHotGoal
+[resolved] com.team254.frc2014.auto.TuneDriveAuto
+[good] com.team254.frc2014.auto.TwoBallHotAutoMode
+[question and resolved] com.team254.frc2014.controllers.HoldPositionController
+[question] com.team254.frc2014.controllers.RpmFlywheelController
+[good] com.team254.frc2014.controllers.SteerableHoldPositionController
+[good] com.team254.frc2014.controllers.TrajectoryDriveController
+[question and resolved] com.team254.frc2014.hotgoal.BannerHotGoalDetector
+[question] com.team254.frc2014.hotgoal.CheesyVisionHotGoalDetector
+[good] com.team254.frc2014.hotgoal.HotGoalDetector
+[good] com.team254.frc2014.paths.AutoPaths
+[question and resolved] com.team254.frc2014.subsystems.Drivebase
+[question and resolved] com.team254.frc2014.subsystems.Intake
+[good] com.team254.frc2014.subsystems.Navigator
+[question and resolved] com.team254.frc2014.subsystems.Pinniped
+[unreviewed] com.team254.frc2014.subsystems.Shooter
+[unreviewed] com.team254.lib.ChezyButton
+[unreviewed] com.team254.lib.ChezyGyro
+[unreviewed] com.team254.lib.ChezyHTTPServer
+[unreviewed] com.team254.lib.ChezyIterativeRobot
+[unreviewed] com.team254.lib.ControlOutput
+[unreviewed] com.team254.lib.ControlSource
+[unreviewed] com.team254.lib.ControlUpdater
+[unreviewed] com.team254.lib.Controller
+[unreviewed] com.team254.lib.FlywheelController
+[unreviewed] com.team254.lib.Gains
+[unreviewed] com.team254.lib.Loopable
+[unreviewed] com.team254.lib.Looper
+[unreviewed] com.team254.lib.MultiLooper
+[unreviewed] com.team254.lib.OpenLoopController
+[unreviewed] com.team254.lib.SignalUtils
+[unreviewed] com.team254.lib.StateSpaceController
+[unreviewed] com.team254.lib.StateSpaceGains
+[unreviewed] com.team254.lib.Subsystem
+[unreviewed] com.team254.lib.SubsystemLister
+[unreviewed] com.team254.lib.TextFileReader
+[unreviewed] com.team254.lib.TimedBoolean
+[unreviewed] com.team254.lib.trajectory.Path
+[unreviewed] com.team254.lib.trajectory.Trajectory
+[unreviewed] com.team254.lib.trajectory.TrajectoryFollower
+[unreviewed] com.team254.lib.trajectory.TrajectoryGenerator
+[unreviewed] com.team254.lib.trajectory.io.IPathDeserializer
+[unreviewed] com.team254.lib.trajectory.io.TextFileDeserializer
+[unreviewed] com.team254.lib.util.ChezyMath
+[unreviewed] com.team254.lib.util.ConstantsBase
+[unreviewed] com.team254.lib.util.Debouncer
+[unreviewed] com.team254.lib.util.FastParser
+[unreviewed] com.team254.lib.util.HtmlResponse
+[unreviewed] com.team254.lib.util.Latch
+[unreviewed] com.team254.lib.util.Matrix
+[unreviewed] com.team254.lib.util.ThrottledPrinter
+[unreviewed] com.team254.lib.util.Util

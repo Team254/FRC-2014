@@ -22,7 +22,7 @@ public class TrajectoryDriveController extends Controller {
   double kTurn = -3.0/80.0;
 
   public boolean onTarget() {
-    return followerLeft.isFinishedTrajectory(); //mFollower.onTarget(distanceThreshold);
+    return followerLeft.isFinishedTrajectory(); 
   }
 
   private void init() {

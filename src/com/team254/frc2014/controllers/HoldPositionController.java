@@ -3,7 +3,6 @@ package com.team254.frc2014.controllers;
 import com.team254.frc2014.Constants;
 import com.team254.lib.Controller;
 import com.team254.lib.util.ChezyMath;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * HoldHeadingController.java

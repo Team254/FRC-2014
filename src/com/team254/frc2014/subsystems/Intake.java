@@ -147,7 +147,7 @@ public class Intake extends Subsystem implements Loopable {
         if (getIntakeSensor() || stateTimer.get() > .5) {
           newState = STATE_GATHER_LETOFF;
         } else if (retryExtra && stateTimer.get() < .5) {
-          ;
+          
         } else if (!wantBumperGather) {
           setPositionDown(false);
           newState = STATE_MANUAL;
