@@ -40,7 +40,7 @@ public class ChezyGyro extends SensorBase implements PIDSource, ISensor, LiveWin
     * in progress, this is typically done when the robot is first turned on while it's sitting at
     * rest before the competition starts.
     */
-  public void initGyro() {
+  public final void initGyro() {
     result = new AccumulatorResult();
     if (m_analog == null) {
       System.out.println("Null m_analog");

@@ -37,7 +37,6 @@ public class Drivebase extends Subsystem implements Loopable {
   private Solenoid shifter = new Solenoid(Constants.shifterPort.getInt());
   //Gyro
   public ChezyGyro gyro;
-  private Controller controller;
 
   public void setLeftRightPower(double leftPower, double rightPower) {
     leftDriveA.set(leftPower);
