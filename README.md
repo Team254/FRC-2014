@@ -14,8 +14,21 @@ Looking for a good starting point? Take a look at [com.team254.ChezyCompetition]
  * **ChezyCompetition.java** subclasses the IterativeRobot template in order to inherit periodic and disabled states. It handles logic for disabled, autonomous, and tele-operated states.
  * **Automode.java** is a abstract class 'template' for each autonoumos mode stored in package [com.team254.auto](https://github.com/Team254/FRC-2014/blob/master/src/com/team254/auto).
  
-###com.team254.frc2014.hotgoal
+### com.team254.frc2014.hotgoal
 * **CheesyVisionHotgoalDetector.java** is the code on the robot that communicates with [CheesyVision](https://github.com/Team254/CheesyVision), a webcam based hotgoal detection system.
 
-###com.team254.frc2014.paths
+### com.team254.frc2014.paths
 * **AutoPaths.java** is a class that reads paths for autonomous from files using com.team254.lib.TextFileReader
+
+### com.team254.frc2014.subsystems
+Representations of aspects of the robot with methods for retrieving source values and checking / setting the state of the subsystem.
+
+### com.team254.frc2014.controllers
+State machines and state space controllers that control the flywheel and drivebase.
+
+### com.team254.frc2014.auto
+Holds all of the autonomous routines. Can be selected at drivers station usinc com.team254.frc2014.AutoModeSelector
+
+### com.team254.frc204.actions
+Holds actions that the robot is supposed to do in a specific time
+* **Action.java** is an abstract calss 'template' for all actions
