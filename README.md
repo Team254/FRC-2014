@@ -27,8 +27,26 @@ Representations of aspects of the robot with methods for retrieving source value
 State machines and state space controllers that control the flywheel and drivebase.
 
 ### com.team254.frc2014.auto
-Holds all of the autonomous routines. Can be selected at drivers station usinc com.team254.frc2014.AutoModeSelector
+Holds all of the autonomous routines. The autonomous mode can be selected at drivers station using com.team254.frc2014.AutoModeSelector
 
-### com.team254.frc204.actions
+### com.team254.frc2014.actions
 Holds actions that the robot is supposed to do in a specific time
 * **Action.java** is an abstract calss 'template' for all actions
+
+### com.team254.lib
+Holds miscellaneous classes. Some to note are:
+ * **ControlOutput.java** Result of calculations performed by the controller on the ControlSource.
+ * **ControlSource.java** Data collected by sensors in a subsystem.
+ * **ControlUpdater.java** Runs in its own thread and periodically checks up on all subsystems using their ControlSource to affect the ControlOutput.
+ * **ChezyIterativeRobot** is a slightly modified version of the Iterative Robot
+ * **ChezyHTTPServer** is a HTTP Server for the robot that creates JSON objects of data (categorized by subsystem).
+
+### com.team254.lib.util
+Miscellaneous utility classes.
+
+### com.team254.lib.trajectory
+Trajectory generation and following classes.
+
+### com.team254.lib.trajectory.io
+Parses paths from strings
+
