@@ -50,3 +50,7 @@ Trajectory generation and following classes.
 ### com.team254.lib.trajectory.io
 Parses paths from strings
 
+
+Other Contents
+--------------
+* **The Data Logger** is a webapp built to log data on a graph coming from the robot via HTTP reguests that return JSON. (See com.team254.lib.ChezyHTTPServer for JSON generator or app/json.php to generate random json)  
