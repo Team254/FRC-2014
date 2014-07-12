@@ -15,4 +15,7 @@ Looking for a good starting point? Take a look at [com.team254.ChezyCompetition]
  * **Automode.java** is a abstract class 'template' for each autonoumos mode stored in package [com.team254.auto](https://github.com/Team254/FRC-2014/blob/master/src/com/team254/auto).
  
 ###com.team254.frc2014.hotgoal
-* **CheesyVisionHotgoalDetector.java** is the code on the robot that communicates with [CheesyVision](https://github.com/Team254/CheesyVision), a webcam based hotgoal detection ssystem.
+* **CheesyVisionHotgoalDetector.java** is the code on the robot that communicates with [CheesyVision](https://github.com/Team254/CheesyVision), a webcam based hotgoal detection system.
+
+###com.team254.frc2014.paths
+* **AutoPaths.java** is a class that reads paths for autonomous from files using com.team254.lib.TextFileReader
