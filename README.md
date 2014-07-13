@@ -54,3 +54,4 @@ Parses paths from strings
 Other Contents
 --------------
 * **The Data Logger** is a webapp built to log data on a graph coming from the robot via HTTP reguests that return JSON. (See com.team254.lib.ChezyHTTPServer for JSON generator or app/json.php to generate random json)  
+* **Cheesy Vision** is a python app that communicates with the robot. Based on input from the webcam, it sends data telling the robot which hotgoal to shoot in. It's main repository is found [here](https://github.com/Team254/CheesyVision)
