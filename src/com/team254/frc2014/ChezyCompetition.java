@@ -215,22 +215,23 @@ public class ChezyCompetition extends ChezyIterativeRobot {
     ChezyRobot.rearIntake.wantShoot = ChezyRobot.pinniped.wantShot;
 
     // Gearing
-    if(ChezyRobot.rightStick.getRawButton(2)) {
+    boolean lowGear = ChezyRobot.leftStick.getRawButton(5);
+    if (lowGear) {
       ChezyRobot.drivebase.setLowgear(true);
     } else {
       ChezyRobot.drivebase.setLowgear(false);
     }
     
     // Cheesy Drive
-    boolean qt = ChezyRobot.rightStick.getTrigger();
-    double turn = ChezyRobot.rightStick.getX();
+    boolean qt = ChezyRobot.leftStick.getRawButton(6);
+    double turn = ChezyRobot.leftStick.getZ();
     if (qt) {
       // Square the inputs on turn in quick turn
       boolean turnNeg = turn < 0.0;
       turn = Math.abs(turn * turn) * (turnNeg ? -1.0 : 1.0);
     }
     
-    ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getBorkedY(), turn, qt, !ChezyRobot.rightStick.getRawButton(2));
+    ChezyRobot.cdh.cheesyDrive(-ChezyRobot.leftStick.getY(), turn, qt, !lowGear);
 
     
     // Set rollers

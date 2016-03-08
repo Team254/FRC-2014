@@ -49,7 +49,7 @@ public class ChezyRobot {
   
   public static final CheesyDriveHelper cdh = new CheesyDriveHelper(drivebase);
   
-  public static final BorkedJoystick leftStick = new BorkedJoystick(Constants.leftJoystickPort.getInt());
+  public static final Joystick leftStick = new Joystick(Constants.leftJoystickPort.getInt());
   public static final Joystick rightStick = new Joystick(Constants.rightJoystickPort.getInt());
   public static final OperatorJoystick operatorJoystick = new OperatorJoystick(Constants.gamepadPort.getInt());
   public static final AutoModeSelector ams = new AutoModeSelector();
